@@ -224,7 +224,7 @@
         n: loss.length,
         region: w.region,
         lost: PACKETS - w.rcv,
-        pct: Math.round(w.loss * 100)
+        pct: Math.round(w.loss * 1e3) / 10
       });
     }
     const byKey = Object.fromEntries(fin.map((r) => [r.region.key, r]));
@@ -240,7 +240,7 @@
       const gm = median(replied.map((r) => r.median));
       const slow = replied.slice().sort((a, b) => b.median - a.median)[0];
       const fast = replied.slice().sort((a, b) => a.median - b.median)[0];
-      if (gm && slow.median >= 2 * gm && slow.median >= 100) {
+      if (gm && slow.median >= 2 * gm && slow.median >= 100 && slow.median >= 2 * fast.median) {
         out.push({ k: "fd_slow", region: slow.region, ms: slow.median, fast: fast.region, fms: slow.median - fast.median });
       }
       const js = replied.filter((r) => Number.isFinite(r.jitter));
@@ -486,11 +486,20 @@
     const L = window.L1MS || {}, D = JSON.parse(document.getElementById("data").textContent);
     const $ = (id) => document.getElementById(id);
     const esc = (s) => String(s != null ? s : "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    const tidy = (s) => {
+      s = String(s).replace(/[ \t]{2,}/g, " ");
+      s = s.replace(/([\u4e00-\u9fff]) +(?=[\u4e00-\u9fff])/g, "$1");
+      s = s.replace(/([\u4e00-\u9fff]) +(?=[，。：；！？、）】」])/g, "$1");
+      s = s.replace(/([（【「]) +(?=[\u4e00-\u9fff])/g, "$1");
+      s = s.replace(/([\u4e00-\u9fff])([A-Za-z0-9])/g, "$1 $2");
+      s = s.replace(/([A-Za-z0-9])([\u4e00-\u9fff])/g, "$1 $2");
+      return s.trim();
+    };
     const t = (k, v) => {
       var _a;
       let s = (_a = L[k]) != null ? _a : k;
       if (v) for (const x in v) s = s.split("{" + x + "}").join(v[x]);
-      return s;
+      return /^(zh-CN|zh-TW)$/.test(D.lang) ? tidy(s) : s;
     };
     const PR = new Intl.PluralRules(D.lang), pk = (k) => `${k}_${PR.select(1)}` in L ? `${k}_${PR.select(1)}` : k;
     const pkOf = (k, n) => {
@@ -1133,7 +1142,7 @@
         if (Number.isFinite(vars.ms)) vars.ms = fmtMs(vars.ms, D.lang);
         if (Number.isFinite(vars.fms)) vars.fms = fmtMs(vars.fms, D.lang);
         if (Number.isFinite(vars.j)) vars.j = fmtMs(vars.j, D.lang);
-        if (f.k === "fd_loss") vars.pct = fmtPct(f.pct / 100, D.lang, 0);
+        if (f.k === "fd_loss") vars.pct = fmtPct(f.pct / 100, D.lang, 1);
         if (Number.isFinite(vars.ours)) vars.ours = fmtMs(vars.ours, D.lang);
         if (Number.isFinite(vars.theirs)) vars.theirs = fmtMs(vars.theirs, D.lang);
         if (f.k === "fd_cn") {

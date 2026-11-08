@@ -12,7 +12,22 @@ const WITH_TOKYO = !!TOKYO_API;
 const L = window.L1MS || {}, D = JSON.parse(document.getElementById("data").textContent);
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-const t = (k, v) => { let s = L[k] ?? k; if (v) for (const x in v) s = s.split("{" + x + "}").join(v[x]); return s; };
+// Chinese copy: keep a space between Han and Latin/digits (18 个地区, Globalping 的), no space between two Han words
+// or before Chinese punctuation. Templates put spaces around placeholders for other languages, so tidy what is shown.
+const tidy = s => {
+  s = String(s).replace(/[ \t]{2,}/g, " ");
+  s = s.replace(/([\u4e00-\u9fff]) +(?=[\u4e00-\u9fff])/g, "$1");
+  s = s.replace(/([\u4e00-\u9fff]) +(?=[，。：；！？、）】」])/g, "$1");
+  s = s.replace(/([（【「]) +(?=[\u4e00-\u9fff])/g, "$1");
+  s = s.replace(/([\u4e00-\u9fff])([A-Za-z0-9])/g, "$1 $2");
+  s = s.replace(/([A-Za-z0-9])([\u4e00-\u9fff])/g, "$1 $2");
+  return s.trim();
+};
+const t = (k, v) => {
+  let s = L[k] ?? k;
+  if (v) for (const x in v) s = s.split("{" + x + "}").join(v[x]);
+  return /^(zh-CN|zh-TW)$/.test(D.lang) ? tidy(s) : s;
+};
 const PR = new Intl.PluralRules(D.lang), pk = k => `${k}_${PR.select(1)}` in L ? `${k}_${PR.select(1)}` : k;
 const pkOf = (k, n) => { const key = `${k}_${PR.select(n)}`; return key in L ? key : k; };
 const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
@@ -464,7 +479,7 @@ function drawFindings(s) {
     if (Number.isFinite(vars.ms)) vars.ms = fmtMs(vars.ms, D.lang);
     if (Number.isFinite(vars.fms)) vars.fms = fmtMs(vars.fms, D.lang);
     if (Number.isFinite(vars.j)) vars.j = fmtMs(vars.j, D.lang);
-    if (f.k === "fd_loss") vars.pct = fmtPct(f.pct / 100, D.lang, 0);
+    if (f.k === "fd_loss") vars.pct = fmtPct(f.pct / 100, D.lang, 1);
     if (Number.isFinite(vars.ours)) vars.ours = fmtMs(vars.ours, D.lang);
     if (Number.isFinite(vars.theirs)) vars.theirs = fmtMs(vars.theirs, D.lang);
     if (f.k === "fd_cn") { vars.telecom = fmtMs(f.telecom.median, D.lang); vars.unicom = fmtMs(f.unicom.median, D.lang); vars.mobile = fmtMs(f.mobile.median, D.lang); }

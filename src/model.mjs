@@ -184,7 +184,7 @@ export function findings(rows, tokyo) {
   if (loss.length) {
     const w = loss.slice().sort((a, b) => b.loss - a.loss)[0];
     out.push({ k: "fd_loss", regions: loss.slice(0, 2).map(r => r.region), n: loss.length, region: w.region,
-      lost: PACKETS - w.rcv, pct: Math.round(w.loss * 100) });
+      lost: PACKETS - w.rcv, pct: Math.round(w.loss * 1000) / 10 });
   }
   const byKey = Object.fromEntries(fin.map(r => [r.region.key, r]));
   const cn = [4134, 4837, 9808].map(a => byKey["cn:" + a]);
@@ -199,7 +199,7 @@ export function findings(rows, tokyo) {
     const gm = median(replied.map(r => r.median));
     const slow = replied.slice().sort((a, b) => b.median - a.median)[0];
     const fast = replied.slice().sort((a, b) => a.median - b.median)[0];
-    if (gm && slow.median >= 2 * gm && slow.median >= 100) {
+    if (gm && slow.median >= 2 * gm && slow.median >= 100 && slow.median >= 2 * fast.median) {
       out.push({ k: "fd_slow", region: slow.region, ms: slow.median, fast: fast.region, fms: slow.median - fast.median });
     }
     const js = replied.filter(r => Number.isFinite(r.jitter));
