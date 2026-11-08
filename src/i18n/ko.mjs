@@ -6,7 +6,7 @@ export default {
   seo_desc: "전 세계 18개 지역에서 지정한 도메인이나 IP로 ICMP 패킷을 보냅니다. 지역마다 16개 패킷, 패킷별 지연 변화와 지터, 패킷 손실 위치까지 볼 수 있습니다. 이 사이트의 도쿄 서버 결과도 함께 보여줍니다. 무료, 로그인 없음.",
   seo_kw: "핑 테스트, 온라인 핑, 글로벌 핑, 패킷 손실, 핑 도메인, 지연 측정, 여러 지역 핑",
   og_sub: "18개 지역에서 16개 패킷, 모든 패킷이 보입니다",
-  h1: "18개 지역에서 핑",
+  h1: "글로벌 핑: 18개 지역에서 핑",
   intro: "도메인이나 IP를 입력하세요. 전 세계 18개 지역과 이 사이트의 도쿄 서버가 각각 16개 ICMP 패킷을 보냅니다. 패킷마다 보이고, 남은 테스트 횟수도 표시됩니다.",
   lang_label: "언어", a_lang: "언어", a_theme: "테마", a_help: "도움말", a_close: "닫기", a_prev: "이전", a_next: "다음",
 
@@ -38,7 +38,7 @@ export default {
   v_oldbrowser_sub: "링크는 정상이지만, 표시하려면 최신 브라우저(Chrome 103, Safari 16.4 이상)가 필요해요.",
 
   vs_ok: "{n}개 지역 · 가장 빠름 {fast} {fms} ms · 가장 느림 {slow} {sms} ms",
-  vs_loss: "{n}개 지역 응답 · 패킷 {lost}개 손실 · 최악 {region}({pct}%)",
+  vs_loss: "{n}개 지역 응답 · 패킷 {lost}개 손실 · 최악 {region}({pct})",
   vs_some: "{b}개 지역 중 {a}개 응답 없음 · 가장 빠름 {fast} {fms} ms",
   vs_none: "어느 지역도 응답하지 않았어요. 대상이나 경로가 ICMP를 막고 있을 수 있어요",
   vs_dns: "어느 지역도 도메인을 확인하지 못했어요",
@@ -48,7 +48,7 @@ export default {
   vs_probe: "{a}개 지역 응답, {b}개 지역은 관측 지점이 없었어요",
   vs_tokyo: "Globalping은 실행되지 않았어요. 아래는 도쿄 서버 결과예요",
 
-  fd_none: "{regions}에서 16개 패킷 모두 응답 없음", fd_loss: "{region}에서 16개 중 {lost}개 손실({pct}%)",
+  fd_none: "{regions}에서 16개 패킷 모두 응답 없음", fd_loss: "{region}에서 16개 중 {lost}개 손실({pct})",
   fd_cn: "중국 본토: 텔레콤 {telecom} ms, 유니콤 {unicom} ms, 모바일 {mobile} ms",
   fd_slow: "{region}이(가) 가장 느림 {ms} ms ({fast}보다 {fms} ms 느림)",
   fd_jitter: "{region} 지터 ±{j} ms, 다른 지역의 {ratio}배",

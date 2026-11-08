@@ -2,11 +2,11 @@
 export default {
   name: "Español",
   app_name: "Ping global",
-  seo_title: "Test de ping global: ping a un dominio o IP desde 18 ubicaciones",
+  seo_title: "Ping global: ping a un dominio o IP desde 18 ubicaciones",
   seo_desc: "Haz ping a cualquier dominio o IP desde 18 ubicaciones del mundo. Mira los 16 paquetes ICMP de cada ubicación, dónde salta la latencia y qué paquete se perdió. Gratis, sin cuenta. Una segunda vista desde nuestro servidor de Tokio.",
   seo_kw: "test de ping, ping online, ping desde varias ubicaciones, ping global, pérdida de paquetes, ping a una IP, medir latencia, ping a un dominio",
   og_sub: "16 paquetes desde 18 ubicaciones, cada paquete visible",
-  h1: "Ping desde 18 ubicaciones",
+  h1: "Ping global desde 18 ubicaciones",
   intro: "Escribe un dominio o una IP: 18 ubicaciones del mundo y nuestro servidor de Tokio envían 16 paquetes ICMP cada uno. Ves cada paquete y cuántos tests te quedan.",
   lang_label: "Idioma", a_lang: "Idioma", a_theme: "Tema", a_help: "Ayuda", a_close: "Cerrar", a_prev: "Anterior", a_next: "Siguiente",
 
@@ -37,9 +37,9 @@ export default {
   v_tokyo: "Solo se ejecutó el servidor de Tokio", v_oldbrowser: "Este navegador no puede abrir este resultado",
   v_oldbrowser_sub: "El enlace está bien, pero hace falta un navegador más nuevo (Chrome 103 o Safari 16.4 y posteriores).",
 
-  vs_ok: "{n} regiones · la más rápida {fast} {fms} ms · la más lenta {slow} {sms} ms",
-  vs_loss: "{n} regiones respondieron · {lost} paquetes perdidos · peor {region} ({pct}%)",
-  vs_some: "{a} de {b} regiones no respondieron · la más rápida {fast} {fms} ms",
+  vs_ok: "{n} regiones · más rápida: {fast} {fms} ms · más lenta: {slow} {sms} ms",
+  vs_loss: "{n} regiones respondieron · {lost} paquetes perdidos · peor {region} ({pct})",
+  vs_some: "{a} de {b} regiones no respondieron · más rápida: {fast} {fms} ms",
   vs_none: "Ninguna región recibió respuesta: el destino o su red pueden filtrar ICMP",
   vs_dns: "Ninguna región pudo resolver el dominio",
   vs_priv: "Las sondas públicas nunca se conectan a direcciones privadas",
@@ -48,9 +48,9 @@ export default {
   vs_probe: "{a} regiones respondieron; {b} no tenían sonda disponible",
   vs_tokyo: "Globalping no se ejecutó; abajo está la vista de nuestro servidor de Tokio",
 
-  fd_none: "Sin respuesta de {regions}", fd_loss: "{region} perdió {lost} de 16 paquetes ({pct}%)",
+  fd_none: "Sin respuesta de {regions}", fd_loss: "{region} perdió {lost} de 16 paquetes ({pct})",
   fd_cn: "China continental: Telecom {telecom} ms, Unicom {unicom} ms, Mobile {mobile} ms",
-  fd_slow: "{region} es la más lenta con {ms} ms ({fms} ms más que {fast})",
+  fd_slow: "{region}: {ms} ms, {fms} ms más que {fast}",
   fd_jitter: "El jitter de {region} es ±{j} ms, {ratio}× el de las demás regiones",
   fd_tokyo: "Dos vistas de Tokio: nuestro servidor {ours} ms, Globalping {theirs} ms",
   fd_dns_multi: "{n} regiones resolvieron el nombre a {m} direcciones distintas (un CDN)",

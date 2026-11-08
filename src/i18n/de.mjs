@@ -6,7 +6,7 @@ export default {
   seo_desc: "Pinge eine Domain oder IP von 18 Standorten weltweit an. Sieh alle 16 ICMP-Pakete jedes Standorts, wo die Latenz springt und welches Paket verloren ging. Kostenlos, ohne Konto. Eine zweite Ansicht von unserem Server in Tokio.",
   seo_kw: "Ping-Test, Online-Ping, Ping von mehreren Standorten, globaler Ping, Paketverlust, IP anpingen, Latenz messen, Domain anpingen",
   og_sub: "16 Pakete von 18 Standorten, jedes Paket sichtbar",
-  h1: "Von 18 Standorten aus anpingen",
+  h1: "Globaler Ping von 18 Standorten",
   intro: "Domain oder IP eingeben: 18 Standorte weltweit und unser Tokio-Server senden je 16 ICMP-Pakete. Jedes Paket ist sichtbar, und du siehst, wie viele Tests noch gehen.",
   lang_label: "Sprache", a_lang: "Sprache", a_theme: "Design", a_help: "Hilfe", a_close: "Schließen", a_prev: "Zurück", a_next: "Weiter",
 
@@ -37,9 +37,9 @@ export default {
   v_tokyo: "Nur der Tokio-Server lief", v_oldbrowser: "Dieser Browser kann das Ergebnis nicht öffnen",
   v_oldbrowser_sub: "Der Link ist in Ordnung, aber zum Anzeigen braucht es einen neueren Browser (Chrome 103 oder Safari 16.4 und neuer).",
 
-  vs_ok: "{n} Standorte · schnellster {fast} {fms} ms · langsamster {slow} {sms} ms",
-  vs_loss: "{n} Standorte antworteten · {lost} Pakete verloren · am schlimmsten {region} ({pct} %)",
-  vs_some: "{a} von {b} Standorten ohne Antwort · schnellster {fast} {fms} ms",
+  vs_ok: "{n} Standorte · am schnellsten: {fast} {fms} ms · am langsamsten: {slow} {sms} ms",
+  vs_loss: "{n} Standorte antworteten · {lost} Pakete verloren · am schlimmsten {region} ({pct})",
+  vs_some: "{a} von {b} Standorten ohne Antwort · am schnellsten: {fast} {fms} ms",
   vs_none: "Kein Standort bekam eine Antwort: Ziel oder Netz filtern vielleicht ICMP",
   vs_dns: "Kein Standort konnte die Domain auflösen",
   vs_priv: "Öffentliche Messpunkte verbinden sich nie mit privaten Adressen",
@@ -48,9 +48,9 @@ export default {
   vs_probe: "{a} Standorte antworteten; {b} hatten keinen Messpunkt",
   vs_tokyo: "Globalping lief nicht; unten steht die Ansicht unseres Tokio-Servers",
 
-  fd_none: "Keine Antwort von {regions}", fd_loss: "{region} verlor {lost} von 16 Paketen ({pct} %)",
+  fd_none: "Keine Antwort von {regions}", fd_loss: "{region} verlor {lost} von 16 Paketen ({pct})",
   fd_cn: "Festlandchina: Telecom {telecom} ms, Unicom {unicom} ms, Mobile {mobile} ms",
-  fd_slow: "{region} ist am langsamsten mit {ms} ms ({fms} ms langsamer als {fast})",
+  fd_slow: "{region}: {ms} ms, {fms} ms langsamer als {fast}",
   fd_jitter: "Jitter in {region}: ±{j} ms, {ratio}× die anderen Standorte",
   fd_tokyo: "Zwei Ansichten von Tokio: unser Server {ours} ms, Globalping {theirs} ms",
   fd_dns_multi: "{n} Standorte lösten den Namen zu {m} verschiedenen Adressen auf (ein CDN)",

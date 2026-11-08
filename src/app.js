@@ -2,7 +2,7 @@
 // probes run the worldwide view straight from the visitor's browser (each visitor spends their own hourly allowance);
 // our own server in Tokyo gives a second view that uses none of it. Strings come from window.L1MS
 // (assets/l.<lang>.<hash>.js, built from src/i18n/); the model and the result-link code are shared with the Worker.
-import { REGIONS, PACKETS, TOKYO_REGION, countryName, fmtMs, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
+import { REGIONS, PACKETS, TOKYO_REGION, countryName, fmtMs, fmtPct, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
 import { encodeResult, decodeResult, sharePath, rowToCode, codeToRow } from "./code.mjs";
 import { TOKYO_API } from "./config.mjs";
 
@@ -197,7 +197,8 @@ function settle(s) {
   sortRows(s);
   $("gpProgress").textContent = t("prog", { done: s.rows.filter(r => r && r.state !== "pending").length, of: REGIONS.length });
   $("shareBtn").hidden = !canShare(s);
-  $("tokyoFallback").hidden = !WITH_TOKYO || !(s.verdict.k === "err" || s.verdict.k === "partial" || (quotaLeft != null && quotaLeft < COST));
+  $("tokyoFallback").hidden = !WITH_TOKYO || s.tokyoError === "down" ||
+    !(s.verdict.k === "err" || s.verdict.k === "partial" || (quotaLeft != null && quotaLeft < COST));
   setGo(false);
   $("go").textContent = t("go_again");
 }
@@ -305,8 +306,17 @@ function renderRows(s) {
 }
 function renderTokyo(s) {
   const el = rowEls.get(TOKYO_REGION.key); if (!el) return;
-  if (s.tokyo) { fillRow(s, TOKYO_REGION, s.tokyo); tokyoNoteShow(""); }
-  else {
+  if (s.tokyo) {
+    el.hidden = false;
+    fillRow(s, TOKYO_REGION, s.tokyo);
+    tokyoNoteShow("");
+  } else if (s.tokyoError === "down") {
+    // before our Tokyo server exists (or while it is down) the row would only say "unavailable": hide it entirely
+    // rather than show a broken-looking line; it comes back by itself once the server answers
+    el.hidden = true;
+    tokyoNoteShow("");
+  } else {
+    el.hidden = false;
     el.querySelector(".bars").textContent = "";
     el.querySelector(".st").className = "st";
     el.querySelector(".med").textContent = "—";
@@ -424,7 +434,7 @@ function subLine(s) {
     slow: slowest ? nameOf(slowest.region) : "", sms: slowest ? fmtMs(slowest.median, D.lang) : "" });
   if (v.k === "loss") {
     const w = s.rows.filter(r => r && r.rcv > 0 && r.rcv < PACKETS).sort((a, b) => b.loss - a.loss)[0];
-    return t("vs_loss", { n: replied.length, lost: PACKETS - w.rcv, region: nameOf(w.region), pct: Math.round(w.loss * 100) });
+    return t("vs_loss", { n: replied.length, lost: PACKETS - w.rcv, region: nameOf(w.region), pct: fmtPct(w.loss, D.lang, 1) });
   }
   if (v.k === "some") return t("vs_some", { a: v.a, b: v.b, fast: fastest ? nameOf(fastest.region) : "", fms: fastest ? fmtMs(fastest.median, D.lang) : "" });
   return t("vs_" + v.k, { a: v.a, b: v.b });
@@ -441,7 +451,7 @@ function drawKpis(s) {
   $("kMedian").innerHTML = `${fmtMs(gm, D.lang)} <small>ms</small>`;
   $("kJitter").innerHTML = j ? `±${fmtMs(j.jitter, D.lang)} <small>ms</small>` : "—";
   $("kJitterWho").textContent = j && !s.tokyoOnly ? nameOf(j.region) : "";
-  $("kLoss").innerHTML = `${(100 * (sent - got) / sent).toFixed(sent - got ? 1 : 0)}<small>%</small>`;
+  $("kLoss").innerHTML = fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0);
 }
 function drawFindings(s) {
   if (!s.verdict || s.verdict.k === "err" || s.verdict.k === "partial") { $("findings").innerHTML = ""; return; }
@@ -454,6 +464,7 @@ function drawFindings(s) {
     if (Number.isFinite(vars.ms)) vars.ms = fmtMs(vars.ms, D.lang);
     if (Number.isFinite(vars.fms)) vars.fms = fmtMs(vars.fms, D.lang);
     if (Number.isFinite(vars.j)) vars.j = fmtMs(vars.j, D.lang);
+    if (f.k === "fd_loss") vars.pct = fmtPct(f.pct / 100, D.lang, 0);
     if (Number.isFinite(vars.ours)) vars.ours = fmtMs(vars.ours, D.lang);
     if (Number.isFinite(vars.theirs)) vars.theirs = fmtMs(vars.theirs, D.lang);
     if (f.k === "fd_cn") { vars.telecom = fmtMs(f.telecom.median, D.lang); vars.unicom = fmtMs(f.unicom.median, D.lang); vars.mobile = fmtMs(f.mobile.median, D.lang); }
@@ -487,7 +498,7 @@ $("shareBtn").addEventListener("click", async () => {
     text: () => `${v.title} · ${s.tg.host}`,
     height: (ctx, kit) => cardLayout(ctx, kit, v, s.tg.host, rows, s.tokyo, s).H,
     ts: s.ts,
-    foot: () => ["Globalping + 1ms.dog"],
+    foot: () => ["Globalping + " + location.hostname],
     draw: (ctx, kit) => drawCard(ctx, kit, v, s, rows),
   }).open();
 });
@@ -515,14 +526,14 @@ function drawCard(ctx, kit, v, s, rows) {
   const tsz = fit(ctx, s.tg.host, w - 240, 30, 20, 600);
   ctx.fillStyle = css("fg"); ctx.font = `600 ${tsz}px ${F}`; ctx.fillText(s.tg.host, P, L2.targetY);
   ctx.textAlign = "right"; ctx.fillStyle = css("muted"); ctx.font = `400 22px ${F}`;
-  ctx.fillText(rows.length ? `${rows.length} · 16` : "1ms.dog · Tokyo", W - P, L2.targetY); ctx.textAlign = "left";
+  ctx.fillText(rows.length ? `${rows.length} · 16` : location.hostname, W - P, L2.targetY); ctx.textAlign = "left";
   // three big numbers
   const gm = median(rows.filter(r => Number.isFinite(r.median)).map(r => r.median));
   const j = rows.filter(r => Number.isFinite(r.jitter)).sort((a, b) => b.jitter - a.jitter)[0];
   const sent = rows.length * PACKETS, got = rows.reduce((n, r) => n + r.rcv, 0);
   const vals = [[t("k_median"), Number.isFinite(gm) ? fmtMs(gm, D.lang) + " ms" : "—"],
     [t("k_max_jitter"), j ? "±" + fmtMs(j.jitter, D.lang) + " ms" : "—"],
-    [t("k_loss"), rows.length ? (100 * (sent - got) / sent).toFixed(sent - got ? 1 : 0) + "%" : "—"]];
+    [t("k_loss"), rows.length ? fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0) : "—"]];
   vals.forEach(([label, val], i) => {
     const x = P + i * (w / 3);
     ctx.fillStyle = css("muted"); ctx.font = `500 20px ${F}`; ctx.fillText(label, x, L2.numY - 18);
@@ -544,7 +555,7 @@ function drawCard(ctx, kit, v, s, rows) {
     const i = rows.length, col = i % 3, line = Math.floor(i / 3), cw = w / 3;
     const x = P + col * cw, y = L2.gridY + line * ROWH;
     ctx.fillStyle = css("ink"); ctx.beginPath(); ctx.arc(x + 5, y - 9, 5, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = css("fg"); ctx.font = `500 20px ${F}`; ctx.fillText("1ms.dog · Tokyo", x + 20, y);
+    ctx.fillStyle = css("fg"); ctx.font = `500 20px ${F}`; ctx.fillText(t("t_label"), x + 20, y);
     ctx.fillStyle = css("muted"); ctx.font = `500 19px ${M}`; ctx.textAlign = "right";
     ctx.fillText(fmtMs(s.tokyo.median, D.lang) + " ms", x + cw - 26, y); ctx.textAlign = "left";
   }
@@ -608,6 +619,15 @@ $("tokyoBtn").addEventListener("click", async () => {
   $("kpis").hidden = true;
   await runTokyo(state);
   if (state.id !== id) return;
+  if (!state.tokyo) {
+    $("kpis").hidden = true;
+    $("vDot").className = "dot warn";
+    $("vTitle").textContent = t("t_down");
+    $("vSub").textContent = "";
+    $("gpProgress").textContent = "";
+    setGo(false);
+    return;
+  }
   drawKpis(state); $("kpis").hidden = false;
   $("gpProgress").textContent = "";
   $("shareBtn").hidden = !canShare(state);

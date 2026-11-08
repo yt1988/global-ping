@@ -4,9 +4,9 @@ export default {
   app_name: "全球 Ping",
   seo_title: "全球 Ping 測試：從 18 個地區 ping 網域或 IP",
   seo_desc: "從全球 18 個地區向一個網域或 IP 發送 ICMP 封包，每個地區 16 封包，逐封包看延遲變化、抖動和封包遺失位置。另外從本站東京伺服器測一份做對照。免費、不用登入。",
-  seo_kw: "ping 測試, 線上 ping, 全球 ping, 封包遺失測試, ping ip, 延遲測試, ping 網域, 多地區 ping",
+  seo_kw: "ping 測試，線上 ping，全球 ping，封包遺失測試，ping ip，延遲測試，ping 網域，多地區 ping",
   og_sub: "18 個地區各發 16 個封包，每一個都看得見",
-  h1: "從全球 18 個地區 ping",
+  h1: "全球 Ping：從 18 個地區測延遲",
   intro: "輸入網域或 IP：全球 18 個地區和本站東京伺服器各發 16 個 ICMP 封包。每個封包都看得見，頁面也會顯示還能用多少測試額度。",
   lang_label: "語言", a_lang: "語言", a_theme: "主題", a_help: "說明", a_close: "關閉", a_prev: "上一則", a_next: "下一則",
 
@@ -39,7 +39,7 @@ export default {
   v_oldbrowser_sub: "連結沒壞，但顯示它需要更新的瀏覽器（Chrome 103、Safari 16.4 以上）。",
 
   vs_ok: "{n} 個地區 · 最快 {fast} {fms} ms · 最慢 {slow} {sms} ms",
-  vs_loss: "{n} 個地區都有回應 · 遺失 {lost} 個封包 · 最差 {region}（{pct}%）",
+  vs_loss: "{n} 個地區都有回應 · 遺失 {lost} 個封包 · 最差 {region}（{pct}）",
   vs_some: "{b} 個地區裡有 {a} 個沒有回應 · 最快 {fast} {fms} ms",
   vs_none: "沒有任何地區收到回應：目標或線路可能擋掉 ICMP",
   vs_dns: "沒有任何地區能解析這個網域",
@@ -49,7 +49,7 @@ export default {
   vs_probe: "{a} 個地區有回應；{b} 個地區沒有可用探測點",
   vs_tokyo: "Globalping 這次沒跑；下面是本站東京伺服器的結果",
 
-  fd_none: "{regions} 16 個封包全部沒有回應", fd_loss: "{region} 16 個封包裡遺失 {lost} 個（{pct}%）",
+  fd_none: "{regions} 16 個封包全部沒有回應", fd_loss: "{region} 16 個封包裡遺失 {lost} 個（{pct}）",
   fd_cn: "中國大陸：電信 {telecom} ms、聯通 {unicom} ms、移動 {mobile} ms",
   fd_slow: "{region} 最慢，{ms} ms，比 {fast} 慢 {fms} ms",
   fd_jitter: "{region} 抖動 ±{j} ms，是其他地區的 {ratio} 倍",

@@ -288,3 +288,12 @@ export function fmtMs(v, lang) {
   try { return new Intl.NumberFormat(lang, { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(v); }
   catch { return v.toFixed(digits); }
 }
+
+// Percentages the local way: comma or point, the space before % where the locale wants one (fr, de, ru), no space in
+// en/pt. v is a fraction (0.0067), not a number out of 100.
+export function fmtPct(v, lang, digits = 1) {
+  if (!Number.isFinite(v)) return "—";
+  try {
+    return new Intl.NumberFormat(lang, { style: "percent", minimumFractionDigits: digits, maximumFractionDigits: digits }).format(v);
+  } catch { return (v * 100).toFixed(digits) + "%"; }
+}

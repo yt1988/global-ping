@@ -26,6 +26,52 @@ test("every verdict has a title in every language", () => {
   }
 });
 
+test("the brand name is written exactly in h1 and title", () => {
+  for (const [l] of LANGS) {
+    assert.ok(I[l].h1.includes(I[l].app_name), `${l}: h1 does not contain the brand name`);
+    assert.ok(I[l].seo_title.includes(I[l].app_name), `${l}: title does not contain the brand name`);
+  }
+});
+
+test("verdict and finding lines have no full stop; full sentences do", () => {
+  for (const [l] of LANGS) {
+    const d = I[l];
+    for (const k of Object.keys(d)) {
+      if (typeof d[k] !== "string" || k === "docs") continue;
+      if (/^(v_|vs_|fd_)/.test(k) && k !== "v_oldbrowser_sub") {
+        assert.ok(!/[.。]$/.test(d[k]), `${l}/${k}: verdict/finding line should not end with a full stop`);
+      }
+      if (/^(gp_unreach|gp_429|bad_target|bad_private|v_oldbrowser_sub)$/.test(k)) {
+        assert.ok(/([.。！？!?]|…)$/.test(d[k]), `${l}/${k}: a full sentence needs its final mark`);
+      }
+    }
+    for (const [q, a] of d.docs) {
+      for (const line of String(a).split("\n")) {
+        if (line.trim()) assert.ok(/([.。！？!?]|…)$/.test(line.trim()), `${l}: FAQ answer line has no final mark (${q})`);
+      }
+    }
+  }
+});
+
+test("typography: percent, French spacing, Chinese spacing, ms unit", () => {
+  for (const [l] of LANGS) {
+    const d = I[l];
+    for (const k of Object.keys(d)) {
+      if (typeof d[k] !== "string") continue;
+      assert.ok(!d[k].includes("%"), `${l}/${k}: % belongs to Intl's output, not the string`);
+      if (l === "fr") {
+        assert.ok(!/ [;:?!]/.test(d[k]), `${l}/${k}: use a non-breaking space before : ; ? !`);
+        assert.ok(!/« | »/.test(d[k]), `${l}/${k}: use non-breaking spaces inside « »`);
+      }
+      if (l === "zh-CN" || l === "zh-TW") {
+        assert.ok(!/[\u4e00-\u9fff][A-Za-z0-9]|[A-Za-z0-9][\u4e00-\u9fff]/.test(d[k]), `${l}/${k}: a space is needed between Han and Latin/digits`);
+        assert.ok(!/[,:;]/.test(d[k].replace(/\{\w+\}/g, "")), `${l}/${k}: half-width , : ; in Chinese`);
+      }
+      if (l === "ru") assert.ok(!d[k].includes("мс"), `${l}/${k}: keep the unit as ms`);
+    }
+  }
+});
+
 for (const [lang] of LANGS.slice(1).filter(([l]) => I[l])) test(`${lang} matches en`, () => {
   const d = I[lang];
   const plural = k => /_(few|many)$/.test(k) && k.replace(/_(few|many)$/, "_one") in en;

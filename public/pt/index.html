@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <script>(function(){var d=document.documentElement,th=null,s=null;try{th=localStorage.getItem("globalping:theme");s=localStorage.getItem("globalping:lang")}catch(e){}if(th==="light"||th==="dark")d.setAttribute("data-theme",th);if(!d.hasAttribute("data-root"))return;var P=JSON.parse(d.getAttribute("data-paths")||"{}"),l=null;try{var q=new URLSearchParams(location.search).get("lang");if(P[q])l=q}catch(e){}if(!l&&P[s])l=s;for(var ls=navigator.languages||[navigator.language||"en"],i=0;!l&&!s&&i<ls.length;i++){var x=String(ls[i]).toLowerCase(),b=x.split("-")[0];l=b==="zh"?(/tw|hk|mo|hant/.test(x)?"zh-TW":"zh-CN"):P[b]?b:null}if(l&&l!=="en"&&location.pathname===P.en)location.replace(P[l]+location.search+location.hash)})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Teste de ping global: ping de um domínio ou IP a partir de 18 locais</title>
+<title>Ping global: ping de um domínio ou IP a partir de 18 locais</title>
 <meta name="description" content="Faça ping de qualquer domínio ou IP a partir de 18 locais no mundo. Veja os 16 pacotes ICMP de cada local, onde a latência salta e qual pacote se perdeu. Grátis, sem conta. Uma segunda visão do nosso servidor em Tóquio.">
 <meta name="keywords" content="teste de ping, ping online, ping de vários locais, ping global, perda de pacotes, ping em IP, medir latência, ping em domínio">
 <meta name="robots" content="index, follow">
@@ -25,7 +25,7 @@
 <link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="1ms.dog">
-<meta property="og:title" content="Teste de ping global: ping de um domínio ou IP a partir de 18 locais">
+<meta property="og:title" content="Ping global: ping de um domínio ou IP a partir de 18 locais">
 <meta property="og:description" content="16 pacotes de 18 locais, cada pacote visível">
 <meta property="og:url" content="https://ping.1ms.dog/pt/">
 <meta property="og:locale" content="pt_BR">
@@ -34,14 +34,14 @@
 <meta property="og:image" content="https://ping.1ms.dog/og/pt.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Teste de ping global: ping de um domínio ou IP a partir de 18 locais">
+<meta property="og:image:alt" content="Ping global: ping de um domínio ou IP a partir de 18 locais">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ping.1ms.dog/og/pt.png">
-<meta name="twitter:title" content="Teste de ping global: ping de um domínio ou IP a partir de 18 locais">
+<meta name="twitter:title" content="Ping global: ping de um domínio ou IP a partir de 18 locais">
 <meta name="twitter:description" content="16 pacotes de 18 locais, cada pacote visível">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Ping global · 1ms.dog","url":"https://ping.1ms.dog/pt/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Faça ping de qualquer domínio ou IP a partir de 18 locais no mundo. Veja os 16 pacotes ICMP de cada local, onde a latência salta e qual pacote se perdeu. Grátis, sem conta. Uma segunda visão do nosso servidor em Tóquio.","inLanguage":"pt","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"O que esta página mede?","acceptedAnswer":{"@type":"Answer","text":"18 locais no mundo, operados pela rede voluntária do Globalping, enviam 16 solicitações ICMP echo (um `ping` normal) ao domínio ou IP digitado. Nosso servidor em Tóquio envia os mesmos 16 pacotes: é a segunda visão e o plano B quando a cota gratuita do Globalping acaba. Por local você vê a latência mediana, o jitter (quanto os 16 pacotes variam) e quantos pacotes voltaram."}},{"@type":"Question","name":"Como leio os 16 pacotes?","acceptedAnswer":{"@type":"Answer","text":"Cada barra vertical é uma resposta; a altura é a latência daquele pacote, na escala do local (locais rápidos e estáveis parecem planos, e isso está certo). Espaços vazios são pacotes sem resposta: dá para ver se a perda foi no começo, no meio ou no fim. O número à direita é a mediana dos 16 pacotes; o ± é o jitter."}},{"@type":"Question","name":"Alguns locais não responderam. O servidor caiu?","acceptedAnswer":{"@type":"Answer","text":"Não necessariamente. Muitos hosts e firewalls não respondem a ICMP, mas o site funciona. A página diz “sem resposta”, não “fora do ar”. Para saber se uma porta é alcançável, use o teste de alcance: ele conecta como um navegador faria."}},{"@type":"Question","name":"Como funciona a cota?","acceptedAnswer":{"@type":"Answer","text":"O Globalping dá 250 testes de região por hora a cada IP. Um local que envia 16 pacotes conta como um teste de região, então um teste aqui usa 18. Quando acaba, a página mostra quando volta, e a visão de Tóquio continua funcionando sem gastar cota. Quem está na mesma rede divide a cota."}},{"@type":"Question","name":"Por que o resultado muda a cada vez?","acceptedAnswer":{"@type":"Answer","text":"A latência varia a cada segundo: congestionamento, Wi-Fi, as rotas da operadora e a carga do destino. É isso que o jitter mede. Um teste é uma foto do momento, não uma garantia."}},{"@type":"Question","name":"O que é a linha de Tóquio?","acceptedAnswer":{"@type":"Answer","text":"Nosso próprio servidor em Tóquio envia os mesmos 16 pacotes. É uma referência fixa, não usa a cota do Globalping, é a única visão que sempre sabe a posição real das perdas, e compará-la com a sonda de Tóquio do Globalping mostra se as duas redes veem o mesmo caminho."}},{"@type":"Question","name":"Consigo fazer ping pelo meu navegador?","acceptedAnswer":{"@type":"Answer","text":"Não: navegadores não enviam ICMP. As medições rodam nas sondas do Globalping e no nosso servidor; seu navegador só pede os resultados."}},{"@type":"Question","name":"O que acontece com o endereço que eu digito?","acceptedAnswer":{"@type":"Answer","text":"Ele vai para o Globalping (para o teste mundial) e para o nosso servidor em Tóquio. Não coletamos nem guardamos resultados, e o servidor de Tóquio não mantém log. Um link de resultado contém o endereço e o resultado, para outros verem o mesmo teste; ele nunca contém o seu IP."}},{"@type":"Question","name":"Por que não há porta nem tamanho de pacote?","acceptedAnswer":{"@type":"Answer","text":"ICMP não tem portas; a alcance de uma porta é tarefa do teste de alcance. Tamanho, intervalo e quantidade de pacotes são fixos para que os resultados sejam comparáveis entre locais e entre testes."}},{"@type":"Question","name":"Por que o link compartilhado mostra outra data?","acceptedAnswer":{"@type":"Answer","text":"Um link compartilhado mostra o resultado como foi medido, com a data acima. Toque em “Testar o meu” para fazer um teste novo do mesmo destino."}}]}]}</script>
 <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/app.7a8e52758a.css">
+<link rel="stylesheet" href="/assets/app.de735a7743.css">
 </head>
 <body>
 <div class="app">
@@ -65,7 +65,7 @@
   <!-- 1. what to ping, and the allowance; the answer goes right under it -->
   <div class="card main">
     <header class="hero">
-      <h1>Ping de 18 locais</h1>
+      <h1>Ping global de 18 locais</h1>
       <p class="intro" data-i="intro">Digite um domínio ou IP: 18 locais pelo mundo e nosso servidor em Tóquio enviam 16 pacotes ICMP cada. Cada pacote fica visível, e você vê quantos testes ainda pode fazer.</p>
       <form id="f" class="form" autocomplete="off">
         <div class="row">
@@ -131,7 +131,7 @@
   </div>
 </div>
 <script type="application/json" id="data">{"lang":"pt","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/","ja":"/ja/","ko":"/ko/","es":"/es/","fr":"/fr/","de":"/de/","pt":"/pt/","ru":"/ru/"}}</script>
-<script src="/assets/l.pt.7ef9399e01.js"></script>
-<script src="/assets/app.9d10c9c0a9.js"></script>
+<script src="/assets/l.pt.b79fec356c.js"></script>
+<script src="/assets/app.d57ed0e64b.js"></script>
 </body>
 </html>

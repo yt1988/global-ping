@@ -6,7 +6,7 @@ export default {
   seo_desc: "世界中の 18 か所から、指定したドメインや IP に ICMP パケットを送ります。各観測地点で 16 パケット、1 パケットごとの遅延の変化・ジッター・パケットロスの位置まで見えます。当サイトの東京サーバーからの結果も並べます。無料、ログイン不要。",
   seo_kw: "ping テスト, オンライン ping, グローバル ping, パケットロス, ping ドメイン, 遅延 測定, 複数地点 ping",
   og_sub: "18 か所から 16 パケットずつ、すべてのパケットが見える",
-  h1: "18 か所から ping",
+  h1: "グローバル Ping：18 か所から ping",
   intro: "ドメインか IP を入力してください。世界 18 か所と当サイトの東京サーバーがそれぞれ 16 個の ICMP パケットを送ります。1 パケットずつ見え、残りのテスト回数も表示されます。",
   lang_label: "言語", a_lang: "言語", a_theme: "テーマ", a_help: "ヘルプ", a_close: "閉じる", a_prev: "前へ", a_next: "次へ",
 
@@ -38,7 +38,7 @@ export default {
   v_oldbrowser_sub: "リンクは正常ですが、表示には新しいブラウザー（Chrome 103、Safari 16.4 以降）が必要です。",
 
   vs_ok: "{n} か所 · 最速 {fast} {fms} ms · 最も遅い {slow} {sms} ms",
-  vs_loss: "{n} か所が応答 · {lost} パケットがロス · 最悪 {region}（{pct}%）",
+  vs_loss: "{n} か所が応答 · {lost} パケットがロス · 最悪 {region}（{pct}）",
   vs_some: "{b} か所のうち {a} か所が応答なし · 最速 {fast} {fms} ms",
   vs_none: "どの観測地点も応答しませんでした。対象か経路が ICMP を遮断している可能性があります",
   vs_dns: "どの観測地点もドメインを解決できませんでした",
@@ -48,7 +48,7 @@ export default {
   vs_probe: "{a} か所が応答、{b} か所は観測地点がありませんでした",
   vs_tokyo: "Globalping は実行されていません。下は東京サーバーの結果です",
 
-  fd_none: "{regions} は 16 パケットすべてに応答なし", fd_loss: "{region} は 16 パケット中 {lost} 個がロス（{pct}%）",
+  fd_none: "{regions} は 16 パケットすべてに応答なし", fd_loss: "{region} は 16 パケット中 {lost} 個がロス（{pct}）",
   fd_cn: "中国本土：電信 {telecom} ms、聯通 {unicom} ms、移動 {mobile} ms",
   fd_slow: "{region} が最も遅く {ms} ms（{fast} より {fms} ms 遅い）",
   fd_jitter: "{region} のジッターは ±{j} ms、他の地域の {ratio} 倍",

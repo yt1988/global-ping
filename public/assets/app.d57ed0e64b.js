@@ -335,6 +335,14 @@
       return v.toFixed(digits);
     }
   }
+  function fmtPct(v, lang, digits = 1) {
+    if (!Number.isFinite(v)) return "\u2014";
+    try {
+      return new Intl.NumberFormat(lang, { style: "percent", minimumFractionDigits: digits, maximumFractionDigits: digits }).format(v);
+    } catch {
+      return (v * 100).toFixed(digits) + "%";
+    }
+  }
 
   // public/assets/share/codec.js
   var CodecError = class extends Error {
@@ -807,7 +815,7 @@
       sortRows(s);
       $("gpProgress").textContent = t("prog", { done: s.rows.filter((r) => r && r.state !== "pending").length, of: REGIONS.length });
       $("shareBtn").hidden = !canShare(s);
-      $("tokyoFallback").hidden = !WITH_TOKYO || !(s.verdict.k === "err" || s.verdict.k === "partial" || quotaLeft != null && quotaLeft < COST);
+      $("tokyoFallback").hidden = !WITH_TOKYO || s.tokyoError === "down" || !(s.verdict.k === "err" || s.verdict.k === "partial" || quotaLeft != null && quotaLeft < COST);
       setGo(false);
       $("go").textContent = t("go_again");
     }
@@ -950,9 +958,14 @@
       const el = rowEls.get(TOKYO_REGION.key);
       if (!el) return;
       if (s.tokyo) {
+        el.hidden = false;
         fillRow(s, TOKYO_REGION, s.tokyo);
         tokyoNoteShow("");
+      } else if (s.tokyoError === "down") {
+        el.hidden = true;
+        tokyoNoteShow("");
       } else {
+        el.hidden = false;
         el.querySelector(".bars").textContent = "";
         el.querySelector(".st").className = "st";
         el.querySelector(".med").textContent = "\u2014";
@@ -1084,7 +1097,7 @@
       });
       if (v.k === "loss") {
         const w = s.rows.filter((r) => r && r.rcv > 0 && r.rcv < PACKETS).sort((a, b) => b.loss - a.loss)[0];
-        return t("vs_loss", { n: replied.length, lost: PACKETS - w.rcv, region: nameOf(w.region), pct: Math.round(w.loss * 100) });
+        return t("vs_loss", { n: replied.length, lost: PACKETS - w.rcv, region: nameOf(w.region), pct: fmtPct(w.loss, D.lang, 1) });
       }
       if (v.k === "some") return t("vs_some", { a: v.a, b: v.b, fast: fastest ? nameOf(fastest.region) : "", fms: fastest ? fmtMs(fastest.median, D.lang) : "" });
       return t("vs_" + v.k, { a: v.a, b: v.b });
@@ -1104,7 +1117,7 @@
       $("kMedian").innerHTML = `${fmtMs(gm, D.lang)} <small>ms</small>`;
       $("kJitter").innerHTML = j ? `\xB1${fmtMs(j.jitter, D.lang)} <small>ms</small>` : "\u2014";
       $("kJitterWho").textContent = j && !s.tokyoOnly ? nameOf(j.region) : "";
-      $("kLoss").innerHTML = `${(100 * (sent - got) / sent).toFixed(sent - got ? 1 : 0)}<small>%</small>`;
+      $("kLoss").innerHTML = fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0);
     }
     function drawFindings(s) {
       if (!s.verdict || s.verdict.k === "err" || s.verdict.k === "partial") {
@@ -1120,6 +1133,7 @@
         if (Number.isFinite(vars.ms)) vars.ms = fmtMs(vars.ms, D.lang);
         if (Number.isFinite(vars.fms)) vars.fms = fmtMs(vars.fms, D.lang);
         if (Number.isFinite(vars.j)) vars.j = fmtMs(vars.j, D.lang);
+        if (f.k === "fd_loss") vars.pct = fmtPct(f.pct / 100, D.lang, 0);
         if (Number.isFinite(vars.ours)) vars.ours = fmtMs(vars.ours, D.lang);
         if (Number.isFinite(vars.theirs)) vars.theirs = fmtMs(vars.theirs, D.lang);
         if (f.k === "fd_cn") {
@@ -1168,7 +1182,7 @@
         text: () => `${v.title} \xB7 ${s.tg.host}`,
         height: (ctx, kit) => cardLayout(ctx, kit, v, s.tg.host, rows, s.tokyo, s).H,
         ts: s.ts,
-        foot: () => ["Globalping + 1ms.dog"],
+        foot: () => ["Globalping + " + location.hostname],
         draw: (ctx, kit) => drawCard(ctx, kit, v, s, rows)
       }).open();
     });
@@ -1203,7 +1217,7 @@
       ctx.textAlign = "right";
       ctx.fillStyle = css("muted");
       ctx.font = `400 22px ${F}`;
-      ctx.fillText(rows.length ? `${rows.length} \xB7 16` : "1ms.dog \xB7 Tokyo", W - P, L2.targetY);
+      ctx.fillText(rows.length ? `${rows.length} \xB7 16` : location.hostname, W - P, L2.targetY);
       ctx.textAlign = "left";
       const gm = median(rows.filter((r) => Number.isFinite(r.median)).map((r) => r.median));
       const j = rows.filter((r) => Number.isFinite(r.jitter)).sort((a, b) => b.jitter - a.jitter)[0];
@@ -1211,7 +1225,7 @@
       const vals = [
         [t("k_median"), Number.isFinite(gm) ? fmtMs(gm, D.lang) + " ms" : "\u2014"],
         [t("k_max_jitter"), j ? "\xB1" + fmtMs(j.jitter, D.lang) + " ms" : "\u2014"],
-        [t("k_loss"), rows.length ? (100 * (sent - got) / sent).toFixed(sent - got ? 1 : 0) + "%" : "\u2014"]
+        [t("k_loss"), rows.length ? fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0) : "\u2014"]
       ];
       vals.forEach(([label, val], i) => {
         const x = P + i * (w / 3);
@@ -1248,7 +1262,7 @@
         ctx.fill();
         ctx.fillStyle = css("fg");
         ctx.font = `500 20px ${F}`;
-        ctx.fillText("1ms.dog \xB7 Tokyo", x + 20, y);
+        ctx.fillText(t("t_label"), x + 20, y);
         ctx.fillStyle = css("muted");
         ctx.font = `500 19px ${M}`;
         ctx.textAlign = "right";
@@ -1376,6 +1390,15 @@
       $("kpis").hidden = true;
       await runTokyo(state);
       if (state.id !== id) return;
+      if (!state.tokyo) {
+        $("kpis").hidden = true;
+        $("vDot").className = "dot warn";
+        $("vTitle").textContent = t("t_down");
+        $("vSub").textContent = "";
+        $("gpProgress").textContent = "";
+        setGo(false);
+        return;
+      }
       drawKpis(state);
       $("kpis").hidden = false;
       $("gpProgress").textContent = "";

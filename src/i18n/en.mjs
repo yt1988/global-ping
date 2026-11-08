@@ -6,7 +6,7 @@ export default {
   seo_desc: "Ping any domain or IP from 18 locations worldwide. See all 16 ICMP packets of every location, where the latency jumps and which packet went missing. Free, no account. A second view from our own Tokyo server.",
   seo_kw: "ping test, online ping, ping from multiple locations, global ping, packet loss test, ping ip address, latency test, ping domain",
   og_sub: "16 packets from 18 locations, every packet visible",
-  h1: "Ping from 18 locations",
+  h1: "Global Ping from 18 locations",
   intro: "Enter a domain or IP: 18 locations around the world and our Tokyo server each send 16 ICMP packets. Every packet is visible, and you see how many tests the page can still run.",
   lang_label: "Language", a_lang: "Language", a_theme: "Theme", a_help: "Help", a_close: "Close", a_prev: "Previous", a_next: "Next",
 
@@ -39,7 +39,7 @@ export default {
   v_oldbrowser_sub: "The link is fine, but showing it needs a newer browser (Chrome 103 or Safari 16.4 and later).",
 
   vs_ok: "{n} regions · fastest {fast} {fms} ms · slowest {slow} {sms} ms",
-  vs_loss: "{n} regions replied · {lost} packets lost · worst {region} ({pct}%)",
+  vs_loss: "{n} regions replied · {lost} packets lost · worst {region} ({pct})",
   vs_some: "{a} of {b} regions got no reply · fastest {fast} {fms} ms",
   vs_none: "No region got a reply: the target or its network may drop ICMP",
   vs_dns: "No region could resolve the domain",
@@ -49,7 +49,7 @@ export default {
   vs_probe: "{a} regions replied; {b} had no probe available",
   vs_tokyo: "Globalping didn't run; this is our Tokyo server's view",
 
-  fd_none: "No reply at all from {regions}", fd_loss: "{region} lost {lost} of 16 packets ({pct}%)",
+  fd_none: "No reply at all from {regions}", fd_loss: "{region} lost {lost} of 16 packets ({pct})",
   fd_cn: "Mainland China: Telecom {telecom} ms, Unicom {unicom} ms, Mobile {mobile} ms",
   fd_slow: "{region} is slowest at {ms} ms ({fms} ms slower than {fast})",
   fd_jitter: "{region} jitter is ±{j} ms, {ratio}× the other regions",

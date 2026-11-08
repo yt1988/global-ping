@@ -4,9 +4,9 @@ export default {
   app_name: "全球 Ping",
   seo_title: "全球 Ping 测试：从 18 个地区 ping 域名或 IP",
   seo_desc: "从全球 18 个地区向一个域名或 IP 发 ICMP 包，每个地区 16 包，逐包看延迟变化、抖动和丢包位置。另外从本站东京服务器测一份做对照。免费、不用登录。",
-  seo_kw: "ping 测试, 在线 ping, 全球 ping, 丢包测试, ping ip, 延迟测试, ping 域名, 多地区 ping",
+  seo_kw: "ping 测试，在线 ping，全球 ping，丢包测试，ping ip，延迟测试，ping 域名，多地区 ping",
   og_sub: "18 个地区各发 16 包，每一包都看得见",
-  h1: "从全球 18 个地区 ping",
+  h1: "全球 Ping：从 18 个地区测延迟",
   intro: "输入域名或 IP：全球 18 个地区和本站东京服务器各发 16 个 ICMP 包。每一包都看得见，页面还会显示还能用多少测试额度。",
   lang_label: "语言", a_lang: "语言", a_theme: "主题", a_help: "帮助", a_close: "关闭", a_prev: "上一条", a_next: "下一条",
 
@@ -39,7 +39,7 @@ export default {
   v_oldbrowser_sub: "链接没坏，但显示它需要更新的浏览器（Chrome 103、Safari 16.4 及以上）。",
 
   vs_ok: "{n} 个地区 · 最快 {fast} {fms} ms · 最慢 {slow} {sms} ms",
-  vs_loss: "{n} 个地区都有回应 · 丢了 {lost} 个包 · 最差 {region}（{pct}%）",
+  vs_loss: "{n} 个地区都有回应 · 丢了 {lost} 个包 · 最差 {region}（{pct}）",
   vs_some: "{b} 个地区里有 {a} 个没有回应 · 最快 {fast} {fms} ms",
   vs_none: "没有任何地区收到回应：目标或线路可能屏蔽了 ICMP",
   vs_dns: "没有任何地区能解析这个域名",
@@ -49,7 +49,7 @@ export default {
   vs_probe: "{a} 个地区有回应；{b} 个地区没有可用探测点",
   vs_tokyo: "Globalping 这次没跑；下面是本站东京服务器的结果",
 
-  fd_none: "{regions} 16 包全部没有回应", fd_loss: "{region} 16 包里丢了 {lost} 个（{pct}%）",
+  fd_none: "{regions} 16 包全部没有回应", fd_loss: "{region} 16 包里丢了 {lost} 个（{pct}）",
   fd_cn: "中国大陆：电信 {telecom} ms、联通 {unicom} ms、移动 {mobile} ms",
   fd_slow: "{region} 最慢，{ms} ms，比 {fast} 慢 {fms} ms",
   fd_jitter: "{region} 抖动 ±{j} ms，是其他地区的 {ratio} 倍",
