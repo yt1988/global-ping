@@ -1,7 +1,11 @@
 # Global Ping
 
+**English** · [简体中文](README.zh-CN.md)
+
 Ping a domain or IP from 18 locations worldwide, 16 ICMP packets per location, and see **every packet**: its latency,
 the jitter, and where packets went missing. A second view comes from our own server in Tokyo.
+
+**Live:** https://ping.1ms.dog
 
 - **Worldwide view**: [Globalping](https://globalping.io)'s volunteer probes in 18 regions (China Telecom, China Unicom
   and China Mobile; Hong Kong; Taiwan, China; Tokyo; Korea; Singapore; India; Australia; London; Frankfurt; Russia; the
@@ -11,6 +15,8 @@ the jitter, and where packets went missing. A second view comes from our own ser
 - **Tokyo view**: our own server sends the same 16 packets. It uses none of that allowance (so it is the fallback when
   it runs out), it is the view that always knows the real loss positions, and comparing it with Globalping's Tokyo probe
   shows whether the two networks see the same path.
+
+- **10 languages**: English, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Deutsch, Português, Русский.
 
 Nothing is stored: the page keeps no results, and the Tokyo server keeps no log and never probes private or reserved
 addresses. Results worth keeping live in a result link that carries the result itself.
@@ -37,8 +43,8 @@ npx wrangler dev   # the same with the Worker, to open /r/ result links
 npm test           # i18n keys, the measurement model, the result code, public/ up to date
 ```
 
-The page calls Globalping and the Tokyo server at the addresses in `src/app.js` (`GP`, `API`). Self-hosted, change both
-to your own; the CSP (`connect-src 'self' https:`) already allows them.
+The page calls Globalping (`GP` in `src/app.js`) and the Tokyo server (`TOKYO_API` in `src/config.mjs`). Self-hosted,
+change both to your own; the CSP (`connect-src 'self' https:`) already allows them.
 
 ## Deploy
 
@@ -60,4 +66,24 @@ those requests directly, so those two see the connection's source address; we do
 Tokyo server only counts requests in memory. A result link holds the address and the result, never your own IP.
 Private, loopback, link-local and multicast addresses are never probed.
 
-MIT licensed. 1ms.dog's own operations notes live in the private repository 1ms-shell.
+## Source layout
+
+```
+src/page.html       the page template
+src/app.js          the page: Globalping, the Tokyo view, the verdict and the cards
+src/model.mjs       the 18 regions, one probe's 16 packets, verdicts, findings (shared with the Worker and the tests)
+src/config.mjs      the only deployment-specific address: TOKYO_API
+src/style.css       design tokens (shared with the other 1ms.dog tools) and layout
+src/code.mjs        a result in a link and back (the page and the Worker share it)
+src/worker.js       the Worker: /r/<code> gets the page with the verdict in its title; anything else is a 404
+src/i18n/*.mjs      the strings in 10 languages; en is the reference
+scripts/build.mjs   builds public/: a page per language (English at /, the others under /zh-cn/, /ja/ …), sitemap, _headers
+scripts/assets.mjs  renders the link-preview images
+scripts/dev.mjs     local preview server (static files only)
+server/             1ms-ping, the server in Tokyo (Go): go test ./...; 1ms-ping.service is its systemd unit
+```
+
+## License
+
+MIT
+
