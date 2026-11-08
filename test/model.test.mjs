@@ -1,7 +1,7 @@
 // The model: parsing a probe's raw output, the 16 slots, the verdicts and findings, and the target input.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { REGIONS, PACKETS, parseRaw, slots, makeRow, makeTokyoRow, placeResults, verdict, findings, normalizeTarget, isPrivateIp, fmtMs, median, stdev } from "../src/model.mjs";
+import { REGIONS, PACKETS, parseRaw, slots, makeRow, makeTokyoRow, placeResults, verdict, findings, normalizeTarget, isPrivateIp, fmtMs, median, stdev, latencyBand } from "../src/model.mjs";
 
 const RAW = ["PING example.com (172.66.147.243) 56(84) bytes of data.",
   ...[1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16].map(i =>
@@ -122,4 +122,16 @@ test("median, stdev and display", () => {
   assert.equal(stdev([2, 2, 2]), 0);
   assert.equal(fmtMs(5.74, "en"), "5.7");
   assert.equal(fmtMs(187.4, "en"), "187");
+});
+
+test("latency colour bands are absolute", () => {
+  assert.equal(latencyBand(3), 1);
+  assert.equal(latencyBand(30), 1);
+  assert.equal(latencyBand(30.1), 2);
+  assert.equal(latencyBand(100), 2);
+  assert.equal(latencyBand(100.1), 3);
+  assert.equal(latencyBand(200), 3);
+  assert.equal(latencyBand(201), 4);
+  assert.equal(latencyBand(500), 4);
+  assert.equal(latencyBand(null), 0);
 });

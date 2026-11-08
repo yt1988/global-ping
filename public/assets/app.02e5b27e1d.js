@@ -335,6 +335,11 @@
       return v.toFixed(digits);
     }
   }
+  var LATENCY_BANDS = [30, 100, 200];
+  function latencyBand(rtt) {
+    if (!Number.isFinite(rtt)) return 0;
+    return rtt <= LATENCY_BANDS[0] ? 1 : rtt <= LATENCY_BANDS[1] ? 2 : rtt <= LATENCY_BANDS[2] ? 3 : 4;
+  }
   function fmtPct(v, lang, digits = 1) {
     if (!Number.isFinite(v)) return "\u2014";
     try {
@@ -909,7 +914,7 @@
       for (let i = 0; i < PACKETS; i++) {
         const b = document.createElement("i");
         const v = row ? row.rtts[i] : null;
-        b.className = "bar " + (!row ? "na" : Number.isFinite(v) ? "ok" : "miss");
+        b.className = "bar " + (!row ? "na" : Number.isFinite(v) ? "b" + latencyBand(v) : "miss");
         b.dataset.i = String(i);
         if (row && Number.isFinite(v)) b.style.setProperty("--h", Math.max(0.06, Math.min(1, v / scale)).toFixed(3));
         box.appendChild(b);

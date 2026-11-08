@@ -2,7 +2,7 @@
 // probes run the worldwide view straight from the visitor's browser (each visitor spends their own hourly allowance);
 // our own server in Tokyo gives a second view that uses none of it. Strings come from window.L1MS
 // (assets/l.<lang>.<hash>.js, built from src/i18n/); the model and the result-link code are shared with the Worker.
-import { REGIONS, PACKETS, TOKYO_REGION, countryName, fmtMs, fmtPct, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
+import { REGIONS, PACKETS, TOKYO_REGION, countryName, fmtMs, fmtPct, latencyBand, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
 import { encodeResult, decodeResult, sharePath, rowToCode, codeToRow } from "./code.mjs";
 import { TOKYO_API } from "./config.mjs";
 
@@ -276,7 +276,7 @@ function barsInto(box, row) {
   for (let i = 0; i < PACKETS; i++) {
     const b = document.createElement("i");
     const v = row ? row.rtts[i] : null;
-    b.className = "bar " + (!row ? "na" : Number.isFinite(v) ? "ok" : "miss");
+    b.className = "bar " + (!row ? "na" : Number.isFinite(v) ? "b" + latencyBand(v) : "miss");
     b.dataset.i = String(i);
     if (row && Number.isFinite(v)) b.style.setProperty("--h", Math.max(.06, Math.min(1, v / scale)).toFixed(3));
     box.appendChild(b);

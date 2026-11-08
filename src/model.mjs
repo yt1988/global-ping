@@ -289,6 +289,14 @@ export function fmtMs(v, lang) {
   catch { return v.toFixed(digits); }
 }
 
+// Latency colour bands in ms: 1 is fastest, 4 slowest. Absolute, so the same colour means the same latency in every
+// row. It is a scale, not a verdict: 300 ms to another continent is normal, which is why the legend says so.
+export const LATENCY_BANDS = [30, 100, 200];
+export function latencyBand(rtt) {
+  if (!Number.isFinite(rtt)) return 0;
+  return rtt <= LATENCY_BANDS[0] ? 1 : rtt <= LATENCY_BANDS[1] ? 2 : rtt <= LATENCY_BANDS[2] ? 3 : 4;
+}
+
 // Percentages the local way: comma or point, the space before % where the locale wants one (fr, de, ru), no space in
 // en/pt. v is a fraction (0.0067), not a number out of 100.
 export function fmtPct(v, lang, digits = 1) {
