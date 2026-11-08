@@ -699,7 +699,7 @@
         findings: [],
         tokyoOnly: false
       };
-      history.replaceState(null, "", D.paths[D.lang] + (tg.isIp ? "" : "?t=" + encodeURIComponent(tg.host)));
+      if (sharePath(location.pathname)) history.replaceState(null, "", D.paths[D.lang]);
       $("verdict").hidden = false;
       $("table").hidden = false;
       $("shareBtn").hidden = true;

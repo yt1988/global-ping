@@ -141,7 +141,9 @@ function start() {
   if (recv) { recv.remove(); recv = null; }
   state = { id, tg, ipv: $("ipv").value, rows: REGIONS.map(() => null), tokyo: null, tokyoError: "",
     gpDone: false, gpError: "", gpMsg: "", gpReset: 0, partial: false, ts: Date.now(), verdict: null, findings: [], tokyoOnly: false };
-  history.replaceState(null, "", D.paths[D.lang] + (tg.isIp ? "" : "?t=" + encodeURIComponent(tg.host)));
+  // The address bar stays as it is for a normal test (1ms.dog convention, 2026-11-08): no ?t= is written.
+  // The one exception is a shared result's /r/ page: once the visitor runs their own test, go back to the language home.
+  if (sharePath(location.pathname)) history.replaceState(null, "", D.paths[D.lang]);
   $("verdict").hidden = false; $("table").hidden = false; $("shareBtn").hidden = true;
   $("tokyoFallback").hidden = true;
   $("regions").hidden = false; $("kpis").hidden = false;
