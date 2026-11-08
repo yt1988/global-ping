@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ja" data-paths="{&quot;en&quot;:&quot;/&quot;,&quot;zh-CN&quot;:&quot;/zh-cn/&quot;,&quot;zh-TW&quot;:&quot;/zh-tw/&quot;,&quot;ja&quot;:&quot;/ja/&quot;,&quot;ko&quot;:&quot;/ko/&quot;,&quot;es&quot;:&quot;/es/&quot;,&quot;fr&quot;:&quot;/fr/&quot;,&quot;de&quot;:&quot;/de/&quot;,&quot;pt&quot;:&quot;/pt/&quot;,&quot;ru&quot;:&quot;/ru/&quot;}">
+<head>
+<meta charset="utf-8">
+<script>(function(){var d=document.documentElement,th=null,s=null;try{th=localStorage.getItem("globalping:theme");s=localStorage.getItem("globalping:lang")}catch(e){}if(th==="light"||th==="dark")d.setAttribute("data-theme",th);if(!d.hasAttribute("data-root"))return;var P=JSON.parse(d.getAttribute("data-paths")||"{}"),l=null;try{var q=new URLSearchParams(location.search).get("lang");if(P[q])l=q}catch(e){}if(!l&&P[s])l=s;for(var ls=navigator.languages||[navigator.language||"en"],i=0;!l&&!s&&i<ls.length;i++){var x=String(ls[i]).toLowerCase(),b=x.split("-")[0];l=b==="zh"?(/tw|hk|mo|hant/.test(x)?"zh-TW":"zh-CN"):P[b]?b:null}if(l&&l!=="en"&&location.pathname===P.en)location.replace(P[l]+location.search+location.hash)})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>グローバル Ping テスト：18 か所からドメインや IP に ping</title>
+<meta name="description" content="世界中の 18 か所から、指定したドメインや IP に ICMP パケットを送ります。各観測地点で 16 パケット、1 パケットごとの遅延の変化・ジッター・パケットロスの位置まで見えます。当サイトの東京サーバーからの結果も並べます。無料、ログイン不要。">
+<meta name="keywords" content="ping テスト, オンライン ping, グローバル ping, パケットロス, ping ドメイン, 遅延 測定, 複数地点 ping">
+<meta name="robots" content="index, follow">
+<meta name="application-name" content="グローバル Ping">
+<meta name="theme-color" content="#f6f6f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1c" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://ping.1ms.dog/ja/">
+<link rel="alternate" hreflang="en" href="https://ping.1ms.dog/">
+<link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/">
+<link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/">
+<link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/">
+<link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/">
+<link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/">
+<link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/">
+<link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/">
+<link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/">
+<link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/">
+<link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1ms.dog">
+<meta property="og:title" content="グローバル Ping テスト：18 か所からドメインや IP に ping">
+<meta property="og:description" content="18 か所から 16 パケットずつ、すべてのパケットが見える">
+<meta property="og:url" content="https://ping.1ms.dog/ja/">
+<meta property="og:locale" content="ja_JP">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<meta property="og:image" content="https://ping.1ms.dog/og/ja.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="グローバル Ping テスト：18 か所からドメインや IP に ping">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ping.1ms.dog/og/ja.png">
+<meta name="twitter:title" content="グローバル Ping テスト：18 か所からドメインや IP に ping">
+<meta name="twitter:description" content="18 か所から 16 パケットずつ、すべてのパケットが見える">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"グローバル Ping · 1ms.dog","url":"https://ping.1ms.dog/ja/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"世界中の 18 か所から、指定したドメインや IP に ICMP パケットを送ります。各観測地点で 16 パケット、1 パケットごとの遅延の変化・ジッター・パケットロスの位置まで見えます。当サイトの東京サーバーからの結果も並べます。無料、ログイン不要。","inLanguage":"ja","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"このページは何を測りますか？","acceptedAnswer":{"@type":"Answer","text":"世界 18 か所から、入力したドメインか IP に 16 個の ICMP エコー要求（通常の `ping`）を送ります。実行するのは Globalping のボランティア観測地点です。当サイトの東京サーバーも同じ 16 パケットを送り、2 つ目の見方と利用枠が尽きたときの代替になります。 観測地点ごとに中央値・ジッター（16 パケットのばらつき）・応答数が見えます。"}},{"@type":"Question","name":"16 パケットはどう読めばいいですか？","acceptedAnswer":{"@type":"Answer","text":"縦棒 1 本が応答 1 つで、高さはそのパケットの遅延です（観測地点ごとの目盛りなので、速くて安定した地点が平らに見えるのは正しい表示です）。空のスロットは応答がなかったパケットで、ロスが最初・途中・最後のどこで起きたか分かります。 右の数字は 16 パケットの中央値、± はジッターです。"}},{"@type":"Question","name":"応答がない地域があるのはサーバーが落ちているからですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ、とは限りません。多くのホストやファイアウォールは ICMP に応答しませんが、サイト自体は正常です。そのため「応答なし」と書き、「落ちている」とは書きません。ポートへの到達性は到達性チェックで確認してください。"}},{"@type":"Question","name":"利用枠はどう計算されますか？","acceptedAnswer":{"@type":"Answer","text":"Globalping は IP ごとに 1 時間 250 地域分を提供します。1 つの観測地点が 16 パケットを送っても 1 地域分なので、ここでの 1 回のテストは 18 地域分です。使い切ると復活までの時間が表示され、東京の表示は利用枠を使わずに動き続けます。 同じネットワークの人は同じ枠を共有します。"}},{"@type":"Question","name":"なぜ毎回結果が違うのですか？","acceptedAnswer":{"@type":"Answer","text":"遅延は秒単位で変わります。混雑、Wi-Fi、プロバイダーの経路、対象の負荷などが影響し、それがジッターです。1 回のテストはその瞬間のスナップショットで、保証ではありません。"}},{"@type":"Question","name":"東京の行は何ですか？","acceptedAnswer":{"@type":"Answer","text":"当サイトの東京サーバーが同じ 16 パケットを送った結果です。固定の基準点で、Globalping の利用枠を使わず、実際のロス位置が常に分かる唯一の見方です。Globalping の東京観測地点と比べると、2 つの経路が同じかどうかも分かります。"}},{"@type":"Question","name":"自分のブラウザーから ping できますか？","acceptedAnswer":{"@type":"Answer","text":"できません。ブラウザーは ICMP を送れません。計測は Globalping の観測地点と当サイトのサーバーで実行され、ブラウザーは結果を表示するだけです。"}},{"@type":"Question","name":"入力したアドレスはどう扱われますか？","acceptedAnswer":{"@type":"Answer","text":"アドレスは Globalping（世界のチェック）と当サイトの東京サーバーに送られます。結果の収集・保存はせず、東京サーバーもログを取りません。共有リンクにはアドレスと結果だけが入り、あなた自身の IP は決して含まれません。"}},{"@type":"Question","name":"ポートやパケットサイズは指定できますか？","acceptedAnswer":{"@type":"Answer","text":"ICMP にポートはありません。ポートの到達性は到達性チェックの役目です。パケットサイズ・間隔・数は固定で、観測地点どうし、テストどうしを比べられるようにしています。"}},{"@type":"Question","name":"共有リンクの日時が違うのはなぜですか？","acceptedAnswer":{"@type":"Answer","text":"共有リンクはそのとき計測した結果を、日付とともに表示します。「自分も測る」を押すと、同じ対象を自分で測り直せます。"}}]}]}</script>
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/app.67dd2949cd.css">
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <a class="brand" href="/ja/"><span class="logo"><img class="logo-light" src="/assets/logo-light.svg" width="90" height="36" alt="1ms" loading="lazy"><img class="logo-dark" src="/assets/logo-dark.svg" width="90" height="36" alt="1ms" loading="lazy"></span><span class="brand-name">グローバル Ping</span></a>
+    <div class="top-acts">
+      <label class="sel"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.7 2.7 3.8 2.7 6.2S9.8 12.5 8 14.2C6.2 12.5 5.3 10.4 5.3 8S6.2 3.5 8 1.8z"/></svg><span class="sr" data-i="lang_label">言語</span>
+        <select id="lang"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja" selected>日本語</option><option value="ko">한국어</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="ru">Русский</option></select></label>
+      <button class="icon-btn" id="helpBtn" type="button" aria-haspopup="dialog" aria-controls="help" aria-label="ヘルプ">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M6.3 6.2a1.8 1.8 0 1 1 2.5 1.7c-.5.2-.8.6-.8 1.1v.4M8 11.3v.1"/></svg>
+      </button>
+      <a class="icon-btn gh" href="https://github.com/yt1988/global-ping" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .2a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.4.7 0-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.4 7.4 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0 0 8 .2z"/></svg></a>
+      <button class="icon-btn" id="theme" type="button" aria-label="テーマ">
+        <svg class="i-sys" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="8.5" rx="1.5"/><path d="M6 14h4M8 11.5V14"/></svg>
+        <svg class="i-light" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/></svg>
+        <svg class="i-dark" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 1. what to ping, and the allowance; the answer goes right under it -->
+  <div class="card main">
+    <header class="hero">
+      <h1>18 か所から ping</h1>
+      <p class="intro" data-i="intro">ドメインか IP を入力してください。世界 18 か所と当サイトの東京サーバーがそれぞれ 16 個の ICMP パケットを送ります。1 パケットずつ見え、残りのテスト回数も表示されます。</p>
+      <form id="f" class="form" autocomplete="off">
+        <div class="row">
+          <label class="fld grow"><span data-i="f_target">ドメインまたは IP</span>
+            <input id="target" name="t" type="search" placeholder="example.com" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
+          </label>
+          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv">IP バージョン</span>
+            <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
+          </label>
+          <button id="go" class="btn" type="submit" data-i="go">テスト</button>
+        </div>
+        <div class="sub"><span id="targetNote" class="m warn" hidden>&nbsp;</span><span id="quota" class="quota m"></span></div>
+      </form>
+    </header>
+
+    <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
+    <section class="verdict" id="verdict" hidden>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">共有</button></div>
+      <p class="v-sub m" id="vSub">&nbsp;</p>
+      <div class="facts" id="kpis">
+        <div class="fact"><span data-i="k_median">遅延の中央値</span><b id="kMedian">—</b></div>
+        <div class="fact"><span data-i="k_max_jitter">最大ジッター</span><b id="kJitter">—</b><i id="kJitterWho"></i></div>
+        <div class="fact"><span data-i="k_loss">パケットロス</span><b id="kLoss">—</b></div>
+      </div>
+      <ul class="findings" id="findings"></ul>
+      <div class="v-fallback" id="tokyoFallback" hidden><button class="btn ghost" id="tokyoBtn" type="button" data-i="t_tokyo_only">東京のみでテスト</button></div>
+    </section>
+  </div>
+
+  <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
+  <section class="card sec" id="table" hidden>
+    <div class="sec-h"><h3 data-i="h_regions">観測地点</h3><span class="m prog" id="gpProgress"></span>
+      <label class="sel sm"><span class="sr" data-i="sort_label">並び替え</span><select id="sort">
+        <option value="median" data-i="sort_median">遅延</option>
+        <option value="jitter" data-i="sort_jitter">ジッター</option>
+        <option value="loss" data-i="sort_loss">パケットロス</option>
+      </select></label>
+    </div>
+    <div class="legend m">
+      <span><i class="seg s-bar"></i><span data-i="lg_replied">応答あり</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">応答なし</span></span>
+      <span><span data-i="lg_median">中央値</span></span><span><span data-i="lg_jitter">ジッター</span></span><span><span data-i="lg_loss">ロス</span></span>
+    </div>
+    <div class="chips" id="filters" role="group"></div>
+    <div id="tokyoRow" class="rows"></div>
+    <div id="regions" class="rows"></div>
+    <p class="note m" id="gpNote" hidden></p>
+  </section>
+  <footer class="foot m"><p>データ提供：<a href="https://globalping.io" target="_blank" rel="noopener">Globalping</a> の観測地点と当サイトの東京サーバー。</p><a href="https://github.com/yt1988/global-ping" target="_blank" rel="noopener noreferrer">GitHub</a></footer>
+</div>
+<div class="scrim" id="help" hidden>
+  <div class="dialog help" role="dialog" aria-modal="true" aria-labelledby="helpT">
+    <div class="dlg-h"><h2 id="helpT" data-i="faq_h">ヘルプ</h2>
+      <button class="icon-btn" data-close type="button" aria-label="閉じる"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="help-b">
+      <nav class="help-nav" id="helpNav" role="tablist"><button type="button" role="tab" data-hq="0" aria-selected="true">このページは何を測りますか？</button><button type="button" role="tab" data-hq="1" aria-selected="false">16 パケットはどう読めばいいですか？</button><button type="button" role="tab" data-hq="2" aria-selected="false">応答がない地域があるのはサーバーが落ちているからですか？</button><button type="button" role="tab" data-hq="3" aria-selected="false">利用枠はどう計算されますか？</button><button type="button" role="tab" data-hq="4" aria-selected="false">なぜ毎回結果が違うのですか？</button><button type="button" role="tab" data-hq="5" aria-selected="false">東京の行は何ですか？</button><button type="button" role="tab" data-hq="6" aria-selected="false">自分のブラウザーから ping できますか？</button><button type="button" role="tab" data-hq="7" aria-selected="false">入力したアドレスはどう扱われますか？</button><button type="button" role="tab" data-hq="8" aria-selected="false">ポートやパケットサイズは指定できますか？</button><button type="button" role="tab" data-hq="9" aria-selected="false">共有リンクの日時が違うのはなぜですか？</button></nav>
+      <div class="help-pick">
+        <button class="icon-btn" type="button" data-hstep="-1" aria-label="前へ"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8l4 4"/></svg></button>
+        <select id="helpSel" aria-labelledby="helpT"></select>
+        <button class="icon-btn" type="button" data-hstep="1" aria-label="次へ"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 4l4 4-4 4"/></svg></button>
+      </div>
+      <div class="help-c" id="helpC"><article data-hqb="0"><h3>このページは何を測りますか？</h3><p>世界 18 か所から、入力したドメインか IP に 16 個の ICMP エコー要求（通常の `ping`）を送ります。実行するのは Globalping のボランティア観測地点です。当サイトの東京サーバーも同じ 16 パケットを送り、2 つ目の見方と利用枠が尽きたときの代替になります。</p><p>観測地点ごとに中央値・ジッター（16 パケットのばらつき）・応答数が見えます。</p></article><article data-hqb="1" hidden><h3>16 パケットはどう読めばいいですか？</h3><p>縦棒 1 本が応答 1 つで、高さはそのパケットの遅延です（観測地点ごとの目盛りなので、速くて安定した地点が平らに見えるのは正しい表示です）。空のスロットは応答がなかったパケットで、ロスが最初・途中・最後のどこで起きたか分かります。</p><p>右の数字は 16 パケットの中央値、± はジッターです。</p></article><article data-hqb="2" hidden><h3>応答がない地域があるのはサーバーが落ちているからですか？</h3><p>いいえ、とは限りません。多くのホストやファイアウォールは ICMP に応答しませんが、サイト自体は正常です。そのため「応答なし」と書き、「落ちている」とは書きません。ポートへの到達性は到達性チェックで確認してください。</p></article><article data-hqb="3" hidden><h3>利用枠はどう計算されますか？</h3><p>Globalping は IP ごとに 1 時間 250 地域分を提供します。1 つの観測地点が 16 パケットを送っても 1 地域分なので、ここでの 1 回のテストは 18 地域分です。使い切ると復活までの時間が表示され、東京の表示は利用枠を使わずに動き続けます。</p><p>同じネットワークの人は同じ枠を共有します。</p></article><article data-hqb="4" hidden><h3>なぜ毎回結果が違うのですか？</h3><p>遅延は秒単位で変わります。混雑、Wi-Fi、プロバイダーの経路、対象の負荷などが影響し、それがジッターです。1 回のテストはその瞬間のスナップショットで、保証ではありません。</p></article><article data-hqb="5" hidden><h3>東京の行は何ですか？</h3><p>当サイトの東京サーバーが同じ 16 パケットを送った結果です。固定の基準点で、Globalping の利用枠を使わず、実際のロス位置が常に分かる唯一の見方です。Globalping の東京観測地点と比べると、2 つの経路が同じかどうかも分かります。</p></article><article data-hqb="6" hidden><h3>自分のブラウザーから ping できますか？</h3><p>できません。ブラウザーは ICMP を送れません。計測は Globalping の観測地点と当サイトのサーバーで実行され、ブラウザーは結果を表示するだけです。</p></article><article data-hqb="7" hidden><h3>入力したアドレスはどう扱われますか？</h3><p>アドレスは Globalping（世界のチェック）と当サイトの東京サーバーに送られます。結果の収集・保存はせず、東京サーバーもログを取りません。共有リンクにはアドレスと結果だけが入り、あなた自身の IP は決して含まれません。</p></article><article data-hqb="8" hidden><h3>ポートやパケットサイズは指定できますか？</h3><p>ICMP にポートはありません。ポートの到達性は到達性チェックの役目です。パケットサイズ・間隔・数は固定で、観測地点どうし、テストどうしを比べられるようにしています。</p></article><article data-hqb="9" hidden><h3>共有リンクの日時が違うのはなぜですか？</h3><p>共有リンクはそのとき計測した結果を、日付とともに表示します。「自分も測る」を押すと、同じ対象を自分で測り直せます。</p></article></div>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="data">{"lang":"ja","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/","ja":"/ja/","ko":"/ko/","es":"/es/","fr":"/fr/","de":"/de/","pt":"/pt/","ru":"/ru/"}}</script>
+<script src="/assets/l.ja.5d98ad0576.js"></script>
+<script src="/assets/app.11084967b7.js"></script>
+</body>
+</html>

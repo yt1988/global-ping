@@ -5,6 +5,13 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
     <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
   </url>
   <url>
@@ -12,6 +19,13 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
     <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
   </url>
   <url>
@@ -19,6 +33,111 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
     <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
+  </url>
+  <url>
+    <loc>https://ping.1ms.dog/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
+  </url>
+  <url>
+    <loc>https://ping.1ms.dog/ko/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
+  </url>
+  <url>
+    <loc>https://ping.1ms.dog/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
+  </url>
+  <url>
+    <loc>https://ping.1ms.dog/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
+  </url>
+  <url>
+    <loc>https://ping.1ms.dog/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
+  </url>
+  <url>
+    <loc>https://ping.1ms.dog/pt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
+  </url>
+  <url>
+    <loc>https://ping.1ms.dog/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ping.1ms.dog/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/"/>
   </url>
 </urlset>

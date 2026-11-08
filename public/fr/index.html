@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr" data-paths="{&quot;en&quot;:&quot;/&quot;,&quot;zh-CN&quot;:&quot;/zh-cn/&quot;,&quot;zh-TW&quot;:&quot;/zh-tw/&quot;,&quot;ja&quot;:&quot;/ja/&quot;,&quot;ko&quot;:&quot;/ko/&quot;,&quot;es&quot;:&quot;/es/&quot;,&quot;fr&quot;:&quot;/fr/&quot;,&quot;de&quot;:&quot;/de/&quot;,&quot;pt&quot;:&quot;/pt/&quot;,&quot;ru&quot;:&quot;/ru/&quot;}">
+<head>
+<meta charset="utf-8">
+<script>(function(){var d=document.documentElement,th=null,s=null;try{th=localStorage.getItem("globalping:theme");s=localStorage.getItem("globalping:lang")}catch(e){}if(th==="light"||th==="dark")d.setAttribute("data-theme",th);if(!d.hasAttribute("data-root"))return;var P=JSON.parse(d.getAttribute("data-paths")||"{}"),l=null;try{var q=new URLSearchParams(location.search).get("lang");if(P[q])l=q}catch(e){}if(!l&&P[s])l=s;for(var ls=navigator.languages||[navigator.language||"en"],i=0;!l&&!s&&i<ls.length;i++){var x=String(ls[i]).toLowerCase(),b=x.split("-")[0];l=b==="zh"?(/tw|hk|mo|hant/.test(x)?"zh-TW":"zh-CN"):P[b]?b:null}if(l&&l!=="en"&&location.pathname===P.en)location.replace(P[l]+location.search+location.hash)})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Test ping mondial : ping d’un domaine ou d’une IP depuis 18 emplacements</title>
+<meta name="description" content="Faites un ping vers un domaine ou une IP depuis 18 emplacements dans le monde. Voyez les 16 paquets ICMP de chaque emplacement, où la latence saute et quel paquet est perdu. Gratuit, sans compte. Une seconde vue depuis notre serveur de Tokyo.">
+<meta name="keywords" content="test de ping, ping en ligne, ping depuis plusieurs emplacements, ping mondial, perte de paquets, ping d’une IP, mesurer la latence, ping d’un domaine">
+<meta name="robots" content="index, follow">
+<meta name="application-name" content="Ping mondial">
+<meta name="theme-color" content="#f6f6f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1c" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://ping.1ms.dog/fr/">
+<link rel="alternate" hreflang="en" href="https://ping.1ms.dog/">
+<link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/">
+<link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/">
+<link rel="alternate" hreflang="ja" href="https://ping.1ms.dog/ja/">
+<link rel="alternate" hreflang="ko" href="https://ping.1ms.dog/ko/">
+<link rel="alternate" hreflang="es" href="https://ping.1ms.dog/es/">
+<link rel="alternate" hreflang="fr" href="https://ping.1ms.dog/fr/">
+<link rel="alternate" hreflang="de" href="https://ping.1ms.dog/de/">
+<link rel="alternate" hreflang="pt" href="https://ping.1ms.dog/pt/">
+<link rel="alternate" hreflang="ru" href="https://ping.1ms.dog/ru/">
+<link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1ms.dog">
+<meta property="og:title" content="Test ping mondial : ping d’un domaine ou d’une IP depuis 18 emplacements">
+<meta property="og:description" content="16 paquets depuis 18 emplacements, chaque paquet visible">
+<meta property="og:url" content="https://ping.1ms.dog/fr/">
+<meta property="og:locale" content="fr_FR">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<meta property="og:image" content="https://ping.1ms.dog/og/fr.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Test ping mondial : ping d’un domaine ou d’une IP depuis 18 emplacements">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ping.1ms.dog/og/fr.png">
+<meta name="twitter:title" content="Test ping mondial : ping d’un domaine ou d’une IP depuis 18 emplacements">
+<meta name="twitter:description" content="16 paquets depuis 18 emplacements, chaque paquet visible">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Ping mondial · 1ms.dog","url":"https://ping.1ms.dog/fr/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Faites un ping vers un domaine ou une IP depuis 18 emplacements dans le monde. Voyez les 16 paquets ICMP de chaque emplacement, où la latence saute et quel paquet est perdu. Gratuit, sans compte. Une seconde vue depuis notre serveur de Tokyo.","inLanguage":"fr","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Que mesure cette page ?","acceptedAnswer":{"@type":"Answer","text":"18 emplacements dans le monde, opérés par le réseau de bénévoles de Globalping, envoient 16 requêtes ICMP echo (un `ping` classique) au domaine ou à l’IP saisi. Notre serveur de Tokyo envoie les mêmes 16 paquets : c’est la seconde vue, et le repli quand le quota gratuit de Globalping est épuisé. Par emplacement, vous voyez la latence médiane, la gigue (la variation des 16 paquets) et le nombre de paquets revenus."}},{"@type":"Question","name":"Comment lire les 16 paquets ?","acceptedAnswer":{"@type":"Answer","text":"Chaque barre verticale est une réponse ; sa hauteur est la latence de ce paquet, à l’échelle de l’emplacement (les emplacements rapides et stables paraissent plats, et c’est correct). Les cases vides sont des paquets sans réponse : on voit si la perte a eu lieu au début, au milieu ou à la fin. Le nombre à droite est la médiane des 16 paquets ; le ± est la gigue."}},{"@type":"Question","name":"Certains emplacements ne répondent pas. Le serveur est-il en panne ?","acceptedAnswer":{"@type":"Answer","text":"Pas forcément. Beaucoup d’hôtes et de pare-feu ne répondent pas à ICMP alors que le site fonctionne. La page écrit « sans réponse », pas « en panne ». Pour savoir si un port est joignable, utilisez le test de joignabilité : il se connecte comme le ferait un navigateur."}},{"@type":"Question","name":"Comment fonctionne le quota ?","acceptedAnswer":{"@type":"Answer","text":"Globalping accorde 250 tests de région par heure et par IP. Un emplacement qui envoie 16 paquets compte pour un test de région : un test ici en utilise donc 18. Quand c’est épuisé, la page indique quand cela revient, et la vue de Tokyo continue sans consommer de quota. Les personnes d’un même réseau partagent le quota."}},{"@type":"Question","name":"Pourquoi le résultat change-t-il à chaque fois ?","acceptedAnswer":{"@type":"Answer","text":"La latence varie d’une seconde à l’autre : congestion, Wi-Fi, routes du fournisseur, charge de la cible. C’est ce que mesure la gigue. Un test est une photo de l’instant, pas une garantie."}},{"@type":"Question","name":"Qu’est-ce que la ligne Tokyo ?","acceptedAnswer":{"@type":"Answer","text":"Notre propre serveur à Tokyo envoie les mêmes 16 paquets. C’est un point de référence fixe, il n’utilise pas le quota de Globalping, c’est la seule vue qui connaît toujours la position réelle des pertes, et le comparer à la sonde de Tokyo de Globalping montre si les deux réseaux voient le même chemin."}},{"@type":"Question","name":"Puis-je faire un ping depuis mon navigateur ?","acceptedAnswer":{"@type":"Answer","text":"Non : les navigateurs ne peuvent pas envoyer d’ICMP. Les mesures tournent sur les sondes de Globalping et sur notre serveur ; votre navigateur ne fait que les demander."}},{"@type":"Question","name":"Que devient l’adresse que je saisis ?","acceptedAnswer":{"@type":"Answer","text":"Elle part vers Globalping (pour le test mondial) et vers notre serveur de Tokyo. Nous ne collectons ni ne stockons les résultats, et le serveur de Tokyo ne tient aucun journal. Un lien de résultat contient l’adresse et le résultat pour que d’autres voient le même test ; il ne contient jamais votre IP."}},{"@type":"Question","name":"Pourquoi pas de port ni de taille de paquet ?","acceptedAnswer":{"@type":"Answer","text":"ICMP n’a pas de ports ; la joignabilité d’un port relève du test de joignabilité. La taille, l’intervalle et le nombre de paquets sont fixes pour que les résultats soient comparables entre emplacements et entre tests."}},{"@type":"Question","name":"Pourquoi le lien partagé affiche-t-il une autre date ?","acceptedAnswer":{"@type":"Answer","text":"Un lien partagé montre le résultat tel qu’il a été mesuré, avec sa date au-dessus. Appuyez sur « Tester le mien » pour refaire un test du même domaine."}}]}]}</script>
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/app.67dd2949cd.css">
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <a class="brand" href="/fr/"><span class="logo"><img class="logo-light" src="/assets/logo-light.svg" width="90" height="36" alt="1ms" loading="lazy"><img class="logo-dark" src="/assets/logo-dark.svg" width="90" height="36" alt="1ms" loading="lazy"></span><span class="brand-name">Ping mondial</span></a>
+    <div class="top-acts">
+      <label class="sel"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.7 2.7 3.8 2.7 6.2S9.8 12.5 8 14.2C6.2 12.5 5.3 10.4 5.3 8S6.2 3.5 8 1.8z"/></svg><span class="sr" data-i="lang_label">Langue</span>
+        <select id="lang"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="es">Español</option><option value="fr" selected>Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="ru">Русский</option></select></label>
+      <button class="icon-btn" id="helpBtn" type="button" aria-haspopup="dialog" aria-controls="help" aria-label="Aide">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M6.3 6.2a1.8 1.8 0 1 1 2.5 1.7c-.5.2-.8.6-.8 1.1v.4M8 11.3v.1"/></svg>
+      </button>
+      <a class="icon-btn gh" href="https://github.com/yt1988/global-ping" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .2a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.4.7 0-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.4 7.4 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0 0 8 .2z"/></svg></a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Thème">
+        <svg class="i-sys" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="8.5" rx="1.5"/><path d="M6 14h4M8 11.5V14"/></svg>
+        <svg class="i-light" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/></svg>
+        <svg class="i-dark" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 1. what to ping, and the allowance; the answer goes right under it -->
+  <div class="card main">
+    <header class="hero">
+      <h1>Ping depuis 18 emplacements</h1>
+      <p class="intro" data-i="intro">Saisissez un domaine ou une IP : 18 emplacements dans le monde et notre serveur de Tokyo envoient chacun 16 paquets ICMP. Chaque paquet est visible, et vous voyez combien de tests il reste.</p>
+      <form id="f" class="form" autocomplete="off">
+        <div class="row">
+          <label class="fld grow"><span data-i="f_target">Domaine ou IP</span>
+            <input id="target" name="t" type="search" placeholder="example.com" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
+          </label>
+          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv">Version d’IP</span>
+            <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
+          </label>
+          <button id="go" class="btn" type="submit" data-i="go">Tester</button>
+        </div>
+        <div class="sub"><span id="targetNote" class="m warn" hidden>&nbsp;</span><span id="quota" class="quota m"></span></div>
+      </form>
+    </header>
+
+    <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
+    <section class="verdict" id="verdict" hidden>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">Partager</button></div>
+      <p class="v-sub m" id="vSub">&nbsp;</p>
+      <div class="facts" id="kpis">
+        <div class="fact"><span data-i="k_median">Latence médiane</span><b id="kMedian">—</b></div>
+        <div class="fact"><span data-i="k_max_jitter">Gigue maximale</span><b id="kJitter">—</b><i id="kJitterWho"></i></div>
+        <div class="fact"><span data-i="k_loss">Perte de paquets</span><b id="kLoss">—</b></div>
+      </div>
+      <ul class="findings" id="findings"></ul>
+      <div class="v-fallback" id="tokyoFallback" hidden><button class="btn ghost" id="tokyoBtn" type="button" data-i="t_tokyo_only">Tokyo seulement</button></div>
+    </section>
+  </div>
+
+  <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
+  <section class="card sec" id="table" hidden>
+    <div class="sec-h"><h3 data-i="h_regions">Emplacements</h3><span class="m prog" id="gpProgress"></span>
+      <label class="sel sm"><span class="sr" data-i="sort_label">Trier</span><select id="sort">
+        <option value="median" data-i="sort_median">Latence</option>
+        <option value="jitter" data-i="sort_jitter">Gigue</option>
+        <option value="loss" data-i="sort_loss">Perte</option>
+      </select></label>
+    </div>
+    <div class="legend m">
+      <span><i class="seg s-bar"></i><span data-i="lg_replied">Réponse</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">Sans réponse</span></span>
+      <span><span data-i="lg_median">Médiane</span></span><span><span data-i="lg_jitter">Gigue</span></span><span><span data-i="lg_loss">Perte</span></span>
+    </div>
+    <div class="chips" id="filters" role="group"></div>
+    <div id="tokyoRow" class="rows"></div>
+    <div id="regions" class="rows"></div>
+    <p class="note m" id="gpNote" hidden></p>
+  </section>
+  <footer class="foot m"><p>Source : sondes de <a href="https://globalping.io" target="_blank" rel="noopener">Globalping</a> et notre propre serveur à Tokyo.</p><a href="https://github.com/yt1988/global-ping" target="_blank" rel="noopener noreferrer">GitHub</a></footer>
+</div>
+<div class="scrim" id="help" hidden>
+  <div class="dialog help" role="dialog" aria-modal="true" aria-labelledby="helpT">
+    <div class="dlg-h"><h2 id="helpT" data-i="faq_h">Aide</h2>
+      <button class="icon-btn" data-close type="button" aria-label="Fermer"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="help-b">
+      <nav class="help-nav" id="helpNav" role="tablist"><button type="button" role="tab" data-hq="0" aria-selected="true">Que mesure cette page ?</button><button type="button" role="tab" data-hq="1" aria-selected="false">Comment lire les 16 paquets ?</button><button type="button" role="tab" data-hq="2" aria-selected="false">Certains emplacements ne répondent pas. Le serveur est-il en panne ?</button><button type="button" role="tab" data-hq="3" aria-selected="false">Comment fonctionne le quota ?</button><button type="button" role="tab" data-hq="4" aria-selected="false">Pourquoi le résultat change-t-il à chaque fois ?</button><button type="button" role="tab" data-hq="5" aria-selected="false">Qu’est-ce que la ligne Tokyo ?</button><button type="button" role="tab" data-hq="6" aria-selected="false">Puis-je faire un ping depuis mon navigateur ?</button><button type="button" role="tab" data-hq="7" aria-selected="false">Que devient l’adresse que je saisis ?</button><button type="button" role="tab" data-hq="8" aria-selected="false">Pourquoi pas de port ni de taille de paquet ?</button><button type="button" role="tab" data-hq="9" aria-selected="false">Pourquoi le lien partagé affiche-t-il une autre date ?</button></nav>
+      <div class="help-pick">
+        <button class="icon-btn" type="button" data-hstep="-1" aria-label="Précédent"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8l4 4"/></svg></button>
+        <select id="helpSel" aria-labelledby="helpT"></select>
+        <button class="icon-btn" type="button" data-hstep="1" aria-label="Suivant"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 4l4 4-4 4"/></svg></button>
+      </div>
+      <div class="help-c" id="helpC"><article data-hqb="0"><h3>Que mesure cette page ?</h3><p>18 emplacements dans le monde, opérés par le réseau de bénévoles de Globalping, envoient 16 requêtes ICMP echo (un `ping` classique) au domaine ou à l’IP saisi. Notre serveur de Tokyo envoie les mêmes 16 paquets : c’est la seconde vue, et le repli quand le quota gratuit de Globalping est épuisé.</p><p>Par emplacement, vous voyez la latence médiane, la gigue (la variation des 16 paquets) et le nombre de paquets revenus.</p></article><article data-hqb="1" hidden><h3>Comment lire les 16 paquets ?</h3><p>Chaque barre verticale est une réponse ; sa hauteur est la latence de ce paquet, à l’échelle de l’emplacement (les emplacements rapides et stables paraissent plats, et c’est correct). Les cases vides sont des paquets sans réponse : on voit si la perte a eu lieu au début, au milieu ou à la fin.</p><p>Le nombre à droite est la médiane des 16 paquets ; le ± est la gigue.</p></article><article data-hqb="2" hidden><h3>Certains emplacements ne répondent pas. Le serveur est-il en panne ?</h3><p>Pas forcément. Beaucoup d’hôtes et de pare-feu ne répondent pas à ICMP alors que le site fonctionne. La page écrit « sans réponse », pas « en panne ». Pour savoir si un port est joignable, utilisez le test de joignabilité : il se connecte comme le ferait un navigateur.</p></article><article data-hqb="3" hidden><h3>Comment fonctionne le quota ?</h3><p>Globalping accorde 250 tests de région par heure et par IP. Un emplacement qui envoie 16 paquets compte pour un test de région : un test ici en utilise donc 18. Quand c’est épuisé, la page indique quand cela revient, et la vue de Tokyo continue sans consommer de quota.</p><p>Les personnes d’un même réseau partagent le quota.</p></article><article data-hqb="4" hidden><h3>Pourquoi le résultat change-t-il à chaque fois ?</h3><p>La latence varie d’une seconde à l’autre : congestion, Wi-Fi, routes du fournisseur, charge de la cible. C’est ce que mesure la gigue. Un test est une photo de l’instant, pas une garantie.</p></article><article data-hqb="5" hidden><h3>Qu’est-ce que la ligne Tokyo ?</h3><p>Notre propre serveur à Tokyo envoie les mêmes 16 paquets. C’est un point de référence fixe, il n’utilise pas le quota de Globalping, c’est la seule vue qui connaît toujours la position réelle des pertes, et le comparer à la sonde de Tokyo de Globalping montre si les deux réseaux voient le même chemin.</p></article><article data-hqb="6" hidden><h3>Puis-je faire un ping depuis mon navigateur ?</h3><p>Non : les navigateurs ne peuvent pas envoyer d’ICMP. Les mesures tournent sur les sondes de Globalping et sur notre serveur ; votre navigateur ne fait que les demander.</p></article><article data-hqb="7" hidden><h3>Que devient l’adresse que je saisis ?</h3><p>Elle part vers Globalping (pour le test mondial) et vers notre serveur de Tokyo. Nous ne collectons ni ne stockons les résultats, et le serveur de Tokyo ne tient aucun journal. Un lien de résultat contient l’adresse et le résultat pour que d’autres voient le même test ; il ne contient jamais votre IP.</p></article><article data-hqb="8" hidden><h3>Pourquoi pas de port ni de taille de paquet ?</h3><p>ICMP n’a pas de ports ; la joignabilité d’un port relève du test de joignabilité. La taille, l’intervalle et le nombre de paquets sont fixes pour que les résultats soient comparables entre emplacements et entre tests.</p></article><article data-hqb="9" hidden><h3>Pourquoi le lien partagé affiche-t-il une autre date ?</h3><p>Un lien partagé montre le résultat tel qu’il a été mesuré, avec sa date au-dessus. Appuyez sur « Tester le mien » pour refaire un test du même domaine.</p></article></div>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="data">{"lang":"fr","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/","ja":"/ja/","ko":"/ko/","es":"/es/","fr":"/fr/","de":"/de/","pt":"/pt/","ru":"/ru/"}}</script>
+<script src="/assets/l.fr.98d65f8b73.js"></script>
+<script src="/assets/app.11084967b7.js"></script>
+</body>
+</html>

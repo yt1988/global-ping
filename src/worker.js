@@ -8,9 +8,16 @@ import { decodeResult, sharePath } from "./code.mjs";
 import en from "./i18n/en.mjs";
 import zhCN from "./i18n/zh-CN.mjs";
 import zhTW from "./i18n/zh-TW.mjs";
+import ja from "./i18n/ja.mjs";
+import ko from "./i18n/ko.mjs";
+import es from "./i18n/es.mjs";
+import fr from "./i18n/fr.mjs";
+import de from "./i18n/de.mjs";
+import pt from "./i18n/pt.mjs";
+import ru from "./i18n/ru.mjs";
 
 // each language's strings by its folder ("" is English, at the root)
-const STR = { "": en, "zh-cn": zhCN, "zh-tw": zhTW };
+export const STR = { "": en, "zh-cn": zhCN, "zh-tw": zhTW, ja, ko, es, fr, de, pt, ru };
 // the verdicts a link may name: their titles take numbers only, so the Worker can fill them ("tokyo" is the
 // Tokyo-only fallback view: v_tokyo)
 const KEYS = new Set(["ok", "loss", "some", "none", "dns", "priv", "partial", "err", "probe", "tokyo"]);

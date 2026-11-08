@@ -9,7 +9,7 @@
 > The page shows how many of Globalping's 250 hourly region checks (per IP) are left; one test uses 18. Nothing is
 > stored, the Tokyo server keeps no log, and private addresses are never probed.
 
-- Page: https://ping.1ms.dog/ (also /zh-cn/, /zh-tw/)
+- Page: https://ping.1ms.dog/ (also /zh-cn/, /zh-tw/, /ja/, /ko/, /es/, /fr/, /de/, /pt/, /ru/)
 - Test a target directly (prefills, does not start a test): https://ping.1ms.dog/?t=<domain or IP>
 - Source code: https://github.com/yt1988/global-ping
 - Uses the Globalping API: https://globalping.io/docs/api.globalping.io

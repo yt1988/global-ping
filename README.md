@@ -36,8 +36,10 @@ serves `public/` as static files and only runs for `/r/<code>` (a shared result'
 
 ## The server
 
-`server/` (Go) is the Tokyo view: `1ms-ping`, one program on one machine, developed next. The page's measurements work
-without it (the Tokyo row says it is unavailable); see [AGENTS.md](AGENTS.md) once it lands.
+`server/` (Go) is the Tokyo view: `1ms-ping`, one program on one machine. It sends the same 16 packets, needs only
+`CAP_NET_RAW`, uses none of Globalping's allowance, keeps no log and never probes private addresses. The page asks it at
+`TOKYO_API` in `src/config.mjs`; without it (or with that set to `""`) the Tokyo row is simply not shown and the
+worldwide view keeps working. Building, deploying and verifying it: [server/README.md](server/README.md).
 
 ## Data and privacy
 

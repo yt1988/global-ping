@@ -468,10 +468,13 @@
     };
   };
 
+  // src/config.mjs
+  var TOKYO_API = "https://ping-api.1ms.dog:2097/v1/ping";
+
   // src/app.js
   (() => {
     const GP = "https://api.globalping.io/v1";
-    const API = "https://ping-api.1ms.dog:2097/v1/ping";
+    const WITH_TOKYO = !!TOKYO_API;
     const L = window.L1MS || {}, D = JSON.parse(document.getElementById("data").textContent);
     const $ = (id) => document.getElementById(id);
     const esc = (s) => String(s != null ? s : "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -691,7 +694,7 @@
       setGo(true);
       drawVerdict(state);
       runGlobalping(state);
-      runTokyo(state);
+      if (WITH_TOKYO) runTokyo(state);
     }
     async function runGlobalping(s) {
       var _a;
@@ -763,12 +766,16 @@
       settle2(s);
     }
     async function runTokyo(s) {
+      if (!WITH_TOKYO) {
+        renderTokyo(s);
+        return;
+      }
       const q = new URLSearchParams({ host: s.tg.host });
       if (s.tg.isIp) q.set("v", String(s.tg.family));
       else if (s.ipv) q.set("v", s.ipv);
       const c = new AbortController(), timer = setTimeout(() => c.abort(), 15e3);
       try {
-        const r = await fetch(`${API}?${q}`, { signal: c.signal, credentials: "omit", cache: "no-store" });
+        const r = await fetch(`${TOKYO_API}?${q}`, { signal: c.signal, credentials: "omit", cache: "no-store" });
         const j = await r.json();
         if (j && j.ok === false) {
           s.tokyoError = j.k || "down";
@@ -797,7 +804,7 @@
       sortRows(s);
       $("gpProgress").textContent = t("prog", { done: s.rows.filter((r) => r && r.state !== "pending").length, of: REGIONS.length });
       $("shareBtn").hidden = !canShare(s);
-      $("tokyoFallback").hidden = !(s.verdict.k === "err" || s.verdict.k === "partial" || quotaLeft != null && quotaLeft < COST);
+      $("tokyoFallback").hidden = !WITH_TOKYO || !(s.verdict.k === "err" || s.verdict.k === "partial" || quotaLeft != null && quotaLeft < COST);
       setGo(false);
       $("go").textContent = t("go_again");
     }
@@ -805,7 +812,8 @@
       rowEls = /* @__PURE__ */ new Map();
       detailEls = /* @__PURE__ */ new Map();
       for (const host of [$("tokyoRow"), $("regions")]) host.innerHTML = "";
-      const entries = [{ region: TOKYO_REGION, own: true }, ...REGIONS.map((region) => ({ region }))];
+      const showTokyo = WITH_TOKYO || !!(s && s.tokyo);
+      const entries = showTokyo ? [{ region: TOKYO_REGION, own: true }, ...REGIONS.map((region) => ({ region }))] : REGIONS.map((region) => ({ region }));
       const chips = [{ g: "all", label: t("flt_all") }, { g: "cn", label: t("g_cn") }, { g: "apac", label: t("g_apac") }, { g: "emea", label: t("g_emea") }, { g: "am", label: t("g_am") }];
       $("filters").innerHTML = chips.map((c) => `<button type="button" class="chip" data-g="${c.g}" aria-pressed="${c.g === filterGroup ? "true" : "false"}">${esc(c.label)}</button>`).join("");
       for (const e of entries) {
@@ -1306,6 +1314,7 @@
       }
     }
     $("tokyoBtn").addEventListener("click", async () => {
+      if (!WITH_TOKYO) return;
       const raw = $("target").value.trim(), tg = normalizeTarget(raw);
       if (tg.error) return;
       const id = ++run;
