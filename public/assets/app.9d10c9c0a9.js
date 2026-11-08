@@ -241,7 +241,7 @@
       const slow = replied.slice().sort((a, b) => b.median - a.median)[0];
       const fast = replied.slice().sort((a, b) => a.median - b.median)[0];
       if (gm && slow.median >= 2 * gm && slow.median >= 100) {
-        out.push({ k: "fd_slow", region: slow.region, ms: slow.median, fast: fast.region, fms: fast.median });
+        out.push({ k: "fd_slow", region: slow.region, ms: slow.median, fast: fast.region, fms: slow.median - fast.median });
       }
       const js = replied.filter((r) => Number.isFinite(r.jitter));
       if (js.length >= 2) {
@@ -533,7 +533,7 @@
     };
     const asnLink = (ip) => {
       const u = tool("asn");
-      return u ? `<a class="dv" href="${esc(u)}ip/${esc(ip)}" target="_blank" rel="noopener" style="text-decoration:underline dotted;color:inherit" title="${esc(t("lk_asn"))}">${esc(ip)}</a>` : esc(ip);
+      return u ? `<a class="dv" href="${esc(u)}ip/${esc(ip)}" target="_blank" rel="noopener" title="${esc(t("lk_asn"))}">${esc(ip)}</a>` : esc(ip);
     };
     const all = (s) => [...document.querySelectorAll(s)];
     const openDlg = (id) => {
@@ -582,8 +582,9 @@
     all("[data-hstep]").forEach((b) => {
       b.onclick = () => showHelp(helpIdx + +b.dataset.hstep);
     });
+    const ours = (region) => region.key === TOKYO_REGION.key;
     const nameOf = (region) => {
-      if (region.own) return t("t_label");
+      if (ours(region)) return t("t_label");
       if (region.carrier) return t("c_" + region.carrier);
       if (region.city) return `${countryName(region.cc, D.lang)} \xB7 ${t("city_" + region.city)}`;
       return countryName(region.cc, D.lang);
@@ -642,7 +643,7 @@
     }
     $("target").addEventListener("input", () => {
       const tg = normalizeTarget($("target").value);
-      $("ipvWrap").hidden = !!tg.isIp || !!tg.error;
+      $("ipvWrap").hidden = !!tg.isIp;
       note("");
     });
     function start() {
@@ -685,6 +686,8 @@
       $("filters").hidden = false;
       $("sort").closest(".sel").hidden = false;
       $("kpis").hidden = false;
+      noteShow("");
+      tokyoNoteShow("");
       if (quotaLeft != null) {
         quotaLeft = Math.max(0, quotaLeft - COST);
         showQuota();
@@ -843,7 +846,7 @@
       el.dataset.key = region.key;
       const nm = nameOf(region);
       el.innerHTML = `<span class="rname"><i class="st"></i><span class="nm">${esc(nm)}</span></span>
-    <span class="bars" aria-hidden="true">${Array.from({ length: PACKETS }, () => '<i class="bar na"></i>').join("")}</span>
+    <span class="bars" aria-hidden="true"></span>
     <span class="med">\u2014</span><span class="meta"></span>
     <span class="detail" hidden></span>`;
       el.dataset.name = nm;
@@ -852,6 +855,8 @@
         if (!state) return;
         if (!d.dataset.built) {
           d.innerHTML = detailHtml(region);
+          const box = d.querySelector(".d-bars");
+          if (box) barsInto(box, rowFor(region));
           d.dataset.built = "1";
         }
         d.hidden = !open;
@@ -879,38 +884,46 @@
       });
       return el;
     }
-    function barRow(row, big = false) {
-      if (!row) return "";
-      const vals = row.rtts.filter(Number.isFinite);
-      const scale = Math.max(...vals, (row.median || 0) * 1.5, 1);
-      return row.rtts.map((v, i) => {
-        if (!Number.isFinite(v)) return `<i class="bar miss" data-i="${i}"></i>`;
-        const h = Math.max(0.06, Math.min(1, v / scale));
-        return `<i class="bar" data-i="${i}" style="--h:${h.toFixed(3)}"></i>`;
-      }).join("");
+    function barsInto(box, row) {
+      box.textContent = "";
+      const vals = row ? row.rtts.filter(Number.isFinite) : [];
+      const top = vals.length ? Math.max.apply(null, vals) : 0;
+      const scale = row ? Math.max(top, (row.median || 0) * 1.5, 1) : 1;
+      for (let i = 0; i < PACKETS; i++) {
+        const b = document.createElement("i");
+        const v = row ? row.rtts[i] : null;
+        b.className = "bar " + (!row ? "na" : Number.isFinite(v) ? "ok" : "miss");
+        b.dataset.i = String(i);
+        if (row && Number.isFinite(v)) b.style.setProperty("--h", Math.max(0.06, Math.min(1, v / scale)).toFixed(3));
+        box.appendChild(b);
+      }
+    }
+    function rowFor(region) {
+      const s = state;
+      if (!s) return null;
+      return ours(region) ? s.tokyo : s.rows[REGIONS.findIndex((r) => r.key === region.key)];
     }
     function fillRow(s, region, row) {
       const el = rowEls.get(region.key);
       if (!el) return;
-      el.querySelectorAll(".bars .bar").forEach((b) => {
-        b.className = "bar na";
-        b.removeAttribute("style");
-        b.removeAttribute("title");
-      });
+      const bars = el.querySelector(".bars");
       const st = el.querySelector(".st"), med = el.querySelector(".med"), meta = el.querySelector(".meta");
       if (!row || row.state === "pending") {
+        barsInto(bars, null);
         st.className = "st";
         med.textContent = "\u2014";
-        meta.textContent = region.own ? t("t_wait") : t("r_pending");
+        meta.textContent = ours(region) ? t("t_wait") : t("r_pending");
         return;
       }
       if (row.state === "noprobe") {
+        barsInto(bars, null);
         st.className = "st";
         med.textContent = "\u2014";
         meta.textContent = t("r_noprobe");
         return;
       }
       if (row.state === "failed" || row.state === "priv") {
+        barsInto(bars, null);
         st.className = "st";
         med.textContent = "\u2014";
         meta.textContent = row.reason === "priv" ? t("t_private") : t("r_failed");
@@ -918,7 +931,7 @@
         return;
       }
       st.className = "st " + (row.state === "ok" ? "ok" : row.state === "loss" ? "warn" : "bad");
-      el.querySelector(".bars").innerHTML = barRow(row);
+      barsInto(bars, row);
       const ms = fmtMs(row.median, D.lang), j = Number.isFinite(row.jitter) ? "\xB1" + fmtMs(row.jitter, D.lang) : "";
       med.innerHTML = `${ms} <small>ms</small>`;
       meta.innerHTML = `${j ? esc(j) + " \xB7 " : ""}${row.rcv}/${PACKETS}${row.posUnknown && row.rcv < PACKETS ? " ?" : ""}`;
@@ -936,12 +949,28 @@
     function renderTokyo(s) {
       const el = rowEls.get(TOKYO_REGION.key);
       if (!el) return;
-      if (s.tokyo) fillRow(s, TOKYO_REGION, s.tokyo);
-      else {
-        const meta = el.querySelector(".meta");
-        meta.textContent = s.tokyoError === "limit" ? t("t_limit", { s: s.tokyoRetry || 60 }) : s.tokyoError === "busy" ? t("t_busy", { s: s.tokyoRetry || 5 }) : t("t_down");
+      if (s.tokyo) {
+        fillRow(s, TOKYO_REGION, s.tokyo);
+        tokyoNoteShow("");
+      } else {
+        el.querySelector(".bars").textContent = "";
+        el.querySelector(".st").className = "st";
+        el.querySelector(".med").textContent = "\u2014";
+        el.querySelector(".meta").textContent = "";
+        const key = s.tokyoError === "limit" ? "t_limit" : s.tokyoError === "busy" ? "t_busy" : s.tokyoError === "private" ? "t_private" : "t_down";
+        tokyoNoteShow(t(key, { s: s.tokyoRetry || (key === "t_busy" ? 5 : 60) }));
       }
       applyFilter();
+    }
+    function noteShow(text2) {
+      const el = $("gpNote");
+      el.textContent = text2 || "";
+      el.hidden = !text2;
+    }
+    function tokyoNoteShow(text2) {
+      const el = $("tokyoNote");
+      el.textContent = text2 || "";
+      el.hidden = !text2;
     }
     function applyFilter() {
       for (const r of REGIONS) {
@@ -1009,14 +1038,14 @@
         return `<tr><td>${i + 1}</td><td>${Number.isFinite(v) ? fmtMs(v, D.lang) : "\u2014"}</td><td>${(_a = row.ttls[i]) != null ? _a : "\u2014"}</td><td class="${Number.isFinite(v) ? "" : "miss"}">${esc(Number.isFinite(v) ? t("d_reply") : t("d_no_reply"))}</td></tr>`;
       }).join("");
       const probe = row.probe && (row.probe.network || row.probe.city || row.probe.asn) ? `<p class="d-line">${esc(t("d_probe"))}: ${esc([row.probe.city, row.probe.network, row.probe.asn ? "AS" + row.probe.asn : ""].filter(Boolean).join(" \xB7 "))}</p>` : "";
-      const resolved = row.resolved ? `<p class="d-line">${esc(t("d_resolved"))}: ${region.own || row.probe ? asnLink(row.resolved) : esc(row.resolved)}</p>` : "";
+      const resolved = row.resolved ? `<p class="d-line">${esc(t("d_resolved"))}: ${ours(region) || row.probe ? asnLink(row.resolved) : esc(row.resolved)}</p>` : "";
       const lostAll = row.rcv === 0 ? `<p class="d-line warn">${esc(t("d_all_lost"))}</p>` : "";
       const posUnknown = row.posUnknown && row.rcv < PACKETS ? `<p class="d-line">${esc(t("d_pos_unknown"))}</p>` : "";
       const links = [
         `<a href="${esc(tool("trace"))}?t=${encodeURIComponent(target)}" target="_blank" rel="noopener">${esc(t("lk_trace"))}${EXT}</a>`,
         `<a href="${esc(tool("reach"))}?t=${encodeURIComponent(target)}" target="_blank" rel="noopener">${esc(t("lk_reach"))}${EXT}</a>`
       ].join("");
-      return `<div class="d-bars" aria-hidden="true">${barRow(row, true)}</div>
+      return `<div class="d-bars" aria-hidden="true"></div>
     <table class="d-tab"><thead><tr><th>${esc(t("d_packet"))}</th><th>${esc(t("d_rtt"))}</th><th>${esc(t("d_ttl"))}</th><th></th></tr></thead><tbody>${rows}</tbody></table>
     ${probe}${resolved}${lostAll}${posUnknown}<p class="d-links">${links}</p>`;
     }
@@ -1125,7 +1154,7 @@
       if (!s) return;
       const link = await resultLink(s);
       const { share } = await import("/assets/share/share.js?v=9");
-      const v = { title: t(s.verdict.k, { a: s.verdict.a, b: s.verdict.b }), k: s.verdict.k };
+      const v = { title: t(s.verdict.k === "tokyo" ? "v_tokyo" : "v_" + s.verdict.k, { a: s.verdict.a, b: s.verdict.b }), k: s.verdict.k };
       const rows = s.rows.filter((r) => r && r.rcv > 0);
       share({
         lang: D.lang,
@@ -1268,7 +1297,7 @@
         const { rows, tokyo } = decodeRows(o);
         state = {
           id: ++run,
-          tg: { host: o.t, family: o.f || 4, isIp: false },
+          tg: { host: o.t, family: o.f || 4, isIp: familyOf(o.t) != null },
           ts: o.ts || Date.now(),
           rows: REGIONS.map((r) => rows.find((x) => x.region.key === r.key) || { region: r, state: "noprobe" }),
           tokyo,

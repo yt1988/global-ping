@@ -95,6 +95,10 @@ test("findings: none, loss, China spread, jitter, stable", () => {
   assert.ok(cn.some(f => f.k === "fd_cn"));
   const stable = findings(rowsOf(() => rowOf(0, "ok", { jitter: 0.5 })), null);
   assert.deepEqual(stable.map(f => f.k), ["fd_stable"]);
+  const slow = findings(rowsOf(i => rowOf(i, "ok", { median: i === 17 ? 300 : 50 })), null);
+  const fd = slow.find(f => f.k === "fd_slow");
+  assert.ok(fd, "slow region should be a finding");
+  assert.equal(fd.fms, 250, "the sentence's number is the difference, not the fastest value");
 });
 
 test("the target input: URLs, ports and private addresses", () => {

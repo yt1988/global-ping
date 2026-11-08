@@ -41,7 +41,7 @@
 <meta name="twitter:description" content="16 packets from 18 locations, every packet visible">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Global Ping · 1ms.dog","url":"https://ping.1ms.dog/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Ping any domain or IP from 18 locations worldwide. See all 16 ICMP packets of every location, where the latency jumps and which packet went missing. Free, no account. A second view from our own Tokyo server.","inLanguage":"en","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does this page measure?","acceptedAnswer":{"@type":"Answer","text":"18 locations worldwide, run by Globalping's volunteer network, each send 16 ICMP echo requests (a normal `ping`) to the domain or IP you enter. Our own server in Tokyo sends the same 16 packets, as a second view and as a fallback when Globalping's free allowance is used up. Per location you see the median latency, the jitter (how much the 16 packets vary) and how many packets came back."}},{"@type":"Question","name":"How do I read the 16 packets?","acceptedAnswer":{"@type":"Answer","text":"Each vertical bar is one reply; its height is that packet's latency, scaled to the location (fast, steady locations look flat, which is correct). Empty slots are packets with no reply, so you can see whether the loss was at the start, in the middle or at the end. The number on the right is the 16 packets' median; the ± is the jitter."}},{"@type":"Question","name":"Some locations got no reply. Is the server down?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Many hosts and firewalls do not answer ICMP while the website itself works. The page says \"no reply\", not \"down\". If you need to know whether a port is reachable, run the reachability check instead: it connects the way a browser would."}},{"@type":"Question","name":"How does the allowance work?","acceptedAnswer":{"@type":"Answer","text":"Globalping gives each IP 250 region checks an hour. One location sending 16 packets is one region check, so one test here uses 18. When it runs out, the page says when it comes back, and the Tokyo view keeps working without using the allowance. People on the same network share the same allowance."}},{"@type":"Question","name":"Why is the result different every time?","acceptedAnswer":{"@type":"Answer","text":"Latency varies from second to second: congestion, Wi-Fi, your provider's routes and the target's load all change. That is what jitter measures. One test is a snapshot, not a guarantee."}},{"@type":"Question","name":"What is the Tokyo row?","acceptedAnswer":{"@type":"Answer","text":"Our own server in Tokyo sends the same 16 packets. It is a fixed reference point, it does not use Globalping's allowance, it is the only view that knows the real loss positions, and comparing it with Globalping's Tokyo probe shows whether the two networks see the same path."}},{"@type":"Question","name":"Can I ping from my own browser?","acceptedAnswer":{"@type":"Answer","text":"No: browsers cannot send ICMP. The measurements run on Globalping's probes and on our server; your browser only asks for them."}},{"@type":"Question","name":"What happens to the address I enter?","acceptedAnswer":{"@type":"Answer","text":"It goes to Globalping (to run the worldwide check) and to our server in Tokyo. We do not collect or store results, and our server keeps no log. A shared result link contains the address and the result, so others see the same test; it never contains your own IP."}},{"@type":"Question","name":"Why is there no port or packet size?","acceptedAnswer":{"@type":"Answer","text":"ICMP has no ports; reachability of a port is the reachability check's job. Packet size, interval and count are fixed so results are comparable between locations and between tests."}},{"@type":"Question","name":"Why does the shared link show a different time?","acceptedAnswer":{"@type":"Answer","text":"A shared link shows the result as it was measured, with its date above it. Press \"Test mine\" to run a fresh test of the same target yourself."}}]}]}</script>
 <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/app.67dd2949cd.css">
+<link rel="stylesheet" href="/assets/app.7a8e52758a.css">
 </head>
 <body>
 <div class="app">
@@ -72,7 +72,7 @@
           <label class="fld grow"><span data-i="f_target">Domain or IP</span>
             <input id="target" name="t" type="search" placeholder="example.com" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
           </label>
-          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv">IP version</span>
+          <label class="fld ipv" id="ipvWrap"><span data-i="f_ipv">IP version</span>
             <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
           </label>
           <button id="go" class="btn" type="submit" data-i="go">Test</button>
@@ -83,7 +83,7 @@
 
     <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
     <section class="verdict" id="verdict" hidden>
-      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">Share</button></div>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle" aria-live="polite">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">Share</button></div>
       <p class="v-sub m" id="vSub">&nbsp;</p>
       <div class="facts" id="kpis">
         <div class="fact"><span data-i="k_median">Median latency</span><b id="kMedian">—</b></div>
@@ -97,7 +97,7 @@
 
   <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
   <section class="card sec" id="table" hidden>
-    <div class="sec-h"><h3 data-i="h_regions">Regions</h3><span class="m prog" id="gpProgress"></span>
+    <div class="sec-h"><h3 data-i="h_regions">Regions</h3><span class="m prog" id="gpProgress" aria-live="polite"></span>
       <label class="sel sm"><span class="sr" data-i="sort_label">Sort</span><select id="sort">
         <option value="median" data-i="sort_median">Latency</option>
         <option value="jitter" data-i="sort_jitter">Jitter</option>
@@ -106,10 +106,10 @@
     </div>
     <div class="legend m">
       <span><i class="seg s-bar"></i><span data-i="lg_replied">Replied</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">No reply</span></span>
-      <span><span data-i="lg_median">Median</span></span><span><span data-i="lg_jitter">Jitter</span></span><span><span data-i="lg_loss">Loss</span></span>
     </div>
     <div class="chips" id="filters" role="group"></div>
     <div id="tokyoRow" class="rows"></div>
+    <p class="note m" id="tokyoNote" hidden></p>
     <div id="regions" class="rows"></div>
     <p class="note m" id="gpNote" hidden></p>
   </section>
@@ -132,6 +132,6 @@
 </div>
 <script type="application/json" id="data">{"lang":"en","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/","ja":"/ja/","ko":"/ko/","es":"/es/","fr":"/fr/","de":"/de/","pt":"/pt/","ru":"/ru/"}}</script>
 <script src="/assets/l.en.a8e619d17a.js"></script>
-<script src="/assets/app.11084967b7.js"></script>
+<script src="/assets/app.9d10c9c0a9.js"></script>
 </body>
 </html>

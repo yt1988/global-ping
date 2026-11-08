@@ -41,7 +41,7 @@
 <meta name="twitter:description" content="18 か所から 16 パケットずつ、すべてのパケットが見える">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"グローバル Ping · 1ms.dog","url":"https://ping.1ms.dog/ja/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"世界中の 18 か所から、指定したドメインや IP に ICMP パケットを送ります。各観測地点で 16 パケット、1 パケットごとの遅延の変化・ジッター・パケットロスの位置まで見えます。当サイトの東京サーバーからの結果も並べます。無料、ログイン不要。","inLanguage":"ja","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"このページは何を測りますか？","acceptedAnswer":{"@type":"Answer","text":"世界 18 か所から、入力したドメインか IP に 16 個の ICMP エコー要求（通常の `ping`）を送ります。実行するのは Globalping のボランティア観測地点です。当サイトの東京サーバーも同じ 16 パケットを送り、2 つ目の見方と利用枠が尽きたときの代替になります。 観測地点ごとに中央値・ジッター（16 パケットのばらつき）・応答数が見えます。"}},{"@type":"Question","name":"16 パケットはどう読めばいいですか？","acceptedAnswer":{"@type":"Answer","text":"縦棒 1 本が応答 1 つで、高さはそのパケットの遅延です（観測地点ごとの目盛りなので、速くて安定した地点が平らに見えるのは正しい表示です）。空のスロットは応答がなかったパケットで、ロスが最初・途中・最後のどこで起きたか分かります。 右の数字は 16 パケットの中央値、± はジッターです。"}},{"@type":"Question","name":"応答がない地域があるのはサーバーが落ちているからですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ、とは限りません。多くのホストやファイアウォールは ICMP に応答しませんが、サイト自体は正常です。そのため「応答なし」と書き、「落ちている」とは書きません。ポートへの到達性は到達性チェックで確認してください。"}},{"@type":"Question","name":"利用枠はどう計算されますか？","acceptedAnswer":{"@type":"Answer","text":"Globalping は IP ごとに 1 時間 250 地域分を提供します。1 つの観測地点が 16 パケットを送っても 1 地域分なので、ここでの 1 回のテストは 18 地域分です。使い切ると復活までの時間が表示され、東京の表示は利用枠を使わずに動き続けます。 同じネットワークの人は同じ枠を共有します。"}},{"@type":"Question","name":"なぜ毎回結果が違うのですか？","acceptedAnswer":{"@type":"Answer","text":"遅延は秒単位で変わります。混雑、Wi-Fi、プロバイダーの経路、対象の負荷などが影響し、それがジッターです。1 回のテストはその瞬間のスナップショットで、保証ではありません。"}},{"@type":"Question","name":"東京の行は何ですか？","acceptedAnswer":{"@type":"Answer","text":"当サイトの東京サーバーが同じ 16 パケットを送った結果です。固定の基準点で、Globalping の利用枠を使わず、実際のロス位置が常に分かる唯一の見方です。Globalping の東京観測地点と比べると、2 つの経路が同じかどうかも分かります。"}},{"@type":"Question","name":"自分のブラウザーから ping できますか？","acceptedAnswer":{"@type":"Answer","text":"できません。ブラウザーは ICMP を送れません。計測は Globalping の観測地点と当サイトのサーバーで実行され、ブラウザーは結果を表示するだけです。"}},{"@type":"Question","name":"入力したアドレスはどう扱われますか？","acceptedAnswer":{"@type":"Answer","text":"アドレスは Globalping（世界のチェック）と当サイトの東京サーバーに送られます。結果の収集・保存はせず、東京サーバーもログを取りません。共有リンクにはアドレスと結果だけが入り、あなた自身の IP は決して含まれません。"}},{"@type":"Question","name":"ポートやパケットサイズは指定できますか？","acceptedAnswer":{"@type":"Answer","text":"ICMP にポートはありません。ポートの到達性は到達性チェックの役目です。パケットサイズ・間隔・数は固定で、観測地点どうし、テストどうしを比べられるようにしています。"}},{"@type":"Question","name":"共有リンクの日時が違うのはなぜですか？","acceptedAnswer":{"@type":"Answer","text":"共有リンクはそのとき計測した結果を、日付とともに表示します。「自分も測る」を押すと、同じ対象を自分で測り直せます。"}}]}]}</script>
 <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/app.67dd2949cd.css">
+<link rel="stylesheet" href="/assets/app.7a8e52758a.css">
 </head>
 <body>
 <div class="app">
@@ -72,7 +72,7 @@
           <label class="fld grow"><span data-i="f_target">ドメインまたは IP</span>
             <input id="target" name="t" type="search" placeholder="example.com" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
           </label>
-          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv">IP バージョン</span>
+          <label class="fld ipv" id="ipvWrap"><span data-i="f_ipv">IP バージョン</span>
             <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
           </label>
           <button id="go" class="btn" type="submit" data-i="go">テスト</button>
@@ -83,7 +83,7 @@
 
     <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
     <section class="verdict" id="verdict" hidden>
-      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">共有</button></div>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle" aria-live="polite">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">共有</button></div>
       <p class="v-sub m" id="vSub">&nbsp;</p>
       <div class="facts" id="kpis">
         <div class="fact"><span data-i="k_median">遅延の中央値</span><b id="kMedian">—</b></div>
@@ -97,7 +97,7 @@
 
   <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
   <section class="card sec" id="table" hidden>
-    <div class="sec-h"><h3 data-i="h_regions">観測地点</h3><span class="m prog" id="gpProgress"></span>
+    <div class="sec-h"><h3 data-i="h_regions">観測地点</h3><span class="m prog" id="gpProgress" aria-live="polite"></span>
       <label class="sel sm"><span class="sr" data-i="sort_label">並び替え</span><select id="sort">
         <option value="median" data-i="sort_median">遅延</option>
         <option value="jitter" data-i="sort_jitter">ジッター</option>
@@ -106,10 +106,10 @@
     </div>
     <div class="legend m">
       <span><i class="seg s-bar"></i><span data-i="lg_replied">応答あり</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">応答なし</span></span>
-      <span><span data-i="lg_median">中央値</span></span><span><span data-i="lg_jitter">ジッター</span></span><span><span data-i="lg_loss">ロス</span></span>
     </div>
     <div class="chips" id="filters" role="group"></div>
     <div id="tokyoRow" class="rows"></div>
+    <p class="note m" id="tokyoNote" hidden></p>
     <div id="regions" class="rows"></div>
     <p class="note m" id="gpNote" hidden></p>
   </section>
@@ -132,6 +132,6 @@
 </div>
 <script type="application/json" id="data">{"lang":"ja","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/","ja":"/ja/","ko":"/ko/","es":"/es/","fr":"/fr/","de":"/de/","pt":"/pt/","ru":"/ru/"}}</script>
 <script src="/assets/l.ja.5d98ad0576.js"></script>
-<script src="/assets/app.11084967b7.js"></script>
+<script src="/assets/app.9d10c9c0a9.js"></script>
 </body>
 </html>

@@ -41,7 +41,7 @@
 <meta name="twitter:description" content="16 paquets depuis 18 emplacements, chaque paquet visible">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Ping mondial · 1ms.dog","url":"https://ping.1ms.dog/fr/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Faites un ping vers un domaine ou une IP depuis 18 emplacements dans le monde. Voyez les 16 paquets ICMP de chaque emplacement, où la latence saute et quel paquet est perdu. Gratuit, sans compte. Une seconde vue depuis notre serveur de Tokyo.","inLanguage":"fr","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Que mesure cette page ?","acceptedAnswer":{"@type":"Answer","text":"18 emplacements dans le monde, opérés par le réseau de bénévoles de Globalping, envoient 16 requêtes ICMP echo (un `ping` classique) au domaine ou à l’IP saisi. Notre serveur de Tokyo envoie les mêmes 16 paquets : c’est la seconde vue, et le repli quand le quota gratuit de Globalping est épuisé. Par emplacement, vous voyez la latence médiane, la gigue (la variation des 16 paquets) et le nombre de paquets revenus."}},{"@type":"Question","name":"Comment lire les 16 paquets ?","acceptedAnswer":{"@type":"Answer","text":"Chaque barre verticale est une réponse ; sa hauteur est la latence de ce paquet, à l’échelle de l’emplacement (les emplacements rapides et stables paraissent plats, et c’est correct). Les cases vides sont des paquets sans réponse : on voit si la perte a eu lieu au début, au milieu ou à la fin. Le nombre à droite est la médiane des 16 paquets ; le ± est la gigue."}},{"@type":"Question","name":"Certains emplacements ne répondent pas. Le serveur est-il en panne ?","acceptedAnswer":{"@type":"Answer","text":"Pas forcément. Beaucoup d’hôtes et de pare-feu ne répondent pas à ICMP alors que le site fonctionne. La page écrit « sans réponse », pas « en panne ». Pour savoir si un port est joignable, utilisez le test de joignabilité : il se connecte comme le ferait un navigateur."}},{"@type":"Question","name":"Comment fonctionne le quota ?","acceptedAnswer":{"@type":"Answer","text":"Globalping accorde 250 tests de région par heure et par IP. Un emplacement qui envoie 16 paquets compte pour un test de région : un test ici en utilise donc 18. Quand c’est épuisé, la page indique quand cela revient, et la vue de Tokyo continue sans consommer de quota. Les personnes d’un même réseau partagent le quota."}},{"@type":"Question","name":"Pourquoi le résultat change-t-il à chaque fois ?","acceptedAnswer":{"@type":"Answer","text":"La latence varie d’une seconde à l’autre : congestion, Wi-Fi, routes du fournisseur, charge de la cible. C’est ce que mesure la gigue. Un test est une photo de l’instant, pas une garantie."}},{"@type":"Question","name":"Qu’est-ce que la ligne Tokyo ?","acceptedAnswer":{"@type":"Answer","text":"Notre propre serveur à Tokyo envoie les mêmes 16 paquets. C’est un point de référence fixe, il n’utilise pas le quota de Globalping, c’est la seule vue qui connaît toujours la position réelle des pertes, et le comparer à la sonde de Tokyo de Globalping montre si les deux réseaux voient le même chemin."}},{"@type":"Question","name":"Puis-je faire un ping depuis mon navigateur ?","acceptedAnswer":{"@type":"Answer","text":"Non : les navigateurs ne peuvent pas envoyer d’ICMP. Les mesures tournent sur les sondes de Globalping et sur notre serveur ; votre navigateur ne fait que les demander."}},{"@type":"Question","name":"Que devient l’adresse que je saisis ?","acceptedAnswer":{"@type":"Answer","text":"Elle part vers Globalping (pour le test mondial) et vers notre serveur de Tokyo. Nous ne collectons ni ne stockons les résultats, et le serveur de Tokyo ne tient aucun journal. Un lien de résultat contient l’adresse et le résultat pour que d’autres voient le même test ; il ne contient jamais votre IP."}},{"@type":"Question","name":"Pourquoi pas de port ni de taille de paquet ?","acceptedAnswer":{"@type":"Answer","text":"ICMP n’a pas de ports ; la joignabilité d’un port relève du test de joignabilité. La taille, l’intervalle et le nombre de paquets sont fixes pour que les résultats soient comparables entre emplacements et entre tests."}},{"@type":"Question","name":"Pourquoi le lien partagé affiche-t-il une autre date ?","acceptedAnswer":{"@type":"Answer","text":"Un lien partagé montre le résultat tel qu’il a été mesuré, avec sa date au-dessus. Appuyez sur « Tester le mien » pour refaire un test du même domaine."}}]}]}</script>
 <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/app.67dd2949cd.css">
+<link rel="stylesheet" href="/assets/app.7a8e52758a.css">
 </head>
 <body>
 <div class="app">
@@ -72,7 +72,7 @@
           <label class="fld grow"><span data-i="f_target">Domaine ou IP</span>
             <input id="target" name="t" type="search" placeholder="example.com" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
           </label>
-          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv">Version d’IP</span>
+          <label class="fld ipv" id="ipvWrap"><span data-i="f_ipv">Version d’IP</span>
             <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
           </label>
           <button id="go" class="btn" type="submit" data-i="go">Tester</button>
@@ -83,7 +83,7 @@
 
     <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
     <section class="verdict" id="verdict" hidden>
-      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">Partager</button></div>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle" aria-live="polite">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">Partager</button></div>
       <p class="v-sub m" id="vSub">&nbsp;</p>
       <div class="facts" id="kpis">
         <div class="fact"><span data-i="k_median">Latence médiane</span><b id="kMedian">—</b></div>
@@ -97,7 +97,7 @@
 
   <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
   <section class="card sec" id="table" hidden>
-    <div class="sec-h"><h3 data-i="h_regions">Emplacements</h3><span class="m prog" id="gpProgress"></span>
+    <div class="sec-h"><h3 data-i="h_regions">Emplacements</h3><span class="m prog" id="gpProgress" aria-live="polite"></span>
       <label class="sel sm"><span class="sr" data-i="sort_label">Trier</span><select id="sort">
         <option value="median" data-i="sort_median">Latence</option>
         <option value="jitter" data-i="sort_jitter">Gigue</option>
@@ -106,10 +106,10 @@
     </div>
     <div class="legend m">
       <span><i class="seg s-bar"></i><span data-i="lg_replied">Réponse</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">Sans réponse</span></span>
-      <span><span data-i="lg_median">Médiane</span></span><span><span data-i="lg_jitter">Gigue</span></span><span><span data-i="lg_loss">Perte</span></span>
     </div>
     <div class="chips" id="filters" role="group"></div>
     <div id="tokyoRow" class="rows"></div>
+    <p class="note m" id="tokyoNote" hidden></p>
     <div id="regions" class="rows"></div>
     <p class="note m" id="gpNote" hidden></p>
   </section>
@@ -132,6 +132,6 @@
 </div>
 <script type="application/json" id="data">{"lang":"fr","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/","ja":"/ja/","ko":"/ko/","es":"/es/","fr":"/fr/","de":"/de/","pt":"/pt/","ru":"/ru/"}}</script>
 <script src="/assets/l.fr.98d65f8b73.js"></script>
-<script src="/assets/app.11084967b7.js"></script>
+<script src="/assets/app.9d10c9c0a9.js"></script>
 </body>
 </html>

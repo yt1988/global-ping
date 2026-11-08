@@ -200,7 +200,7 @@ export function findings(rows, tokyo) {
     const slow = replied.slice().sort((a, b) => b.median - a.median)[0];
     const fast = replied.slice().sort((a, b) => a.median - b.median)[0];
     if (gm && slow.median >= 2 * gm && slow.median >= 100) {
-      out.push({ k: "fd_slow", region: slow.region, ms: slow.median, fast: fast.region, fms: fast.median });
+      out.push({ k: "fd_slow", region: slow.region, ms: slow.median, fast: fast.region, fms: slow.median - fast.median });
     }
     const js = replied.filter(r => Number.isFinite(r.jitter));
     if (js.length >= 2) {

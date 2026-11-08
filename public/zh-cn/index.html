@@ -41,7 +41,7 @@
 <meta name="twitter:description" content="18 个地区各发 16 包，每一包都看得见">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"全球 Ping · 1ms.dog","url":"https://ping.1ms.dog/zh-cn/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"从全球 18 个地区向一个域名或 IP 发 ICMP 包，每个地区 16 包，逐包看延迟变化、抖动和丢包位置。另外从本站东京服务器测一份做对照。免费、不用登录。","inLanguage":"zh-CN","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个页面测什么？","acceptedAnswer":{"@type":"Answer","text":"全球 18 个地区各向你要测的域名或 IP 发 16 个 ICMP 回显请求（就是普通的 `ping`），由 Globalping 的志愿者探测点执行。本站东京服务器也发同样的 16 包，作为第二条腿、也是额度用完时的兜底。 每个地区显示中位延迟、抖动（16 包的波动）和回来了几个包。"}},{"@type":"Question","name":"16 个包怎么看？","acceptedAnswer":{"@type":"Answer","text":"每根竖线是一个回包，高度是这一包的延迟，按该地区自己的刻度缩放（所以又快又稳的地区画得平，这是对的）。空槽是没有回应的包，能看出丢包在开头、中间还是结尾。 右边的数字是 16 包的中位数，± 是抖动。"}},{"@type":"Question","name":"有些地区没有回应，是服务器挂了吗？","acceptedAnswer":{"@type":"Answer","text":"不一定。很多主机和防火墙不回 ICMP，但网站本身正常，所以页面写「没有回应」，不写「挂了」。要确认端口通不通，用可达性检测：它按浏览器的方式去连。"}},{"@type":"Question","name":"额度怎么算？","acceptedAnswer":{"@type":"Answer","text":"Globalping 给每个 IP 每小时 250 个地区次。一个地区发 16 包算 1 个地区次，所以这里测一次用 18 个。用完后页面会显示多久恢复，东京那条腿不花额度、照样能用。 同一个网络下的人共用这份额度。"}},{"@type":"Question","name":"为什么每次结果都不一样？","acceptedAnswer":{"@type":"Answer","text":"延迟每秒都在变：拥塞、Wi-Fi、运营商路由、目标负载都会影响它，这正是抖动要量的东西。一次测试是这一刻的快照，不是保证。"}},{"@type":"Question","name":"东京那一行是什么？","acceptedAnswer":{"@type":"Answer","text":"本站东京服务器发的同样 16 包。它是固定的基准点，不花 Globalping 的额度，也是唯一知道真实丢包位置的一条腿；和 Globalping 的东京探测点对照，还能看出两条线路是否一致。"}},{"@type":"Question","name":"能用我自己的浏览器 ping 吗？","acceptedAnswer":{"@type":"Answer","text":"不能：浏览器发不了 ICMP。测量在 Globalping 的探测点和本站服务器上执行，你的浏览器只是发起请求和展示结果。"}},{"@type":"Question","name":"我填的地址会被怎么处理？","acceptedAnswer":{"@type":"Answer","text":"地址会交给 Globalping（跑全球检测）和本站东京服务器。我们不收集、不保存测试结果，本站服务器也不记日志。分享链接里只有地址和结果，别人看到的是同一次测试，永远不含你自己的 IP。"}},{"@type":"Question","name":"为什么没有端口和包大小？","acceptedAnswer":{"@type":"Answer","text":"ICMP 没有端口；端口通不通是可達性检测的事。包大小、间隔和数量都固定，这样各地区之间、每次测试之间才能对比。"}},{"@type":"Question","name":"分享链接里的时间是别的？","acceptedAnswer":{"@type":"Answer","text":"分享链接显示的是当时测出来的结果，上方有日期。点「测测我的」会用同一个目标重新测一次你自己的。"}}]}]}</script>
 <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/app.67dd2949cd.css">
+<link rel="stylesheet" href="/assets/app.7a8e52758a.css">
 </head>
 <body>
 <div class="app">
@@ -72,7 +72,7 @@
           <label class="fld grow"><span data-i="f_target">域名或 IP</span>
             <input id="target" name="t" type="search" placeholder="example.com" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
           </label>
-          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv">地址族</span>
+          <label class="fld ipv" id="ipvWrap"><span data-i="f_ipv">地址族</span>
             <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
           </label>
           <button id="go" class="btn" type="submit" data-i="go">测试</button>
@@ -83,7 +83,7 @@
 
     <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
     <section class="verdict" id="verdict" hidden>
-      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">分享</button></div>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle" aria-live="polite">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">分享</button></div>
       <p class="v-sub m" id="vSub">&nbsp;</p>
       <div class="facts" id="kpis">
         <div class="fact"><span data-i="k_median">中位延迟</span><b id="kMedian">—</b></div>
@@ -97,7 +97,7 @@
 
   <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
   <section class="card sec" id="table" hidden>
-    <div class="sec-h"><h3 data-i="h_regions">各地区</h3><span class="m prog" id="gpProgress"></span>
+    <div class="sec-h"><h3 data-i="h_regions">各地区</h3><span class="m prog" id="gpProgress" aria-live="polite"></span>
       <label class="sel sm"><span class="sr" data-i="sort_label">排序</span><select id="sort">
         <option value="median" data-i="sort_median">延迟</option>
         <option value="jitter" data-i="sort_jitter">抖动</option>
@@ -106,10 +106,10 @@
     </div>
     <div class="legend m">
       <span><i class="seg s-bar"></i><span data-i="lg_replied">有回应</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">没有回应</span></span>
-      <span><span data-i="lg_median">中位</span></span><span><span data-i="lg_jitter">抖动</span></span><span><span data-i="lg_loss">丢包</span></span>
     </div>
     <div class="chips" id="filters" role="group"></div>
     <div id="tokyoRow" class="rows"></div>
+    <p class="note m" id="tokyoNote" hidden></p>
     <div id="regions" class="rows"></div>
     <p class="note m" id="gpNote" hidden></p>
   </section>
@@ -132,6 +132,6 @@
 </div>
 <script type="application/json" id="data">{"lang":"zh-CN","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/","ja":"/ja/","ko":"/ko/","es":"/es/","fr":"/fr/","de":"/de/","pt":"/pt/","ru":"/ru/"}}</script>
 <script src="/assets/l.zh-cn.98b10eaba7.js"></script>
-<script src="/assets/app.11084967b7.js"></script>
+<script src="/assets/app.9d10c9c0a9.js"></script>
 </body>
 </html>

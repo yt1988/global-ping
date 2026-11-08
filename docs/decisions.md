@@ -36,3 +36,12 @@
 - **ping 的实际实现不写进单元测试，测试注入假的 pinger。** 真 ICMP 需要 Linux 和 `CAP_NET_RAW`，在本机和 CI
   都跑不了；handler、限流、地址校验、JSON 形状用假 pinger 测，真实发包在上线后由外部验证（v4/v6、字段齐全、
   私网拒绝）。
+- **不要在 `innerHTML` 里写内联 style，也不要用内联 style 属性。** 页面的 CSP 是 `style-src 'self'`，内联
+  `style="--h:…"` 会被浏览器拒掉（16 根竖线全变平）。要用 CSSOM：`element.style.setProperty("--h", …)`。
+  这是无头浏览器截图时发现的，静态检查和单测都抓不到。
+- **`[hidden]` 要有一条 `display:none !important` 兜底。** 结果区的 `.sec` 自己写了 `display:flex`，会盖掉
+  UA 对 `hidden` 的 `display:none`，于是页面一打开就显示一个空的结果区。手机截图发现。
+- **截图/真浏览器跑一遍是必需的**：它抓到了 CSP 拦内联样式、分享卡标题用了 i18n 键名（显示成 `loss`）、
+  `hidden` 失效、手机头部换行、东京不可用只剩一个「—」这些单测发现不了的问题。
+- **分享卡片要用「翻译后的结论句」当标题**：`share()` 的 `name`/`text`/卡片标题都要 `t("v_"+k, …)`，不能把
+  verdict 的键名直接传进去（否则卡片上写着 `loss`）。

@@ -37,7 +37,7 @@
           <label class="fld grow"><span data-i="f_target"></span>
             <input id="target" name="t" type="search" placeholder="{{a:f_target_ph}}" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
           </label>
-          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv"></span>
+          <label class="fld ipv" id="ipvWrap"><span data-i="f_ipv"></span>
             <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
           </label>
           <button id="go" class="btn" type="submit" data-i="go"></button>
@@ -48,7 +48,7 @@
 
     <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
     <section class="verdict" id="verdict" hidden>
-      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share"></button></div>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle" aria-live="polite">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share"></button></div>
       <p class="v-sub m" id="vSub">&nbsp;</p>
       <div class="facts" id="kpis">
         <div class="fact"><span data-i="k_median"></span><b id="kMedian">—</b></div>
@@ -62,7 +62,7 @@
 
   <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
   <section class="card sec" id="table" hidden>
-    <div class="sec-h"><h3 data-i="h_regions"></h3><span class="m prog" id="gpProgress"></span>
+    <div class="sec-h"><h3 data-i="h_regions"></h3><span class="m prog" id="gpProgress" aria-live="polite"></span>
       <label class="sel sm"><span class="sr" data-i="sort_label"></span><select id="sort">
         <option value="median" data-i="sort_median"></option>
         <option value="jitter" data-i="sort_jitter"></option>
@@ -71,10 +71,10 @@
     </div>
     <div class="legend m">
       <span><i class="seg s-bar"></i><span data-i="lg_replied"></span></span><span><i class="seg s-miss"></i><span data-i="lg_missing"></span></span>
-      <span><span data-i="lg_median"></span></span><span><span data-i="lg_jitter"></span></span><span><span data-i="lg_loss"></span></span>
     </div>
     <div class="chips" id="filters" role="group"></div>
     <div id="tokyoRow" class="rows"></div>
+    <p class="note m" id="tokyoNote" hidden></p>
     <div id="regions" class="rows"></div>
     <p class="note m" id="gpNote" hidden></p>
   </section>
