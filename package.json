@@ -1,0 +1,22 @@
+{
+  "name": "global-ping",
+  "private": true,
+  "type": "module",
+  "description": "Ping a domain or IP from 18 locations worldwide: 16 ICMP packets per location, every packet visible, with a second view from our own server in Tokyo",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "dev": "node scripts/dev.mjs",
+    "assets": "node scripts/assets.mjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yt1988/global-ping"
+  },
+  "homepage": "https://ping.1ms.dog",
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "esbuild": "0.25.10"
+  }
+}

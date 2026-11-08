@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN" data-paths="{&quot;en&quot;:&quot;/&quot;,&quot;zh-CN&quot;:&quot;/zh-cn/&quot;,&quot;zh-TW&quot;:&quot;/zh-tw/&quot;}">
+<head>
+<meta charset="utf-8">
+<script>(function(){var d=document.documentElement,th=null,s=null;try{th=localStorage.getItem("globalping:theme");s=localStorage.getItem("globalping:lang")}catch(e){}if(th==="light"||th==="dark")d.setAttribute("data-theme",th);if(!d.hasAttribute("data-root"))return;var P=JSON.parse(d.getAttribute("data-paths")||"{}"),l=null;try{var q=new URLSearchParams(location.search).get("lang");if(P[q])l=q}catch(e){}if(!l&&P[s])l=s;for(var ls=navigator.languages||[navigator.language||"en"],i=0;!l&&!s&&i<ls.length;i++){var x=String(ls[i]).toLowerCase(),b=x.split("-")[0];l=b==="zh"?(/tw|hk|mo|hant/.test(x)?"zh-TW":"zh-CN"):P[b]?b:null}if(l&&l!=="en"&&location.pathname===P.en)location.replace(P[l]+location.search+location.hash)})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>全球 Ping 测试：从 18 个地区 ping 域名或 IP</title>
+<meta name="description" content="从全球 18 个地区向一个域名或 IP 发 ICMP 包，每个地区 16 包，逐包看延迟变化、抖动和丢包位置。另外从本站东京服务器测一份做对照。免费、不用登录。">
+<meta name="keywords" content="ping 测试, 在线 ping, 全球 ping, 丢包测试, ping ip, 延迟测试, ping 域名, 多地区 ping">
+<meta name="robots" content="index, follow">
+<meta name="application-name" content="全球 Ping">
+<meta name="theme-color" content="#f6f6f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1c" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://ping.1ms.dog/zh-cn/">
+<link rel="alternate" hreflang="en" href="https://ping.1ms.dog/">
+<link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/">
+<link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/">
+<link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1ms.dog">
+<meta property="og:title" content="全球 Ping 测试：从 18 个地区 ping 域名或 IP">
+<meta property="og:description" content="18 个地区各发 16 包，每一包都看得见">
+<meta property="og:url" content="https://ping.1ms.dog/zh-cn/">
+<meta property="og:locale" content="zh_CN">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<meta property="og:image" content="https://ping.1ms.dog/og/zh-cn.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="全球 Ping 测试：从 18 个地区 ping 域名或 IP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ping.1ms.dog/og/zh-cn.png">
+<meta name="twitter:title" content="全球 Ping 测试：从 18 个地区 ping 域名或 IP">
+<meta name="twitter:description" content="18 个地区各发 16 包，每一包都看得见">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"全球 Ping · 1ms.dog","url":"https://ping.1ms.dog/zh-cn/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"从全球 18 个地区向一个域名或 IP 发 ICMP 包，每个地区 16 包，逐包看延迟变化、抖动和丢包位置。另外从本站东京服务器测一份做对照。免费、不用登录。","inLanguage":"zh-CN","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个页面测什么？","acceptedAnswer":{"@type":"Answer","text":"全球 18 个地区各向你要测的域名或 IP 发 16 个 ICMP 回显请求（就是普通的 `ping`），由 Globalping 的志愿者探测点执行。本站东京服务器也发同样的 16 包，作为第二条腿、也是额度用完时的兜底。 每个地区显示中位延迟、抖动（16 包的波动）和回来了几个包。"}},{"@type":"Question","name":"16 个包怎么看？","acceptedAnswer":{"@type":"Answer","text":"每根竖线是一个回包，高度是这一包的延迟，按该地区自己的刻度缩放（所以又快又稳的地区画得平，这是对的）。空槽是没有回应的包，能看出丢包在开头、中间还是结尾。 右边的数字是 16 包的中位数，± 是抖动。"}},{"@type":"Question","name":"有些地区没有回应，是服务器挂了吗？","acceptedAnswer":{"@type":"Answer","text":"不一定。很多主机和防火墙不回 ICMP，但网站本身正常，所以页面写「没有回应」，不写「挂了」。要确认端口通不通，用可达性检测：它按浏览器的方式去连。"}},{"@type":"Question","name":"额度怎么算？","acceptedAnswer":{"@type":"Answer","text":"Globalping 给每个 IP 每小时 250 个地区次。一个地区发 16 包算 1 个地区次，所以这里测一次用 18 个。用完后页面会显示多久恢复，东京那条腿不花额度、照样能用。 同一个网络下的人共用这份额度。"}},{"@type":"Question","name":"为什么每次结果都不一样？","acceptedAnswer":{"@type":"Answer","text":"延迟每秒都在变：拥塞、Wi-Fi、运营商路由、目标负载都会影响它，这正是抖动要量的东西。一次测试是这一刻的快照，不是保证。"}},{"@type":"Question","name":"东京那一行是什么？","acceptedAnswer":{"@type":"Answer","text":"本站东京服务器发的同样 16 包。它是固定的基准点，不花 Globalping 的额度，也是唯一知道真实丢包位置的一条腿；和 Globalping 的东京探测点对照，还能看出两条线路是否一致。"}},{"@type":"Question","name":"能用我自己的浏览器 ping 吗？","acceptedAnswer":{"@type":"Answer","text":"不能：浏览器发不了 ICMP。测量在 Globalping 的探测点和本站服务器上执行，你的浏览器只是发起请求和展示结果。"}},{"@type":"Question","name":"我填的地址会被怎么处理？","acceptedAnswer":{"@type":"Answer","text":"地址会交给 Globalping（跑全球检测）和本站东京服务器。我们不收集、不保存测试结果，本站服务器也不记日志。分享链接里只有地址和结果，别人看到的是同一次测试，永远不含你自己的 IP。"}},{"@type":"Question","name":"为什么没有端口和包大小？","acceptedAnswer":{"@type":"Answer","text":"ICMP 没有端口；端口通不通是可達性检测的事。包大小、间隔和数量都固定，这样各地区之间、每次测试之间才能对比。"}},{"@type":"Question","name":"分享链接里的时间是别的？","acceptedAnswer":{"@type":"Answer","text":"分享链接显示的是当时测出来的结果，上方有日期。点「测测我的」会用同一个目标重新测一次你自己的。"}}]}]}</script>
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/app.67dd2949cd.css">
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <a class="brand" href="/zh-cn/"><span class="logo"><img class="logo-light" src="/assets/logo-light.svg" width="90" height="36" alt="1ms" loading="lazy"><img class="logo-dark" src="/assets/logo-dark.svg" width="90" height="36" alt="1ms" loading="lazy"></span><span class="brand-name">全球 Ping</span></a>
+    <div class="top-acts">
+      <label class="sel"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.7 2.7 3.8 2.7 6.2S9.8 12.5 8 14.2C6.2 12.5 5.3 10.4 5.3 8S6.2 3.5 8 1.8z"/></svg><span class="sr" data-i="lang_label">语言</span>
+        <select id="lang"><option value="en">English</option><option value="zh-CN" selected>简体中文</option><option value="zh-TW">繁體中文</option></select></label>
+      <button class="icon-btn" id="helpBtn" type="button" aria-haspopup="dialog" aria-controls="help" aria-label="帮助">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M6.3 6.2a1.8 1.8 0 1 1 2.5 1.7c-.5.2-.8.6-.8 1.1v.4M8 11.3v.1"/></svg>
+      </button>
+      <a class="icon-btn gh" href="https://github.com/yt1988/global-ping" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .2a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.4.7 0-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.4 7.4 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0 0 8 .2z"/></svg></a>
+      <button class="icon-btn" id="theme" type="button" aria-label="主题">
+        <svg class="i-sys" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="8.5" rx="1.5"/><path d="M6 14h4M8 11.5V14"/></svg>
+        <svg class="i-light" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/></svg>
+        <svg class="i-dark" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 1. what to ping, and the allowance; the answer goes right under it -->
+  <div class="card main">
+    <header class="hero">
+      <h1>从全球 18 个地区 ping</h1>
+      <p class="intro" data-i="intro">输入域名或 IP：全球 18 个地区和本站东京服务器各发 16 个 ICMP 包。每一包都看得见，页面还会显示还能用多少测试额度。</p>
+      <form id="f" class="form" autocomplete="off">
+        <div class="row">
+          <label class="fld grow"><span data-i="f_target">域名或 IP</span>
+            <input id="target" name="t" type="search" placeholder="example.com" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
+          </label>
+          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv">地址族</span>
+            <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
+          </label>
+          <button id="go" class="btn" type="submit" data-i="go">测试</button>
+        </div>
+        <div class="sub"><span id="targetNote" class="m warn" hidden>&nbsp;</span><span id="quota" class="quota m"></span></div>
+      </form>
+    </header>
+
+    <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
+    <section class="verdict" id="verdict" hidden>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">分享</button></div>
+      <p class="v-sub m" id="vSub">&nbsp;</p>
+      <div class="facts" id="kpis">
+        <div class="fact"><span data-i="k_median">中位延迟</span><b id="kMedian">—</b></div>
+        <div class="fact"><span data-i="k_max_jitter">最大抖动</span><b id="kJitter">—</b><i id="kJitterWho"></i></div>
+        <div class="fact"><span data-i="k_loss">丢包率</span><b id="kLoss">—</b></div>
+      </div>
+      <ul class="findings" id="findings"></ul>
+      <div class="v-fallback" id="tokyoFallback" hidden><button class="btn ghost" id="tokyoBtn" type="button" data-i="t_tokyo_only">只看东京</button></div>
+    </section>
+  </div>
+
+  <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
+  <section class="card sec" id="table" hidden>
+    <div class="sec-h"><h3 data-i="h_regions">各地区</h3><span class="m prog" id="gpProgress"></span>
+      <label class="sel sm"><span class="sr" data-i="sort_label">排序</span><select id="sort">
+        <option value="median" data-i="sort_median">延迟</option>
+        <option value="jitter" data-i="sort_jitter">抖动</option>
+        <option value="loss" data-i="sort_loss">丢包</option>
+      </select></label>
+    </div>
+    <div class="legend m">
+      <span><i class="seg s-bar"></i><span data-i="lg_replied">有回应</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">没有回应</span></span>
+      <span><span data-i="lg_median">中位</span></span><span><span data-i="lg_jitter">抖动</span></span><span><span data-i="lg_loss">丢包</span></span>
+    </div>
+    <div class="chips" id="filters" role="group"></div>
+    <div id="tokyoRow" class="rows"></div>
+    <div id="regions" class="rows"></div>
+    <p class="note m" id="gpNote" hidden></p>
+  </section>
+  <footer class="foot m"><p>数据来源：<a href="https://globalping.io" target="_blank" rel="noopener">Globalping</a> 的探测点和本站东京服务器。</p><a href="https://github.com/yt1988/global-ping" target="_blank" rel="noopener noreferrer">GitHub</a></footer>
+</div>
+<div class="scrim" id="help" hidden>
+  <div class="dialog help" role="dialog" aria-modal="true" aria-labelledby="helpT">
+    <div class="dlg-h"><h2 id="helpT" data-i="faq_h">帮助</h2>
+      <button class="icon-btn" data-close type="button" aria-label="关闭"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="help-b">
+      <nav class="help-nav" id="helpNav" role="tablist"><button type="button" role="tab" data-hq="0" aria-selected="true">这个页面测什么？</button><button type="button" role="tab" data-hq="1" aria-selected="false">16 个包怎么看？</button><button type="button" role="tab" data-hq="2" aria-selected="false">有些地区没有回应，是服务器挂了吗？</button><button type="button" role="tab" data-hq="3" aria-selected="false">额度怎么算？</button><button type="button" role="tab" data-hq="4" aria-selected="false">为什么每次结果都不一样？</button><button type="button" role="tab" data-hq="5" aria-selected="false">东京那一行是什么？</button><button type="button" role="tab" data-hq="6" aria-selected="false">能用我自己的浏览器 ping 吗？</button><button type="button" role="tab" data-hq="7" aria-selected="false">我填的地址会被怎么处理？</button><button type="button" role="tab" data-hq="8" aria-selected="false">为什么没有端口和包大小？</button><button type="button" role="tab" data-hq="9" aria-selected="false">分享链接里的时间是别的？</button></nav>
+      <div class="help-pick">
+        <button class="icon-btn" type="button" data-hstep="-1" aria-label="上一条"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8l4 4"/></svg></button>
+        <select id="helpSel" aria-labelledby="helpT"></select>
+        <button class="icon-btn" type="button" data-hstep="1" aria-label="下一条"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 4l4 4-4 4"/></svg></button>
+      </div>
+      <div class="help-c" id="helpC"><article data-hqb="0"><h3>这个页面测什么？</h3><p>全球 18 个地区各向你要测的域名或 IP 发 16 个 ICMP 回显请求（就是普通的 `ping`），由 Globalping 的志愿者探测点执行。本站东京服务器也发同样的 16 包，作为第二条腿、也是额度用完时的兜底。</p><p>每个地区显示中位延迟、抖动（16 包的波动）和回来了几个包。</p></article><article data-hqb="1" hidden><h3>16 个包怎么看？</h3><p>每根竖线是一个回包，高度是这一包的延迟，按该地区自己的刻度缩放（所以又快又稳的地区画得平，这是对的）。空槽是没有回应的包，能看出丢包在开头、中间还是结尾。</p><p>右边的数字是 16 包的中位数，± 是抖动。</p></article><article data-hqb="2" hidden><h3>有些地区没有回应，是服务器挂了吗？</h3><p>不一定。很多主机和防火墙不回 ICMP，但网站本身正常，所以页面写「没有回应」，不写「挂了」。要确认端口通不通，用可达性检测：它按浏览器的方式去连。</p></article><article data-hqb="3" hidden><h3>额度怎么算？</h3><p>Globalping 给每个 IP 每小时 250 个地区次。一个地区发 16 包算 1 个地区次，所以这里测一次用 18 个。用完后页面会显示多久恢复，东京那条腿不花额度、照样能用。</p><p>同一个网络下的人共用这份额度。</p></article><article data-hqb="4" hidden><h3>为什么每次结果都不一样？</h3><p>延迟每秒都在变：拥塞、Wi-Fi、运营商路由、目标负载都会影响它，这正是抖动要量的东西。一次测试是这一刻的快照，不是保证。</p></article><article data-hqb="5" hidden><h3>东京那一行是什么？</h3><p>本站东京服务器发的同样 16 包。它是固定的基准点，不花 Globalping 的额度，也是唯一知道真实丢包位置的一条腿；和 Globalping 的东京探测点对照，还能看出两条线路是否一致。</p></article><article data-hqb="6" hidden><h3>能用我自己的浏览器 ping 吗？</h3><p>不能：浏览器发不了 ICMP。测量在 Globalping 的探测点和本站服务器上执行，你的浏览器只是发起请求和展示结果。</p></article><article data-hqb="7" hidden><h3>我填的地址会被怎么处理？</h3><p>地址会交给 Globalping（跑全球检测）和本站东京服务器。我们不收集、不保存测试结果，本站服务器也不记日志。分享链接里只有地址和结果，别人看到的是同一次测试，永远不含你自己的 IP。</p></article><article data-hqb="8" hidden><h3>为什么没有端口和包大小？</h3><p>ICMP 没有端口；端口通不通是可達性检测的事。包大小、间隔和数量都固定，这样各地区之间、每次测试之间才能对比。</p></article><article data-hqb="9" hidden><h3>分享链接里的时间是别的？</h3><p>分享链接显示的是当时测出来的结果，上方有日期。点「测测我的」会用同一个目标重新测一次你自己的。</p></article></div>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="data">{"lang":"zh-CN","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/"}}</script>
+<script src="/assets/l.zh-cn.98b10eaba7.js"></script>
+<script src="/assets/app.19bb176fa8.js"></script>
+</body>
+</html>

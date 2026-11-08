@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-paths="{&quot;en&quot;:&quot;/&quot;,&quot;zh-CN&quot;:&quot;/zh-cn/&quot;,&quot;zh-TW&quot;:&quot;/zh-tw/&quot;}" data-root>
+<head>
+<meta charset="utf-8">
+<script>(function(){var d=document.documentElement,th=null,s=null;try{th=localStorage.getItem("globalping:theme");s=localStorage.getItem("globalping:lang")}catch(e){}if(th==="light"||th==="dark")d.setAttribute("data-theme",th);if(!d.hasAttribute("data-root"))return;var P=JSON.parse(d.getAttribute("data-paths")||"{}"),l=null;try{var q=new URLSearchParams(location.search).get("lang");if(P[q])l=q}catch(e){}if(!l&&P[s])l=s;for(var ls=navigator.languages||[navigator.language||"en"],i=0;!l&&!s&&i<ls.length;i++){var x=String(ls[i]).toLowerCase(),b=x.split("-")[0];l=b==="zh"?(/tw|hk|mo|hant/.test(x)?"zh-TW":"zh-CN"):P[b]?b:null}if(l&&l!=="en"&&location.pathname===P.en)location.replace(P[l]+location.search+location.hash)})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Global Ping test: ping a domain or IP from 18 locations</title>
+<meta name="description" content="Ping any domain or IP from 18 locations worldwide. See all 16 ICMP packets of every location, where the latency jumps and which packet went missing. Free, no account. A second view from our own Tokyo server.">
+<meta name="keywords" content="ping test, online ping, ping from multiple locations, global ping, packet loss test, ping ip address, latency test, ping domain">
+<meta name="robots" content="index, follow">
+<meta name="application-name" content="Global Ping">
+<meta name="theme-color" content="#f6f6f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1c" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://ping.1ms.dog/">
+<link rel="alternate" hreflang="en" href="https://ping.1ms.dog/">
+<link rel="alternate" hreflang="zh-CN" href="https://ping.1ms.dog/zh-cn/">
+<link rel="alternate" hreflang="zh-TW" href="https://ping.1ms.dog/zh-tw/">
+<link rel="alternate" hreflang="x-default" href="https://ping.1ms.dog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1ms.dog">
+<meta property="og:title" content="Global Ping test: ping a domain or IP from 18 locations">
+<meta property="og:description" content="16 packets from 18 locations, every packet visible">
+<meta property="og:url" content="https://ping.1ms.dog/">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<meta property="og:image" content="https://ping.1ms.dog/og/en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Global Ping test: ping a domain or IP from 18 locations">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ping.1ms.dog/og/en.png">
+<meta name="twitter:title" content="Global Ping test: ping a domain or IP from 18 locations">
+<meta name="twitter:description" content="16 packets from 18 locations, every packet visible">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Global Ping · 1ms.dog","url":"https://ping.1ms.dog/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Ping any domain or IP from 18 locations worldwide. See all 16 ICMP packets of every location, where the latency jumps and which packet went missing. Free, no account. A second view from our own Tokyo server.","inLanguage":"en","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does this page measure?","acceptedAnswer":{"@type":"Answer","text":"18 locations worldwide, run by Globalping's volunteer network, each send 16 ICMP echo requests (a normal `ping`) to the domain or IP you enter. Our own server in Tokyo sends the same 16 packets, as a second view and as a fallback when Globalping's free allowance is used up. Per location you see the median latency, the jitter (how much the 16 packets vary) and how many packets came back."}},{"@type":"Question","name":"How do I read the 16 packets?","acceptedAnswer":{"@type":"Answer","text":"Each vertical bar is one reply; its height is that packet's latency, scaled to the location (fast, steady locations look flat, which is correct). Empty slots are packets with no reply, so you can see whether the loss was at the start, in the middle or at the end. The number on the right is the 16 packets' median; the ± is the jitter."}},{"@type":"Question","name":"Some locations got no reply. Is the server down?","acceptedAnswer":{"@type":"Answer","text":"Not necessarily. Many hosts and firewalls do not answer ICMP while the website itself works. The page says \"no reply\", not \"down\". If you need to know whether a port is reachable, run the reachability check instead: it connects the way a browser would."}},{"@type":"Question","name":"How does the allowance work?","acceptedAnswer":{"@type":"Answer","text":"Globalping gives each IP 250 region checks an hour. One location sending 16 packets is one region check, so one test here uses 18. When it runs out, the page says when it comes back, and the Tokyo view keeps working without using the allowance. People on the same network share the same allowance."}},{"@type":"Question","name":"Why is the result different every time?","acceptedAnswer":{"@type":"Answer","text":"Latency varies from second to second: congestion, Wi-Fi, your provider's routes and the target's load all change. That is what jitter measures. One test is a snapshot, not a guarantee."}},{"@type":"Question","name":"What is the Tokyo row?","acceptedAnswer":{"@type":"Answer","text":"Our own server in Tokyo sends the same 16 packets. It is a fixed reference point, it does not use Globalping's allowance, it is the only view that knows the real loss positions, and comparing it with Globalping's Tokyo probe shows whether the two networks see the same path."}},{"@type":"Question","name":"Can I ping from my own browser?","acceptedAnswer":{"@type":"Answer","text":"No: browsers cannot send ICMP. The measurements run on Globalping's probes and on our server; your browser only asks for them."}},{"@type":"Question","name":"What happens to the address I enter?","acceptedAnswer":{"@type":"Answer","text":"It goes to Globalping (to run the worldwide check) and to our server in Tokyo. We do not collect or store results, and our server keeps no log. A shared result link contains the address and the result, so others see the same test; it never contains your own IP."}},{"@type":"Question","name":"Why is there no port or packet size?","acceptedAnswer":{"@type":"Answer","text":"ICMP has no ports; reachability of a port is the reachability check's job. Packet size, interval and count are fixed so results are comparable between locations and between tests."}},{"@type":"Question","name":"Why does the shared link show a different time?","acceptedAnswer":{"@type":"Answer","text":"A shared link shows the result as it was measured, with its date above it. Press \"Test mine\" to run a fresh test of the same target yourself."}}]}]}</script>
+<link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/app.67dd2949cd.css">
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <a class="brand" href="/"><span class="logo"><img class="logo-light" src="/assets/logo-light.svg" width="90" height="36" alt="1ms" loading="lazy"><img class="logo-dark" src="/assets/logo-dark.svg" width="90" height="36" alt="1ms" loading="lazy"></span><span class="brand-name">Global Ping</span></a>
+    <div class="top-acts">
+      <label class="sel"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.7 2.7 3.8 2.7 6.2S9.8 12.5 8 14.2C6.2 12.5 5.3 10.4 5.3 8S6.2 3.5 8 1.8z"/></svg><span class="sr" data-i="lang_label">Language</span>
+        <select id="lang"><option value="en" selected>English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option></select></label>
+      <button class="icon-btn" id="helpBtn" type="button" aria-haspopup="dialog" aria-controls="help" aria-label="Help">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M6.3 6.2a1.8 1.8 0 1 1 2.5 1.7c-.5.2-.8.6-.8 1.1v.4M8 11.3v.1"/></svg>
+      </button>
+      <a class="icon-btn gh" href="https://github.com/yt1988/global-ping" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .2a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.4.7 0-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.4 7.4 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4A8 8 0 0 0 8 .2z"/></svg></a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Theme">
+        <svg class="i-sys" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="8.5" rx="1.5"/><path d="M6 14h4M8 11.5V14"/></svg>
+        <svg class="i-light" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/></svg>
+        <svg class="i-dark" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 1. what to ping, and the allowance; the answer goes right under it -->
+  <div class="card main">
+    <header class="hero">
+      <h1>Ping from 18 locations</h1>
+      <p class="intro" data-i="intro">Enter a domain or IP: 18 locations around the world and our Tokyo server each send 16 ICMP packets. Every packet is visible, and you see how many tests the page can still run.</p>
+      <form id="f" class="form" autocomplete="off">
+        <div class="row">
+          <label class="fld grow"><span data-i="f_target">Domain or IP</span>
+            <input id="target" name="t" type="search" placeholder="example.com" spellcheck="false" autocapitalize="off" autocomplete="off" enterkeyhint="go" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="targetNote" required>
+          </label>
+          <label class="fld ipv" id="ipvWrap" hidden><span data-i="f_ipv">IP version</span>
+            <select id="ipv"><option value="4">IPv4</option><option value="6">IPv6</option></select>
+          </label>
+          <button id="go" class="btn" type="submit" data-i="go">Test</button>
+        </div>
+        <div class="sub"><span id="targetNote" class="m warn" hidden>&nbsp;</span><span id="quota" class="quota m"></span></div>
+      </form>
+    </header>
+
+    <!-- 2. the answer: verdict, one line of numbers, three numbers, at most four findings -->
+    <section class="verdict" id="verdict" hidden>
+      <div class="v-head"><span class="dot" id="vDot"></span><h2 id="vTitle">&nbsp;</h2><button class="btn sm" id="shareBtn" type="button" hidden data-i="share">Share</button></div>
+      <p class="v-sub m" id="vSub">&nbsp;</p>
+      <div class="facts" id="kpis">
+        <div class="fact"><span data-i="k_median">Median latency</span><b id="kMedian">—</b></div>
+        <div class="fact"><span data-i="k_max_jitter">Max jitter</span><b id="kJitter">—</b><i id="kJitterWho"></i></div>
+        <div class="fact"><span data-i="k_loss">Packet loss</span><b id="kLoss">—</b></div>
+      </div>
+      <ul class="findings" id="findings"></ul>
+      <div class="v-fallback" id="tokyoFallback" hidden><button class="btn ghost" id="tokyoBtn" type="button" data-i="t_tokyo_only">Test Tokyo only</button></div>
+    </section>
+  </div>
+
+  <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
+  <section class="card sec" id="table" hidden>
+    <div class="sec-h"><h3 data-i="h_regions">Regions</h3><span class="m prog" id="gpProgress"></span>
+      <label class="sel sm"><span class="sr" data-i="sort_label">Sort</span><select id="sort">
+        <option value="median" data-i="sort_median">Latency</option>
+        <option value="jitter" data-i="sort_jitter">Jitter</option>
+        <option value="loss" data-i="sort_loss">Packet loss</option>
+      </select></label>
+    </div>
+    <div class="legend m">
+      <span><i class="seg s-bar"></i><span data-i="lg_replied">Replied</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">No reply</span></span>
+      <span><span data-i="lg_median">Median</span></span><span><span data-i="lg_jitter">Jitter</span></span><span><span data-i="lg_loss">Loss</span></span>
+    </div>
+    <div class="chips" id="filters" role="group"></div>
+    <div id="tokyoRow" class="rows"></div>
+    <div id="regions" class="rows"></div>
+    <p class="note m" id="gpNote" hidden></p>
+  </section>
+  <footer class="foot m"><p>Data: <a href="https://globalping.io" target="_blank" rel="noopener">Globalping</a>'s probes and our own server in Tokyo.</p><a href="https://github.com/yt1988/global-ping" target="_blank" rel="noopener noreferrer">GitHub</a></footer>
+</div>
+<div class="scrim" id="help" hidden>
+  <div class="dialog help" role="dialog" aria-modal="true" aria-labelledby="helpT">
+    <div class="dlg-h"><h2 id="helpT" data-i="faq_h">Help</h2>
+      <button class="icon-btn" data-close type="button" aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+    <div class="help-b">
+      <nav class="help-nav" id="helpNav" role="tablist"><button type="button" role="tab" data-hq="0" aria-selected="true">What does this page measure?</button><button type="button" role="tab" data-hq="1" aria-selected="false">How do I read the 16 packets?</button><button type="button" role="tab" data-hq="2" aria-selected="false">Some locations got no reply. Is the server down?</button><button type="button" role="tab" data-hq="3" aria-selected="false">How does the allowance work?</button><button type="button" role="tab" data-hq="4" aria-selected="false">Why is the result different every time?</button><button type="button" role="tab" data-hq="5" aria-selected="false">What is the Tokyo row?</button><button type="button" role="tab" data-hq="6" aria-selected="false">Can I ping from my own browser?</button><button type="button" role="tab" data-hq="7" aria-selected="false">What happens to the address I enter?</button><button type="button" role="tab" data-hq="8" aria-selected="false">Why is there no port or packet size?</button><button type="button" role="tab" data-hq="9" aria-selected="false">Why does the shared link show a different time?</button></nav>
+      <div class="help-pick">
+        <button class="icon-btn" type="button" data-hstep="-1" aria-label="Previous"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8l4 4"/></svg></button>
+        <select id="helpSel" aria-labelledby="helpT"></select>
+        <button class="icon-btn" type="button" data-hstep="1" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 4l4 4-4 4"/></svg></button>
+      </div>
+      <div class="help-c" id="helpC"><article data-hqb="0"><h3>What does this page measure?</h3><p>18 locations worldwide, run by Globalping's volunteer network, each send 16 ICMP echo requests (a normal `ping`) to the domain or IP you enter. Our own server in Tokyo sends the same 16 packets, as a second view and as a fallback when Globalping's free allowance is used up.</p><p>Per location you see the median latency, the jitter (how much the 16 packets vary) and how many packets came back.</p></article><article data-hqb="1" hidden><h3>How do I read the 16 packets?</h3><p>Each vertical bar is one reply; its height is that packet's latency, scaled to the location (fast, steady locations look flat, which is correct). Empty slots are packets with no reply, so you can see whether the loss was at the start, in the middle or at the end.</p><p>The number on the right is the 16 packets' median; the ± is the jitter.</p></article><article data-hqb="2" hidden><h3>Some locations got no reply. Is the server down?</h3><p>Not necessarily. Many hosts and firewalls do not answer ICMP while the website itself works. The page says &quot;no reply&quot;, not &quot;down&quot;. If you need to know whether a port is reachable, run the reachability check instead: it connects the way a browser would.</p></article><article data-hqb="3" hidden><h3>How does the allowance work?</h3><p>Globalping gives each IP 250 region checks an hour. One location sending 16 packets is one region check, so one test here uses 18. When it runs out, the page says when it comes back, and the Tokyo view keeps working without using the allowance.</p><p>People on the same network share the same allowance.</p></article><article data-hqb="4" hidden><h3>Why is the result different every time?</h3><p>Latency varies from second to second: congestion, Wi-Fi, your provider's routes and the target's load all change. That is what jitter measures. One test is a snapshot, not a guarantee.</p></article><article data-hqb="5" hidden><h3>What is the Tokyo row?</h3><p>Our own server in Tokyo sends the same 16 packets. It is a fixed reference point, it does not use Globalping's allowance, it is the only view that knows the real loss positions, and comparing it with Globalping's Tokyo probe shows whether the two networks see the same path.</p></article><article data-hqb="6" hidden><h3>Can I ping from my own browser?</h3><p>No: browsers cannot send ICMP. The measurements run on Globalping's probes and on our server; your browser only asks for them.</p></article><article data-hqb="7" hidden><h3>What happens to the address I enter?</h3><p>It goes to Globalping (to run the worldwide check) and to our server in Tokyo. We do not collect or store results, and our server keeps no log. A shared result link contains the address and the result, so others see the same test; it never contains your own IP.</p></article><article data-hqb="8" hidden><h3>Why is there no port or packet size?</h3><p>ICMP has no ports; reachability of a port is the reachability check's job. Packet size, interval and count are fixed so results are comparable between locations and between tests.</p></article><article data-hqb="9" hidden><h3>Why does the shared link show a different time?</h3><p>A shared link shows the result as it was measured, with its date above it. Press &quot;Test mine&quot; to run a fresh test of the same target yourself.</p></article></div>
+    </div>
+  </div>
+</div>
+<script type="application/json" id="data">{"lang":"en","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/"}}</script>
+<script src="/assets/l.en.a8e619d17a.js"></script>
+<script src="/assets/app.19bb176fa8.js"></script>
+</body>
+</html>
