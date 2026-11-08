@@ -199,7 +199,7 @@ select option:checked { background-color: var(--soft); }
   .top { flex-wrap: nowrap; gap: 5px; }
   .brand { gap: 5px; flex: 0 1 auto; min-width: 0; }
   .logo img { height: 22px; }
-  .brand-name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand-name { font-size: 13px; white-space: nowrap; }
   .top-acts { gap: 0; flex: 0 0 auto; }
   .sel > svg { display: none; }
   .sel select { height: 38px; font-size: 16px; padding: 0 18px 0 7px; max-width: 104px; }
@@ -221,6 +221,14 @@ select option:checked { background-color: var(--soft); }
   .chips { gap: 5px; }
   .chip { padding: 6px 10px; }
   .d-tab { font-size: 12px; }
+}
+@media (max-width: 420px) {
+  /* Russian "Глобальный пинг" and German "Globaler Ping" don't fit next to the language and icon buttons: put the
+     controls on a second row instead of truncating the product name (the contract forbids cutting words). */
+  .top { flex-wrap: wrap; }
+  .brand { flex: 1 1 100%; gap: 6px; }
+  .brand-name { font-size: 15px; white-space: nowrap; }
+  .top-acts { margin-left: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bar { transition: none; }
