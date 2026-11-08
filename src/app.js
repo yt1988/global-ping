@@ -153,6 +153,9 @@ function start() {
   renderRows(state);
   setGo(true);
   drawVerdict(state);
+  drawKpis(state);
+  drawFindings(state);
+  $("gpProgress").textContent = t("prog", { done: 0, of: REGIONS.length });
   runGlobalping(state);
   if (WITH_TOKYO) runTokyo(state);
 }
