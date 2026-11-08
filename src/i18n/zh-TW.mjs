@@ -19,7 +19,7 @@ export default {
 
   // 執行時
   sep: "、",
-  g_cn: "中國大陸", g_apac: "亞太", g_emea: "歐洲、中東、非洲", g_am: "美洲", flt_all: "全部",
+  g_cn: "中國大陸", g_apac: "亞太", g_emea: "歐洲·中東·非洲", g_am: "美洲", flt_all: "全部",
   c_4134: "中國電信", c_4837: "中國聯通", c_9808: "中國移動",
   city_Tokyo: "東京", city_London: "倫敦", city_Frankfurt: "法蘭克福", city_LosAngeles: "洛杉磯", city_NewYork: "紐約", city_SaoPaulo: "聖保羅",
   t_label: "東京（本站）",

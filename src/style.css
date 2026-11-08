@@ -121,6 +121,10 @@ select option:checked { background-color: var(--soft); }
 .chip:disabled { opacity: .5; cursor: default; }
 
 .rows { display: flex; flex-direction: column; }
+.grp { display: flex; flex-direction: column; }
+.grp-h { margin: 14px 0 2px; font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .01em; }
+.grp:first-child .grp-h { margin-top: 0; }
+.grp .row:first-of-type { border-top: 0; }
 .row { display: grid; grid-template-columns: minmax(130px, 1.2fr) minmax(160px, 2fr) 74px 92px; grid-template-areas: "name bars med meta"; align-items: center; gap: 4px 12px; padding: 9px 4px; border-top: 1px solid var(--line); cursor: pointer; border-radius: 8px; }
 .row:hover { background: var(--soft); }
 .row:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }

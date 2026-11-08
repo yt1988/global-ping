@@ -642,7 +642,7 @@
         showQuota();
       }
     }
-    let state = null, run = 0, recv = null, sortBy = "median", filterGroup = "all";
+    let state = null, run = 0, recv = null;
     let rowEls = /* @__PURE__ */ new Map(), detailEls = /* @__PURE__ */ new Map();
     const setGo = (testing) => {
       const b = $("go");
@@ -705,8 +705,6 @@
       $("shareBtn").hidden = true;
       $("tokyoFallback").hidden = true;
       $("regions").hidden = false;
-      $("filters").hidden = false;
-      $("sort").closest(".sel").hidden = false;
       $("kpis").hidden = false;
       noteShow("");
       tokyoNoteShow("");
@@ -826,38 +824,36 @@
       drawVerdict(s);
       drawKpis(s);
       drawFindings(s);
-      sortRows(s);
       $("gpProgress").textContent = t("prog", { done: s.rows.filter((r) => r && r.state !== "pending").length, of: REGIONS.length });
       $("shareBtn").hidden = !canShare(s);
       $("tokyoFallback").hidden = !WITH_TOKYO || s.tokyoError === "down" || !(s.verdict.k === "err" || s.verdict.k === "partial" || quotaLeft != null && quotaLeft < COST);
       setGo(false);
       $("go").textContent = t("go_again");
     }
+    const GROUPS = ["cn", "apac", "emea", "am"];
     function buildRows(s) {
       rowEls = /* @__PURE__ */ new Map();
       detailEls = /* @__PURE__ */ new Map();
       for (const host of [$("tokyoRow"), $("regions")]) host.innerHTML = "";
-      const showTokyo = WITH_TOKYO || !!(s && s.tokyo);
-      const entries = showTokyo ? [{ region: TOKYO_REGION, own: true }, ...REGIONS.map((region) => ({ region }))] : REGIONS.map((region) => ({ region }));
-      const chips = [{ g: "all", label: t("flt_all") }, { g: "cn", label: t("g_cn") }, { g: "apac", label: t("g_apac") }, { g: "emea", label: t("g_emea") }, { g: "am", label: t("g_am") }];
-      $("filters").innerHTML = chips.map((c) => `<button type="button" class="chip" data-g="${c.g}" aria-pressed="${c.g === filterGroup ? "true" : "false"}">${esc(c.label)}</button>`).join("");
-      for (const e of entries) {
-        const el = rowElement(e.region, e.own);
-        (e.own ? $("tokyoRow") : $("regions")).appendChild(el);
-        rowEls.set(e.region.key, el);
+      if (WITH_TOKYO || s && s.tokyo) {
+        const el = rowElement(TOKYO_REGION, true);
+        $("tokyoRow").appendChild(el);
+        rowEls.set(TOKYO_REGION.key, el);
       }
-      all("#filters .chip").forEach((b) => {
-        b.onclick = () => {
-          filterGroup = b.dataset.g;
-          all("#filters .chip").forEach((x) => x.setAttribute("aria-pressed", x.dataset.g === filterGroup));
-          applyFilter();
-        };
-      });
-      $("sort").onchange = (e) => {
-        sortBy = e.target.value;
-        sortRows(state);
-      };
-      applyFilter();
+      for (const g of GROUPS) {
+        const sec = document.createElement("section");
+        sec.className = "grp";
+        const h = document.createElement("h4");
+        h.className = "grp-h";
+        h.textContent = t("g_" + g);
+        sec.appendChild(h);
+        for (const region of REGIONS.filter((r) => r.g === g)) {
+          const el = rowElement(region, false);
+          sec.appendChild(el);
+          rowEls.set(region.key, el);
+        }
+        $("regions").appendChild(sec);
+      }
     }
     function rowElement(region, own) {
       const el = document.createElement("div");
@@ -966,7 +962,6 @@
     }
     function renderRows(s) {
       for (let i = 0; i < REGIONS.length; i++) fillRow(s, REGIONS[i], s.rows[i]);
-      applyFilter();
     }
     function renderTokyo(s) {
       const el = rowEls.get(TOKYO_REGION.key);
@@ -987,7 +982,6 @@
         const key = s.tokyoError === "limit" ? "t_limit" : s.tokyoError === "busy" ? "t_busy" : s.tokyoError === "private" ? "t_private" : "t_down";
         tokyoNoteShow(t(key, { s: s.tokyoRetry || (key === "t_busy" ? 5 : 60) }));
       }
-      applyFilter();
     }
     function noteShow(text2) {
       const el = $("gpNote");
@@ -998,34 +992,6 @@
       const el = $("tokyoNote");
       el.textContent = text2 || "";
       el.hidden = !text2;
-    }
-    function applyFilter() {
-      for (const r of REGIONS) {
-        const el = rowEls.get(r.key);
-        if (!el) continue;
-        const on = filterGroup === "all" || r.g === filterGroup;
-        el.style.display = on ? "" : "none";
-      }
-    }
-    function sortRows(s) {
-      if (!s || !s.gpDone && !s.gpError) return;
-      const order = [...REGIONS].sort((a, b) => {
-        const ra = s.rows[REGIONS.indexOf(a)], rb = s.rows[REGIONS.indexOf(b)];
-        const val = (r) => {
-          if (!r || r.state === "pending" || r.state === "noprobe" || r.state === "failed" || r.state === "priv") return sortBy === "loss" ? 2 : -1;
-          if (sortBy === "median") return Number.isFinite(r.median) ? r.median : Infinity;
-          if (sortBy === "jitter") return Number.isFinite(r.jitter) ? -r.jitter : Infinity;
-          return -r.loss;
-        };
-        const x = val(ra), y = val(rb);
-        return x === y ? REGIONS.indexOf(a) - REGIONS.indexOf(b) : x < y ? -1 : 1;
-      });
-      const host = $("regions");
-      for (const r of order) {
-        const el = rowEls.get(r.key);
-        if (el) host.appendChild(el);
-      }
-      applyFilter();
     }
     let tip = null;
     function tipEl() {
@@ -1343,8 +1309,6 @@
         $("shareBtn").hidden = false;
         if (state.tokyoOnly) {
           $("regions").hidden = true;
-          $("filters").hidden = true;
-          $("sort").closest(".sel").hidden = true;
         }
         buildRows(state);
         renderRows(state);
@@ -1395,8 +1359,6 @@
       $("shareBtn").hidden = true;
       $("tokyoFallback").hidden = true;
       $("regions").hidden = true;
-      $("filters").hidden = true;
-      $("sort").closest(".sel").hidden = true;
       buildRows(state);
       renderRows(state);
       renderTokyo(state);

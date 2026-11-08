@@ -41,7 +41,7 @@
 <meta name="twitter:description" content="16 pacotes de 18 locais, cada pacote visível">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Ping global · 1ms.dog","url":"https://ping.1ms.dog/pt/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Faça ping de qualquer domínio ou IP a partir de 18 locais no mundo. Veja os 16 pacotes ICMP de cada local, onde a latência salta e qual pacote se perdeu. Grátis, sem conta. Uma segunda visão do nosso servidor em Tóquio.","inLanguage":"pt","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"O que esta página mede?","acceptedAnswer":{"@type":"Answer","text":"18 locais no mundo, operados pela rede voluntária do Globalping, enviam 16 solicitações ICMP echo (um `ping` normal) ao domínio ou IP digitado. Nosso servidor em Tóquio envia os mesmos 16 pacotes: é a segunda visão e o plano B quando a cota gratuita do Globalping acaba. Por local você vê a latência mediana, o jitter (quanto os 16 pacotes variam) e quantos pacotes voltaram."}},{"@type":"Question","name":"Como leio os 16 pacotes?","acceptedAnswer":{"@type":"Answer","text":"Cada barra vertical é uma resposta; a altura é a latência daquele pacote, na escala do local (locais rápidos e estáveis parecem planos, e isso está certo). Espaços vazios são pacotes sem resposta: dá para ver se a perda foi no começo, no meio ou no fim. O número à direita é a mediana dos 16 pacotes; o ± é o jitter."}},{"@type":"Question","name":"Alguns locais não responderam. O servidor caiu?","acceptedAnswer":{"@type":"Answer","text":"Não necessariamente. Muitos hosts e firewalls não respondem a ICMP, mas o site funciona. A página diz “sem resposta”, não “fora do ar”. Para saber se uma porta é alcançável, use o teste de alcance: ele conecta como um navegador faria."}},{"@type":"Question","name":"Como funciona a cota?","acceptedAnswer":{"@type":"Answer","text":"O Globalping dá 250 testes de região por hora a cada IP. Um local que envia 16 pacotes conta como um teste de região, então um teste aqui usa 18. Quando acaba, a página mostra quando volta, e a visão de Tóquio continua funcionando sem gastar cota. Quem está na mesma rede divide a cota."}},{"@type":"Question","name":"Por que o resultado muda a cada vez?","acceptedAnswer":{"@type":"Answer","text":"A latência varia a cada segundo: congestionamento, Wi-Fi, as rotas da operadora e a carga do destino. É isso que o jitter mede. Um teste é uma foto do momento, não uma garantia."}},{"@type":"Question","name":"O que é a linha de Tóquio?","acceptedAnswer":{"@type":"Answer","text":"Nosso próprio servidor em Tóquio envia os mesmos 16 pacotes. É uma referência fixa, não usa a cota do Globalping, é a única visão que sempre sabe a posição real das perdas, e compará-la com a sonda de Tóquio do Globalping mostra se as duas redes veem o mesmo caminho."}},{"@type":"Question","name":"Consigo fazer ping pelo meu navegador?","acceptedAnswer":{"@type":"Answer","text":"Não: navegadores não enviam ICMP. As medições rodam nas sondas do Globalping e no nosso servidor; seu navegador só pede os resultados."}},{"@type":"Question","name":"O que acontece com o endereço que eu digito?","acceptedAnswer":{"@type":"Answer","text":"Ele vai para o Globalping (para o teste mundial) e para o nosso servidor em Tóquio. Não coletamos nem guardamos resultados, e o servidor de Tóquio não mantém log. Um link de resultado contém o endereço e o resultado, para outros verem o mesmo teste; ele nunca contém o seu IP."}},{"@type":"Question","name":"Por que não há porta nem tamanho de pacote?","acceptedAnswer":{"@type":"Answer","text":"ICMP não tem portas; a alcance de uma porta é tarefa do teste de alcance. Tamanho, intervalo e quantidade de pacotes são fixos para que os resultados sejam comparáveis entre locais e entre testes."}},{"@type":"Question","name":"Por que o link compartilhado mostra outra data?","acceptedAnswer":{"@type":"Answer","text":"Um link compartilhado mostra o resultado como foi medido, com a data acima. Toque em “Testar o meu” para fazer um teste novo do mesmo destino."}}]}]}</script>
 <link rel="preload" href="/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/app.428dad5ad8.css">
+<link rel="stylesheet" href="/assets/app.7667f3a8a6.css">
 </head>
 <body>
 <div class="app">
@@ -97,19 +97,12 @@
 
   <!-- 3. the evidence: our Tokyo row, then one row per region; details on demand -->
   <section class="card sec" id="table" hidden>
-    <div class="sec-h"><h3 data-i="h_regions">Locais</h3><span class="m prog" id="gpProgress" aria-live="polite"></span>
-      <label class="sel sm"><span class="sr" data-i="sort_label">Ordenar</span><select id="sort">
-        <option value="median" data-i="sort_median">Latência</option>
-        <option value="jitter" data-i="sort_jitter">Jitter</option>
-        <option value="loss" data-i="sort_loss">Perda</option>
-      </select></label>
-    </div>
+    <div class="sec-h"><h3 data-i="h_regions">Locais</h3><span class="m prog" id="gpProgress" aria-live="polite"></span></div>
     <div class="legend m">
       <span><i class="seg s-bar"></i><span data-i="lg_replied">Respondeu</span></span><span><i class="seg s-miss"></i><span data-i="lg_missing">Sem resposta</span></span>
       <span class="lat"><i class="seg b1"></i>≤30 ms</span><span class="lat"><i class="seg b2"></i>≤100 ms</span>
       <span class="lat"><i class="seg b3"></i>≤200 ms</span><span class="lat"><i class="seg b4"></i>&gt;200 ms</span>
     </div>
-    <div class="chips" id="filters" role="group"></div>
     <div id="tokyoRow" class="rows"></div>
     <p class="note m" id="tokyoNote" hidden></p>
     <div id="regions" class="rows"></div>
@@ -134,6 +127,6 @@
 </div>
 <script type="application/json" id="data">{"lang":"pt","paths":{"en":"/","zh-CN":"/zh-cn/","zh-TW":"/zh-tw/","ja":"/ja/","ko":"/ko/","es":"/es/","fr":"/fr/","de":"/de/","pt":"/pt/","ru":"/ru/"}}</script>
 <script src="/assets/l.pt.d14b7c3f12.js"></script>
-<script src="/assets/app.02e5b27e1d.js"></script>
+<script src="/assets/app.5dcf6241db.js"></script>
 </body>
 </html>
