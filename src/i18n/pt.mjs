@@ -87,4 +87,7 @@ export default {
     ["Por que não há porta nem tamanho de pacote?", "ICMP não tem portas; a alcance de uma porta é tarefa do teste de alcance. Tamanho, intervalo e quantidade de pacotes são fixos para que os resultados sejam comparáveis entre locais e entre testes."],
     ["Por que o link compartilhado mostra outra data?", "Um link compartilhado mostra o resultado como foi medido, com a data acima. Toque em “Testar o meu” para fazer um teste novo do mesmo destino."],
   ],
+  card_meta: "{n} locais · 16 pacotes cada",
+  card_own: "fora dos 18",
+  card_src: "Dados: sondas do Globalping + nosso servidor em Tóquio",
 };

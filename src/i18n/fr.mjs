@@ -87,4 +87,7 @@ export default {
     ["Pourquoi pas de port ni de taille de paquet ?", "ICMP n’a pas de ports ; la joignabilité d’un port relève du test de joignabilité. La taille, l’intervalle et le nombre de paquets sont fixes pour que les résultats soient comparables entre emplacements et entre tests."],
     ["Pourquoi le lien partagé affiche-t-il une autre date ?", "Un lien partagé montre le résultat tel qu’il a été mesuré, avec sa date au-dessus. Appuyez sur « Tester le mien » pour refaire un test du même domaine."],
   ],
+  card_meta: "{n} régions · 16 paquets chacune",
+  card_own: "hors des 18",
+  card_src: "Données : sondes Globalping + notre serveur de Tokyo",
 };

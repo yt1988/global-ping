@@ -611,7 +611,6 @@
       if (region.city) return `${countryName(region.cc, D.lang)} \xB7 ${t("city_" + region.city)}`;
       return countryName(region.cc, D.lang);
     };
-    const cardName = (region) => region.carrier ? t("c_" + region.carrier) : region.city && REGIONS.filter((r) => r.cc === region.cc && !r.carrier).length > 1 ? `${t("city_" + region.city)}, ${region.cc}` : countryName(region.cc, D.lang);
     const COST = REGIONS.length;
     let quotaLeft = null, quotaReset = 0;
     async function loadQuota() {
@@ -1165,7 +1164,7 @@
         text: () => `${v.title} \xB7 ${s.tg.host}`,
         height: (ctx, kit) => cardLayout(ctx, kit, v, s.tg.host, rows, s.tokyo, s).H,
         ts: s.ts,
-        foot: () => ["Globalping + " + location.hostname],
+        foot: () => [t("card_src")],
         draw: (ctx, kit) => drawCard(ctx, kit, v, s, rows)
       }).open();
     });
@@ -1182,35 +1181,46 @@
       const targetY = tY + (lines.length - 1) * Math.round(ts * 1.2) + 48;
       const numY = targetY + 62;
       const cells = rows.length + (tokyo && tokyo.rcv > 0 ? 1 : 0);
-      const gridY = numY + 62;
-      const gridRows = Math.ceil(cells / 3);
-      return { lines, ts, tY, targetY, numY, gridY, cells, gridRows, H: gridY + gridRows * ROWH + 74 };
+      const names = rows.map((r) => nameOf(r.region));
+      if (tokyo && tokyo.rcv > 0) names.push(t("t_label"));
+      const fits = (cols2) => {
+        const avail = w / cols2 - 150;
+        ctx.font = `500 16px ${F}`;
+        return names.every((n) => ctx.measureText(n).width <= avail);
+      };
+      const cols = fits(3) ? 3 : 2;
+      const gridY = numY + 78;
+      const gridRows = Math.ceil(cells / cols);
+      return { lines, ts, tY, targetY, numY, gridY, cells, cols, gridRows, H: gridY + gridRows * ROWH + 74 };
     }
     function drawCard(ctx, kit, v, s, rows) {
-      const { P, W, F, M, v: css, fit, clip } = kit, w = W - P * 2;
+      const { P, W, F, M, v: css, fit } = kit, w = W - P * 2;
       const L2 = cardLayout(ctx, kit, v, s.tg.host, rows, s.tokyo, s);
       const cls = v.k === "ok" || v.k === "probe" ? "ok" : v.k === "loss" || v.k === "some" || v.k === "partial" ? "warn" : "bad";
       ctx.fillStyle = css(cls);
       ctx.font = `700 ${L2.ts}px ${F}`;
       L2.lines.forEach((line, i) => ctx.fillText(line, P, L2.tY + i * Math.round(L2.ts * 1.2)));
-      const tsz = fit(ctx, s.tg.host, w - 240, 30, 20, 600);
+      const meta = t("card_meta", { n: rows.length });
+      ctx.font = `400 22px ${F}`;
+      const metaW = ctx.measureText(meta).width;
+      const tsz = fit(ctx, s.tg.host, w - metaW - 40, 30, 20, 600);
       ctx.fillStyle = css("fg");
       ctx.font = `600 ${tsz}px ${F}`;
       ctx.fillText(s.tg.host, P, L2.targetY);
       ctx.textAlign = "right";
       ctx.fillStyle = css("muted");
       ctx.font = `400 22px ${F}`;
-      ctx.fillText(rows.length ? `${rows.length} \xB7 16` : location.hostname, W - P, L2.targetY);
+      ctx.fillText(meta, W - P, L2.targetY);
       ctx.textAlign = "left";
       const gm = median(rows.filter((r) => Number.isFinite(r.median)).map((r) => r.median));
       const j = rows.filter((r) => Number.isFinite(r.jitter)).sort((a, b) => b.jitter - a.jitter)[0];
       const sent = rows.length * PACKETS, got = rows.reduce((n, r) => n + r.rcv, 0);
       const vals = [
-        [t("k_median"), Number.isFinite(gm) ? fmtMs(gm, D.lang) + " ms" : "\u2014"],
-        [t("k_max_jitter"), j ? "\xB1" + fmtMs(j.jitter, D.lang) + " ms" : "\u2014"],
-        [t("k_loss"), rows.length ? fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0) : "\u2014"]
+        [t("k_median"), Number.isFinite(gm) ? fmtMs(gm, D.lang) + " ms" : "\u2014", ""],
+        [t("k_max_jitter"), j ? "\xB1" + fmtMs(j.jitter, D.lang) + " ms" : "\u2014", j && !s.tokyoOnly ? nameOf(j.region) : ""],
+        [t("k_loss"), rows.length ? fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0) : "\u2014", ""]
       ];
-      vals.forEach(([label, val], i) => {
+      vals.forEach(([label, val, who], i) => {
         const x = P + i * (w / 3);
         ctx.fillStyle = css("muted");
         ctx.font = `500 20px ${F}`;
@@ -1218,40 +1228,54 @@
         ctx.fillStyle = css("fg");
         ctx.font = `700 38px ${F}`;
         ctx.fillText(val, x, L2.numY + 22);
+        if (who) {
+          ctx.fillStyle = css("muted");
+          ctx.font = `500 15px ${F}`;
+          ctx.fillText(who, x, L2.numY + 54);
+        }
       });
-      rows.forEach((row, i) => {
-        const col = i % 3, line = Math.floor(i / 3), cw = w / 3;
-        const x = P + col * cw, y = L2.gridY + line * ROWH;
-        const colr = row.state === "ok" ? "ok" : row.state === "loss" || row.rcv > 0 && row.rcv < PACKETS ? "warn" : row.rcv > 0 ? "ok" : "bad";
+      const latColor = (n) => Number.isFinite(n) ? css("lat-" + latencyBand(n)) || css("fg") : css("muted");
+      const cell = (i, name, row, own) => {
+        const cw = w / L2.cols, x = P + i % L2.cols * cw, y = L2.gridY + Math.floor(i / L2.cols) * ROWH;
+        const colr = !row || row.rcv === 0 ? "bad" : row.rcv < PACKETS || row.state === "loss" ? "warn" : "ok";
         ctx.fillStyle = css(colr);
         ctx.beginPath();
         ctx.arc(x + 5, y - 9, 5, 0, Math.PI * 2);
         ctx.fill();
+        const room = cw - (own ? 168 : 132);
         ctx.fillStyle = css("fg");
-        fit(ctx, cardName(row.region), cw - 132, 20, 14, 500);
-        ctx.fillText(cardName(row.region), x + 20, y);
-        ctx.fillStyle = css("muted");
-        ctx.font = `500 19px ${M}`;
+        fit(ctx, name, room, 20, 14, 500);
+        ctx.fillText(name, x + 20, y);
+        if (own) {
+          const nw = ctx.measureText(name).width;
+          ctx.fillStyle = css("muted");
+          ctx.font = `500 15px ${F}`;
+          ctx.fillText(t("card_own"), x + 20 + nw + 8, y);
+        }
         ctx.textAlign = "right";
-        ctx.fillText(row.rcv === 0 ? "\u2014" : row.rcv < PACKETS ? `${row.rcv}/16` : fmtMs(row.median, D.lang) + " ms", x + cw - 26, y);
+        const rx = x + cw - 26;
+        if (!row || row.rcv === 0) {
+          ctx.fillStyle = css("muted");
+          ctx.font = `500 19px ${M}`;
+          ctx.fillText("\u2014", rx, y);
+        } else if (row.rcv < PACKETS) {
+          ctx.font = `500 16px ${M}`;
+          ctx.fillStyle = css("muted");
+          const tail = ` \xB7 ${row.rcv}/${PACKETS}`;
+          const tw = ctx.measureText(tail).width;
+          ctx.fillText(tail, rx, y);
+          ctx.font = `500 19px ${M}`;
+          ctx.fillStyle = latColor(row.median);
+          ctx.fillText(fmtMs(row.median, D.lang) + " ms", rx - tw, y);
+        } else {
+          ctx.font = `500 19px ${M}`;
+          ctx.fillStyle = latColor(row.median);
+          ctx.fillText(fmtMs(row.median, D.lang) + " ms", rx, y);
+        }
         ctx.textAlign = "left";
-      });
-      if (s.tokyo && s.tokyo.rcv > 0) {
-        const i = rows.length, col = i % 3, line = Math.floor(i / 3), cw = w / 3;
-        const x = P + col * cw, y = L2.gridY + line * ROWH;
-        ctx.fillStyle = css("ink");
-        ctx.beginPath();
-        ctx.arc(x + 5, y - 9, 5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = css("fg");
-        ctx.font = `500 20px ${F}`;
-        ctx.fillText(t("t_label"), x + 20, y);
-        ctx.fillStyle = css("muted");
-        ctx.font = `500 19px ${M}`;
-        ctx.textAlign = "right";
-        ctx.fillText(fmtMs(s.tokyo.median, D.lang) + " ms", x + cw - 26, y);
-        ctx.textAlign = "left";
-      }
+      };
+      rows.forEach((row, i) => cell(i, nameOf(row.region), row, false));
+      if (s.tokyo && s.tokyo.rcv > 0) cell(rows.length, t("t_label"), s.tokyo, true);
     }
     function decodeRows(o) {
       const rows = (o.r || []).map((arr) => {

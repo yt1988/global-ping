@@ -88,4 +88,7 @@ export default {
     ["Why is there no port or packet size?", "ICMP has no ports; reachability of a port is the reachability check's job. Packet size, interval and count are fixed so results are comparable between locations and between tests."],
     ["Why does the shared link show a different time?", "A shared link shows the result as it was measured, with its date above it. Press \"Test mine\" to run a fresh test of the same target yourself."],
   ],
+  card_meta: "{n} regions · 16 packets each",
+  card_own: "not in the 18",
+  card_src: "Data: Globalping probes + our Tokyo server",
 };

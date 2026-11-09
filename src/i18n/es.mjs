@@ -87,4 +87,7 @@ export default {
     ["¿Por qué no hay puerto ni tamaño de paquete?", "ICMP no tiene puertos; la alcanzabilidad de un puerto es cosa de la prueba de alcanzabilidad. El tamaño, el intervalo y el número de paquetes son fijos para que los resultados sean comparables entre ubicaciones y entre pruebas."],
     ["¿Por qué el enlace compartido muestra otra fecha?", "Un enlace compartido muestra el resultado tal como se midió, con su fecha arriba. Pulsa «Probar el mío» para hacer una prueba nueva del mismo destino."],
   ],
+  card_meta: "{n} regiones · 16 paquetes cada una",
+  card_own: "no cuenta en los 18",
+  card_src: "Datos: sondas de Globalping + nuestro servidor de Tokio",
 };

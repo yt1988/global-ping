@@ -87,4 +87,7 @@ export default {
     ["Warum kein Port und keine Paketgröße?", "ICMP hat keine Ports; die Erreichbarkeit eines Ports ist Sache des Erreichbarkeits-Checks. Größe, Abstand und Anzahl der Pakete sind fest, damit Ergebnisse zwischen Standorten und Tests vergleichbar sind."],
     ["Warum zeigt der geteilte Link ein anderes Datum?", "Ein geteilter Link zeigt das Ergebnis so, wie es gemessen wurde, mit Datum darüber. Mit „Meins testen“ startest du einen neuen Test derselben Adresse."],
   ],
+  card_meta: "{n} Standorte · je 16 Pakete",
+  card_own: "nicht in den 18",
+  card_src: "Daten: Globalping-Sonden + unser Tokio-Server",
 };
