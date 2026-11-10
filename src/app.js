@@ -5,6 +5,7 @@
 import { REGIONS, PACKETS, TOKYO_REGION, countryName, fmtMs, fmtPct, latencyBand, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
 import { encodeResult, decodeResult, sharePath, rowToCode, codeToRow } from "./code.mjs";
 import { TOKYO_API } from "./config.mjs";
+import { updateReportEntry } from "./report-entry.mjs";
 
 (() => {
 const GP = "https://api.globalping.io/v1";
@@ -413,6 +414,7 @@ function detailHtml(region) {
 
 // ---------- verdict, numbers, findings ----------
 function drawVerdict(s) {
+  updateReportEntry($("reportBtn"), s, window.msOpenReport, t("report_prefill"));
   const v = s.verdict;
   const dot = $("vDot"), title = $("vTitle"), sub = $("vSub");
   if (!v) { dot.className = "dot"; title.textContent = t("v_wait"); sub.textContent = ""; return; }
@@ -442,6 +444,7 @@ function subLine(s) {
   return t("vs_" + v.k, { a: v.a, b: v.b });
 }
 function drawKpis(s) {
+  updateReportEntry($("reportBtn"), s, window.msOpenReport, t("report_prefill"));
   const replied = s.tokyoOnly ? (s.tokyo && s.tokyo.rcv > 0 ? [s.tokyo] : []) : s.rows.filter(r => r && r.rcv > 0 && Number.isFinite(r.median));
   if (!replied.length) {
     $("kMedian").textContent = "—"; $("kJitter").textContent = "—"; $("kJitterWho").textContent = ""; $("kLoss").textContent = "—";

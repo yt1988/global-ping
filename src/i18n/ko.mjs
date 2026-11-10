@@ -11,6 +11,7 @@ export default {
   lang_label: "언어", a_lang: "언어", a_theme: "테마", a_help: "도움말", a_close: "닫기", a_prev: "이전", a_next: "다음",
 
   f_target: "도메인 또는 IP", f_target_ph: "example.com", f_ipv: "IP 버전", go: "테스트", share: "공유",
+  report_result: "결과가 이상한가요?", report_prefill: "테스트 결과가 이상해요:",
   h_regions: "지역", sort_label: "정렬", sort_median: "지연", sort_jitter: "지터", sort_loss: "패킷 손실",
   lg_replied: "응답", lg_missing: "응답 없음", lg_median: "중앙값", lg_jitter: "지터", lg_loss: "손실",
   k_median: "중앙값 지연", k_max_jitter: "최대 지터", k_loss: "패킷 손실", t_tokyo_only: "도쿄만 테스트",

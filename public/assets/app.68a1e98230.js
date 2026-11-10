@@ -484,6 +484,13 @@
   // src/config.mjs
   var TOKYO_API = "https://ping-api.1ms.dog:2097/v1/ping";
 
+  // src/report-entry.mjs
+  function updateReportEntry(button, state, openReport, prefill) {
+    const hasResult = !!(state && state.verdict && (state.tokyo || (state.rows || []).some((row) => row && row.state !== "pending" && row.state !== "noprobe")));
+    button.setAttribute("data-ms-report", prefill);
+    button.hidden = typeof openReport !== "function" || !hasResult;
+  }
+
   // src/app.js
   (() => {
     const GP = "https://api.globalping.io/v1";
@@ -1045,6 +1052,7 @@
     ${probe}${resolved}${lostAll}${posUnknown}<p class="d-links">${links}</p>`;
     }
     function drawVerdict(s) {
+      updateReportEntry($("reportBtn"), s, window.msOpenReport, t("report_prefill"));
       const v = s.verdict;
       const dot = $("vDot"), title = $("vTitle"), sub = $("vSub");
       if (!v) {
@@ -1085,6 +1093,7 @@
       return t("vs_" + v.k, { a: v.a, b: v.b });
     }
     function drawKpis(s) {
+      updateReportEntry($("reportBtn"), s, window.msOpenReport, t("report_prefill"));
       const replied = s.tokyoOnly ? s.tokyo && s.tokyo.rcv > 0 ? [s.tokyo] : [] : s.rows.filter((r) => r && r.rcv > 0 && Number.isFinite(r.median));
       if (!replied.length) {
         $("kMedian").textContent = "\u2014";

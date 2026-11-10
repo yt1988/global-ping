@@ -11,6 +11,7 @@ export default {
   lang_label: "Язык", a_lang: "Язык", a_theme: "Тема", a_help: "Справка", a_close: "Закрыть", a_prev: "Назад", a_next: "Вперёд",
 
   f_target: "Домен или IP", f_target_ph: "example.com", f_ipv: "Версия IP", go: "Проверить", share: "Поделиться",
+  report_result: "Результат неверный?", report_prefill: "Результат теста кажется неверным:",
   h_regions: "Точки", sort_label: "Сортировка", sort_median: "Задержка", sort_jitter: "Джиттер", sort_loss: "Потери",
   lg_replied: "Ответ", lg_missing: "Нет ответа", lg_median: "Медиана", lg_jitter: "Джиттер", lg_loss: "Потери",
   k_median: "Медианный пинг", k_max_jitter: "Максимальный джиттер", k_loss: "Потеря пакетов", t_tokyo_only: "Только Токио",

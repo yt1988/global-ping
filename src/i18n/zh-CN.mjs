@@ -11,6 +11,7 @@ export default {
   lang_label: "语言", a_lang: "语言", a_theme: "主题", a_help: "帮助", a_close: "关闭", a_prev: "上一条", a_next: "下一条",
 
   f_target: "域名或 IP", f_target_ph: "example.com", f_ipv: "地址族", go: "测试", share: "分享",
+  report_result: "结果不对？", report_prefill: "检测结果不对：",
   h_regions: "各地区", sort_label: "排序", sort_median: "延迟", sort_jitter: "抖动", sort_loss: "丢包",
   lg_replied: "有回应", lg_missing: "没有回应", lg_median: "中位", lg_jitter: "抖动", lg_loss: "丢包",
   k_median: "中位延迟", k_max_jitter: "最大抖动", k_loss: "丢包率", t_tokyo_only: "只看东京",

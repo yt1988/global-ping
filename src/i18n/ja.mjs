@@ -11,6 +11,7 @@ export default {
   lang_label: "言語", a_lang: "言語", a_theme: "テーマ", a_help: "ヘルプ", a_close: "閉じる", a_prev: "前へ", a_next: "次へ",
 
   f_target: "ドメインまたは IP", f_target_ph: "example.com", f_ipv: "IP バージョン", go: "テスト", share: "共有",
+  report_result: "結果が違いますか？", report_prefill: "テスト結果が正しくありません：",
   h_regions: "観測地点", sort_label: "並び替え", sort_median: "遅延", sort_jitter: "ジッター", sort_loss: "パケットロス",
   lg_replied: "応答あり", lg_missing: "応答なし", lg_median: "中央値", lg_jitter: "ジッター", lg_loss: "ロス",
   k_median: "遅延の中央値", k_max_jitter: "最大ジッター", k_loss: "パケットロス", t_tokyo_only: "東京のみでテスト",

@@ -11,6 +11,7 @@ export default {
   lang_label: "Language", a_lang: "Language", a_theme: "Theme", a_help: "Help", a_close: "Close", a_prev: "Previous", a_next: "Next",
 
   f_target: "Domain or IP", f_target_ph: "example.com", f_ipv: "IP version", go: "Test", share: "Share",
+  report_result: "Wrong result?", report_prefill: "The test result looks wrong:",
   h_regions: "Regions", sort_label: "Sort", sort_median: "Latency", sort_jitter: "Jitter", sort_loss: "Packet loss",
   lg_replied: "Replied", lg_missing: "No reply", lg_median: "Median", lg_jitter: "Jitter", lg_loss: "Loss",
   k_median: "Median latency", k_max_jitter: "Max jitter", k_loss: "Packet loss", t_tokyo_only: "Test Tokyo only",

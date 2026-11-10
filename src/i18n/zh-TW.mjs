@@ -11,6 +11,7 @@ export default {
   lang_label: "語言", a_lang: "語言", a_theme: "主題", a_help: "說明", a_close: "關閉", a_prev: "上一則", a_next: "下一則",
 
   f_target: "網域或 IP", f_target_ph: "example.com", f_ipv: "位址族", go: "測試", share: "分享",
+  report_result: "結果有誤？", report_prefill: "檢測結果有誤：",
   h_regions: "各地區", sort_label: "排序", sort_median: "延遲", sort_jitter: "抖動", sort_loss: "封包遺失",
   lg_replied: "有回應", lg_missing: "沒有回應", lg_median: "中位", lg_jitter: "抖動", lg_loss: "遺失",
   k_median: "中位延遲", k_max_jitter: "最大抖動", k_loss: "封包遺失率", t_tokyo_only: "只看東京",

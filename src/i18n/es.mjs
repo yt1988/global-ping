@@ -11,6 +11,7 @@ export default {
   lang_label: "Idioma", a_lang: "Idioma", a_theme: "Tema", a_help: "Ayuda", a_close: "Cerrar", a_prev: "Anterior", a_next: "Siguiente",
 
   f_target: "Dominio o IP", f_target_ph: "example.com", f_ipv: "Versión de IP", go: "Probar", share: "Compartir",
+  report_result: "¿Resultado incorrecto?", report_prefill: "El resultado de la prueba parece incorrecto:",
   h_regions: "Ubicaciones", sort_label: "Ordenar", sort_median: "Latencia", sort_jitter: "Jitter", sort_loss: "Pérdida",
   lg_replied: "Respondió", lg_missing: "Sin respuesta", lg_median: "Mediana", lg_jitter: "Jitter", lg_loss: "Pérdida",
   k_median: "Latencia mediana", k_max_jitter: "Jitter máximo", k_loss: "Pérdida de paquetes", t_tokyo_only: "Solo Tokio",
