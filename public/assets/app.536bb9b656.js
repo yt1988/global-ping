@@ -1158,7 +1158,7 @@
       const s = state;
       if (!s) return;
       const link = await resultLink(s);
-      const { share } = await import("/assets/share/share.js?v=9");
+      const { share } = await import("/assets/share/share.js?v=10");
       const v = { title: t(s.verdict.k === "tokyo" ? "v_tokyo" : "v_" + s.verdict.k, { a: s.verdict.a, b: s.verdict.b }), k: s.verdict.k };
       const rows = s.rows.filter((r) => r && r.rcv > 0);
       share({
@@ -1355,7 +1355,7 @@
         drawFindings(state);
         $("gpProgress").textContent = t("prog", { done: state.rows.filter((r) => r && r.state !== "pending").length, of: REGIONS.length });
         $("tokyoFallback").hidden = true;
-        const { received } = await import("/assets/share/share.js?v=9");
+        const { received } = await import("/assets/share/share.js?v=10");
         recv = received({ lang: D.lang, ts: state.ts, at: $("verdict"), test: () => start() });
       }).catch(() => {
         $("verdict").hidden = false;
