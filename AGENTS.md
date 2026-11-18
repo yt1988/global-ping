@@ -71,3 +71,8 @@ curl "http://127.0.0.1:12097/v1/ping?host=example.com&v=4"
 - Commit messages in English. User-facing strings exist in 10 languages; English (`src/i18n/en.mjs`) is the reference.
   Every language file must have every key, with the same `{placeholders}` (the test enforces it).
 - When something is decided, or tried and dropped, write it in [docs/decisions.md](docs/decisions.md) the same day.
+
+## 提交说明
+
+- 用英文，一句话说清改了什么。
+- 引用站内 issue 时只写 `#<数字>`，不要写 `yt1988/<私有仓库>#<数字>`，也不要写出私有仓库的名字；公开仓库的历史里不该出现内部仓库。
