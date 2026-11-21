@@ -82,8 +82,6 @@
   --lat-4: #dc2626;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  ) {
-    --bg: #121316;
   --ink: #fbbf24;
   --ok: #4ade80;
   --warn: #fbbf24;
@@ -92,7 +90,6 @@
   --lat-2: #facc15;
   --lat-3: #fb923c;
   --lat-4: #f87171;
-  : };
 } }
 :root[data-theme="dark"] {
   --ink: #fbbf24;
