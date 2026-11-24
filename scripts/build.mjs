@@ -49,7 +49,7 @@ const BUILD_ONLY = new Set(["name", "seo_title", "seo_desc", "seo_kw", "og_sub",
   "cont_EU", "cont_NA", "cont_AS", "cont_SA", "cont_OC", "cont_AF", "a_crumbs", "nav_regions",
   "country_h1", "country_title", "country_desc", "country_intro", "c_probes", "near_h", "cont_h1", "cont_title", "cont_desc", "cont_intro", "cont_test",
   "cont_countries", "route_EU", "route_NA", "route_AS", "route_SA", "route_OC", "route_AF",
-  "cc_test", "filter_ph", "filter_none", "filter_clear"]);
+  "filter_ph", "filter_none", "filter_clear"]);
 
 // Data sources named in the page link to their sites
 const SOURCES = { gp: ["Globalping", "https://globalping.io"] };
@@ -105,7 +105,7 @@ function regionNav(T, slug, current) {
     const open = current.cont === c.code ? " open" : "";
     const cc = c.countries.map(x => {
       const here = current.kind === "country" && current.cc === x.cc ? ' aria-current="page"' : "";
-      return `<li><a href="${esc(pathOf(slug, countryDir(x)))}"${here} data-s="${esc(searchOf(x.cc, current.lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, current.lang))}</span></a></li>`;
+      return `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}"${here} data-s="${esc(searchOf(x.cc, current.lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, current.lang))}</span></a></li>`;
     }).join("");
     return `<details class="rg-cont"${open}><summary aria-label="${esc(T("cont_" + c.code))}">${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span></summary><ul class="rg-cc">${cc}</ul></details>`;
   }).join("");
@@ -123,7 +123,7 @@ function crumbs(T, slug, current) {
 // hand-written note on the country's networks. No Globalping inventory numbers: those rank its probes, they are not
 // our coverage.
 function countrySections(T, lang, c, slug, note = "") {
-  const near = neighboursOf(c).map(x => `<li><a href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span></a></li>`).join("");
+  const near = neighboursOf(c).map(x => `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span></a></li>`).join("");
   return `${note ? `<section class="card sec"><p class="route">${esc(note)}</p></section>` : ""}
   <section class="card sec">
     <h2>${esc(fill(T("near_h"), { continent: T("cont_" + c.cont) }))}</h2>
@@ -137,9 +137,9 @@ function countrySections(T, lang, c, slug, note = "") {
 // own). The list is filterable; the page's test uses the countries with the most probes.
 function continentSections(T, lang, c, slug) {
   const name = T("cont_" + c.code);
-  const cards = c.countries.map(x => `<li><a href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cc-name">${esc(countryName(x.cc, lang))}</span><span class="rg-cc-test">${esc(T("cc_test"))}</span></a></li>`).join("");
+  const cards = c.countries.map(x => `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span></a></li>`).join("");
   return `<section class="card sec page-facts">
-    <p class="page-sub">${esc(fill(T("cont_countries"), { continent: name }))}: ${num(c.countries.length, lang)}</p>
+    <div class="kpis"><div class="kpi"><b>${num(c.countries.length, lang)}</b><span>${esc(fill(T("cont_countries"), { continent: name }))}</span></div></div>
     <p class="route">${esc(T("route_" + c.code))}</p>
   </section>
   <section class="card sec">

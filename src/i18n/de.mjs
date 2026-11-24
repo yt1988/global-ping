@@ -126,7 +126,6 @@ export default {
   cr_none: "Keine Sonde hat geantwortet",
   cr_fail: "Die Sonden konnten den Test nicht ausführen",
   cr_some: "{ok} von {n} Sonden haben geantwortet",
-  cc_test: "Einzeln testen",
   filter_ph: "Länder filtern",
   filter_none: "Kein Land passt",
   filter_clear: "Leeren",

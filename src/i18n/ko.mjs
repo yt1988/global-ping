@@ -126,7 +126,6 @@ export default {
   cr_none: "응답한 프로브가 없어요",
   cr_fail: "프로브가 테스트를 실행하지 못했어요",
   cr_some: "프로브 {n}곳 중 {ok}곳 응답",
-  cc_test: "따로 테스트",
   filter_ph: "국가 필터",
   filter_none: "일치하는 국가가 없어요",
   filter_clear: "지우기",

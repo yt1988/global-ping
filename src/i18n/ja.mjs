@@ -126,7 +126,6 @@ export default {
   cr_none: "応答したプローブはありません",
   cr_fail: "プローブがテストを実行できませんでした",
   cr_some: "{n} 台中 {ok} 台に応答",
-  cc_test: "個別にテスト",
   filter_ph: "国を絞り込む",
   filter_none: "一致する国がありません",
   filter_clear: "クリア",

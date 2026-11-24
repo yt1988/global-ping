@@ -127,7 +127,6 @@ export default {
   cr_none: "沒有節點有回應",
   cr_fail: "節點沒能完成測試",
   cr_some: "{n} 個節點中有 {ok} 個有回應",
-  cc_test: "單獨測",
   filter_ph: "篩選國家",
   filter_none: "沒有符合的國家",
   filter_clear: "清除",

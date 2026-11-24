@@ -127,7 +127,6 @@ export default {
   cr_none: "No probe replied",
   cr_fail: "The probes couldn't run the test",
   cr_some: "{ok} of {n} probes replied",
-  cc_test: "Test separately",
   filter_ph: "Filter countries",
   filter_none: "No country matches",
   filter_clear: "Clear",

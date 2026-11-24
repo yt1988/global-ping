@@ -223,16 +223,14 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .route { margin: 0; color: var(--fg); font-size: 14px; line-height: 1.6; }
 .rg-cities { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 4px 0 0; padding: 0; list-style: none; font-size: 14px; }
 .rg-cities li { display: inline-flex; align-items: baseline; gap: 6px; }
-.rg-near, .rg-ccards { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-.rg-near a, .rg-ccards a { display: flex; align-items: center; gap: 8px; padding: 4px; border-radius: 8px; color: var(--fg); min-height: 40px; }
-.rg-near a:hover, .rg-ccards a:hover { background: var(--soft); text-decoration: none; }
-.rg-near .rg-cname, .rg-ccards .rg-cc-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.rg-n { color: var(--muted); font-family: var(--f-num); font-size: 12px; font-variant-numeric: tabular-nums; }
+.rg-near, .rg-cc, .rg-ccards { list-style: none; margin: 2px 0 4px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+/* A country is a chip: flag and name, the whole chip the link. The lists read as a dense flow, not a card grid. */
+.rg-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 4px 10px; border-radius: 8px;
+  background: var(--soft); color: var(--fg); font-size: 14px; white-space: nowrap; }
+.rg-chip:hover { background: var(--line); text-decoration: none; }
+@media (min-width: 720px) { .rg-chip { min-width: 96px; } }   /* about ten chips a row on a 1280 screen */
+.rg-chip[aria-current="page"] { background: var(--line); font-weight: 600; }
 .rg-flag { width: 16px; height: 12px; border-radius: 2px; object-fit: cover; flex: none; }
-.rg-ccards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; }
-.rg-cc-test { color: var(--ink); font-size: 12px; white-space: nowrap; }
-.rg-ccards a { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: var(--bg); }
-.rg-cc-name { font-size: 14px; }
 .xlink { display: flex; }
 .xlink a { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; }
 .xlink svg { width: 12px; height: 12px; }
@@ -248,8 +246,6 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .rg-none { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
 @media (max-width: 560px) {
   .rg-filter { position: sticky; top: 0; z-index: 15; padding: 6px 0; }
-  .rg-cc, .rg-ccards { grid-template-columns: 1fr; }
-  .rg-ccards a { padding: 8px 10px; }
   .rg-filter-nav { background: var(--bg); }
   .rg-filter-cards { background: var(--panel); }
 }
@@ -265,8 +261,3 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .rg-cont[open] summary::after { content: "−"; }
 .rg-cont summary .rg-n { margin-left: 2px; }
 .rg-ic { width: 18px; height: 18px; color: var(--muted); flex: none; }
-.rg-cc { list-style: none; margin: 2px 0 4px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 2px; }
-.rg-cc a { display: flex; align-items: center; gap: 8px; padding: 5px 6px; min-height: 40px; border-radius: 8px; color: var(--fg); }
-.rg-cc a:hover { background: var(--soft); text-decoration: none; }
-.rg-cc a[aria-current="page"] { background: var(--soft); font-weight: 600; }
-.rg-cc .rg-cname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
