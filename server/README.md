@@ -1,7 +1,7 @@
-# 1ms-ping — Global Ping's server (the Tokyo view)
+# 1ms-ping — Global Ping's own server (the second view)
 
 One static Go program on one Linux machine. It sends 16 ICMP echo requests to the address a visitor asks about,
-0.5 s apart, and reports each packet's round-trip time and TTL. It is the page's second view: it uses none of
+0.5 s apart, and reports each packet's round-trip time and TTL. It is one of the page's second views: it uses none of
 Globalping's allowance, always knows the real loss positions, and can be compared with Globalping's Tokyo probe.
 
 It never probes private, reserved, link-local, multicast or its own addresses; it keeps no log and no stored results.

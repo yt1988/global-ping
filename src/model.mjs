@@ -28,8 +28,12 @@ export const REGIONS = [
   { key: "br:saopaulo", g: "am", cc: "BR", city: "SaoPaulo", loc: { city: "Sao Paulo" } },
 ];
 
-// Our own server in Tokyo: the second view. It is not one of the 16, and its numbers never enter the global verdict.
-export const TOKYO_REGION = { key: "tokyo:ours", g: "tokyo", cc: "JP", city: "Tokyo" };
+// Our own servers: the second view. They are not among the 16, and their numbers never enter the global verdict.
+export const SERVER_REGIONS = {
+  tokyo: { key: "srv:tokyo", g: "srv", cc: "JP", city: "Tokyo", server: "tokyo" },
+  shanghai: { key: "srv:shanghai", g: "srv", cc: "CN", city: "Shanghai", server: "shanghai" },
+};
+export const TOKYO_REGION = SERVER_REGIONS.tokyo;   // the Tokyo row, and the model tests
 
 // Taiwan's name is written out per language (the tool contract's rule), never taken from Intl.
 export const TW = { "zh-CN": "中国台湾", "zh-TW": "中國台灣", en: "Taiwan, China", ja: "中国台湾", ko: "중국 대만",
@@ -131,12 +135,12 @@ export function placeResults(regions, results) {
   return rows;
 }
 
-// Our server in Tokyo's answer ({host, ip, family, timings:[{i,rtt,ttl}]}); positions are always real here.
-export function makeTokyoRow(v) {
-  const row = blank(TOKYO_REGION);
+// One of our servers' answers ({host, ip, family, timings:[{i,rtt,ttl}]}); positions are always real here.
+export function makeServerRow(v, region) {
+  const row = blank(region);
   row.own = true;
   row.resolved = v.ip || "";
-  row.probe = { city: "Tokyo", country: "JP", asn: 0, network: "" };
+  row.probe = { city: region.city || "", country: region.cc || "", asn: 0, network: "" };
   (v.timings || []).forEach((t, i) => {
     const idx = t && Number.isInteger(t.i) ? t.i - 1 : i;
     if (idx >= 0 && idx < PACKETS && t && Number.isFinite(t.rtt)) {
@@ -145,6 +149,7 @@ export function makeTokyoRow(v) {
   });
   return settle(row);
 }
+export const makeTokyoRow = v => makeServerRow(v, TOKYO_REGION);
 
 // The one-sentence verdict. Keys match the i18n v_* strings; a and b are the only two numbers those strings take, so
 // the Worker can fill a shared link's title without knowing anything else. `partial`: the 30 s deadline arrived.
@@ -247,7 +252,7 @@ export function isPrivateIp(ip) {
 }
 
 // What the visitor typed → {host, family, isIp} or {error: "bad"|"private"}. URLs and ports are stripped: ICMP has
-// no port. The same rules are applied again by our Tokyo server.
+// no port. The same rules are applied again by our own servers.
 export function normalizeTarget(raw) {
   let s = String(raw || "").trim();
   if (!s || /\s/.test(s)) return { error: "bad" };

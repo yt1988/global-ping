@@ -10,12 +10,12 @@ Global Ping answers "how does this domain or IP answer ICMP from around the worl
 look?". Three parts:
 
 - **The page** (`src/`, built into `public/`): runs in the visitor's browser. Calls Globalping's API for the 16-region
-  view, and our own server in Tokyo for the second view. The measurement model (`src/model.mjs`) is shared with the
+  view, and our own servers (Tokyo, Shanghai) for the second view. The measurement model (`src/model.mjs`) is shared with the
   Worker and the tests.
 - **The Worker** (`src/worker.js`): only runs for shared result links (`/r/<code>`), to give their preview a title.
   Everything else is a static file.
-- **The server** (`server/`, Go): `1ms-ping`, the Tokyo view. When it isn't configured or isn't running, the page's
-  Tokyo row is hidden or says it is unavailable, and the worldwide view is unaffected.
+- **The servers** (`server/`, Go): `1ms-ping`, our own server view (one program per machine). When they aren't configured or aren't running, the page's
+  server rows are hidden and the worldwide view is unaffected.
 
 ## Run it locally
 
@@ -26,11 +26,11 @@ npm run dev        # build, then http://localhost:8787 with the production heade
 npx wrangler dev   # the same with the Worker, to open /r/ links (build first)
 ```
 
-The page calls Globalping (`GP` in `src/app.js`) and the Tokyo server (`TOKYO_API` in `src/config.mjs`). `TOKYO_API` is
-the only deployment-specific address in the page: self-hosted, point it at your own server or set it to `""`; then the
-page shows no Tokyo row at all and the worldwide view keeps working.
+The page calls Globalping (`GP` in `src/app.js`) and our own servers (`SERVERS` in `src/config.mjs`). `SERVERS` is
+the only deployment-specific address in the page: self-hosted, point it at your own server(s) or use an empty array;
+then the page shows no server rows at all and the worldwide view keeps working.
 
-The Tokyo server needs a Linux machine and `CAP_NET_RAW`; building, running and verifying it is
+Each server needs a Linux machine and `CAP_NET_RAW`; building, running and verifying it is
 [server/README.md](server/README.md). To run it locally:
 
 ```bash

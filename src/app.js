@@ -2,9 +2,9 @@
 // probes run the worldwide view straight from the visitor's browser (each visitor spends their own hourly allowance);
 // our own server in Tokyo gives a second view that uses none of it. Strings come from window.L1MS
 // (assets/l.<lang>.<hash>.js, built from src/i18n/); the model and the result-link code are shared with the Worker.
-import { REGIONS as HOME_REGIONS, PACKETS, TOKYO_REGION, countryName, flagCode, fmtMs, fmtPct, latencyBand, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
+import { REGIONS as HOME_REGIONS, PACKETS, SERVER_REGIONS, countryName, flagCode, fmtMs, fmtPct, latencyBand, median, stdev, placeResults, makeServerRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
 import { encodeResult, decodeResult, sharePath, rowToCode, codeToRow } from "./code.mjs";
-import { TOKYO_API } from "./config.mjs";
+import { SERVERS as SERVER_CONFIG } from "./config.mjs";
 import { updateReportEntry } from "./report-entry.mjs";
 
 (() => {
@@ -14,7 +14,9 @@ const L = window.L1MS || {}, D = JSON.parse(document.getElementById("data").text
 // tests the fixed 18 regions. Everything else — the input, the rows, the numbers — is the same code.
 const TOPIC = D.kind === "country" || D.kind === "continent";
 const REGIONS = TOPIC ? D.ranges : HOME_REGIONS;
-const WITH_TOKYO = !!TOKYO_API && !TOPIC;
+// our own servers, one row each; a configured address that does not answer simply is not shown
+const SERVERS = !TOPIC ? SERVER_CONFIG.filter(s => s && s.api && SERVER_REGIONS[s.key]) : [];
+const WITH_SERVERS = SERVERS.length > 0;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 // Chinese copy: keep a space between Han and Latin/digits (16 个地区, Globalping 的), no space between two Han words
@@ -143,15 +145,15 @@ $("helpSel").onchange = e => showHelp(+e.target.value);
 all("[data-hstep]").forEach(b => { b.onclick = () => showHelp(helpIdx + +b.dataset.hstep); });
 
 // row names: city probes with their country, the rest by country. Taiwan is the fixed exception.
-// Our own Tokyo server is not one of the 18 and is named by its source.
-const ours = region => region.key === TOKYO_REGION.key;
+// Our own servers are not among the 16 and are named by their source.
+const ours = region => !!region.server;
 // A topic page names a row by the probe itself: city, network and ASN, as soon as the API has told us who it is (the
 // first poll after creating the measurement, while the result is still running). No "probe 1/2/3": two probes in the
 // same city and network get the probe's own user tag when it has one.
 const probeLabel = p => [p.city, p.network, p.asn ? "AS" + p.asn : ""].filter(Boolean).join(" · ");
 const rowName = row => {
   if (!row) return "";
-  if (TOPIC && row.probe && probeLabel(row.probe)) return probeLabel(row.probe) + (row.probe._tag ? " · " + row.probe._tag : "");
+  if (TOPIC && !row.region?.server && row.probe && probeLabel(row.probe)) return probeLabel(row.probe) + (row.probe._tag ? " · " + row.probe._tag : "");
   return row.region ? nameOf(row.region) : "";
 };
 // Identical-looking probes in one test (same city, network and ASN) are kept apart by their user tag, when they have one.
@@ -165,7 +167,7 @@ function labelDuplicates(rows) {
   });
 }
 const nameOf = region => {
-  if (ours(region)) return t("t_label");
+  if (region.server) return t("srv_" + region.server);
   if (region.city) return `${countryName(region.cc, D.lang)} · ${t("city_" + region.city)}`;
   if (region.label) return region.label;   // a country page's "Probe 1" until the city is known
   return countryName(region.cc, D.lang);
@@ -263,7 +265,8 @@ function start() {
   note("");
   const id = ++run;
   if (recv) { recv.remove(); recv = null; }
-  state = { id, tg, ipv: $("ipv").value, rows: REGIONS.map(() => null), tokyo: null, tokyoError: "",
+  state = { id, tg, ipv: $("ipv").value, rows: REGIONS.map(() => null),
+    servers: SERVERS.map(s => ({ key: s.key, api: s.api, row: null, error: "", retry: 0 })),
     gpDone: false, gpError: "", gpMsg: "", gpReset: 0, partial: false, ts: Date.now(), verdict: null, findings: [], tokyoOnly: false, rowsBuilt: false };
   // The address bar stays as it is for a normal test (1ms.dog convention, 2026-11-08): no ?t= is written.
   // The one exception is a shared result's /r/ page: once the visitor runs their own test, go back to the language home.
@@ -271,7 +274,7 @@ function start() {
   $("verdict").hidden = false; $("table").hidden = false; $("shareBtn").hidden = true;
   $("tokyoFallback").hidden = true;
   $("regions").hidden = false; $("kpis").hidden = false;
-  noteShow(""); tokyoNoteShow("");
+  noteShow("");
   if (quotaLeft != null) { quotaLeft = Math.max(0, quotaLeft - COST); showQuota(); }
   if (TOPIC) {
     // no rows until the API has told us which probes run: "probe 1/2/3" is not a name
@@ -288,7 +291,7 @@ function start() {
   drawFindings(state);
   showProgress(0);
   runGlobalping(state);
-  if (WITH_TOKYO) runTokyo(state);
+  if (WITH_SERVERS) runServers(state);
 }
 
 async function runGlobalping(s) {
@@ -336,21 +339,21 @@ async function runGlobalping(s) {
   settle(s);
 }
 
-async function runTokyo(s) {
-  if (!WITH_TOKYO) { renderTokyo(s); return; }
+async function runServers(s) {
+  if (!WITH_SERVERS) return;
   const q = new URLSearchParams({ host: s.tg.host });
   if (s.tg.isIp) q.set("v", String(s.tg.family)); else if (s.ipv) q.set("v", s.ipv);
-  const c = new AbortController(), timer = setTimeout(() => c.abort(), 15000);
-  try {
-    const r = await fetch(`${TOKYO_API}?${q}`, { signal: c.signal, credentials: "omit", cache: "no-store" });
-    const j = await r.json();
-    if (j && j.ok === false) { s.tokyoError = j.k || "down"; s.tokyoRetry = j.retry || 0; }
-    else { s.tokyo = makeTokyoRow(j); s.tokyoError = ""; }
-  } catch { s.tokyoError = "down"; }
-  finally { clearTimeout(timer); }
-  if (s.id !== run) return;
-  renderTokyo(s);
-  if (!s.tokyoOnly) settle(s);
+  await Promise.all(s.servers.map(async srv => {
+    const c = new AbortController(), timer = setTimeout(() => c.abort(), 15000);
+    try {
+      const r = await fetch(`${srv.api}?${q}`, { signal: c.signal, credentials: "omit", cache: "no-store" });
+      const j = await r.json();
+      if (j && j.ok === false) { srv.error = j.k || "down"; srv.retry = j.retry || 0; }
+      else { srv.row = makeServerRow(j, SERVER_REGIONS[srv.key]); srv.error = ""; }
+    } catch { srv.error = "down"; }
+    finally { clearTimeout(timer); }
+    if (s.id === run) { renderServers(s); if (!s.tokyoOnly) settle(s); }
+  }));
 }
 
 // Called whenever something arrives. The verdict and findings only appear once the worldwide view is done.
@@ -359,7 +362,7 @@ function settle(s) {
   if (!s.gpDone && !s.gpError) return;
   s.verdict = verdict(s.rows, { error: s.gpError, partial: s.partial });
   // Findings compare places with each other; a country page has one probe, so it gets the verdict and numbers only.
-  s.findings = (s.verdict.k === "err" || s.verdict.k === "partial" || (TOPIC && D.kind === "country")) ? [] : findings(s.rows, s.tokyo);
+  s.findings = (s.verdict.k === "err" || s.verdict.k === "partial" || (TOPIC && D.kind === "country")) ? [] : findings(s.rows, (s.servers || []).find(x => x.key === "tokyo")?.row || null);
   if (s.gpError) {
     rowEls = new Map(); detailEls = new Map();
     $("regions").innerHTML = "";
@@ -374,7 +377,7 @@ function settle(s) {
   }
   $("shareBtn").hidden = !canShare(s);
   if (s.gpDone && !s.quotaRefreshed) { s.quotaRefreshed = true; loadQuota(true); }
-  $("tokyoFallback").hidden = !WITH_TOKYO || s.tokyoError === "down" ||
+  $("tokyoFallback").hidden = !WITH_SERVERS ||
     !(s.verdict.k === "err" || s.verdict.k === "partial" || (quotaLeft != null && quotaLeft < COST));
   setGo(false);
   $("go").textContent = t("go_again");
@@ -398,10 +401,12 @@ function buildRows(s) {
     }
     return;
   }
-  if (WITH_TOKYO || s && s.tokyo) {
-    const el = rowElement(TOKYO_REGION, true);
+  if (WITH_SERVERS && s && s.servers) for (const srv of s.servers) {
+    const region = SERVER_REGIONS[srv.key];
+    const el = rowElement(region, true);
+    el.hidden = true;   // shown as soon as this server answers
     $("tokyoRow").appendChild(el);
-    rowEls.set(TOKYO_REGION.key, el);
+    rowEls.set(region.key, el);
   }
   for (const g of GROUPS) {
     const sec = document.createElement("section");
@@ -469,7 +474,8 @@ function barsInto(box, row) {
 
 function rowFor(region) {
   const s = state; if (!s) return null;
-  return ours(region) ? s.tokyo : s.rows[REGIONS.findIndex(r => r.key === region.key)];
+  if (region.server) return (s.servers || []).find(x => x.key === region.server)?.row || null;
+  return s.rows[REGIONS.findIndex(r => r.key === region.key)];
 }
 
 // Every result row carries the flag of the probe's own country (Taiwan's is the contract's cn.svg); a row whose probe
@@ -521,25 +527,12 @@ function fillRow(s, region, row) {
 function renderRows(s) {
   for (let i = 0; i < REGIONS.length; i++) fillRow(s, REGIONS[i], s.rows[i]);
 }
-function renderTokyo(s) {
-  const el = rowEls.get(TOKYO_REGION.key); if (!el) return;
-  if (s.tokyo) {
-    el.hidden = false;
-    fillRow(s, TOKYO_REGION, s.tokyo);
-    tokyoNoteShow("");
-  } else if (s.tokyoError === "down") {
-    // before our Tokyo server exists (or while it is down) the row would only say "unavailable": hide it entirely
-    // rather than show a broken-looking line; it comes back by itself once the server answers
-    el.hidden = true;
-    tokyoNoteShow("");
-  } else {
-    el.hidden = false;
-    el.querySelector(".bars").textContent = "";
-    el.querySelector(".st").className = "st";
-    el.querySelector(".med").textContent = "—";
-    el.querySelector(".meta").textContent = "";
-    const key = s.tokyoError === "limit" ? "t_limit" : s.tokyoError === "busy" ? "t_busy" : s.tokyoError === "private" ? "t_private" : "t_down";
-    tokyoNoteShow(t(key, { s: s.tokyoRetry || (key === "t_busy" ? 5 : 60) }));
+function renderServers(s) {
+  for (const srv of s.servers || []) {
+    const region = SERVER_REGIONS[srv.key];
+    const el = rowEls.get(region.key); if (!el) continue;
+    if (srv.row) { el.hidden = false; fillRow(s, region, srv.row); }
+    else el.hidden = true;   // a server that does not answer is simply not shown, not an error line
   }
 }
 
@@ -564,7 +557,8 @@ function tipEl() {
   return tip;
 }
 function tipShow(rowEl, bar) {
-  const row = state && (rowEl.dataset.key === TOKYO_REGION.key ? state.tokyo : state.rows[REGIONS.findIndex(r => r.key === rowEl.dataset.key)]);
+  const region = [...REGIONS, ...Object.values(SERVER_REGIONS)].find(r => r.key === rowEl.dataset.key);
+  const row = region ? rowFor(region) : null;
   if (!row || !row.rtts || row.posUnknown || row.state === "pending" || row.state === "noprobe") return;
   const i = +bar.dataset.i, rtt = row.rtts[i];
   const el = tipEl();
@@ -580,7 +574,7 @@ document.addEventListener("scroll", tipHide, { passive: true });
 
 function detailHtml(region) {
   const s = state; if (!s) return "";
-  const row = region.key === TOKYO_REGION.key ? s.tokyo : s.rows[REGIONS.findIndex(r => r.key === region.key)];
+  const row = rowFor(region);
   if (!row || row.state === "pending") return `<p class="d-line">${esc(t("r_pending"))}</p>`;
   if (row.state === "noprobe") return `<p class="d-line">${esc(t("r_noprobe"))}</p>`;
   const target = s.tg.host;
@@ -651,7 +645,7 @@ function subLine(s) {
 }
 function drawKpis(s) {
   updateReportEntry($("reportBtn"), s, window.msOpenReport, t("report_prefill"));
-  const replied = s.tokyoOnly ? (s.tokyo && s.tokyo.rcv > 0 ? [s.tokyo] : []) : s.rows.filter(r => r && r.rcv > 0 && Number.isFinite(r.median));
+  const replied = s.tokyoOnly ? (s.servers || []).map(x => x.row).filter(r => r && r.rcv > 0) : s.rows.filter(r => r && r.rcv > 0 && Number.isFinite(r.median));
   if (!replied.length) {
     $("kMedian").textContent = "—"; $("kJitter").textContent = "—"; $("kJitterWho").textContent = ""; $("kLoss").textContent = "—";
     return;
@@ -687,14 +681,15 @@ function canShare(s) {
   if (TOPIC) return false;   // a country or continent result is not encoded into a link
   if (!s || !s.verdict) return false;
   if (s.verdict.k === "err" || s.verdict.k === "partial") return false;
-  return s.rows.some(r => r && r.rcv > 0) || (s.tokyo && s.tokyo.rcv > 0);
+  return s.rows.some(r => r && r.rcv > 0) || (s.servers || []).some(x => x.row && x.row.rcv > 0);
 }
 
 // ---------- share: the result in a link, and the card ----------
 async function resultLink(s) {
   const code = { t: s.tg.host, f: s.tg.family || +s.ipv || 4, ts: s.ts, k: s.verdict.k, a: s.verdict.a, b: s.verdict.b,
     r: s.rows.filter(r => r && r.state !== "pending" && r.state !== "noprobe").map(rowToCode),
-    y: s.tokyo ? [s.tokyo.resolved || "", s.tokyo.rtts.map(v => (Number.isFinite(v) ? Math.round(v * 10) : 0)), s.tokyo.ttls.map(v => (Number.isFinite(v) ? v : 0))] : 0 };
+    w: (s.servers || []).filter(x => x.row).map(x => [x.key, x.row.resolved || "",
+      x.row.rtts.map(v => (Number.isFinite(v) ? Math.round(v * 10) : 0)), x.row.ttls.map(v => (Number.isFinite(v) ? v : 0))]) };
   return `${location.origin}${D.paths[D.lang]}r/${await encodeResult(code)}`;
 }
 $("shareBtn").addEventListener("click", async () => {
@@ -703,39 +698,40 @@ $("shareBtn").addEventListener("click", async () => {
   const { share } = await import("/assets/share/share.js?v=10");
   const v = { title: t(s.verdict.k === "tokyo" ? "v_tokyo" : "v_" + s.verdict.k, { a: s.verdict.a, b: s.verdict.b }), k: s.verdict.k };
   const rows = s.rows.filter(r => r && r.rcv > 0);
+  const servers = (s.servers || []).filter(x => x.row && x.row.rcv > 0).map(x => ({ key: x.key, row: x.row }));
   share({
     lang: D.lang, name: t("app_name"), file: "global-ping", show: [], never: ["ip"], canShow: false,
     link: () => link, home: location.origin + D.paths[D.lang],
     text: () => `${v.title} · ${s.tg.host}`,
-    height: (ctx, kit) => cardLayout(ctx, kit, v, s.tg.host, rows, s.tokyo, s).H,
+    height: (ctx, kit) => cardLayout(ctx, kit, v, s.tg.host, rows, servers, s).H,
     ts: s.ts,
     foot: () => [t("card_src")],
-    draw: (ctx, kit) => drawCard(ctx, kit, v, s, rows),
+    draw: (ctx, kit) => drawCard(ctx, kit, v, s, rows, servers),
   }).open();
 });
 
 const ROWH = 44;
-function cardLayout(ctx, kit, v, target, rows, tokyo, s) {
+function cardLayout(ctx, kit, v, target, rows, servers, s) {
   const { W, P, F, fit, wrap } = kit, w = W - P * 2;
   let ts = fit(ctx, v.title, w, 46, 34), lines = [v.title];
   if (ctx.measureText(v.title).width > w) { ts = 38; ctx.font = `700 ${ts}px ${F}`; lines = wrap(ctx, v.title, w, 2); }
   const tY = kit.top + 14;
   const targetY = tY + (lines.length - 1) * Math.round(ts * 1.2) + 48;
   const numY = targetY + 62;
-  const cells = rows.length + (tokyo && tokyo.rcv > 0 ? 1 : 0);
+  const cells = rows.length + servers.length;
   // Long languages (German, Russian) have region names too wide for a third of the card. The contract says add rows,
   // not shrink the text or cut names, so measure and drop to two columns when three cannot hold every name at 16px.
   const names = rows.map(r => nameOf(r.region));
-  if (tokyo && tokyo.rcv > 0) names.push(t("t_label"));
+  for (const srv of servers) names.push(t("srv_" + srv.key));
   const fits = cols => { const avail = w / cols - 150; ctx.font = `500 16px ${F}`; return names.every(n => ctx.measureText(n).width <= avail); };
   const cols = fits(3) ? 3 : 2;
   const gridY = numY + 78;
   const gridRows = Math.ceil(cells / cols);
   return { lines, ts, tY, targetY, numY, gridY, cells, cols, gridRows, H: gridY + gridRows * ROWH + 74 };
 }
-function drawCard(ctx, kit, v, s, rows) {
+function drawCard(ctx, kit, v, s, rows, servers) {
   const { P, W, F, M, v: css, fit } = kit, w = W - P * 2;
-  const L2 = cardLayout(ctx, kit, v, s.tg.host, rows, s.tokyo, s);
+  const L2 = cardLayout(ctx, kit, v, s.tg.host, rows, servers, s);
   const cls = v.k === "ok" || v.k === "probe" ? "ok" : v.k === "loss" || v.k === "some" || v.k === "partial" ? "warn" : "bad";
   ctx.fillStyle = css(cls); ctx.font = `700 ${L2.ts}px ${F}`;
   L2.lines.forEach((line, i) => ctx.fillText(line, P, L2.tY + i * Math.round(L2.ts * 1.2)));
@@ -792,7 +788,7 @@ function drawCard(ctx, kit, v, s, rows) {
     ctx.textAlign = "left";
   };
   rows.forEach((row, i) => cell(i, nameOf(row.region), row, false));
-  if (s.tokyo && s.tokyo.rcv > 0) cell(rows.length, t("t_label"), s.tokyo, true);
+  servers.forEach((srv, i) => cell(rows.length + i, t("srv_" + srv.key), srv.row, true));
 }
 
 // ---------- someone else's shared result, and ?t= prefills ----------
@@ -803,30 +799,36 @@ function decodeRows(o) {
     row.median = median(got); row.jitter = stdev(got);
     return row;
   }).filter(Boolean);
-  let tokyo = null;
-  if (Array.isArray(o.y)) {
-    const rtts = (o.y[1] || []).map(v => (v > 0 ? v / 10 : null)), ttls = (o.y[2] || []).map(v => (v > 0 ? v : null));
+  const servers = [];
+  const addServer = (key, resolved, rawRtts, rawTtls) => {
+    const region = SERVER_REGIONS[key]; if (!region) return;
+    const rtts = (rawRtts || []).map(v => (v > 0 ? v / 10 : null)), ttls = (rawTtls || []).map(v => (v > 0 ? v : null));
     while (rtts.length < PACKETS) rtts.push(null); while (ttls.length < PACKETS) ttls.push(null);
-    tokyo = { region: TOKYO_REGION, own: true, resolved: o.y[0] || "", probe: { city: "Tokyo", country: "JP", asn: 0, network: "" },
-      rtts, ttls, rcv: rtts.filter(Number.isFinite).length, median: median(rtts), jitter: stdev(rtts), loss: 0, state: "ok", posUnknown: false };
-    tokyo.loss = (PACKETS - tokyo.rcv) / PACKETS; tokyo.state = tokyo.rcv === 0 ? "none" : tokyo.rcv < PACKETS ? "loss" : "ok";
-  }
-  return { rows, tokyo };
+    const row = { region, own: true, resolved: resolved || "", probe: { city: region.city || "", country: region.cc || "", asn: 0, network: "" },
+      rtts, ttls, rcv: rtts.filter(Number.isFinite).length, median: null, jitter: null, loss: 0, state: "ok", posUnknown: false };
+    row.median = median(rtts); row.jitter = stdev(rtts);
+    row.loss = (PACKETS - row.rcv) / PACKETS; row.state = row.rcv === 0 ? "none" : row.rcv < PACKETS ? "loss" : "ok";
+    servers.push({ key, row });
+  };
+  if (Array.isArray(o.w)) for (const a of o.w) if (Array.isArray(a)) addServer(a[0], a[1], a[2], a[3]);
+  else if (Array.isArray(o.y)) addServer("tokyo", o.y[0], o.y[1], o.y[2]);   // links from before the second server
+  return { rows, servers };
 }
 const sp = sharePath(location.pathname);
 if (sp) {
   decodeResult(sp.code).then(async o => {
     if (!o) return;
-    const { rows, tokyo } = decodeRows(o);
+    const { rows, servers } = decodeRows(o);
     state = { id: ++run, tg: { host: o.t, family: o.f || 4, isIp: familyOf(o.t) != null }, ts: o.ts || Date.now(),
       rows: REGIONS.map(r => rows.find(x => x.region.key === r.key) || { region: r, state: "noprobe" }),
-      tokyo, gpDone: true, gpError: "", partial: false, verdict: { k: o.k, a: o.a ?? 0, b: o.b ?? 0 }, findings: [],
-      tokyoOnly: !rows.length };
+      servers: SERVERS.map(s => { const hit = servers.find(x => x.key === s.key); return { key: s.key, api: s.api, row: hit ? hit.row : null, error: hit ? "" : "down", retry: 0 }; }),
+      gpDone: true, gpError: "", partial: false, verdict: { k: o.k, a: o.a ?? 0, b: o.b ?? 0 }, findings: [],
+      tokyoOnly: !rows.length && servers.length > 0 };
     $("target").value = o.t; $("ipvWrap").hidden = false; $("ipv").value = String(o.f || 4);
     $("verdict").hidden = $("table").hidden = false; $("shareBtn").hidden = false;
     if (state.tokyoOnly) { $("regions").hidden = true; }
-    buildRows(state); renderRows(state); renderTokyo(state); drawVerdict(state); drawKpis(state);
-    state.findings = findings(state.rows, state.tokyo); drawFindings(state);
+    buildRows(state); renderRows(state); renderServers(state); drawVerdict(state); drawKpis(state);
+    state.findings = findings(state.rows, state.servers.find(x => x.key === "tokyo")?.row || null); drawFindings(state);
     $("gpProgress").textContent = t("prog", { done: state.rows.filter(r => r && r.state !== "pending").length, of: REGIONS.length });
     $("tokyoFallback").hidden = true;
     const { received } = await import("/assets/share/share.js?v=10");
@@ -841,19 +843,21 @@ if (sp) {
 }
 
 $("tokyoBtn").addEventListener("click", async () => {
-  if (!WITH_TOKYO) return;
+  if (!WITH_SERVERS) return;
   const raw = $("target").value.trim(), tg = normalizeTarget(raw);
   if (tg.error) return;
   const id = ++run;
-  state = { id, tg, ipv: $("ipv").value, rows: REGIONS.map(() => null), tokyo: null, tokyoError: "", gpDone: true, gpError: "", partial: false,
+  state = { id, tg, ipv: $("ipv").value, rows: REGIONS.map(() => null),
+    servers: SERVERS.map(s => ({ key: s.key, api: s.api, row: null, error: "", retry: 0 })),
+    gpDone: true, gpError: "", partial: false,
     ts: Date.now(), verdict: { k: "tokyo", a: 0, b: 0 }, findings: [], tokyoOnly: true };
   $("verdict").hidden = false; $("table").hidden = false; $("shareBtn").hidden = true; $("tokyoFallback").hidden = true;
   $("regions").hidden = true;
-  buildRows(state); renderRows(state); renderTokyo(state); drawVerdict(state);
+  buildRows(state); renderRows(state); drawVerdict(state);
   $("kpis").hidden = true;
-  await runTokyo(state);
+  await runServers(state);
   if (state.id !== id) return;
-  if (!state.tokyo) {
+  if (!state.servers.some(x => x.row)) {
     $("kpis").hidden = true;
     $("vDot").className = "dot warn";
     $("vTitle").textContent = t("t_down");
@@ -872,7 +876,7 @@ window.msReport = () => state && state.verdict ? {
   summary: `${t(state.verdict.k === "tokyo" ? "v_tokyo" : "v_" + state.verdict.k, { a: state.verdict.a, b: state.verdict.b })} · ${state.tg.host}`,
   data: { target: state.tg.host, family: state.tg.family, verdict: state.verdict,
     rows: state.rows.filter(r => r && r.state !== "pending" && r.state !== "noprobe").map(r => ({ region: r.region.key, resolved: r.resolved, rcv: r.rcv, median: r.median, jitter: r.jitter, loss: r.loss })),
-    tokyo: state.tokyo ? { resolved: state.tokyo.resolved, rcv: state.tokyo.rcv, median: state.tokyo.median } : null },
+    servers: (state.servers || []).filter(x => x.row).map(x => ({ key: x.key, resolved: x.row.resolved, rcv: x.row.rcv, median: x.row.median })) },
   picks: state.rows.filter(r => r && r.rcv < PACKETS).slice(0, 8).map(r => `${nameOf(r.region)}: ${r.rcv}/16`),
 } : null;
 
