@@ -117,7 +117,7 @@ document.addEventListener("keydown", e => {
   const el = e.target;
   if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable)) return;
   if (document.querySelector(".scrim:not([hidden])")) return;
-  const f = document.querySelector(".rg-filter-cards .rg-q") || document.querySelector(".rg-filter-nav .rg-q");
+  const f = document.querySelector(".rg-filter-cards .rg-q") || document.querySelector(".rg-filter-explore .rg-q") || document.querySelector(".rg-filter-nav .rg-q");
   if (f) { e.preventDefault(); f.focus(); }
 });
 

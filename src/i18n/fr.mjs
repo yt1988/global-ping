@@ -131,4 +131,5 @@ export default {
   filter_clear: "Effacer",
   samples_low: "Cette fois, seules {n} réponses sont revenues",
   probe_n: "Sonde {n}",
+  explore_h: "Tester par pays ou région",
 };

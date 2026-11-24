@@ -238,7 +238,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 /* the country filter above a list: names here, English names and codes, matched as you type */
 .rg-filter { display: flex; flex-direction: column; gap: 6px; padding: 4px 0; position: sticky; top: 0; z-index: 15; }
 .rg-filter-nav { background: var(--bg); }
-.rg-filter-cards { background: var(--panel); }
+.rg-filter-cards, .rg-filter-explore { background: var(--panel); }
 .rg-frow { display: flex; align-items: center; gap: 8px; }
 .rg-q { flex: 1; min-width: 0; height: 32px; font: 16px var(--f-ui); color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; }
 .rg-q:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
@@ -249,6 +249,10 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 @media (max-width: 560px) {
   .rg-filter { padding: 6px 0; }
 }
+
+/* the home page's way into the country pages: six continent chips, then the same country chips */
+.rg-cont-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.rg-cont-chips .rg-chip .rg-ic { width: 16px; height: 16px; color: var(--muted); }
 
 /* the bottom navigation: every continent, every country under it */
 .region-nav { display: flex; flex-direction: column; gap: 8px; }

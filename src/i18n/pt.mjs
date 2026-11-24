@@ -131,4 +131,5 @@ export default {
   filter_clear: "Limpar",
   samples_low: "Desta vez voltaram apenas {n} amostras",
   probe_n: "Sonda {n}",
+  explore_h: "Testar por país ou região",
 };

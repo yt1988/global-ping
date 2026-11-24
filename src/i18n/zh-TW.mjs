@@ -132,4 +132,5 @@ export default {
   filter_clear: "清除",
   samples_low: "本次只得到 {n} 個樣本",
   probe_n: "節點 {n}",
+  explore_h: "依國家或地區測試",
 };

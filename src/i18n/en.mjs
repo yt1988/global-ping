@@ -132,4 +132,5 @@ export default {
   filter_clear: "Clear",
   samples_low: "Only {n} samples came back this time",
   probe_n: "Probe {n}",
+  explore_h: "Test by country or region",
 };

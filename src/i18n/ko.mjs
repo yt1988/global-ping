@@ -131,4 +131,5 @@ export default {
   filter_clear: "지우기",
   samples_low: "이번에는 샘플이 {n}개만 돌아왔어요",
   probe_n: "프로브 {n}",
+  explore_h: "국가·지역으로 테스트",
 };

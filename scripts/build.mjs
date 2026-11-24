@@ -49,7 +49,7 @@ const BUILD_ONLY = new Set(["name", "seo_title", "seo_desc", "seo_kw", "og_sub",
   "cont_EU", "cont_NA", "cont_AS", "cont_SA", "cont_OC", "cont_AF", "a_crumbs", "nav_regions",
   "country_h1", "country_title", "country_desc", "country_intro", "c_probes", "near_h", "cont_h1", "cont_title", "cont_desc", "cont_intro", "cont_test",
   "cont_countries", "route_EU", "route_NA", "route_AS", "route_SA", "route_OC", "route_AF",
-  "filter_ph", "filter_none", "filter_clear"]);
+  "filter_ph", "filter_none", "filter_clear", "explore_h"]);
 
 // Data sources named in the page link to their sites
 const SOURCES = { gp: ["Globalping", "https://globalping.io"] };
@@ -110,6 +110,19 @@ function regionNav(T, slug, current) {
     return `<details class="rg-cont"${open}><summary aria-label="${esc(T("cont_" + c.code))}">${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span></summary><ul class="rg-cc">${cc}</ul></details>`;
   }).join("");
   return `<nav class="region-nav" aria-labelledby="regionNavH"><h2 id="regionNavH">${esc(T("nav_regions"))}</h2>${filterBox(T, current.lang, COUNTRIES.length, "rg-filter-nav")}<div class="rg-list">${items}</div></nav>`;
+}
+
+// The home page's way into every country page: the six continents, then the 86 countries as the same chip flow the
+// topic pages use, with the same filter above it.
+function exploreSection(T, slug, lang) {
+  const conts = CONTINENTS.map(c => `<a class="rg-chip" href="${esc(pathOf(slug, c.slug))}">${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span></a>`).join("");
+  const countries = COUNTRIES.map(x => `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span></a></li>`).join("");
+  return `<section class="card sec" id="explore">
+    <h2>${esc(T("explore_h"))}</h2>
+    <div class="rg-cont-chips">${conts}</div>
+    ${filterBox(T, lang, COUNTRIES.length, "rg-filter-explore")}
+    <ul class="rg-cc">${countries}</ul>
+  </section>`;
 }
 
 function crumbs(T, slug, current) {
@@ -217,6 +230,7 @@ export async function build() {
           .replace("{{homeHref}}", pathOf(slug)).replace("{{appName}}", esc(T("app_name"))).replace("{{langOpts}}", langOpts).replace("{{h1}}", esc(T("h1")))
           .replace("{{helpNav}}", helpNav).replace("{{helpC}}", helpC)
           .replace("{{srcGp}}", links(T("src_gp"))).replace("{{footSrc}}", links(T("foot_src")))
+          .replace("{{explore}}", () => exploreSection(T, slug, lang))
           .replace("{{data}}", json({ lang, paths, langPath: pathOf(slug) }));
       } else {
         const c = pg.kind === "continent" ? CONTINENTS.find(x => x.code === pg.cont) : countryByCc(pg.cc);

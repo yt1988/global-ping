@@ -24,6 +24,18 @@ test("every page, for every language, was written", async () => {
   }
 });
 
+test("the home page links every country page", async () => {
+  for (const [lang, slug] of LANGS) {
+    const html = await read(`${slug ? slug + "/" : ""}index.html`);
+    assert.match(html, /<section class="card sec" id="explore">/, `${lang}: the explore block`);
+    assert.equal((html.match(/class="rg-cont-chips"/g) || []).length, 1, `${lang}: one continent chip row`);
+    assert.equal((html.match(/class="rg-chip" href="[^"]*"/g) || []).length >= CONTINENTS.length + COUNTRIES.length, true, `${lang}: continent and country chips`);
+    assert.equal((html.match(/data-s="/g) || []).length, COUNTRIES.length, `${lang}: every country has a search string`);
+    assert.ok(html.includes(`rg-filter-explore`), `${lang}: the filter`);
+    assert.ok(html.includes(`/${slug ? slug + "/" : ""}europe/de/`), `${lang}: country links keep the language folder`);
+  }
+});
+
 test("no page has a duplicate title", async () => {
   const seen = new Map();
   for (const [, slug] of LANGS) for (const dir of dirs) {

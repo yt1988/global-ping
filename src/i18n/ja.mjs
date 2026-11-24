@@ -131,4 +131,5 @@ export default {
   filter_clear: "クリア",
   samples_low: "今回の応答は {n} 件だけでした",
   probe_n: "プローブ {n}",
+  explore_h: "国・地域からテスト",
 };
