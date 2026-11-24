@@ -70,14 +70,12 @@ test("a country page shows no Globalping inventory, only the test and its neighb
   assert.ok(html.includes(noteFor("US", "zh-CN")), "the shared note is on the page");
 });
 
-test("a note shows only in a language the shared file carries", async () => {
-  assert.ok(noteFor("DE", "zh-CN") && noteFor("DE", "en") && noteFor("DE", "fr") && noteFor("DE", "de") && noteFor("DE", "pt"));
-  assert.equal(noteFor("DE", "ru"), "");   // Russian has not been written yet
-  const en = await read("europe/de/index.html"), pt = await read("pt/europe/de/index.html"), ru = await read("ru/europe/de/index.html");
+test("every language shows its country note", async () => {
+  for (const [lang] of LANGS) assert.ok(noteFor("DE", lang), `${lang}: no note for DE`);
+  const en = await read("europe/de/index.html"), ru = await read("ru/europe/de/index.html"), ja = await read("ja/europe/de/index.html");
   assert.ok(en.includes(noteFor("DE", "en")));
-  assert.ok(pt.includes(noteFor("DE", "pt")));
-  assert.ok(!ru.includes(noteFor("DE", "en")) && !ru.includes(noteFor("DE", "zh-CN")));
-  assert.equal((ru.match(/class="route"/g) || []).length, 0);
+  assert.ok(ru.includes(noteFor("DE", "ru")));
+  assert.ok(ja.includes(noteFor("DE", "ja")));
 });
 
 test("a continent page tests ten countries in one request and lists them all", async () => {
