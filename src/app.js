@@ -2,7 +2,7 @@
 // probes run the worldwide view straight from the visitor's browser (each visitor spends their own hourly allowance);
 // our own server in Tokyo gives a second view that uses none of it. Strings come from window.L1MS
 // (assets/l.<lang>.<hash>.js, built from src/i18n/); the model and the result-link code are shared with the Worker.
-import { REGIONS as HOME_REGIONS, PACKETS, TOKYO_REGION, countryName, fmtMs, fmtPct, latencyBand, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
+import { REGIONS as HOME_REGIONS, PACKETS, TOKYO_REGION, countryName, flagCode, fmtMs, fmtPct, latencyBand, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
 import { encodeResult, decodeResult, sharePath, rowToCode, codeToRow } from "./code.mjs";
 import { TOKYO_API } from "./config.mjs";
 import { updateReportEntry } from "./report-entry.mjs";
@@ -389,11 +389,12 @@ function rowElement(region, own) {
   el.tabIndex = 0; el.setAttribute("role", "button"); el.setAttribute("aria-expanded", "false");
   el.dataset.key = region.key;
   const nm = nameOf(region);
-  el.innerHTML = `<span class="rname"><i class="st"></i><span class="nm">${esc(nm)}</span></span>
+  el.innerHTML = `<span class="rname"><i class="st"></i><img class="rg-flag row-flag" alt="" width="16" height="12" hidden><span class="nm">${esc(nm)}</span></span>
     <span class="bars" aria-hidden="true"></span>
     <span class="med">—</span><span class="meta"></span>
     <span class="detail" hidden></span>`;
   el.dataset.name = nm;
+  setRowFlag(el, region.cc);   // the requested country until the probe itself answers (then probe.country wins)
   const toggle = () => {
     const d = el.querySelector(".detail"), open = d.hidden;
     if (!state) return;
@@ -435,8 +436,20 @@ function rowFor(region) {
   return ours(region) ? s.tokyo : s.rows[REGIONS.findIndex(r => r.key === region.key)];
 }
 
+// Every result row carries the flag of the probe's own country (Taiwan's is the contract's cn.svg); a row whose probe
+// is not known yet keeps it hidden.
+function setRowFlag(el, cc) {
+  const img = el.querySelector(".row-flag");
+  if (!img) return;
+  if (!cc) { img.hidden = true; return; }
+  const src = `/flags/${flagCode(cc)}.svg`;
+  if (img.getAttribute("src") !== src) img.setAttribute("src", src);
+  img.hidden = false;
+}
+
 function fillRow(s, region, row) {
   const el = rowEls.get(region.key); if (!el) return;
+  setRowFlag(el, (row && row.probe && row.probe.country) || region.cc);
   // the probe's identity is shown as soon as it is known, including while the result is still running
   const nm = rowName(row);
   if (nm && el.dataset.name !== nm) {
