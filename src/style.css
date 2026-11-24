@@ -236,7 +236,9 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .xlink svg { width: 12px; height: 12px; }
 
 /* the country filter above a list: names here, English names and codes, matched as you type */
-.rg-filter { display: flex; flex-direction: column; gap: 6px; padding: 4px 0; }
+.rg-filter { display: flex; flex-direction: column; gap: 6px; padding: 4px 0; position: sticky; top: 0; z-index: 15; }
+.rg-filter-nav { background: var(--bg); }
+.rg-filter-cards { background: var(--panel); }
 .rg-frow { display: flex; align-items: center; gap: 8px; }
 .rg-q { flex: 1; min-width: 0; height: 32px; font: 16px var(--f-ui); color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; }
 .rg-q:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
@@ -245,9 +247,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .rg-clear { flex: none; border: 0; background: none; color: var(--ink); font: 500 13px var(--f-ui); cursor: pointer; padding: 6px 2px; }
 .rg-none { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
 @media (max-width: 560px) {
-  .rg-filter { position: sticky; top: 0; z-index: 15; padding: 6px 0; }
-  .rg-filter-nav { background: var(--bg); }
-  .rg-filter-cards { background: var(--panel); }
+  .rg-filter { padding: 6px 0; }
 }
 
 /* the bottom navigation: every continent, every country under it */

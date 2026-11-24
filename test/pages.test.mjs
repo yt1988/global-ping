@@ -56,12 +56,13 @@ test("a country page shows no Globalping inventory, only the test and its neighb
 });
 
 test("a note shows only in a language the shared file carries", async () => {
-  assert.ok(noteFor("DE", "zh-CN") && noteFor("DE", "en"));
-  assert.equal(noteFor("DE", "fr"), "");
-  const en = await read("europe/de/index.html"), fr = await read("fr/europe/de/index.html");
+  assert.ok(noteFor("DE", "zh-CN") && noteFor("DE", "en") && noteFor("DE", "fr"));
+  assert.equal(noteFor("DE", "de"), "");   // German has not been written yet
+  const en = await read("europe/de/index.html"), fr = await read("fr/europe/de/index.html"), de = await read("de/europe/de/index.html");
   assert.ok(en.includes(noteFor("DE", "en")));
-  assert.ok(!fr.includes(noteFor("DE", "en")) && !fr.includes(noteFor("DE", "zh-CN")));
-  assert.equal((fr.match(/class="route"/g) || []).length, 0);
+  assert.ok(fr.includes(noteFor("DE", "fr")));
+  assert.ok(!de.includes(noteFor("DE", "en")) && !de.includes(noteFor("DE", "zh-CN")));
+  assert.equal((de.match(/class="route"/g) || []).length, 0);
 });
 
 test("a continent page tests five countries in one request and lists them all", async () => {
