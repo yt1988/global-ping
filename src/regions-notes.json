@@ -2,352 +2,613 @@
   "version": 1,
   "langs": [
     "zh",
-    "en"
+    "en",
+    "zh-TW",
+    "ja",
+    "ko"
   ],
   "notes": {
     "DE": {
       "zh": "多家运营商竞争，法兰克福是欧洲重要的交换枢纽，国际出口多经此中转。",
-      "en": "Several operators compete; Frankfurt is an important European exchange hub, and much international traffic transits there."
+      "en": "Several operators compete; Frankfurt is an important European exchange hub, and much international traffic transits there.",
+      "zh-TW": "多家業者競爭，法蘭克福是歐洲重要的交換樞紐，國際出口多由此轉接。",
+      "ja": "複数の事業者が競合し、フランクフルトは欧州の重要な交換拠点で、国際トラフィックの多くがここを経由する。",
+      "ko": "여러 사업자가 경쟁하고 프랑크푸르트는 유럽의 중요한 교환 거점으로, 국제 트래픽 상당수가 이곳을 거친다."
     },
     "NL": {
       "zh": "阿姆斯特丹是海缆与数据中心集中地，跨境流量多经此进出欧洲。",
-      "en": "Amsterdam concentrates submarine cable landings and data centres, and much cross-border traffic enters Europe through it."
+      "en": "Amsterdam concentrates submarine cable landings and data centres, and much cross-border traffic enters Europe through it.",
+      "zh-TW": "阿姆斯特丹是海纜與資料中心集中地，跨境流量多由此進出歐洲。",
+      "ja": "アムステルダムは海底ケーブルの陸揚げとデータセンターが集中し、国境を越える通信の多くがここから欧州に入る。",
+      "ko": "암스테르담에 해저 케이블 접속점과 데이터센터가 모여 있고, 국경을 넘는 트래픽 상당수가 이곳으로 유럽에 들어온다."
     },
     "GB": {
       "zh": "多家全国性运营商并存，伦敦集中了国际出口与海缆登陆。",
-      "en": "Several national operators compete; London concentrates international gateways and cable landings."
+      "en": "Several national operators compete; London concentrates international gateways and cable landings.",
+      "zh-TW": "多家全國性業者並存，倫敦集中了國際出口與海纜登陸。",
+      "ja": "複数の全国事業者が並存し、ロンドンに国際ゲートウェイとケーブル陸揚げが集中する。",
+      "ko": "여러 전국 사업자가 공존하고 런던에 국제 게이트웨이와 케이블 접속점이 모여 있다."
     },
     "FR": {
       "zh": "几家全国性运营商竞争，巴黎是本国交换中心，跨境流量经周边枢纽中转。",
-      "en": "A few national operators compete; Paris is the domestic exchange point, and cross-border traffic transits neighbouring hubs."
+      "en": "A few national operators compete; Paris is the domestic exchange point, and cross-border traffic transits neighbouring hubs.",
+      "zh-TW": "幾家全國性業者競爭，巴黎是本國交換中心，跨境流量經周邊樞紐轉接。",
+      "ja": "複数の全国事業者が競合し、パリが国内の交換拠点。国境を越える通信は周辺の拠点を経由する。",
+      "ko": "여러 전국 사업자가 경쟁하고 파리가 국내 교환 거점이다. 국경을 넘는 트래픽은 주변 거점을 거친다."
     },
     "RU": {
       "zh": "国土跨度大，固网以国有背景运营商为主，国际出口经陆缆与周边国家相连。",
-      "en": "A vast country; fixed lines are led by a state-backed operator, and international traffic leaves over land cables to neighbouring countries."
+      "en": "A vast country; fixed lines are led by a state-backed operator, and international traffic leaves over land cables to neighbouring countries.",
+      "zh-TW": "國土跨度大，固網以國有背景業者為主，國際出口經陸纜與周邊國家相連。",
+      "ja": "国土が広く、固定回線は国有系事業者が中心。国際通信は周辺国への陸上ケーブルで出入りする。",
+      "ko": "국토가 넓고 유선은 국유 배경 사업자가 중심이다. 국제 트래픽은 주변국으로 이어지는 육상 케이블로 나간다."
     },
     "FI": {
       "zh": "北欧国家，固网与移动由几家运营商覆盖，国际流量经波罗的海海缆和陆路出口。",
-      "en": "Nordic country; a few operators cover fixed and mobile, with international traffic leaving over Baltic cables and land routes."
+      "en": "Nordic country; a few operators cover fixed and mobile, with international traffic leaving over Baltic cables and land routes.",
+      "zh-TW": "北歐國家，固網與行動網路由幾家業者覆蓋，國際流量經波羅的海海纜和陸路出口。",
+      "ja": "北欧の国。固定・移動体を複数の事業者が担い、国際通信はバルト海のケーブルと陸路で出入りする。",
+      "ko": "북유럽 국가로 유선과 이동통신을 여러 사업자가 담당하고, 국제 트래픽은 발트해 케이블과 육로로 나간다."
     },
     "PL": {
       "zh": "多家运营商竞争，华沙是本国交换中心，跨境流量经德国与波罗的海方向。",
-      "en": "Several operators compete; Warsaw is the domestic exchange point, and cross-border traffic heads towards Germany and the Baltic."
+      "en": "Several operators compete; Warsaw is the domestic exchange point, and cross-border traffic heads towards Germany and the Baltic.",
+      "zh-TW": "多家業者競爭，華沙是本國交換中心，跨境流量經德國與波羅的海方向。",
+      "ja": "複数の事業者が競合し、ワルシャワが国内の交換拠点。国境を越える通信はドイツとバルト海方面へ向かう。",
+      "ko": "여러 사업자가 경쟁하고 바르샤바가 국내 교환 거점이다. 국경을 넘는 트래픽은 독일과 발트해 방향으로 향한다."
     },
     "SE": {
       "zh": "北欧国家，固网与移动由几家运营商覆盖，国际流量经波罗的海与挪威方向的海缆。",
-      "en": "Nordic country; a few operators cover fixed and mobile, with international traffic over Baltic and Norwegian cables."
+      "en": "Nordic country; a few operators cover fixed and mobile, with international traffic over Baltic and Norwegian cables.",
+      "zh-TW": "北歐國家，固網與行動網路由幾家業者覆蓋，國際流量經波羅的海與挪威方向的海纜。",
+      "ja": "北欧の国。固定・移動体を複数の事業者が担い、国際通信はバルト海とノルウェー方面のケーブルを使う。",
+      "ko": "북유럽 국가로 유선과 이동통신을 여러 사업자가 담당하고, 국제 트래픽은 발트해와 노르웨이 방향 케이블을 쓴다."
     },
     "IT": {
       "zh": "多家运营商竞争，米兰与罗马是交换中心，海缆在地中海沿岸登陆。",
-      "en": "Several operators compete; Milan and Rome are exchange points, with cables landing along the Mediterranean coast."
+      "en": "Several operators compete; Milan and Rome are exchange points, with cables landing along the Mediterranean coast.",
+      "zh-TW": "多家業者競爭，米蘭與羅馬是交換中心，海纜在地中海沿岸登陸。",
+      "ja": "複数の事業者が競合し、ミラノとローマが交換拠点。ケーブルは地中海沿岸に陸揚げされる。",
+      "ko": "여러 사업자가 경쟁하고 밀라노와 로마가 교환 거점이다. 케이블은 지중해 연안에 접속된다."
     },
     "RO": {
       "zh": "多家运营商竞争，布加勒斯特集中了本国出口，跨境流量经周边陆地邻国。",
-      "en": "Several operators compete; Bucharest concentrates the country's gateways, with traffic crossing neighbouring land borders."
+      "en": "Several operators compete; Bucharest concentrates the country's gateways, with traffic crossing neighbouring land borders.",
+      "zh-TW": "多家業者競爭，布加勒斯特集中了本國出口，跨境流量經周邊陸地鄰國。",
+      "ja": "複数の事業者が競合し、ブカレストに国内の出口が集中する。国境を越える通信は周辺の陸路を経由する。",
+      "ko": "여러 사업자가 경쟁하고 부쿠레슈티에 국내 출구가 모여 있다. 국경을 넘는 트래픽은 주변 육로를 거친다."
     },
     "ES": {
       "zh": "几家全国性运营商竞争，马德里与巴塞罗那是交换中心，海缆在地中海和大西洋沿岸登陆。",
-      "en": "A few national operators compete; Madrid and Barcelona are exchange points, with cables landing on the Mediterranean and Atlantic coasts."
+      "en": "A few national operators compete; Madrid and Barcelona are exchange points, with cables landing on the Mediterranean and Atlantic coasts.",
+      "zh-TW": "幾家全國性業者競爭，馬德里與巴塞隆納是交換中心，海纜在地中海和大西洋沿岸登陸。",
+      "ja": "複数の全国事業者が競合し、マドリードとバルセロナが交換拠点。ケーブルは地中海と大西洋の沿岸に陸揚げされる。",
+      "ko": "여러 전국 사업자가 경쟁하고 마드리드와 바르셀로나가 교환 거점이다. 케이블은 지중해와 대서양 연안에 접속된다."
     },
     "CH": {
       "zh": "内陆国家，固网由国有背景运营商提供，跨境流量经周边邻国的枢纽中转。",
-      "en": "Landlocked; fixed lines come from a state-backed operator, and cross-border traffic transits neighbouring hubs."
+      "en": "Landlocked; fixed lines come from a state-backed operator, and cross-border traffic transits neighbouring hubs.",
+      "zh-TW": "內陸國家，固網由國有背景業者提供，跨境流量經周邊鄰國的樞紐轉接。",
+      "ja": "内陸国。固定回線は国有系事業者が提供し、国境を越える通信は周辺国の拠点を経由する。",
+      "ko": "내륙국으로 유선은 국유 배경 사업자가 제공하고, 국경을 넘는 트래픽은 주변국 거점을 거친다."
     },
     "AT": {
       "zh": "内陆国家，几家运营商覆盖固网与移动，跨境流量经德国和东欧方向。",
-      "en": "Landlocked; a few operators cover fixed and mobile, with traffic heading towards Germany and eastern Europe."
+      "en": "Landlocked; a few operators cover fixed and mobile, with traffic heading towards Germany and eastern Europe.",
+      "zh-TW": "內陸國家，幾家業者覆蓋固網與行動網路，跨境流量經德國和東歐方向。",
+      "ja": "内陸国。複数の事業者が固定・移動体を担い、通信はドイツと東欧方面へ向かう。",
+      "ko": "내륙국으로 여러 사업자가 유선과 이동통신을 담당하고, 트래픽은 독일과 동유럽 방향으로 향한다."
     },
     "PT": {
       "zh": "几家运营商竞争，里斯本是交换中心，跨大西洋海缆在此登陆。",
-      "en": "A few operators compete; Lisbon is the exchange point, and transatlantic cables land there."
+      "en": "A few operators compete; Lisbon is the exchange point, and transatlantic cables land there.",
+      "zh-TW": "幾家業者競爭，里斯本是交換中心，跨大西洋海纜在此登陸。",
+      "ja": "複数の事業者が競合し、リスボンが交換拠点。大西洋横断ケーブルがここに陸揚げされる。",
+      "ko": "여러 사업자가 경쟁하고 리스본이 교환 거점이다. 대서양 횡단 케이블이 이곳에 접속된다."
     },
     "BG": {
       "zh": "多家运营商竞争，索非亚是交换中心，跨境流量经周边陆地邻国和黑海方向。",
-      "en": "Several operators compete; Sofia is the exchange point, with traffic crossing neighbouring borders and the Black Sea."
+      "en": "Several operators compete; Sofia is the exchange point, with traffic crossing neighbouring borders and the Black Sea.",
+      "zh-TW": "多家業者競爭，索菲亞是交換中心，跨境流量經周邊陸地鄰國和黑海方向。",
+      "ja": "複数の事業者が競合し、ソフィアが交換拠点。通信は周辺の陸路と黒海方面に出入りする。",
+      "ko": "여러 사업자가 경쟁하고 소피아가 교환 거점이다. 트래픽은 주변 육로와 흑해 방향으로 오간다."
     },
     "NO": {
       "zh": "地形狭长，固网与移动由几家运营商覆盖，海缆沿北海和挪威海方向进出。",
-      "en": "A long, narrow country; a few operators cover fixed and mobile, with cables running through the North Sea and Norwegian Sea."
+      "en": "A long, narrow country; a few operators cover fixed and mobile, with cables running through the North Sea and Norwegian Sea.",
+      "zh-TW": "地形狹長，固網與行動網路由幾家業者覆蓋，海纜沿北海和挪威海方向進出。",
+      "ja": "細長い国土。固定・移動体を複数の事業者が担い、ケーブルは北海とノルウェー海方面に走る。",
+      "ko": "국토가 길고 좁으며 유선과 이동통신을 여러 사업자가 담당한다. 케이블은 북해와 노르웨이해 방향으로 이어진다."
     },
     "CZ": {
       "zh": "内陆国家，多家运营商竞争，布拉格是交换中心，跨境流量经德国和奥地利方向。",
-      "en": "Landlocked; several operators compete; Prague is the exchange point, with traffic towards Germany and Austria."
+      "en": "Landlocked; several operators compete; Prague is the exchange point, with traffic towards Germany and Austria.",
+      "zh-TW": "內陸國家，多家業者競爭，布拉格是交換中心，跨境流量經德國和奧地利方向。",
+      "ja": "内陸国。複数の事業者が競合し、プラハが交換拠点。通信はドイツとオーストリア方面へ向かう。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고 프라하가 교환 거점이다. 트래픽은 독일과 오스트리아 방향으로 향한다."
     },
     "EE": {
       "zh": "波罗的海国家，多家运营商覆盖固网与移动，国际流量经海缆和陆路出口。",
-      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes."
+      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes.",
+      "zh-TW": "波羅的海國家，多家業者覆蓋固網與行動網路，國際流量經海纜和陸路出口。",
+      "ja": "バルト三国の一国。複数の事業者が固定・移動体を担い、国際通信はケーブルと陸路で出入りする。",
+      "ko": "발트해 연안국로 여러 사업자가 유선과 이동통신을 담당하고, 국제 트래픽은 케이블과 육로로 나간다."
     },
     "IE": {
       "zh": "岛国，几家运营商覆盖固网与移动，海缆在英国与北美方向登陆。",
-      "en": "Island; a few operators cover fixed and mobile, with cables landing towards Britain and North America."
+      "en": "Island; a few operators cover fixed and mobile, with cables landing towards Britain and North America.",
+      "zh-TW": "島國，幾家業者覆蓋固網與行動網路，海纜在英國與北美方向登陸。",
+      "ja": "島国。固定・移動体を複数の事業者が担い、ケーブルは英国と北米方面に陸揚げされる。",
+      "ko": "섬나라로 유선과 이동통신을 여러 사업자가 담당하고, 케이블은 영국과 북미 방향으로 접속된다."
     },
     "DK": {
       "zh": "北欧国家，多家运营商竞争，哥本哈根是交换中心，国际流量经波罗的海与北海方向。",
-      "en": "Nordic country; several operators compete; Copenhagen is the exchange point, with traffic over the Baltic and North Sea."
+      "en": "Nordic country; several operators compete; Copenhagen is the exchange point, with traffic over the Baltic and North Sea.",
+      "zh-TW": "北歐國家，多家業者競爭，哥本哈根是交換中心，國際流量經波羅的海與北海方向。",
+      "ja": "北欧の国。複数の事業者が競合し、コペンハーゲンが交換拠点。通信はバルト海と北海方面に走る。",
+      "ko": "북유럽 국가로 여러 사업자가 경쟁하고 코펜하겐이 교환 거점이다. 트래픽은 발트해와 북해 방향으로 이어진다."
     },
     "UA": {
       "zh": "国土跨度大，多家运营商竞争，跨境流量经西向陆地邻国和黑海方向。",
-      "en": "A large country; several operators compete, with traffic crossing western land borders and the Black Sea."
+      "en": "A large country; several operators compete, with traffic crossing western land borders and the Black Sea.",
+      "zh-TW": "國土跨度大，多家業者競爭，跨境流量經西向陸地鄰國和黑海方向。",
+      "ja": "国土が広く、複数の事業者が競合。通信は西の陸続きの隣国と黒海方面に出入りする。",
+      "ko": "국토가 넓고 여러 사업자가 경쟁한다. 트래픽은 서쪽 육상 국경과 흑해 방향으로 오간다."
     },
     "BE": {
       "zh": "几家运营商竞争，布鲁塞尔与安特卫普是交换中心，跨境流量经周边枢纽中转。",
-      "en": "A few operators compete; Brussels and Antwerp are exchange points, with traffic transiting neighbouring hubs."
+      "en": "A few operators compete; Brussels and Antwerp are exchange points, with traffic transiting neighbouring hubs.",
+      "zh-TW": "幾家業者競爭，布魯塞爾與安特衛普是交換中心，跨境流量經周邊樞紐轉接。",
+      "ja": "複数の事業者が競合し、ブリュッセルとアントワープが交換拠点。国境を越える通信は周辺の拠点を経由する。",
+      "ko": "여러 사업자가 경쟁하고 브뤼셀과 앤트워프가 교환 거점이다. 국경을 넘는 트래픽은 주변 거점을 거친다."
     },
     "LT": {
       "zh": "波罗的海国家，多家运营商覆盖固网与移动，国际流量经海缆和陆路出口。",
-      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes."
+      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes.",
+      "zh-TW": "波羅的海國家，多家業者覆蓋固網與行動網路，國際流量經海纜和陸路出口。",
+      "ja": "バルト三国の一国。複数の事業者が固定・移動体を担い、国際通信はケーブルと陸路で出入りする。",
+      "ko": "발트해 연안국로 여러 사업자가 유선과 이동통신을 담당하고, 국제 트래픽은 케이블과 육로로 나간다."
     },
     "LV": {
       "zh": "波罗的海国家，多家运营商覆盖固网与移动，国际流量经海缆和陆路出口。",
-      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes."
+      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes.",
+      "zh-TW": "波羅的海國家，多家業者覆蓋固網與行動網路，國際流量經海纜和陸路出口。",
+      "ja": "バルト三国の一国。複数の事業者が固定・移動体を担い、国際通信はケーブルと陸路で出入りする。",
+      "ko": "발트해 연안국로 여러 사업자가 유선과 이동통신을 담당하고, 국제 트래픽은 케이블과 육로로 나간다."
     },
     "SK": {
       "zh": "内陆国家，多家运营商竞争，布拉迪斯拉发是交换中心，跨境流量经奥地利和捷克方向。",
-      "en": "Landlocked; several operators compete; Bratislava is the exchange point, with traffic towards Austria and Czechia."
+      "en": "Landlocked; several operators compete; Bratislava is the exchange point, with traffic towards Austria and Czechia.",
+      "zh-TW": "內陸國家，多家業者競爭，布拉提斯拉瓦是交換中心，跨境流量經奧地利和捷克方向。",
+      "ja": "内陸国。複数の事業者が競合し、ブラチスラバが交換拠点。通信はオーストリアとチェコ方面へ向かう。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고 브라티슬라바가 교환 거점이다. 트래픽은 오스트리아와 체코 방향으로 향한다."
     },
     "MD": {
       "zh": "内陆国家，几家运营商竞争，国际流量经罗马尼亚和乌克兰方向的陆缆出口。",
-      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables towards Romania and Ukraine."
+      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables towards Romania and Ukraine.",
+      "zh-TW": "內陸國家，幾家業者競爭，國際流量經羅馬尼亞和烏克蘭方向的陸纜出口。",
+      "ja": "内陸国。複数の事業者が競合し、国際通信はルーマニアとウクライナ方面の陸上ケーブルで出る。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고, 국제 트래픽은 루마니아와 우크라이나 방향 육상 케이블로 나간다."
     },
     "HU": {
       "zh": "内陆国家，多家运营商竞争，布达佩斯是交换中心，跨境流量经周边陆地邻国。",
-      "en": "Landlocked; several operators compete; Budapest is the exchange point, with traffic crossing neighbouring borders."
+      "en": "Landlocked; several operators compete; Budapest is the exchange point, with traffic crossing neighbouring borders.",
+      "zh-TW": "內陸國家，多家業者競爭，布達佩斯是交換中心，跨境流量經周邊陸地鄰國。",
+      "ja": "内陸国。複数の事業者が競合し、ブダペストが交換拠点。通信は周辺の陸路を経由する。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고 부다페스트가 교환 거점이다. 트래픽은 주변 육로를 거친다."
     },
     "HR": {
       "zh": "地中海国家，几家运营商覆盖固网与移动，国际流量经斯洛文尼亚和意大利方向。",
-      "en": "Mediterranean country; a few operators cover fixed and mobile, with traffic towards Slovenia and Italy."
+      "en": "Mediterranean country; a few operators cover fixed and mobile, with traffic towards Slovenia and Italy.",
+      "zh-TW": "地中海國家，幾家業者覆蓋固網與行動網路，國際流量經斯洛維尼亞和義大利方向。",
+      "ja": "地中海の国。複数の事業者が固定・移動体を担い、通信はスロベニアとイタリア方面へ向かう。",
+      "ko": "지중해 국가로 여러 사업자가 유선과 이동통신을 담당하고, 트래픽은 슬로베니아와 이탈리아 방향으로 향한다."
     },
     "RS": {
       "zh": "内陆国家，多家运营商竞争，贝尔格莱德是交换中心，跨境流量经周边陆地邻国。",
-      "en": "Landlocked; several operators compete; Belgrade is the exchange point, with traffic crossing neighbouring borders."
+      "en": "Landlocked; several operators compete; Belgrade is the exchange point, with traffic crossing neighbouring borders.",
+      "zh-TW": "內陸國家，多家業者競爭，貝爾格勒是交換中心，跨境流量經周邊陸地鄰國。",
+      "ja": "内陸国。複数の事業者が競合し、ベオグラードが交換拠点。通信は周辺の陸路を経由する。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고 베오그라드가 교환 거점이다. 트래픽은 주변 육로를 거친다."
     },
     "BY": {
       "zh": "内陆国家，固网以国有背景运营商为主，跨境流量经俄罗斯和波兰方向的陆缆。",
-      "en": "Landlocked; fixed lines are led by a state-backed operator, with traffic over land cables towards Russia and Poland."
+      "en": "Landlocked; fixed lines are led by a state-backed operator, with traffic over land cables towards Russia and Poland.",
+      "zh-TW": "內陸國家，固網以國有背景業者為主，跨境流量經俄羅斯和波蘭方向的陸纜。",
+      "ja": "内陸国。固定回線は国有系事業者が中心で、通信はロシアとポーランド方面の陸上ケーブルを使う。",
+      "ko": "내륙국으로 유선은 국유 배경 사업자가 중심이며, 트래픽은 러시아와 폴란드 방향 육상 케이블을 쓴다."
     },
     "GR": {
       "zh": "半岛国家，几家运营商覆盖固网与移动，海缆在地中海沿岸登陆。",
-      "en": "Peninsular country; a few operators cover fixed and mobile, with cables landing along the Mediterranean."
+      "en": "Peninsular country; a few operators cover fixed and mobile, with cables landing along the Mediterranean.",
+      "zh-TW": "半島國家，幾家業者覆蓋固網與行動網路，海纜在地中海沿岸登陸。",
+      "ja": "半島の国。複数の事業者が固定・移動体を担い、ケーブルは地中海沿岸に陸揚げされる。",
+      "ko": "반도 국가로 여러 사업자가 유선과 이동통신을 담당하고, 케이블은 지중해 연안에 접속된다."
     },
     "AL": {
       "zh": "地中海国家，几家运营商覆盖固网与移动，国际流量经意大利和希腊方向。",
-      "en": "Mediterranean country; a few operators cover fixed and mobile, with traffic towards Italy and Greece."
+      "en": "Mediterranean country; a few operators cover fixed and mobile, with traffic towards Italy and Greece.",
+      "zh-TW": "地中海國家，幾家業者覆蓋固網與行動網路，國際流量經義大利和希臘方向。",
+      "ja": "地中海の国。複数の事業者が固定・移動体を担い、通信はイタリアとギリシャ方面へ向かう。",
+      "ko": "지중해 국가로 여러 사업자가 유선과 이동통신을 담당하고, 트래픽은 이탈리아와 그리스 방향으로 향한다."
     },
     "LU": {
       "zh": "内陆小国，多家运营商与数据中心集中，跨境流量经周边枢纽中转。",
-      "en": "Small landlocked country; several operators and data centres cluster there, with cross-border traffic transiting nearby hubs."
+      "en": "Small landlocked country; several operators and data centres cluster there, with cross-border traffic transiting nearby hubs.",
+      "zh-TW": "內陸小國，多家業者與資料中心集中，跨境流量經周邊樞紐轉接。",
+      "ja": "内陸の小国。複数の事業者とデータセンターが集まり、国境を越える通信は周辺の拠点を経由する。",
+      "ko": "내륙 소국으로 여러 사업자와 데이터센터가 모여 있고, 국경을 넘는 트래픽은 주변 거점을 거친다."
     },
     "MK": {
       "zh": "内陆国家，几家运营商竞争，国际流量经周边陆地邻国的陆缆出口。",
-      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables to neighbouring countries."
+      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables to neighbouring countries.",
+      "zh-TW": "內陸國家，幾家業者競爭，國際流量經周邊陸地鄰國的陸纜出口。",
+      "ja": "内陸国。複数の事業者が競合し、国際通信は周辺の陸続きの隣国へのケーブルで出る。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고, 국제 트래픽은 주변 육상 이웃 국가로 이어지는 케이블로 나간다."
     },
     "IS": {
       "zh": "岛国，固网与移动由几家运营商覆盖，国际流量经通往欧洲大陆和北美的海缆。",
-      "en": "Island; a few operators cover fixed and mobile, with cables towards mainland Europe and North America."
+      "en": "Island; a few operators cover fixed and mobile, with cables towards mainland Europe and North America.",
+      "zh-TW": "島國，固網與行動網路由幾家業者覆蓋，國際流量經通往歐洲大陸和北美的海纜。",
+      "ja": "島国。固定・移動体を複数の事業者が担い、通信は欧州本土と北米方面のケーブルを使う。",
+      "ko": "섬나라로 유선과 이동통신을 여러 사업자가 담당하고, 트래픽은 유럽 본토와 북미 방향 케이블을 쓴다."
     },
     "MT": {
       "zh": "岛国，几家运营商覆盖固网与移动，国际流量经通往意大利方向的海缆。",
-      "en": "Island; a few operators cover fixed and mobile, with cables towards Italy."
+      "en": "Island; a few operators cover fixed and mobile, with cables towards Italy.",
+      "zh-TW": "島國，幾家業者覆蓋固網與行動網路，國際流量經通往義大利方向的海纜。",
+      "ja": "島国。複数の事業者が固定・移動体を担い、通信はイタリア方面のケーブルを使う。",
+      "ko": "섬나라로 여러 사업자가 유선과 이동통신을 담당하고, 트래픽은 이탈리아 방향 케이블을 쓴다."
     },
     "SI": {
       "zh": "内陆国家，多家运营商竞争，卢布尔雅那是交换中心，跨境流量经奥地利和意大利方向。",
-      "en": "Landlocked; several operators compete; Ljubljana is the exchange point, with traffic towards Austria and Italy."
+      "en": "Landlocked; several operators compete; Ljubljana is the exchange point, with traffic towards Austria and Italy.",
+      "zh-TW": "內陸國家，多家業者競爭，盧布爾雅那是交換中心，跨境流量經奧地利和義大利方向。",
+      "ja": "内陸国。複数の事業者が競合し、リュブリャナが交換拠点。通信はオーストリアとイタリア方面へ向かう。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고 류블랴나가 교환 거점이다. 트래픽은 오스트리아와 이탈리아 방향으로 향한다."
     },
     "BA": {
       "zh": "内陆国家，几家运营商竞争，跨境流量经周边陆地邻国的陆缆出口。",
-      "en": "Landlocked; a few operators compete, with international traffic over land cables to neighbouring countries."
+      "en": "Landlocked; a few operators compete, with international traffic over land cables to neighbouring countries.",
+      "zh-TW": "內陸國家，幾家業者競爭，跨境流量經周邊陸地鄰國的陸纜出口。",
+      "ja": "内陸国。複数の事業者が競合し、国際通信は周辺の陸続きの隣国へのケーブルで出る。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고, 국제 트래픽은 주변 육상 이웃 국가로 이어지는 케이블로 나간다."
     },
     "CY": {
       "zh": "岛国，几家运营商覆盖固网与移动，国际流量经地中海方向的海缆。",
-      "en": "Island; a few operators cover fixed and mobile, with cables across the Mediterranean."
+      "en": "Island; a few operators cover fixed and mobile, with cables across the Mediterranean.",
+      "zh-TW": "島國，幾家業者覆蓋固網與行動網路，國際流量經地中海方向的海纜。",
+      "ja": "島国。複数の事業者が固定・移動体を担い、通信は地中海方面のケーブルを使う。",
+      "ko": "섬나라로 여러 사업자가 유선과 이동통신을 담당하고, 트래픽은 지중해 방향 케이블을 쓴다."
     },
     "XK": {
       "zh": "内陆国家，几家运营商覆盖固网与移动，国际流量经周边陆地邻国的陆缆出口。",
-      "en": "Landlocked; a few operators cover fixed and mobile, with international traffic over land cables to neighbouring countries."
+      "en": "Landlocked; a few operators cover fixed and mobile, with international traffic over land cables to neighbouring countries.",
+      "zh-TW": "內陸國家，幾家業者覆蓋固網與行動網路，國際流量經周邊陸地鄰國的陸纜出口。",
+      "ja": "内陸国。複数の事業者が固定・移動体を担い、国際通信は周辺の陸続きの隣国へのケーブルで出る。",
+      "ko": "내륙국으로 여러 사업자가 유선과 이동통신을 담당하고, 국제 트래픽은 주변 육상 이웃 국가로 이어지는 케이블로 나간다."
     },
     "US": {
       "zh": "多家全国性运营商与大量地区宽带商竞争，东西海岸国际出口密集，跨境流量经沿海海缆进出。",
-      "en": "Many national carriers and regional broadband providers compete; international gateways cluster on both coasts, with traffic leaving over coastal cables."
+      "en": "Many national carriers and regional broadband providers compete; international gateways cluster on both coasts, with traffic leaving over coastal cables.",
+      "zh-TW": "多家全國性業者與大量地區寬頻業者競爭，東西岸國際出口密集，跨境流量經沿海海纜進出。",
+      "ja": "複数の全国事業者と多数の地域ブロードバンド事業者が競合。国際ゲートウェイは東西の海岸に集まり、通信は沿岸のケーブルで出入りする。",
+      "ko": "여러 전국 사업자와 많은 지역 브로드밴드 사업자가 경쟁한다. 국제 게이트웨이는 동서 해안에 모여 있고 트래픽은 연안 케이블로 오간다."
     },
     "CA": {
       "zh": "人口集中在南部边境带，几家全国性运营商覆盖全境，国际出口多经美国中转。",
-      "en": "Population clusters near the southern border; a few national operators cover the country, with much international traffic transiting the United States."
+      "en": "Population clusters near the southern border; a few national operators cover the country, with much international traffic transiting the United States.",
+      "zh-TW": "人口集中在南部邊境地帶，幾家全國性業者覆蓋全境，國際出口多經美國轉接。",
+      "ja": "人口は南部の国境地帯に集まり、複数の全国事業者が国土を覆う。国際通信の多くは米国を経由する。",
+      "ko": "인구는 남부 국경 지대에 모여 있고 여러 전국 사업자가 국토를 담당한다. 국제 트래픽 상당수는 미국을 거친다."
     },
     "MX": {
       "zh": "多家运营商竞争，国际出口经美国方向的陆缆与海缆，国内长途路径较长。",
-      "en": "Several operators compete; international traffic runs over land and submarine links towards the United States, and domestic long-haul paths are long."
+      "en": "Several operators compete; international traffic runs over land and submarine links towards the United States, and domestic long-haul paths are long.",
+      "zh-TW": "多家業者競爭，國際出口經美國方向的陸纜與海纜，國內長途路徑較長。",
+      "ja": "複数の事業者が競合し、国際通信は米国方面の陸上・海底ケーブルを使う。国内の長距離経路は長い。",
+      "ko": "여러 사업자가 경쟁하고 국제 트래픽은 미국 방향 육상·해저 케이블을 쓴다. 국내 장거리 경로는 길다."
     },
     "CR": {
       "zh": "中美洲国家，几家运营商竞争，国际流量经巴拿马与美国的陆缆和海缆出口。",
-      "en": "Central American country; several operators compete, with international traffic leaving over land and submarine links via Panama and the United States."
+      "en": "Central American country; several operators compete, with international traffic leaving over land and submarine links via Panama and the United States.",
+      "zh-TW": "中美洲國家，幾家業者競爭，國際流量經巴拿馬與美國的陸纜和海纜出口。",
+      "ja": "中米の国。複数の事業者が競合し、国際通信はパナマと米国方面の陸上・海底ケーブルで出る。",
+      "ko": "중미 국가로 여러 사업자가 경쟁하고, 국제 트래픽은 파나마와 미국 방향 육상·해저 케이블로 나간다."
     },
     "PA": {
       "zh": "地峡国家，运河与海缆登陆点集中，国际流量经此中转南北美洲。",
-      "en": "Isthmus country; the canal and cable landings concentrate there, and traffic transits between the Americas."
+      "en": "Isthmus country; the canal and cable landings concentrate there, and traffic transits between the Americas.",
+      "zh-TW": "地峽國家，運河與海纜登陸點集中，國際流量由此轉接南北美洲。",
+      "ja": "地峡の国。運河とケーブル陸揚げが集中し、南北アメリカ間の通信がここを経由する。",
+      "ko": "지협 국가로 운하와 케이블 접속점이 모여 있고, 남북 아메리카 사이 트래픽이 이곳을 거친다."
     },
     "SG": {
       "zh": "东南亚枢纽，海缆登陆密集，数据中心集中，洲际访问绕行少。",
-      "en": "Southeast Asian hub with dense cable landings and clustered data centres; intercontinental traffic takes few detours."
+      "en": "Southeast Asian hub with dense cable landings and clustered data centres; intercontinental traffic takes few detours.",
+      "zh-TW": "東南亞樞紐，海纜登陸密集，資料中心集中，洲際存取繞行少。",
+      "ja": "東南アジアの拠点。ケーブル陸揚げが密集し、データセンターも集まる。大陸間の通信は回り道が少ない。",
+      "ko": "동남아 거점으로 케이블 접속점이 촘촘하고 데이터센터가 모여 있다. 대륙 간 트래픽은 우회가 적다."
     },
     "JP": {
       "zh": "几家全国性运营商竞争，东京与大阪是交换中心，海缆在太平洋沿岸登陆。",
-      "en": "A few national operators compete; Tokyo and Osaka are exchange points, with cables landing along the Pacific coast."
+      "en": "A few national operators compete; Tokyo and Osaka are exchange points, with cables landing along the Pacific coast.",
+      "zh-TW": "幾家全國性業者競爭，東京與大阪是交換中心，海纜在太平洋沿岸登陸。",
+      "ja": "複数の全国事業者が競合し、東京と大阪が交換拠点。ケーブルは太平洋岸に陸揚げされる。",
+      "ko": "여러 전국 사업자가 경쟁하고 도쿄와 오사카가 교환 거점이다. 케이블은 태평양 연안에 접속된다."
     },
     "HK": {
       "zh": "区域枢纽，海缆登陆密集，跨境流量多经此进出东亚。",
-      "en": "Regional hub with dense cable landings; much cross-border traffic enters and leaves East Asia through it."
+      "en": "Regional hub with dense cable landings; much cross-border traffic enters and leaves East Asia through it.",
+      "zh-TW": "區域樞紐，海纜登陸密集，跨境流量多由此進出東亞。",
+      "ja": "地域の拠点。ケーブル陸揚げが密集し、東アジアとの通信の多くがここを経由する。",
+      "ko": "지역 거점으로 케이블 접속점이 촘촘하고, 동아시아와 오가는 트래픽 상당수가 이곳을 거친다."
     },
     "ID": {
       "zh": "群岛国家，多家运营商竞争，国际流量经新加坡与澳大利亚方向的海缆，岛间依赖海缆和卫星。",
-      "en": "Archipelago; several operators compete, with international traffic over cables towards Singapore and Australia, and islands linked by cable and satellite."
+      "en": "Archipelago; several operators compete, with international traffic over cables towards Singapore and Australia, and islands linked by cable and satellite.",
+      "zh-TW": "群島國家，多家業者競爭，國際流量經新加坡與澳洲方向的海纜，島際依賴海纜和衛星。",
+      "ja": "群島国。複数の事業者が競合し、国際通信はシンガポールとオーストラリア方面のケーブルを使う。島の間はケーブルと衛星に頼る。",
+      "ko": "군도 국가로 여러 사업자가 경쟁하고, 국제 트래픽은 싱가포르와 호주 방향 케이블을 쓴다. 섬 사이는 케이블과 위성에 의존한다."
     },
     "IN": {
       "zh": "多家运营商竞争，孟买与金奈是海缆登陆点，跨境流量经中东和东南亚方向。",
-      "en": "Several operators compete; Mumbai and Chennai are cable landings, with traffic towards the Middle East and Southeast Asia."
+      "en": "Several operators compete; Mumbai and Chennai are cable landings, with traffic towards the Middle East and Southeast Asia.",
+      "zh-TW": "多家業者競爭，孟買與清奈是海纜登陸點，跨境流量經中東和東南亞方向。",
+      "ja": "複数の事業者が競合し、ムンバイとチェンナイがケーブル陸揚げ点。通信は中東と東南アジア方面へ向かう。",
+      "ko": "여러 사업자가 경쟁하고 뭄바이와 첸나이가 케이블 접속점이다. 트래픽은 중동과 동남아 방향으로 향한다."
     },
     "CN": {
       "zh": "多家全国性运营商竞争，北京、上海、广州是交换中心，国际流量经沿海登陆点进出。",
-      "en": "Several national operators compete; Beijing, Shanghai and Guangzhou are exchange points, with international traffic through coastal landings."
+      "en": "Several national operators compete; Beijing, Shanghai and Guangzhou are exchange points, with international traffic through coastal landings.",
+      "zh-TW": "多家全國性業者競爭，北京、上海、廣州是交換中心，國際流量經沿海登陸點進出。",
+      "ja": "複数の全国事業者が競合し、北京・上海・広州が交換拠点。国際通信は沿岸の陸揚げ点から出入りする。",
+      "ko": "여러 전국 사업자가 경쟁하고 베이징·상하이·광저우가 교환 거점이다. 국제 트래픽은 연안 접속점으로 오간다."
     },
     "TH": {
       "zh": "多家运营商竞争，曼谷是交换中心，国际流量经东南亚方向的海缆与陆缆。",
-      "en": "Several operators compete; Bangkok is the exchange point, with traffic over Southeast Asian cables and land links."
+      "en": "Several operators compete; Bangkok is the exchange point, with traffic over Southeast Asian cables and land links.",
+      "zh-TW": "多家業者競爭，曼谷是交換中心，國際流量經東南亞方向的海纜與陸纜。",
+      "ja": "複数の事業者が競合し、バンコクが交換拠点。通信は東南アジア方面の海底・陸上ケーブルを使う。",
+      "ko": "여러 사업자가 경쟁하고 방콕이 교환 거점이다. 트래픽은 동남아 방향 해저·육상 케이블을 쓴다."
     },
     "TW": {
       "zh": "岛内多家运营商竞争，海缆在北部与南部登陆，国际流量经此连接东亚与北美。",
-      "en": "Several operators compete on the island; cables land in the north and south, linking East Asia and North America."
+      "en": "Several operators compete on the island; cables land in the north and south, linking East Asia and North America.",
+      "zh-TW": "島內多家業者競爭，海纜在北部與南部登陸，國際流量由此連接東亞與北美。",
+      "ja": "島内で複数の事業者が競合し、ケーブルは北部と南部に陸揚げされる。国際通信はここから東アジアと北米をつなぐ。",
+      "ko": "섬 안에서 여러 사업자가 경쟁하고 케이블은 북부와 남부에 접속된다. 국제 트래픽은 이곳에서 동아시아와 북미를 잇는다."
     },
     "KR": {
       "zh": "几家全国性运营商竞争，首尔与釜山是交换中心，海缆在半岛沿岸登陆。",
-      "en": "A few national operators compete; Seoul and Busan are exchange points, with cables landing along the peninsula."
+      "en": "A few national operators compete; Seoul and Busan are exchange points, with cables landing along the peninsula.",
+      "zh-TW": "幾家全國性業者競爭，首爾與釜山是交換中心，海纜在半島沿岸登陸。",
+      "ja": "複数の全国事業者が競合し、ソウルと釜山が交換拠点。ケーブルは半島の沿岸に陸揚げされる。",
+      "ko": "여러 전국 사업자가 경쟁하고 서울과 부산이 교환 거점이다. 케이블은 반도 연안에 접속된다."
     },
     "TR": {
       "zh": "横跨欧亚，几家运营商竞争，伊斯坦布尔是交换中心，国际流量经欧洲和中东方向的陆缆与海缆。",
-      "en": "Straddling Europe and Asia; several operators compete; Istanbul is the exchange point, with traffic over land and submarine links towards Europe and the Middle East."
+      "en": "Straddling Europe and Asia; several operators compete; Istanbul is the exchange point, with traffic over land and submarine links towards Europe and the Middle East.",
+      "zh-TW": "橫跨歐亞，幾家業者競爭，伊斯坦堡是交換中心，國際流量經歐洲和中東方向的陸纜與海纜。",
+      "ja": "欧州とアジアにまたがる。複数の事業者が競合し、イスタンブールが交換拠点。通信は欧州と中東方面の陸上・海底ケーブルを使う。",
+      "ko": "유럽과 아시아에 걸쳐 있다. 여러 사업자가 경쟁하고 이스탄불이 교환 거점이다. 트래픽은 유럽과 중동 방향 육상·해저 케이블을 쓴다."
     },
     "MY": {
       "zh": "多家运营商竞争，吉隆坡与柔佛是交换中心，国际流量经新加坡方向的海缆与陆缆。",
-      "en": "Several operators compete; Kuala Lumpur and Johor are exchange points, with traffic over cables and land links towards Singapore."
+      "en": "Several operators compete; Kuala Lumpur and Johor are exchange points, with traffic over cables and land links towards Singapore.",
+      "zh-TW": "多家業者競爭，吉隆坡與柔佛是交換中心，國際流量經新加坡方向的海纜與陸纜。",
+      "ja": "複数の事業者が競合し、クアラルンプールとジョホールが交換拠点。通信はシンガポール方面の海底・陸上ケーブルを使う。",
+      "ko": "여러 사업자가 경쟁하고 쿠알라룸푸르와 조호르가 교환 거점이다. 트래픽은 싱가포르 방향 해저·육상 케이블을 쓴다."
     },
     "VN": {
       "zh": "多家运营商竞争，胡志明市与河内是交换中心，国际流量经东南亚方向的海缆。",
-      "en": "Several operators compete; Ho Chi Minh City and Hanoi are exchange points, with traffic over Southeast Asian cables."
+      "en": "Several operators compete; Ho Chi Minh City and Hanoi are exchange points, with traffic over Southeast Asian cables.",
+      "zh-TW": "多家業者競爭，胡志明市與河內是交換中心，國際流量經東南亞方向的海纜。",
+      "ja": "複数の事業者が競合し、ホーチミン市とハノイが交換拠点。通信は東南アジア方面のケーブルを使う。",
+      "ko": "여러 사업자가 경쟁하고 호찌민과 하노이가 교환 거점이다. 트래픽은 동남아 방향 케이블을 쓴다."
     },
     "BD": {
       "zh": "多家运营商竞争，达卡是交换中心，国际流量经印度与东南亚方向的陆缆和海缆。",
-      "en": "Several operators compete; Dhaka is the exchange point, with traffic over land and submarine links towards India and Southeast Asia."
+      "en": "Several operators compete; Dhaka is the exchange point, with traffic over land and submarine links towards India and Southeast Asia.",
+      "zh-TW": "多家業者競爭，達卡是交換中心，國際流量經印度與東南亞方向的陸纜和海纜。",
+      "ja": "複数の事業者が競合し、ダッカが交換拠点。通信はインドと東南アジア方面の陸上・海底ケーブルを使う。",
+      "ko": "여러 사업자가 경쟁하고 다카가 교환 거점이다. 트래픽은 인도와 동남아 방향 육상·해저 케이블을 쓴다."
     },
     "KZ": {
       "zh": "内陆大国，网络资源集中在阿拉木图与阿斯塔纳，国际出口经俄罗斯与中国方向的陆缆。",
-      "en": "A large landlocked country with network resources concentrated in Almaty and Astana; international traffic leaves over land cables towards Russia and China."
+      "en": "A large landlocked country with network resources concentrated in Almaty and Astana; international traffic leaves over land cables towards Russia and China.",
+      "zh-TW": "內陸大國，網路資源集中在阿拉木圖與阿斯塔納，國際出口經俄羅斯與中國方向的陸纜。",
+      "ja": "内陸の大国で、ネットワーク資源はアルマトイとアスタナに集中する。国際通信はロシアと中国方面の陸上ケーブルで出る。",
+      "ko": "내륙 대국으로 네트워크 자원이 알마티와 아스타나에 모여 있다. 국제 트래픽은 러시아와 중국 방향 육상 케이블로 나간다."
     },
     "IL": {
       "zh": "地中海东岸国家，几家运营商竞争，国际流量经地中海方向的海缆与周边陆缆。",
-      "en": "Eastern Mediterranean country; several operators compete, with traffic over Mediterranean cables and neighbouring land links."
+      "en": "Eastern Mediterranean country; several operators compete, with traffic over Mediterranean cables and neighbouring land links.",
+      "zh-TW": "地中海東岸國家，幾家業者競爭，國際流量經地中海方向的海纜與周邊陸纜。",
+      "ja": "東地中海の国。複数の事業者が競合し、通信は地中海方面のケーブルと周辺の陸路を使う。",
+      "ko": "동지중해 국가로 여러 사업자가 경쟁하고, 트래픽은 지중해 방향 케이블과 주변 육로를 쓴다."
     },
     "PH": {
       "zh": "群岛国家，多家运营商竞争，国际流量经东南亚与北美方向的海缆，岛间依赖海缆。",
-      "en": "Archipelago; several operators compete, with international traffic over cables towards Southeast Asia and North America, and islands linked by cable."
+      "en": "Archipelago; several operators compete, with international traffic over cables towards Southeast Asia and North America, and islands linked by cable.",
+      "zh-TW": "群島國家，多家業者競爭，國際流量經東南亞與北美方向的海纜，島際依賴海纜。",
+      "ja": "群島国。複数の事業者が競合し、国際通信は東南アジアと北米方面のケーブルを使う。島の間はケーブルに頼る。",
+      "ko": "군도 국가로 여러 사업자가 경쟁하고, 국제 트래픽은 동남아와 북미 방향 케이블을 쓴다. 섬 사이는 케이블에 의존한다."
     },
     "PK": {
       "zh": "多家运营商竞争，卡拉奇是海缆登陆点，跨境流量经中东与南亚方向的陆缆和海缆。",
-      "en": "Several operators compete; Karachi is a cable landing, with traffic over land and submarine links towards the Middle East and South Asia."
+      "en": "Several operators compete; Karachi is a cable landing, with traffic over land and submarine links towards the Middle East and South Asia.",
+      "zh-TW": "多家業者競爭，喀拉蚩是海纜登陸點，跨境流量經中東與南亞方向的陸纜和海纜。",
+      "ja": "複数の事業者が競合し、カラチがケーブル陸揚げ点。通信は中東と南アジア方面の陸上・海底ケーブルを使う。",
+      "ko": "여러 사업자가 경쟁하고 카라치가 케이블 접속점이다. 트래픽은 중동과 남아시아 방향 육상·해저 케이블을 쓴다."
     },
     "AE": {
       "zh": "区域枢纽，多家运营商竞争，海缆在波斯湾沿岸登陆，东西向流量经此中转。",
-      "en": "Regional hub; several operators compete; cables land along the Gulf, and east-west traffic transits there."
+      "en": "Regional hub; several operators compete; cables land along the Gulf, and east-west traffic transits there.",
+      "zh-TW": "區域樞紐，多家業者競爭，海纜在波斯灣沿岸登陸，東西向流量由此轉接。",
+      "ja": "地域の拠点。複数の事業者が競合し、ケーブルはペルシャ湾岸に陸揚げされる。東西の通信がここを経由する。",
+      "ko": "지역 거점으로 여러 사업자가 경쟁하고 케이블은 페르시아만 연안에 접속된다. 동서 트래픽이 이곳을 거친다."
     },
     "AM": {
       "zh": "内陆国家，几家运营商竞争，国际流量经格鲁吉亚和伊朗方向的陆缆出口。",
-      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables towards Georgia and Iran."
+      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables towards Georgia and Iran.",
+      "zh-TW": "內陸國家，幾家業者競爭，國際流量經喬治亞和伊朗方向的陸纜出口。",
+      "ja": "内陸国。複数の事業者が競合し、国際通信はジョージアとイラン方面の陸上ケーブルで出る。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고, 국제 트래픽은 조지아와 이란 방향 육상 케이블로 나간다."
     },
     "AZ": {
       "zh": "里海沿岸国家，几家运营商竞争，国际流量经格鲁吉亚、俄罗斯和伊朗方向的陆缆。",
-      "en": "Caspian country; several operators compete, with traffic over land cables towards Georgia, Russia and Iran."
+      "en": "Caspian country; several operators compete, with traffic over land cables towards Georgia, Russia and Iran.",
+      "zh-TW": "裡海沿岸國家，幾家業者競爭，國際流量經喬治亞、俄羅斯和伊朗方向的陸纜。",
+      "ja": "カスピ海沿岸の国。複数の事業者が競合し、通信はジョージア・ロシア・イラン方面の陸上ケーブルを使う。",
+      "ko": "카스피해 연안 국가로 여러 사업자가 경쟁하고, 트래픽은 조지아·러시아·이란 방향 육상 케이블을 쓴다."
     },
     "IR": {
       "zh": "国土跨度大，几家运营商覆盖固网与移动，国际流量经周边陆缆与海缆出口。",
-      "en": "A large country; several operators cover fixed and mobile, with international traffic over neighbouring land cables and submarine links."
+      "en": "A large country; several operators cover fixed and mobile, with international traffic over neighbouring land cables and submarine links.",
+      "zh-TW": "國土跨度大，幾家業者覆蓋固網與行動網路，國際流量經周邊陸纜與海纜出口。",
+      "ja": "国土が広く、複数の事業者が固定・移動体を担う。国際通信は周辺の陸上ケーブルと海底ケーブルで出る。",
+      "ko": "국토가 넓고 여러 사업자가 유선과 이동통신을 담당한다. 국제 트래픽은 주변 육상 케이블과 해저 케이블로 나간다."
     },
     "TJ": {
       "zh": "内陆国家，几家运营商竞争，国际流量经周边陆地邻国的陆缆出口。",
-      "en": "Landlocked; several operators compete, with international traffic over land cables to neighbouring countries."
+      "en": "Landlocked; several operators compete, with international traffic over land cables to neighbouring countries.",
+      "zh-TW": "內陸國家，幾家業者競爭，國際流量經周邊陸地鄰國的陸纜出口。",
+      "ja": "内陸国。複数の事業者が競合し、国際通信は周辺の陸続きの隣国へのケーブルで出る。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고, 국제 트래픽은 주변 육상 이웃 국가로 이어지는 케이블로 나간다."
     },
     "SA": {
       "zh": "半岛国家，几家运营商竞争，红海与波斯湾沿岸有海缆登陆，跨境流量经此中转。",
-      "en": "Peninsular country; several operators compete; cables land on the Red Sea and Gulf coasts, and traffic transits there."
+      "en": "Peninsular country; several operators compete; cables land on the Red Sea and Gulf coasts, and traffic transits there.",
+      "zh-TW": "半島國家，幾家業者競爭，紅海與波斯灣沿岸有海纜登陸，跨境流量由此轉接。",
+      "ja": "半島の国。複数の事業者が競合し、紅海とペルシャ湾の沿岸にケーブルが陸揚げされる。通信はここを経由する。",
+      "ko": "반도 국가로 여러 사업자가 경쟁하고 홍해와 페르시아만 연안에 케이블이 접속된다. 트래픽은 이곳을 거친다."
     },
     "GE": {
       "zh": "内陆国家，几家运营商竞争，国际流量经黑海方向的海缆与周边陆缆。",
-      "en": "Landlocked; several operators compete, with traffic over Black Sea cables and neighbouring land links."
+      "en": "Landlocked; several operators compete, with traffic over Black Sea cables and neighbouring land links.",
+      "zh-TW": "內陸國家，幾家業者競爭，國際流量經黑海方向的海纜與周邊陸纜。",
+      "ja": "内陸国。複数の事業者が競合し、通信は黒海方面のケーブルと周辺の陸路を使う。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고, 트래픽은 흑해 방향 케이블과 주변 육로를 쓴다."
     },
     "BH": {
       "zh": "岛国，几家运营商竞争，海缆在波斯湾登陆，跨境流量经此中转。",
-      "en": "Island; several operators compete; cables land in the Gulf, and traffic transits there."
+      "en": "Island; several operators compete; cables land in the Gulf, and traffic transits there.",
+      "zh-TW": "島國，幾家業者競爭，海纜在波斯灣登陸，跨境流量由此轉接。",
+      "ja": "島国。複数の事業者が競合し、ケーブルはペルシャ湾に陸揚げされる。通信はここを経由する。",
+      "ko": "섬나라로 여러 사업자가 경쟁하고 케이블은 페르시아만에 접속된다. 트래픽은 이곳을 거친다."
     },
     "KH": {
       "zh": "东南亚国家，几家运营商竞争，国际流量经泰国与越南方向的陆缆和海缆。",
-      "en": "Southeast Asian country; several operators compete, with traffic over land and submarine links towards Thailand and Vietnam."
+      "en": "Southeast Asian country; several operators compete, with traffic over land and submarine links towards Thailand and Vietnam.",
+      "zh-TW": "東南亞國家，幾家業者競爭，國際流量經泰國與越南方向的陸纜和海纜。",
+      "ja": "東南アジアの国。複数の事業者が競合し、通信はタイとベトナム方面の陸上・海底ケーブルを使う。",
+      "ko": "동남아 국가로 여러 사업자가 경쟁하고, 트래픽은 태국과 베트남 방향 육상·해저 케이블을 쓴다."
     },
     "MV": {
       "zh": "岛国，几家运营商覆盖移动与固网，国际流量经斯里兰卡与印度方向的海缆。",
-      "en": "Island; a few operators cover mobile and fixed, with international traffic over cables towards Sri Lanka and India."
+      "en": "Island; a few operators cover mobile and fixed, with international traffic over cables towards Sri Lanka and India.",
+      "zh-TW": "島國，幾家業者覆蓋行動與固網，國際流量經斯里蘭卡與印度方向的海纜。",
+      "ja": "島国。複数の事業者が移動体と固定回線を担い、通信はスリランカとインド方面のケーブルを使う。",
+      "ko": "섬나라로 여러 사업자가 이동통신과 유선을 담당하고, 트래픽은 스리랑카와 인도 방향 케이블을 쓴다."
     },
     "BR": {
       "zh": "多家运营商竞争，圣保罗与里约是交换中心，国际流量经大西洋海缆与周边国家陆缆。",
-      "en": "Several operators compete; São Paulo and Rio are exchange points, with traffic over Atlantic cables and land links to neighbouring countries."
+      "en": "Several operators compete; São Paulo and Rio are exchange points, with traffic over Atlantic cables and land links to neighbouring countries.",
+      "zh-TW": "多家業者競爭，聖保羅與里約是交換中心，國際流量經大西洋海纜與周邊國家陸纜。",
+      "ja": "複数の事業者が競合し、サンパウロとリオが交換拠点。通信は大西洋のケーブルと周辺国の陸路を使う。",
+      "ko": "여러 사업자가 경쟁하고 상파울루와 리우가 교환 거점이다. 트래픽은 대서양 케이블과 주변국 육로를 쓴다."
     },
     "CL": {
       "zh": "狭长国家，几家运营商竞争，圣地亚哥是交换中心，国际流量经太平洋海缆与阿根廷方向陆缆。",
-      "en": "A long, narrow country; several operators compete; Santiago is the exchange point, with traffic over Pacific cables and land links to Argentina."
+      "en": "A long, narrow country; several operators compete; Santiago is the exchange point, with traffic over Pacific cables and land links to Argentina.",
+      "zh-TW": "狹長國家，幾家業者競爭，聖地牙哥是交換中心，國際流量經太平洋海纜與阿根廷方向陸纜。",
+      "ja": "細長い国。複数の事業者が競合し、サンティアゴが交換拠点。通信は太平洋のケーブルとアルゼンチン方面の陸路を使う。",
+      "ko": "길고 좁은 국가로 여러 사업자가 경쟁하고 산티아고가 교환 거점이다. 트래픽은 태평양 케이블과 아르헨티나 방향 육로를 쓴다."
     },
     "AR": {
       "zh": "几家运营商竞争，布宜诺斯艾利斯是交换中心，国际流量经大西洋海缆与智利方向陆缆。",
-      "en": "Several operators compete; Buenos Aires is the exchange point, with traffic over Atlantic cables and land links to Chile."
+      "en": "Several operators compete; Buenos Aires is the exchange point, with traffic over Atlantic cables and land links to Chile.",
+      "zh-TW": "幾家業者競爭，布宜諾斯艾利斯是交換中心，國際流量經大西洋海纜與智利方向陸纜。",
+      "ja": "複数の事業者が競合し、ブエノスアイレスが交換拠点。通信は大西洋のケーブルとチリ方面の陸路を使う。",
+      "ko": "여러 사업자가 경쟁하고 부에노스아이레스가 교환 거점이다. 트래픽은 대서양 케이블과 칠레 방향 육로를 쓴다."
     },
     "PE": {
       "zh": "几家运营商竞争，利马是交换中心，国际流量经太平洋海缆与周边陆缆。",
-      "en": "Several operators compete; Lima is the exchange point, with traffic over Pacific cables and neighbouring land links."
+      "en": "Several operators compete; Lima is the exchange point, with traffic over Pacific cables and neighbouring land links.",
+      "zh-TW": "幾家業者競爭，利馬是交換中心，國際流量經太平洋海纜與周邊陸纜。",
+      "ja": "複数の事業者が競合し、リマが交換拠点。通信は太平洋のケーブルと周辺の陸路を使う。",
+      "ko": "여러 사업자가 경쟁하고 리마가 교환 거점이다. 트래픽은 태평양 케이블과 주변 육로를 쓴다."
     },
     "BO": {
       "zh": "内陆国家，几家运营商竞争，国际流量经秘鲁、智利和巴西方向的陆缆。",
-      "en": "Landlocked; several operators compete, with traffic over land cables towards Peru, Chile and Brazil."
+      "en": "Landlocked; several operators compete, with traffic over land cables towards Peru, Chile and Brazil.",
+      "zh-TW": "內陸國家，幾家業者競爭，國際流量經秘魯、智利和巴西方向的陸纜。",
+      "ja": "内陸国。複数の事業者が競合し、通信はペルー・チリ・ブラジル方面の陸上ケーブルを使う。",
+      "ko": "내륙국으로 여러 사업자가 경쟁하고, 트래픽은 페루·칠레·브라질 방향 육상 케이블을 쓴다."
     },
     "CO": {
       "zh": "几家运营商竞争，波哥大是交换中心，国际流量经加勒比海缆与周边陆缆。",
-      "en": "Several operators compete; Bogotá is the exchange point, with traffic over Caribbean cables and neighbouring land links."
+      "en": "Several operators compete; Bogotá is the exchange point, with traffic over Caribbean cables and neighbouring land links.",
+      "zh-TW": "幾家業者競爭，波哥大是交換中心，國際流量經加勒比海纜與周邊陸纜。",
+      "ja": "複数の事業者が競合し、ボゴタが交換拠点。通信はカリブ海のケーブルと周辺の陸路を使う。",
+      "ko": "여러 사업자가 경쟁하고 보고타가 교환 거점이다. 트래픽은 카리브해 케이블과 주변 육로를 쓴다."
     },
     "EC": {
       "zh": "几家运营商竞争，基多是交换中心，国际流量经太平洋海缆与周边陆缆。",
-      "en": "Several operators compete; Quito is the exchange point, with traffic over Pacific cables and neighbouring land links."
+      "en": "Several operators compete; Quito is the exchange point, with traffic over Pacific cables and neighbouring land links.",
+      "zh-TW": "幾家業者競爭，基多是交換中心，國際流量經太平洋海纜與周邊陸纜。",
+      "ja": "複数の事業者が競合し、キトが交換拠点。通信は太平洋のケーブルと周辺の陸路を使う。",
+      "ko": "여러 사업자가 경쟁하고 키토가 교환 거점이다. 트래픽은 태평양 케이블과 주변 육로를 쓴다."
     },
     "UY": {
       "zh": "南美南部国家，几家运营商竞争，国际流量经阿根廷和巴西方向的陆缆与海缆。",
-      "en": "Southern South America; several operators compete, with traffic over land and submarine links towards Argentina and Brazil."
+      "en": "Southern South America; several operators compete, with traffic over land and submarine links towards Argentina and Brazil.",
+      "zh-TW": "南美南部國家，幾家業者競爭，國際流量經阿根廷和巴西方向的陸纜與海纜。",
+      "ja": "南米南部の国。複数の事業者が競合し、通信はアルゼンチンとブラジル方面の陸上・海底ケーブルを使う。",
+      "ko": "남미 남부 국가로 여러 사업자가 경쟁하고, 트래픽은 아르헨티나와 브라질 방향 육상·해저 케이블을 쓴다."
     },
     "AU": {
       "zh": "多家运营商竞争，悉尼与墨尔本集中了交换点，国际流量经太平洋与东南亚方向的海缆。",
-      "en": "Several operators compete; exchange points cluster in Sydney and Melbourne, with traffic over cables towards the Pacific and Southeast Asia."
+      "en": "Several operators compete; exchange points cluster in Sydney and Melbourne, with traffic over cables towards the Pacific and Southeast Asia.",
+      "zh-TW": "多家業者競爭，雪梨與墨爾本集中了交換點，國際流量經太平洋與東南亞方向的海纜。",
+      "ja": "複数の事業者が競合し、シドニーとメルボルンに交換点が集まる。通信は太平洋と東南アジア方面のケーブルを使う。",
+      "ko": "여러 사업자가 경쟁하고 시드니와 멜버른에 교환점이 모여 있다. 트래픽은 태평양과 동남아 방향 케이블을 쓴다."
     },
     "NZ": {
       "zh": "岛国，几家运营商覆盖固网与移动，国际流量经澳大利亚与太平洋方向的海缆。",
-      "en": "Island; a few operators cover fixed and mobile, with traffic over cables towards Australia and the Pacific."
+      "en": "Island; a few operators cover fixed and mobile, with traffic over cables towards Australia and the Pacific.",
+      "zh-TW": "島國，幾家業者覆蓋固網與行動網路，國際流量經澳洲與太平洋方向的海纜。",
+      "ja": "島国。固定・移動体を複数の事業者が担い、通信はオーストラリアと太平洋方面のケーブルを使う。",
+      "ko": "섬나라로 유선과 이동통신을 여러 사업자가 담당하고, 트래픽은 호주와 태평양 방향 케이블을 쓴다."
     },
     "ZA": {
       "zh": "多家运营商竞争，开普敦与约翰内斯堡是交换中心，国际流量经西海岸与东海岸海缆。",
-      "en": "Several operators compete; Cape Town and Johannesburg are exchange points, with traffic over cables on the west and east coasts."
+      "en": "Several operators compete; Cape Town and Johannesburg are exchange points, with traffic over cables on the west and east coasts.",
+      "zh-TW": "多家業者競爭，開普敦與約翰尼斯堡是交換中心，國際流量經西岸與東岸海纜。",
+      "ja": "複数の事業者が競合し、ケープタウンとヨハネスブルグが交換拠点。通信は西岸と東岸のケーブルを使う。",
+      "ko": "여러 사업자가 경쟁하고 케이프타운과 요하네스버그가 교환 거점이다. 트래픽은 서해안과 동해안 케이블을 쓴다."
     },
     "NG": {
       "zh": "移动网络为主要接入方式，几家全国性移动运营商竞争，国际流量经西非方向的海缆，城际光纤不均衡。",
-      "en": "Mobile networks are the main way online, with several national mobile operators competing; international traffic relies on West African cables, and fibre between cities is uneven."
+      "en": "Mobile networks are the main way online, with several national mobile operators competing; international traffic relies on West African cables, and fibre between cities is uneven.",
+      "zh-TW": "行動網路為主要接取方式，幾家全國性行動業者競爭，國際流量經西非方向的海纜，城際光纖不均衡。",
+      "ja": "移動体が主な接続手段で、複数の全国移動体事業者が競合する。国際通信は西アフリカ方面のケーブルに頼り、都市間の光ファイバーは偏っている。",
+      "ko": "이동통신이 주된 접속 수단이고 여러 전국 이동통신 사업자가 경쟁한다. 국제 트래픽은 서아프리카 방향 케이블에 의존하며 도시 간 광케이블은 고르지 않다."
     },
     "KE": {
       "zh": "东非国家，几家运营商竞争，蒙巴萨是海缆登陆点，内陆流量经此中转。",
-      "en": "East African country; several operators compete; Mombasa is a cable landing, and inland traffic transits there."
+      "en": "East African country; several operators compete; Mombasa is a cable landing, and inland traffic transits there.",
+      "zh-TW": "東非國家，幾家業者競爭，蒙巴薩是海纜登陸點，內陸流量由此轉接。",
+      "ja": "東アフリカの国。複数の事業者が競合し、モンバサがケーブル陸揚げ点。内陸の通信はここを経由する。",
+      "ko": "동아프리카 국가로 여러 사업자가 경쟁하고 몸바사가 케이블 접속점이다. 내륙 트래픽은 이곳을 거친다."
     },
     "EG": {
       "zh": "地峡与运河国家，几家运营商竞争，海缆在红海与地中海沿岸登陆，欧亚流量经此中转。",
-      "en": "Isthmus and canal country; several operators compete; cables land on the Red Sea and Mediterranean coasts, and Europe-Asia traffic transits there."
+      "en": "Isthmus and canal country; several operators compete; cables land on the Red Sea and Mediterranean coasts, and Europe-Asia traffic transits there.",
+      "zh-TW": "地峽與運河國家，幾家業者競爭，海纜在紅海與地中海沿岸登陸，歐亞流量由此轉接。",
+      "ja": "地峡と運河の国。複数の事業者が競合し、ケーブルは紅海と地中海の沿岸に陸揚げされる。欧州とアジアの通信がここを経由する。",
+      "ko": "지협과 운하의 국가로 여러 사업자가 경쟁하고 케이블은 홍해와 지중해 연안에 접속된다. 유럽과 아시아 사이 트래픽이 이곳을 거친다."
     }
   }
 }

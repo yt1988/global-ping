@@ -224,14 +224,14 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .rg-cities { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 4px 0 0; padding: 0; list-style: none; font-size: 14px; }
 .rg-cities li { display: inline-flex; align-items: baseline; gap: 6px; }
 .rg-near, .rg-ccards { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-.rg-near a, .rg-ccards a { display: flex; align-items: center; gap: 8px; padding: 7px 4px; border-radius: 8px; color: var(--fg); }
+.rg-near a, .rg-ccards a { display: flex; align-items: center; gap: 8px; padding: 4px; border-radius: 8px; color: var(--fg); min-height: 40px; }
 .rg-near a:hover, .rg-ccards a:hover { background: var(--soft); text-decoration: none; }
 .rg-near .rg-cname, .rg-ccards .rg-cc-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rg-n { color: var(--muted); font-family: var(--f-num); font-size: 12px; font-variant-numeric: tabular-nums; }
-.rg-flag { width: 20px; height: 15px; border-radius: 2px; object-fit: cover; flex: none; }
-.rg-ccards { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.rg-flag { width: 16px; height: 12px; border-radius: 2px; object-fit: cover; flex: none; }
+.rg-ccards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; }
 .rg-cc-test { color: var(--ink); font-size: 12px; white-space: nowrap; }
-.rg-ccards a { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); }
+.rg-ccards a { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: var(--bg); }
 .rg-cc-name { font-size: 14px; }
 .xlink { display: flex; }
 .xlink a { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; }
@@ -240,14 +240,16 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 /* the country filter above a list: names here, English names and codes, matched as you type */
 .rg-filter { display: flex; flex-direction: column; gap: 6px; padding: 4px 0; }
 .rg-frow { display: flex; align-items: center; gap: 8px; }
-.rg-q { flex: 1; min-width: 0; height: 36px; font: 16px var(--f-ui); color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; }
+.rg-q { flex: 1; min-width: 0; height: 32px; font: 16px var(--f-ui); color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; }
 .rg-q:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
 .rg-q::-webkit-search-cancel-button, .rg-q::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
 .rg-count { flex: none; color: var(--muted); font: 12px var(--f-num); font-variant-numeric: tabular-nums; }
 .rg-clear { flex: none; border: 0; background: none; color: var(--ink); font: 500 13px var(--f-ui); cursor: pointer; padding: 6px 2px; }
 .rg-none { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
 @media (max-width: 560px) {
-  .rg-filter { position: sticky; top: 0; z-index: 15; padding: 8px 0; }
+  .rg-filter { position: sticky; top: 0; z-index: 15; padding: 6px 0; }
+  .rg-cc, .rg-ccards { grid-template-columns: 1fr; }
+  .rg-ccards a { padding: 8px 10px; }
   .rg-filter-nav { background: var(--bg); }
   .rg-filter-cards { background: var(--panel); }
 }
@@ -263,8 +265,8 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .rg-cont[open] summary::after { content: "−"; }
 .rg-cont summary .rg-n { margin-left: 2px; }
 .rg-ic { width: 18px; height: 18px; color: var(--muted); flex: none; }
-.rg-cc { list-style: none; margin: 0 0 8px; padding: 0 0 0 4px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2px; }
-.rg-cc a { display: flex; align-items: center; gap: 8px; padding: 6px; border-radius: 8px; color: var(--fg); }
+.rg-cc { list-style: none; margin: 2px 0 4px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 2px; }
+.rg-cc a { display: flex; align-items: center; gap: 8px; padding: 5px 6px; min-height: 40px; border-radius: 8px; color: var(--fg); }
 .rg-cc a:hover { background: var(--soft); text-decoration: none; }
 .rg-cc a[aria-current="page"] { background: var(--soft); font-weight: 600; }
-.rg-cc .rg-cname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13.5px; }
+.rg-cc .rg-cname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
