@@ -5,9 +5,18 @@
 // 86 countries with at least 3 online probes, continents by probe count (EU, NA, AS, SA, OC, AF), and inside a
 // continent by probe count. Russia is counted in Europe, as the shell's generator does.
 import data from "./regions.json" with { type: "json" };
+import notes from "./regions-notes.json" with { type: "json" };
 import { countryName } from "./model.mjs";
 
 export const DATA = data;
+
+// The hand-written note on a country's networks, from the same shared source (shell commit 2653261 at this copy).
+// The file names languages "zh" and "en"; a language it does not carry yet shows no note rather than an English one.
+export const NOTES = notes;
+export const noteFor = (cc, lang) => {
+  const key = lang === "zh-CN" ? "zh" : lang === "en" ? "en" : null;
+  return key && notes.notes[cc] && notes.notes[cc][key] ? notes.notes[cc][key] : "";
+};
 
 // the URL folder of each continent: English words, the same in every language (topic pages use one slug per page, so
 // a page keeps one address and the language folders sit in front of it)

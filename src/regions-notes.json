@@ -1,0 +1,353 @@
+{
+  "version": 1,
+  "langs": [
+    "zh",
+    "en"
+  ],
+  "notes": {
+    "DE": {
+      "zh": "多家运营商竞争，法兰克福是欧洲重要的交换枢纽，国际出口多经此中转。",
+      "en": "Several operators compete; Frankfurt is an important European exchange hub, and much international traffic transits there."
+    },
+    "NL": {
+      "zh": "阿姆斯特丹是海缆与数据中心集中地，跨境流量多经此进出欧洲。",
+      "en": "Amsterdam concentrates submarine cable landings and data centres, and much cross-border traffic enters Europe through it."
+    },
+    "GB": {
+      "zh": "多家全国性运营商并存，伦敦集中了国际出口与海缆登陆。",
+      "en": "Several national operators compete; London concentrates international gateways and cable landings."
+    },
+    "FR": {
+      "zh": "几家全国性运营商竞争，巴黎是本国交换中心，跨境流量经周边枢纽中转。",
+      "en": "A few national operators compete; Paris is the domestic exchange point, and cross-border traffic transits neighbouring hubs."
+    },
+    "RU": {
+      "zh": "国土跨度大，固网以国有背景运营商为主，国际出口经陆缆与周边国家相连。",
+      "en": "A vast country; fixed lines are led by a state-backed operator, and international traffic leaves over land cables to neighbouring countries."
+    },
+    "FI": {
+      "zh": "北欧国家，固网与移动由几家运营商覆盖，国际流量经波罗的海海缆和陆路出口。",
+      "en": "Nordic country; a few operators cover fixed and mobile, with international traffic leaving over Baltic cables and land routes."
+    },
+    "PL": {
+      "zh": "多家运营商竞争，华沙是本国交换中心，跨境流量经德国与波罗的海方向。",
+      "en": "Several operators compete; Warsaw is the domestic exchange point, and cross-border traffic heads towards Germany and the Baltic."
+    },
+    "SE": {
+      "zh": "北欧国家，固网与移动由几家运营商覆盖，国际流量经波罗的海与挪威方向的海缆。",
+      "en": "Nordic country; a few operators cover fixed and mobile, with international traffic over Baltic and Norwegian cables."
+    },
+    "IT": {
+      "zh": "多家运营商竞争，米兰与罗马是交换中心，海缆在地中海沿岸登陆。",
+      "en": "Several operators compete; Milan and Rome are exchange points, with cables landing along the Mediterranean coast."
+    },
+    "RO": {
+      "zh": "多家运营商竞争，布加勒斯特集中了本国出口，跨境流量经周边陆地邻国。",
+      "en": "Several operators compete; Bucharest concentrates the country's gateways, with traffic crossing neighbouring land borders."
+    },
+    "ES": {
+      "zh": "几家全国性运营商竞争，马德里与巴塞罗那是交换中心，海缆在地中海和大西洋沿岸登陆。",
+      "en": "A few national operators compete; Madrid and Barcelona are exchange points, with cables landing on the Mediterranean and Atlantic coasts."
+    },
+    "CH": {
+      "zh": "内陆国家，固网由国有背景运营商提供，跨境流量经周边邻国的枢纽中转。",
+      "en": "Landlocked; fixed lines come from a state-backed operator, and cross-border traffic transits neighbouring hubs."
+    },
+    "AT": {
+      "zh": "内陆国家，几家运营商覆盖固网与移动，跨境流量经德国和东欧方向。",
+      "en": "Landlocked; a few operators cover fixed and mobile, with traffic heading towards Germany and eastern Europe."
+    },
+    "PT": {
+      "zh": "几家运营商竞争，里斯本是交换中心，跨大西洋海缆在此登陆。",
+      "en": "A few operators compete; Lisbon is the exchange point, and transatlantic cables land there."
+    },
+    "BG": {
+      "zh": "多家运营商竞争，索非亚是交换中心，跨境流量经周边陆地邻国和黑海方向。",
+      "en": "Several operators compete; Sofia is the exchange point, with traffic crossing neighbouring borders and the Black Sea."
+    },
+    "NO": {
+      "zh": "地形狭长，固网与移动由几家运营商覆盖，海缆沿北海和挪威海方向进出。",
+      "en": "A long, narrow country; a few operators cover fixed and mobile, with cables running through the North Sea and Norwegian Sea."
+    },
+    "CZ": {
+      "zh": "内陆国家，多家运营商竞争，布拉格是交换中心，跨境流量经德国和奥地利方向。",
+      "en": "Landlocked; several operators compete; Prague is the exchange point, with traffic towards Germany and Austria."
+    },
+    "EE": {
+      "zh": "波罗的海国家，多家运营商覆盖固网与移动，国际流量经海缆和陆路出口。",
+      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes."
+    },
+    "IE": {
+      "zh": "岛国，几家运营商覆盖固网与移动，海缆在英国与北美方向登陆。",
+      "en": "Island; a few operators cover fixed and mobile, with cables landing towards Britain and North America."
+    },
+    "DK": {
+      "zh": "北欧国家，多家运营商竞争，哥本哈根是交换中心，国际流量经波罗的海与北海方向。",
+      "en": "Nordic country; several operators compete; Copenhagen is the exchange point, with traffic over the Baltic and North Sea."
+    },
+    "UA": {
+      "zh": "国土跨度大，多家运营商竞争，跨境流量经西向陆地邻国和黑海方向。",
+      "en": "A large country; several operators compete, with traffic crossing western land borders and the Black Sea."
+    },
+    "BE": {
+      "zh": "几家运营商竞争，布鲁塞尔与安特卫普是交换中心，跨境流量经周边枢纽中转。",
+      "en": "A few operators compete; Brussels and Antwerp are exchange points, with traffic transiting neighbouring hubs."
+    },
+    "LT": {
+      "zh": "波罗的海国家，多家运营商覆盖固网与移动，国际流量经海缆和陆路出口。",
+      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes."
+    },
+    "LV": {
+      "zh": "波罗的海国家，多家运营商覆盖固网与移动，国际流量经海缆和陆路出口。",
+      "en": "Baltic state; several operators cover fixed and mobile, with international traffic over cables and land routes."
+    },
+    "SK": {
+      "zh": "内陆国家，多家运营商竞争，布拉迪斯拉发是交换中心，跨境流量经奥地利和捷克方向。",
+      "en": "Landlocked; several operators compete; Bratislava is the exchange point, with traffic towards Austria and Czechia."
+    },
+    "MD": {
+      "zh": "内陆国家，几家运营商竞争，国际流量经罗马尼亚和乌克兰方向的陆缆出口。",
+      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables towards Romania and Ukraine."
+    },
+    "HU": {
+      "zh": "内陆国家，多家运营商竞争，布达佩斯是交换中心，跨境流量经周边陆地邻国。",
+      "en": "Landlocked; several operators compete; Budapest is the exchange point, with traffic crossing neighbouring borders."
+    },
+    "HR": {
+      "zh": "地中海国家，几家运营商覆盖固网与移动，国际流量经斯洛文尼亚和意大利方向。",
+      "en": "Mediterranean country; a few operators cover fixed and mobile, with traffic towards Slovenia and Italy."
+    },
+    "RS": {
+      "zh": "内陆国家，多家运营商竞争，贝尔格莱德是交换中心，跨境流量经周边陆地邻国。",
+      "en": "Landlocked; several operators compete; Belgrade is the exchange point, with traffic crossing neighbouring borders."
+    },
+    "BY": {
+      "zh": "内陆国家，固网以国有背景运营商为主，跨境流量经俄罗斯和波兰方向的陆缆。",
+      "en": "Landlocked; fixed lines are led by a state-backed operator, with traffic over land cables towards Russia and Poland."
+    },
+    "GR": {
+      "zh": "半岛国家，几家运营商覆盖固网与移动，海缆在地中海沿岸登陆。",
+      "en": "Peninsular country; a few operators cover fixed and mobile, with cables landing along the Mediterranean."
+    },
+    "AL": {
+      "zh": "地中海国家，几家运营商覆盖固网与移动，国际流量经意大利和希腊方向。",
+      "en": "Mediterranean country; a few operators cover fixed and mobile, with traffic towards Italy and Greece."
+    },
+    "LU": {
+      "zh": "内陆小国，多家运营商与数据中心集中，跨境流量经周边枢纽中转。",
+      "en": "Small landlocked country; several operators and data centres cluster there, with cross-border traffic transiting nearby hubs."
+    },
+    "MK": {
+      "zh": "内陆国家，几家运营商竞争，国际流量经周边陆地邻国的陆缆出口。",
+      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables to neighbouring countries."
+    },
+    "IS": {
+      "zh": "岛国，固网与移动由几家运营商覆盖，国际流量经通往欧洲大陆和北美的海缆。",
+      "en": "Island; a few operators cover fixed and mobile, with cables towards mainland Europe and North America."
+    },
+    "MT": {
+      "zh": "岛国，几家运营商覆盖固网与移动，国际流量经通往意大利方向的海缆。",
+      "en": "Island; a few operators cover fixed and mobile, with cables towards Italy."
+    },
+    "SI": {
+      "zh": "内陆国家，多家运营商竞争，卢布尔雅那是交换中心，跨境流量经奥地利和意大利方向。",
+      "en": "Landlocked; several operators compete; Ljubljana is the exchange point, with traffic towards Austria and Italy."
+    },
+    "BA": {
+      "zh": "内陆国家，几家运营商竞争，跨境流量经周边陆地邻国的陆缆出口。",
+      "en": "Landlocked; a few operators compete, with international traffic over land cables to neighbouring countries."
+    },
+    "CY": {
+      "zh": "岛国，几家运营商覆盖固网与移动，国际流量经地中海方向的海缆。",
+      "en": "Island; a few operators cover fixed and mobile, with cables across the Mediterranean."
+    },
+    "XK": {
+      "zh": "内陆国家，几家运营商覆盖固网与移动，国际流量经周边陆地邻国的陆缆出口。",
+      "en": "Landlocked; a few operators cover fixed and mobile, with international traffic over land cables to neighbouring countries."
+    },
+    "US": {
+      "zh": "多家全国性运营商与大量地区宽带商竞争，东西海岸国际出口密集，跨境流量经沿海海缆进出。",
+      "en": "Many national carriers and regional broadband providers compete; international gateways cluster on both coasts, with traffic leaving over coastal cables."
+    },
+    "CA": {
+      "zh": "人口集中在南部边境带，几家全国性运营商覆盖全境，国际出口多经美国中转。",
+      "en": "Population clusters near the southern border; a few national operators cover the country, with much international traffic transiting the United States."
+    },
+    "MX": {
+      "zh": "多家运营商竞争，国际出口经美国方向的陆缆与海缆，国内长途路径较长。",
+      "en": "Several operators compete; international traffic runs over land and submarine links towards the United States, and domestic long-haul paths are long."
+    },
+    "CR": {
+      "zh": "中美洲国家，几家运营商竞争，国际流量经巴拿马与美国的陆缆和海缆出口。",
+      "en": "Central American country; several operators compete, with international traffic leaving over land and submarine links via Panama and the United States."
+    },
+    "PA": {
+      "zh": "地峡国家，运河与海缆登陆点集中，国际流量经此中转南北美洲。",
+      "en": "Isthmus country; the canal and cable landings concentrate there, and traffic transits between the Americas."
+    },
+    "SG": {
+      "zh": "东南亚枢纽，海缆登陆密集，数据中心集中，洲际访问绕行少。",
+      "en": "Southeast Asian hub with dense cable landings and clustered data centres; intercontinental traffic takes few detours."
+    },
+    "JP": {
+      "zh": "几家全国性运营商竞争，东京与大阪是交换中心，海缆在太平洋沿岸登陆。",
+      "en": "A few national operators compete; Tokyo and Osaka are exchange points, with cables landing along the Pacific coast."
+    },
+    "HK": {
+      "zh": "区域枢纽，海缆登陆密集，跨境流量多经此进出东亚。",
+      "en": "Regional hub with dense cable landings; much cross-border traffic enters and leaves East Asia through it."
+    },
+    "ID": {
+      "zh": "群岛国家，多家运营商竞争，国际流量经新加坡与澳大利亚方向的海缆，岛间依赖海缆和卫星。",
+      "en": "Archipelago; several operators compete, with international traffic over cables towards Singapore and Australia, and islands linked by cable and satellite."
+    },
+    "IN": {
+      "zh": "多家运营商竞争，孟买与金奈是海缆登陆点，跨境流量经中东和东南亚方向。",
+      "en": "Several operators compete; Mumbai and Chennai are cable landings, with traffic towards the Middle East and Southeast Asia."
+    },
+    "CN": {
+      "zh": "多家全国性运营商竞争，北京、上海、广州是交换中心，国际流量经沿海登陆点进出。",
+      "en": "Several national operators compete; Beijing, Shanghai and Guangzhou are exchange points, with international traffic through coastal landings."
+    },
+    "TH": {
+      "zh": "多家运营商竞争，曼谷是交换中心，国际流量经东南亚方向的海缆与陆缆。",
+      "en": "Several operators compete; Bangkok is the exchange point, with traffic over Southeast Asian cables and land links."
+    },
+    "TW": {
+      "zh": "岛内多家运营商竞争，海缆在北部与南部登陆，国际流量经此连接东亚与北美。",
+      "en": "Several operators compete on the island; cables land in the north and south, linking East Asia and North America."
+    },
+    "KR": {
+      "zh": "几家全国性运营商竞争，首尔与釜山是交换中心，海缆在半岛沿岸登陆。",
+      "en": "A few national operators compete; Seoul and Busan are exchange points, with cables landing along the peninsula."
+    },
+    "TR": {
+      "zh": "横跨欧亚，几家运营商竞争，伊斯坦布尔是交换中心，国际流量经欧洲和中东方向的陆缆与海缆。",
+      "en": "Straddling Europe and Asia; several operators compete; Istanbul is the exchange point, with traffic over land and submarine links towards Europe and the Middle East."
+    },
+    "MY": {
+      "zh": "多家运营商竞争，吉隆坡与柔佛是交换中心，国际流量经新加坡方向的海缆与陆缆。",
+      "en": "Several operators compete; Kuala Lumpur and Johor are exchange points, with traffic over cables and land links towards Singapore."
+    },
+    "VN": {
+      "zh": "多家运营商竞争，胡志明市与河内是交换中心，国际流量经东南亚方向的海缆。",
+      "en": "Several operators compete; Ho Chi Minh City and Hanoi are exchange points, with traffic over Southeast Asian cables."
+    },
+    "BD": {
+      "zh": "多家运营商竞争，达卡是交换中心，国际流量经印度与东南亚方向的陆缆和海缆。",
+      "en": "Several operators compete; Dhaka is the exchange point, with traffic over land and submarine links towards India and Southeast Asia."
+    },
+    "KZ": {
+      "zh": "内陆大国，网络资源集中在阿拉木图与阿斯塔纳，国际出口经俄罗斯与中国方向的陆缆。",
+      "en": "A large landlocked country with network resources concentrated in Almaty and Astana; international traffic leaves over land cables towards Russia and China."
+    },
+    "IL": {
+      "zh": "地中海东岸国家，几家运营商竞争，国际流量经地中海方向的海缆与周边陆缆。",
+      "en": "Eastern Mediterranean country; several operators compete, with traffic over Mediterranean cables and neighbouring land links."
+    },
+    "PH": {
+      "zh": "群岛国家，多家运营商竞争，国际流量经东南亚与北美方向的海缆，岛间依赖海缆。",
+      "en": "Archipelago; several operators compete, with international traffic over cables towards Southeast Asia and North America, and islands linked by cable."
+    },
+    "PK": {
+      "zh": "多家运营商竞争，卡拉奇是海缆登陆点，跨境流量经中东与南亚方向的陆缆和海缆。",
+      "en": "Several operators compete; Karachi is a cable landing, with traffic over land and submarine links towards the Middle East and South Asia."
+    },
+    "AE": {
+      "zh": "区域枢纽，多家运营商竞争，海缆在波斯湾沿岸登陆，东西向流量经此中转。",
+      "en": "Regional hub; several operators compete; cables land along the Gulf, and east-west traffic transits there."
+    },
+    "AM": {
+      "zh": "内陆国家，几家运营商竞争，国际流量经格鲁吉亚和伊朗方向的陆缆出口。",
+      "en": "Landlocked; a few operators compete, with international traffic leaving over land cables towards Georgia and Iran."
+    },
+    "AZ": {
+      "zh": "里海沿岸国家，几家运营商竞争，国际流量经格鲁吉亚、俄罗斯和伊朗方向的陆缆。",
+      "en": "Caspian country; several operators compete, with traffic over land cables towards Georgia, Russia and Iran."
+    },
+    "IR": {
+      "zh": "国土跨度大，几家运营商覆盖固网与移动，国际流量经周边陆缆与海缆出口。",
+      "en": "A large country; several operators cover fixed and mobile, with international traffic over neighbouring land cables and submarine links."
+    },
+    "TJ": {
+      "zh": "内陆国家，几家运营商竞争，国际流量经周边陆地邻国的陆缆出口。",
+      "en": "Landlocked; several operators compete, with international traffic over land cables to neighbouring countries."
+    },
+    "SA": {
+      "zh": "半岛国家，几家运营商竞争，红海与波斯湾沿岸有海缆登陆，跨境流量经此中转。",
+      "en": "Peninsular country; several operators compete; cables land on the Red Sea and Gulf coasts, and traffic transits there."
+    },
+    "GE": {
+      "zh": "内陆国家，几家运营商竞争，国际流量经黑海方向的海缆与周边陆缆。",
+      "en": "Landlocked; several operators compete, with traffic over Black Sea cables and neighbouring land links."
+    },
+    "BH": {
+      "zh": "岛国，几家运营商竞争，海缆在波斯湾登陆，跨境流量经此中转。",
+      "en": "Island; several operators compete; cables land in the Gulf, and traffic transits there."
+    },
+    "KH": {
+      "zh": "东南亚国家，几家运营商竞争，国际流量经泰国与越南方向的陆缆和海缆。",
+      "en": "Southeast Asian country; several operators compete, with traffic over land and submarine links towards Thailand and Vietnam."
+    },
+    "MV": {
+      "zh": "岛国，几家运营商覆盖移动与固网，国际流量经斯里兰卡与印度方向的海缆。",
+      "en": "Island; a few operators cover mobile and fixed, with international traffic over cables towards Sri Lanka and India."
+    },
+    "BR": {
+      "zh": "多家运营商竞争，圣保罗与里约是交换中心，国际流量经大西洋海缆与周边国家陆缆。",
+      "en": "Several operators compete; São Paulo and Rio are exchange points, with traffic over Atlantic cables and land links to neighbouring countries."
+    },
+    "CL": {
+      "zh": "狭长国家，几家运营商竞争，圣地亚哥是交换中心，国际流量经太平洋海缆与阿根廷方向陆缆。",
+      "en": "A long, narrow country; several operators compete; Santiago is the exchange point, with traffic over Pacific cables and land links to Argentina."
+    },
+    "AR": {
+      "zh": "几家运营商竞争，布宜诺斯艾利斯是交换中心，国际流量经大西洋海缆与智利方向陆缆。",
+      "en": "Several operators compete; Buenos Aires is the exchange point, with traffic over Atlantic cables and land links to Chile."
+    },
+    "PE": {
+      "zh": "几家运营商竞争，利马是交换中心，国际流量经太平洋海缆与周边陆缆。",
+      "en": "Several operators compete; Lima is the exchange point, with traffic over Pacific cables and neighbouring land links."
+    },
+    "BO": {
+      "zh": "内陆国家，几家运营商竞争，国际流量经秘鲁、智利和巴西方向的陆缆。",
+      "en": "Landlocked; several operators compete, with traffic over land cables towards Peru, Chile and Brazil."
+    },
+    "CO": {
+      "zh": "几家运营商竞争，波哥大是交换中心，国际流量经加勒比海缆与周边陆缆。",
+      "en": "Several operators compete; Bogotá is the exchange point, with traffic over Caribbean cables and neighbouring land links."
+    },
+    "EC": {
+      "zh": "几家运营商竞争，基多是交换中心，国际流量经太平洋海缆与周边陆缆。",
+      "en": "Several operators compete; Quito is the exchange point, with traffic over Pacific cables and neighbouring land links."
+    },
+    "UY": {
+      "zh": "南美南部国家，几家运营商竞争，国际流量经阿根廷和巴西方向的陆缆与海缆。",
+      "en": "Southern South America; several operators compete, with traffic over land and submarine links towards Argentina and Brazil."
+    },
+    "AU": {
+      "zh": "多家运营商竞争，悉尼与墨尔本集中了交换点，国际流量经太平洋与东南亚方向的海缆。",
+      "en": "Several operators compete; exchange points cluster in Sydney and Melbourne, with traffic over cables towards the Pacific and Southeast Asia."
+    },
+    "NZ": {
+      "zh": "岛国，几家运营商覆盖固网与移动，国际流量经澳大利亚与太平洋方向的海缆。",
+      "en": "Island; a few operators cover fixed and mobile, with traffic over cables towards Australia and the Pacific."
+    },
+    "ZA": {
+      "zh": "多家运营商竞争，开普敦与约翰内斯堡是交换中心，国际流量经西海岸与东海岸海缆。",
+      "en": "Several operators compete; Cape Town and Johannesburg are exchange points, with traffic over cables on the west and east coasts."
+    },
+    "NG": {
+      "zh": "移动网络为主要接入方式，几家全国性移动运营商竞争，国际流量经西非方向的海缆，城际光纤不均衡。",
+      "en": "Mobile networks are the main way online, with several national mobile operators competing; international traffic relies on West African cables, and fibre between cities is uneven."
+    },
+    "KE": {
+      "zh": "东非国家，几家运营商竞争，蒙巴萨是海缆登陆点，内陆流量经此中转。",
+      "en": "East African country; several operators compete; Mombasa is a cable landing, and inland traffic transits there."
+    },
+    "EG": {
+      "zh": "地峡与运河国家，几家运营商竞争，海缆在红海与地中海沿岸登陆，欧亚流量经此中转。",
+      "en": "Isthmus and canal country; several operators compete; cables land on the Red Sea and Mediterranean coasts, and Europe-Asia traffic transits there."
+    }
+  }
+}

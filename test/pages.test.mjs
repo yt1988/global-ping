@@ -4,7 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import { LANGS } from "../scripts/build.mjs";
-import { CONTINENTS, COUNTRIES, countryDir, countryByCc } from "../src/regions.mjs";
+import { CONTINENTS, COUNTRIES, countryDir, countryByCc, noteFor } from "../src/regions.mjs";
 
 const pub = new URL("../public/", import.meta.url);
 const read = f => readFile(new URL(f, pub), "utf8");
@@ -49,9 +49,19 @@ test("a country page shows no Globalping inventory, only the test and its neighb
   assert.equal(data.ranges.length, 3);
   assert.deepEqual(data.ranges.map(r => r.cc), ["US", "US", "US"]);
   assert.ok(data.ranges.every(r => r.label));
-  // neighbours and the filter
+  // neighbours, the shared note and the filter
   assert.ok((html.match(/class="rg-near"/g) || []).length === 1);
   assert.ok(html.includes("rg-filter-nav"));
+  assert.ok(html.includes(noteFor("US", "zh-CN")), "the shared note is on the page");
+});
+
+test("a note shows only in a language the shared file carries", async () => {
+  assert.ok(noteFor("DE", "zh-CN") && noteFor("DE", "en"));
+  assert.equal(noteFor("DE", "fr"), "");
+  const en = await read("europe/de/index.html"), fr = await read("fr/europe/de/index.html");
+  assert.ok(en.includes(noteFor("DE", "en")));
+  assert.ok(!fr.includes(noteFor("DE", "en")) && !fr.includes(noteFor("DE", "zh-CN")));
+  assert.equal((fr.match(/class="route"/g) || []).length, 0);
 });
 
 test("a continent page tests five countries in one request and lists them all", async () => {

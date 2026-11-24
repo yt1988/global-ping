@@ -13,7 +13,7 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { build as bundle } from "esbuild";
 import { countryName, flagCode } from "../src/model.mjs";
-import { CONTINENTS, COUNTRIES, countryByCc, countryDir, picksOf, neighboursOf, isMain, englishName } from "../src/regions.mjs";
+import { CONTINENTS, COUNTRIES, countryByCc, countryDir, picksOf, neighboursOf, isMain, englishName, noteFor } from "../src/regions.mjs";
 
 const SITE = (process.env.SITE_URL || "https://ping.1ms.dog").replace(/\/+$/, "");
 const pub = new URL("../public/", import.meta.url), src = new URL("../src/", import.meta.url), stat = new URL("../static/", import.meta.url);
@@ -236,7 +236,7 @@ export async function build() {
           : [0, 1, 2].map(i => ({ key: `c:${pg.cc}:${i}`, g: "topic", cc: pg.cc, n: i + 1, loc: { country: pg.cc }, label: fill(T("probe_n"), { n: i + 1 }) }));
         const tableH = pg.kind === "continent" ? fill(T("cont_countries"), { continent: name }) : T("c_probes");
         const goText = pg.kind === "continent" ? fill(T("cont_test"), { k: num(ranges.length, lang) }) : T("go");
-        const sections = pg.kind === "continent" ? continentSections(T, lang, c, slug) : countrySections(T, lang, c, slug);
+        const sections = pg.kind === "continent" ? continentSections(T, lang, c, slug) : countrySections(T, lang, c, slug, noteFor(c.cc, lang));
         const cur = { kind: pg.kind, cont: pg.cont, contSlug: c.contSlug || c.slug, cc: pg.cc, lang };
         const crumbsHtml = crumbs(T, slug, cur);
         graph = [appSchema({ name: `${T("app_name")} · ${name}`, url, desc, lang }), { "@type": "BreadcrumbList", itemListElement: [
