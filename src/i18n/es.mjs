@@ -130,6 +130,6 @@ export default {
   filter_none: "Ningún país coincide",
   filter_clear: "Borrar",
   samples_low: "Esta vez solo volvieron {n} muestras",
-  probe_n: "Sonda {n}",
   explore_h: "Probar por país o región",
+  allocating: "Asignando sondas de prueba…",
 };

@@ -56,11 +56,11 @@ test("a country page shows no Globalping inventory, only the test and its neighb
     assert.ok(!html.includes(new Intl.NumberFormat("zh-CN").format(n)), `inventory number ${n} is on the page`);
   assert.ok(!html.includes("Los Angeles"), "the city list is not shown");
   assert.ok(!/节点较少|Few probes/.test(html));
-  // three probes, named before their cities arrive
+  // three probes, each named by the probe itself as soon as the API answers
   const data = JSON.parse(/<script type="application\/json" id="data">(.*?)<\/script>/s.exec(html)[1]);
   assert.equal(data.ranges.length, 3);
   assert.deepEqual(data.ranges.map(r => r.cc), ["US", "US", "US"]);
-  assert.ok(data.ranges.every(r => r.label));
+  assert.ok(data.ranges.every(r => !("label" in r) && !("n" in r)), "no probe 1/2/3 labels");
   // neighbours, the shared note and the filter
   assert.ok((html.match(/class="rg-near"/g) || []).length === 1);
   assert.ok(html.includes("rg-filter-nav"));

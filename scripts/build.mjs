@@ -247,7 +247,7 @@ export async function build() {
         // A continent tests its five countries in one request; a country asks for three probes of its own.
         const ranges = pg.kind === "continent"
           ? picksOf(c).map(x => ({ key: "c:" + x.cc, g: "topic", cc: x.cc, loc: { country: x.cc } }))
-          : [0, 1, 2].map(i => ({ key: `c:${pg.cc}:${i}`, g: "topic", cc: pg.cc, n: i + 1, loc: { country: pg.cc }, label: fill(T("probe_n"), { n: i + 1 }) }));
+          : [0, 1, 2].map(i => ({ key: `c:${pg.cc}:${i}`, g: "topic", cc: pg.cc, loc: { country: pg.cc } }));
         const tableH = pg.kind === "continent" ? fill(T("cont_countries"), { continent: name }) : T("c_probes");
         const goText = pg.kind === "continent" ? fill(T("cont_test"), { k: num(ranges.length, lang) }) : T("go");
         const sections = pg.kind === "continent" ? continentSections(T, lang, c, slug) : countrySections(T, lang, c, slug, noteFor(c.cc, lang));

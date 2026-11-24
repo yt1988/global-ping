@@ -132,6 +132,6 @@ export default {
   filter_none: "Стран не найдено",
   filter_clear: "Сбросить",
   samples_low: "В этот раз вернулось только {n} ответов",
-  probe_n: "Проба {n}",
   explore_h: "Тест по странам и регионам",
+  allocating: "Назначаем пробы для теста…",
 };

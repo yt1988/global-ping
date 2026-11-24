@@ -147,14 +147,25 @@ all("[data-hstep]").forEach(b => { b.onclick = () => showHelp(helpIdx + +b.datas
 // row names: carriers by name, city probes with their country, the rest by country. Taiwan is the fixed exception.
 // Our own Tokyo server is not one of the 18 and is named by its source.
 const ours = region => region.key === TOKYO_REGION.key;
-// A country page's row name once its probe is known: country, city, and the network (three probes in one city would
-// otherwise read the same).
+// A topic page names a row by the probe itself: city, network and ASN, as soon as the API has told us who it is (the
+// first poll after creating the measurement, while the result is still running). No "probe 1/2/3": two probes in the
+// same city and network get the probe's own user tag when it has one.
+const probeLabel = p => [p.city, p.network, p.asn ? "AS" + p.asn : ""].filter(Boolean).join(" · ");
 const rowName = row => {
   if (!row) return "";
-  if (TOPIC && D.kind === "country" && row.probe && row.probe.city)
-    return `${t("probe_n", { n: row.region.n })} · ${row.probe.city}${row.probe.asn ? " · AS" + row.probe.asn : ""}`;
+  if (TOPIC && row.probe && probeLabel(row.probe)) return probeLabel(row.probe) + (row.probe._tag ? " · " + row.probe._tag : "");
   return row.region ? nameOf(row.region) : "";
 };
+// Identical-looking probes in one test (same city, network and ASN) are kept apart by their user tag, when they have one.
+function labelDuplicates(rows) {
+  if (!TOPIC) return;
+  const by = new Map();
+  for (const r of rows) if (r && r.probe) { const k = probeLabel(r.probe); (by.get(k) || by.set(k, []).get(k)).push(r); }
+  for (const list of by.values()) if (list.length > 1) list.forEach((r, i) => {
+    const tag = (r.probe.tags || []).find(x => /^u-/.test(x));
+    r.probe._tag = tag || String.fromCharCode(65 + i);   // A, B, C … never "probe 2"
+  });
+}
 const nameOf = region => {
   if (ours(region)) return t("t_label");
   if (region.carrier) return t("c_" + region.carrier);
@@ -225,7 +236,7 @@ function start() {
   const id = ++run;
   if (recv) { recv.remove(); recv = null; }
   state = { id, tg, ipv: $("ipv").value, rows: REGIONS.map(() => null), tokyo: null, tokyoError: "",
-    gpDone: false, gpError: "", gpMsg: "", gpReset: 0, partial: false, ts: Date.now(), verdict: null, findings: [], tokyoOnly: false };
+    gpDone: false, gpError: "", gpMsg: "", gpReset: 0, partial: false, ts: Date.now(), verdict: null, findings: [], tokyoOnly: false, rowsBuilt: false };
   // The address bar stays as it is for a normal test (1ms.dog convention, 2026-11-08): no ?t= is written.
   // The one exception is a shared result's /r/ page: once the visitor runs their own test, go back to the language home.
   if (sharePath(location.pathname)) history.replaceState(null, "", D.paths[D.lang]);
@@ -234,8 +245,15 @@ function start() {
   $("regions").hidden = false; $("kpis").hidden = false;
   noteShow(""); tokyoNoteShow("");
   if (quotaLeft != null) { quotaLeft = Math.max(0, quotaLeft - COST); showQuota(); }
-  buildRows(state);
-  renderRows(state);
+  if (TOPIC) {
+    // no rows until the API has told us which probes run: "probe 1/2/3" is not a name
+    rowEls = new Map(); detailEls = new Map();
+    $("regions").innerHTML = `<p class="note m" role="status">${esc(t("allocating"))}</p>`;
+    $("tokyoRow").innerHTML = "";
+  } else {
+    buildRows(state);
+    renderRows(state);
+  }
   setGo(true);
   drawVerdict(state);
   drawKpis(state);
@@ -258,15 +276,30 @@ async function runGlobalping(s) {
   updateQuota(r.headers);
   if (r.status === 429) { s.gpError = "429"; s.gpDone = true; loadQuota(); return settle(s); }
   if (!r.ok || !j.id) { s.gpError = "err"; s.gpMsg = j?.error?.message || String(r.status); s.gpDone = true; loadQuota(); return settle(s); }
+  // Ask for the measurement at once: the first answer already names the probes (probe.city, network, asn) while the
+  // result is still running, so the rows show who is testing from the first moment.
   const t0 = Date.now();
-  while (s.id === run && Date.now() - t0 < 30000) {
+  const once = async () => { try { return await (await fetch(`${GP}/measurements/${j.id}`)).json(); } catch { return null; } };
+  const apply = m => {
+    if (!m || !Array.isArray(m.results)) return;
+    const rows = placeResults(REGIONS, m.results);
+    labelDuplicates(rows);
+    if (TOPIC && !s.rowsBuilt && rows.some(r => r && r.probe)) { s.rowsBuilt = true; buildRows(s); }
+    s.rows = rows;
+    if (!TOPIC || s.rowsBuilt) renderRows(s);
+  };
+  let m = await once();
+  if (s.id !== run) return;
+  apply(m);
+  while (s.id === run && (!m || m.status === "in-progress") && Date.now() - t0 < 30000) {
     await sleep(900);
-    let m; try { m = await (await fetch(`${GP}/measurements/${j.id}`)).json(); } catch { continue; }
-    if (m.results) { s.rows = placeResults(REGIONS, m.results); renderRows(s); }
-    if (m.status !== "in-progress") break;
+    if (s.id !== run) return;
+    m = await once();
+    apply(m);
   }
   if (s.id !== run) return;
   if (Date.now() - t0 >= 30000) s.partial = true;
+  if (TOPIC && !s.rowsBuilt) { s.rowsBuilt = true; buildRows(s); }
   // a region the API returned nothing for gets a row too: "no probe available", not a forever-pending row
   s.rows = s.rows.map((r, i) => r || { region: REGIONS[i], state: "noprobe", rcv: 0, rtts: [], ttls: [],
     median: null, jitter: null, loss: 0, posUnknown: false, resolved: "", probe: null });
@@ -406,6 +439,13 @@ function rowFor(region) {
 
 function fillRow(s, region, row) {
   const el = rowEls.get(region.key); if (!el) return;
+  // the probe's identity is shown as soon as it is known, including while the result is still running
+  const nm = rowName(row);
+  if (nm && el.dataset.name !== nm) {
+    el.dataset.name = nm;
+    const slot = el.querySelector(".nm");
+    if (slot) slot.textContent = nm;
+  }
   const bars = el.querySelector(".bars");
   const st = el.querySelector(".st"), med = el.querySelector(".med"), meta = el.querySelector(".meta");
   if (!row || row.state === "pending") {
@@ -427,14 +467,6 @@ function fillRow(s, region, row) {
   med.innerHTML = `${ms} <small>ms</small>`;
   meta.innerHTML = `${j ? esc(j) + " · " : ""}${row.rcv}/${PACKETS}${row.posUnknown && row.rcv < PACKETS ? " ?" : ""}`;
   if (row.state === "none") { med.textContent = "—"; meta.innerHTML = `0/${PACKETS}`; }
-  // A country page asks for three probes there: once the answer is in, name each row by its city so the three can be
-  // told apart (the page's own "Probe 1/2/3" labels before that).
-  if (TOPIC && D.kind === "country" && row.probe && row.probe.city) {
-    const nm = rowName(row);
-    el.dataset.name = nm;
-    const slot = el.querySelector(".nm");
-    if (slot) slot.textContent = nm;
-  }
   const who = el.dataset.name;
   el.setAttribute("aria-label", t("aria_row", { name: who, ms, j: j ? j.slice(1) : "—", rcv: row.rcv }));
 }

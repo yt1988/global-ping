@@ -130,6 +130,6 @@ export default {
   filter_none: "Kein Land passt",
   filter_clear: "Leeren",
   samples_low: "Diesmal kamen nur {n} Antworten zurück",
-  probe_n: "Sonde {n}",
   explore_h: "Nach Land oder Region testen",
+  allocating: "Test-Sonden werden zugewiesen…",
 };

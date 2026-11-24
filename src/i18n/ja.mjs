@@ -130,6 +130,6 @@ export default {
   filter_none: "一致する国がありません",
   filter_clear: "クリア",
   samples_low: "今回の応答は {n} 件だけでした",
-  probe_n: "プローブ {n}",
   explore_h: "国・地域からテスト",
+  allocating: "テスト用プローブを割り当てています…",
 };

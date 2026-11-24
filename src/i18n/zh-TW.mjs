@@ -131,6 +131,6 @@ export default {
   filter_none: "沒有符合的國家",
   filter_clear: "清除",
   samples_low: "本次只得到 {n} 個樣本",
-  probe_n: "節點 {n}",
   explore_h: "依國家或地區測試",
+  allocating: "正在分配測試節點…",
 };
