@@ -2,15 +2,19 @@
 // probes run the worldwide view straight from the visitor's browser (each visitor spends their own hourly allowance);
 // our own server in Tokyo gives a second view that uses none of it. Strings come from window.L1MS
 // (assets/l.<lang>.<hash>.js, built from src/i18n/); the model and the result-link code are shared with the Worker.
-import { REGIONS, PACKETS, TOKYO_REGION, countryName, fmtMs, fmtPct, latencyBand, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
+import { REGIONS as HOME_REGIONS, PACKETS, TOKYO_REGION, countryName, fmtMs, fmtPct, latencyBand, median, stdev, placeResults, makeTokyoRow, verdict, findings, normalizeTarget, familyOf } from "./model.mjs";
 import { encodeResult, decodeResult, sharePath, rowToCode, codeToRow } from "./code.mjs";
 import { TOKYO_API } from "./config.mjs";
 import { updateReportEntry } from "./report-entry.mjs";
 
 (() => {
 const GP = "https://api.globalping.io/v1";
-const WITH_TOKYO = !!TOKYO_API;
 const L = window.L1MS || {}, D = JSON.parse(document.getElementById("data").textContent);
+// A country or continent page tests only its own places (one probe, or 4–5 countries in one request); the home page
+// tests the fixed 18 regions. Everything else — the input, the rows, the numbers — is the same code.
+const TOPIC = D.kind === "country" || D.kind === "continent";
+const REGIONS = TOPIC ? D.ranges : HOME_REGIONS;
+const WITH_TOKYO = !!TOKYO_API && !TOPIC;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 // Chinese copy: keep a space between Han and Latin/digits (18 个地区, Globalping 的), no space between two Han words
@@ -47,10 +51,18 @@ $("lang").onchange = e => { const l = e.target.value; store.set(K.lang, l); loca
 
 // Other 1ms.dog tools: their address comes from the shell's <meta name="<id>">; self-hosted there is none, so no link.
 // Links keep this page's language folder.
-const tool = id => { const m = document.querySelector(`meta[name="${id}"]`); return m && m.content ? m.content.replace(/\/+$/, "") + D.paths[D.lang] : ""; };
+const tool = id => { const m = document.querySelector(`meta[name="${id}"]`); return m && m.content ? m.content.replace(/\/+$/, "") + (D.langPath || "/") : ""; };
 const EXT = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M12 10v3.5H2.5V4H6"/></svg>';
 const toolLink = (id, key) => { const u = tool(id); return u ? `<a class="ext" href="${esc(u)}" target="_blank" rel="noopener">${esc(t(key))}${EXT}</a>` : ""; };
 const asnLink = ip => { const u = tool("asn"); return u ? `<a class="dv" href="${esc(u)}ip/${esc(ip)}" target="_blank" rel="noopener" title="${esc(t("lk_asn"))}">${esc(ip)}</a>` : esc(ip); };
+// A country or continent page links to the same place in the reachability check. The address comes from the shell's
+// meta (self-hosted has none, then the block is removed), and the path is the same on both tools.
+for (const el of document.querySelectorAll("[data-tool]")) {
+  const u = tool(el.dataset.tool);
+  if (!u) { el.remove(); continue; }
+  el.innerHTML = `<a class="ext" href="${esc(u + (el.dataset.x || ""))}" target="_blank" rel="noopener">${esc(t("x_reach", { where: el.dataset.where || "" }))}${EXT}</a>`;
+  el.hidden = false;
+}
 
 // the help dialog: one answer at a time; a picker with previous / next on phones
 const all = s => [...document.querySelectorAll(s)];
@@ -119,6 +131,13 @@ const setGo = (testing) => {
 };
 $("f").addEventListener("submit", e => { e.preventDefault(); start(); });
 
+// A country page has one probe: "0 / 1 regions finished" says nothing. It shows "Testing…" while it runs and nothing
+// once the answer is in; a continent page counts countries like the home page counts regions.
+function showProgress(done) {
+  const key = TOPIC ? (D.kind === "country" ? "" : "prog_c") : "prog";
+  $("gpProgress").textContent = TOPIC && D.kind === "country" ? (done ? "" : t("running")) : t(key, { done, of: REGIONS.length });
+}
+
 function note(k) {
   const el = $("targetNote");
   if (!k) { el.hidden = true; el.textContent = ""; return; }
@@ -155,7 +174,7 @@ function start() {
   drawVerdict(state);
   drawKpis(state);
   drawFindings(state);
-  $("gpProgress").textContent = t("prog", { done: 0, of: REGIONS.length });
+  showProgress(0);
   runGlobalping(state);
   if (WITH_TOKYO) runTokyo(state);
 }
@@ -212,9 +231,10 @@ function settle(s) {
   if (!s || s.id !== run) return;
   if (!s.gpDone && !s.gpError) return;
   s.verdict = verdict(s.rows, { error: s.gpError, partial: s.partial });
-  s.findings = (s.verdict.k === "err" || s.verdict.k === "partial") ? [] : findings(s.rows, s.tokyo);
+  // Findings compare places with each other; a country page has one probe, so it gets the verdict and numbers only.
+  s.findings = (s.verdict.k === "err" || s.verdict.k === "partial" || (TOPIC && D.kind === "country")) ? [] : findings(s.rows, s.tokyo);
   drawVerdict(s); drawKpis(s); drawFindings(s);
-  $("gpProgress").textContent = t("prog", { done: s.rows.filter(r => r && r.state !== "pending").length, of: REGIONS.length });
+  showProgress(s.rows.filter(r => r && r.state !== "pending").length);
   $("shareBtn").hidden = !canShare(s);
   $("tokyoFallback").hidden = !WITH_TOKYO || s.tokyoError === "down" ||
     !(s.verdict.k === "err" || s.verdict.k === "partial" || (quotaLeft != null && quotaLeft < COST));
@@ -231,6 +251,15 @@ const GROUPS = ["cn", "apac", "emea", "am"];
 function buildRows(s) {
   rowEls = new Map(); detailEls = new Map();
   for (const host of [$("tokyoRow"), $("regions")]) host.innerHTML = "";
+  if (TOPIC) {
+    // one list, no group headings: a country's probe, or the countries a continent page tests
+    for (const region of REGIONS) {
+      const el = rowElement(region, false);
+      $("regions").appendChild(el);
+      rowEls.set(region.key, el);
+    }
+    return;
+  }
   if (WITH_TOKYO || s && s.tokyo) {
     const el = rowElement(TOKYO_REGION, true);
     $("tokyoRow").appendChild(el);
@@ -418,6 +447,23 @@ function drawVerdict(s) {
   const v = s.verdict;
   const dot = $("vDot"), title = $("vTitle"), sub = $("vSub");
   if (!v) { dot.className = "dot"; title.textContent = t("v_wait"); sub.textContent = ""; return; }
+  if (TOPIC && D.kind === "country") {
+    const row = s.rows[0] || {};
+    if (s.gpError) {
+      // the same messages as the home page: no allowance, Globalping unreachable, or its own error
+      dot.className = "dot warn";
+      title.textContent = t("cr_fail");
+      sub.textContent = t(s.gpError === "429" ? "gp_429" : s.gpError === "unreach" ? "gp_unreach" : "gp_err",
+        { min: Math.ceil((s.gpReset || 3600) / 60), msg: s.gpMsg || "" });
+      return;
+    }
+    const key = row.state === "noprobe" ? "cr_noprobe" : row.state === "failed" || row.state === "priv" || !row.state ? "cr_fail"
+      : row.rcv === PACKETS ? "cr_ok" : row.rcv > 0 ? "cr_loss" : "cr_none";
+    dot.className = "dot " + (key === "cr_ok" ? "ok" : key === "cr_loss" ? "warn" : "bad");
+    title.textContent = t(key, { rcv: row.rcv || 0 });
+    sub.textContent = "";
+    return;
+  }
   const cls = { ok: "ok", probe: "ok", loss: "warn", some: "warn", none: "bad", dns: "bad", priv: "bad", err: "warn", partial: "warn", tokyo: "warn" }[v.k] || "warn";
   dot.className = "dot " + cls;
   title.textContent = t(v.k === "tokyo" ? "v_tokyo" : "v_" + v.k, { a: v.a, b: v.b });
@@ -479,6 +525,7 @@ function drawFindings(s) {
 }
 
 function canShare(s) {
+  if (TOPIC) return false;   // a country or continent result is not encoded into a link
   if (!s || !s.verdict) return false;
   if (s.verdict.k === "err" || s.verdict.k === "partial") return false;
   return s.rows.some(r => r && r.rcv > 0) || (s.tokyo && s.tokyo.rcv > 0);

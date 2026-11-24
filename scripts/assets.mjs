@@ -1,16 +1,17 @@
 #!/usr/bin/env node
-// Renders the link-preview images with resvg (dev dependency), 1200 × 630: public/og/<lang>.png for each language.
+// Renders the link-preview images with resvg (dev dependency), 1200 × 630: static/og/<lang>.png for each language
+// (copied into public/ by the build, like every other static file).
 // Run when the headline or the subtitle changes, and commit the output. Uses system fonts for the text (Windows:
 // Segoe UI, Microsoft YaHei, Microsoft JhengHei, Yu Gothic UI, Malgun Gothic, Consolas), as the other 1ms.dog tools do.
 // Usage: node scripts/assets.mjs
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { Resvg } from "@resvg/resvg-js";
 
-const pub = new URL("../public/", import.meta.url), src = new URL("../src/", import.meta.url);
+const stat = new URL("../static/", import.meta.url), src = new URL("../src/", import.meta.url);
 const HOST = new URL(process.env.SITE_URL || "https://ping.1ms.dog").host;
 const FONTS = { "zh-CN": "Microsoft YaHei", "zh-TW": "Microsoft JhengHei", ja: "Yu Gothic UI", ko: "Malgun Gothic" };
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const b64 = async f => Buffer.from(await readFile(new URL(f, pub))).toString("base64");
+const b64 = async f => Buffer.from(await readFile(new URL(f, stat))).toString("base64");
 const render = svg => new Resvg(svg, { fitTo: { mode: "width", value: 1200 }, font: { loadSystemFonts: true, defaultFontFamily: "Segoe UI" } }).render().asPng();
 
 // A decorative 16-packet strip: varied heights, one reply missing, so the picture says "every packet visible".
@@ -51,10 +52,10 @@ ${bars}
 </svg>`;
 }
 
-await mkdir(new URL("og/", pub), { recursive: true });
+await mkdir(new URL("og/", stat), { recursive: true });
 for (const f of (await readdir(new URL("i18n/", src))).filter(f => f.endsWith(".mjs"))) {
   const lang = f.slice(0, -4), d = (await import(new URL("i18n/" + f, src).href)).default;
   const png = render(await card(lang, d));
-  await writeFile(new URL(`og/${lang.toLowerCase()}.png`, pub), png);
+  await writeFile(new URL(`og/${lang.toLowerCase()}.png`, stat), png);
   console.log(`og/${lang.toLowerCase()}.png ${Math.round(png.length / 1024)} KB`);
 }

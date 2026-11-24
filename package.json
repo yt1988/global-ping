@@ -5,8 +5,8 @@
   "description": "Ping a domain or IP from 18 locations worldwide: 16 ICMP packets per location, every packet visible, with a second view from our own server in Tokyo",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test \"test/*.test.mjs\"",
-    "dev": "node scripts/dev.mjs",
+    "test": "node scripts/build.mjs && node --test \"test/*.test.mjs\"",
+    "dev": "node scripts/build.mjs && node scripts/dev.mjs",
     "assets": "node scripts/assets.mjs"
   },
   "license": "MIT",

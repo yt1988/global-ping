@@ -36,4 +36,4 @@ createServer(async (req, res) => {
     headers["Cache-Control"] = "no-cache";
     res.writeHead(200, headers).end(body);
   } catch { res.writeHead(404, { "Content-Type": "text/plain" }).end("not found"); }
-}).listen(port, () => console.log(`reach-check: http://localhost:${port}/`));
+}).listen(port, () => console.log(`ping: http://localhost:${port}/`));

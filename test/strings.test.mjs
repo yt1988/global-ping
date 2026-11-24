@@ -3,7 +3,7 @@
 // shared-link titles use the same languages.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { build, loadI18n, LANGS } from "../scripts/build.mjs";
+import { loadI18n, LANGS } from "../scripts/build.mjs";
 import { STR } from "../src/worker.js";
 
 const I = await loadI18n(), en = I.en;
@@ -85,4 +85,3 @@ for (const [lang] of LANGS.slice(1).filter(([l]) => I[l])) test(`${lang} matches
   }
 });
 
-test("public/ is up to date", async () => assert.deepEqual(await build({ check: true }), []));

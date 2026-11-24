@@ -15,6 +15,10 @@ the jitter, and where packets went missing. A second view comes from our own ser
 - **Tokyo view**: our own server sends the same 16 packets. It uses none of that allowance (so it is the fallback when
   it runs out), it is the view that always knows the real loss positions, and comparing it with Globalping's Tokyo probe
   shows whether the two networks see the same path.
+- **Country and continent pages**: one page per country with a probe (86) and per continent (6), in all 10 languages.
+  A country page tests from that country's probes; a continent page tests 4–5 of its countries in one request and shows
+  them side by side. Both open with the static node counts and city list from the shared list — nothing is measured
+  until the visitor presses **Test**.
 
 - **10 languages**: English, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Deutsch, Português, Русский.
 
@@ -37,10 +41,10 @@ addresses. Results worth keeping live in a result link that carries the result i
 
 ```bash
 npm ci
-npm run build      # src/ → public/; commit public/ with your change
-npm run dev        # http://localhost:8787, static files with the production headers
-npx wrangler dev   # the same with the Worker, to open /r/ result links
-npm test           # i18n keys, the measurement model, the result code, public/ up to date
+npm run build      # src/ + static/ → public/ (not committed: 930 pages)
+npm run dev        # build, then http://localhost:8787 with the production headers
+npx wrangler dev   # the same with the Worker, to open /r/ result links (build first)
+npm test           # builds, then checks the i18n keys, the model, the result code and every page's skeleton
 ```
 
 The page calls Globalping (`GP` in `src/app.js`) and the Tokyo server (`TOKYO_API` in `src/config.mjs`). Self-hosted,
@@ -48,9 +52,10 @@ change both to your own; the CSP (`connect-src 'self' https:`) already allows th
 
 ## Deploy
 
-Pushing `main` deploys the Worker (Cloudflare Workers Builds runs `npm ci && npm test`, then `npx wrangler deploy`).
-To host it yourself: `npx wrangler deploy`, then bind a domain to the Worker in the Cloudflare dashboard. The Worker
-serves `public/` as static files and only runs for `/r/<code>` (a shared result's preview title) and 404s.
+Pushing `main` deploys the Worker (Cloudflare Workers Builds runs `npm ci && npm test` — the test builds `public/` —
+then `npx wrangler deploy`). To host it yourself: `npm run build && npx wrangler deploy`, then bind a domain to the
+Worker in the Cloudflare dashboard. The Worker serves `public/` as static files and only runs for `/r/<code>` (a shared
+result's preview title) and 404s.
 
 ## The server
 
@@ -69,15 +74,20 @@ Private, loopback, link-local and multicast addresses are never probed.
 ## Source layout
 
 ```
-src/page.html       the page template
+src/page.html       the home page's template
+src/topic.html      the country and continent page template
 src/app.js          the page: Globalping, the Tokyo view, the verdict and the cards
+src/regions.mjs     the country list's helpers: slugs, neighbours, the countries a continent tests
+src/regions.json    the shared list, vendored unchanged from 1ms.dog's shell (see docs/decisions.md)
 src/model.mjs       the 18 regions, one probe's 16 packets, verdicts, findings (shared with the Worker and the tests)
 src/config.mjs      the only deployment-specific address: TOKYO_API
 src/style.css       design tokens (shared with the other 1ms.dog tools) and layout
 src/code.mjs        a result in a link and back (the page and the Worker share it)
 src/worker.js       the Worker: /r/<code> gets the page with the verdict in its title; anything else is a 404
 src/i18n/*.mjs      the strings in 10 languages; en is the reference
-scripts/build.mjs   builds public/: a page per language (English at /, the others under /zh-cn/, /ja/ …), sitemap, _headers
+scripts/build.mjs   builds public/: the home page per language (English at /, the others under /zh-cn/, /ja/ …),
+                    one page per continent and country, sitemap, _headers
+static/             files copied into public/: fonts, logos, flags, the share dialog, og/ images
 scripts/assets.mjs  renders the link-preview images
 scripts/dev.mjs     local preview server (static files only)
 server/             1ms-ping, the server in Tokyo (Go): go test ./...; 1ms-ping.service is its systemd unit

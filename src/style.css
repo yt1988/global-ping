@@ -213,3 +213,43 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 @media (prefers-reduced-motion: reduce) {
   .bar { transition: none; }
 }
+
+/* country and continent pages: breadcrumbs, the static facts, the list of countries, the region navigation */
+.crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.crumbs a { color: var(--muted); }
+.crumbs a:hover { color: var(--fg); }
+.crumbs span[aria-hidden] { color: var(--line); }
+.page-facts { display: flex; flex-direction: column; gap: 12px; }
+.route { margin: 0; color: var(--fg); font-size: 14px; line-height: 1.6; }
+.rg-cities { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 4px 0 0; padding: 0; list-style: none; font-size: 14px; }
+.rg-cities li { display: inline-flex; align-items: baseline; gap: 6px; }
+.rg-near, .rg-ccards { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.rg-near a, .rg-ccards a { display: flex; align-items: center; gap: 8px; padding: 7px 4px; border-radius: 8px; color: var(--fg); }
+.rg-near a:hover, .rg-ccards a:hover { background: var(--soft); text-decoration: none; }
+.rg-near .rg-cname, .rg-ccards .rg-cc-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rg-n { color: var(--muted); font-family: var(--f-num); font-size: 12px; font-variant-numeric: tabular-nums; }
+.rg-flag { width: 20px; height: 15px; border-radius: 2px; object-fit: cover; flex: none; }
+.rg-ccards { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.rg-ccards a { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--bg); }
+.rg-cc-name { font-size: 14px; }
+.rg-cc-m { color: var(--muted); font-family: var(--f-num); font-size: 12px; }
+.xlink { display: flex; }
+.xlink a { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; }
+.xlink svg { width: 12px; height: 12px; }
+
+/* the bottom navigation: every continent, every country under it */
+.region-nav { display: flex; flex-direction: column; gap: 8px; }
+.region-nav h2 { margin: 0; font-size: 15px; }
+.rg-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.rg-cont { border-bottom: 1px solid var(--line); }
+.rg-cont summary { display: flex; align-items: center; gap: 8px; min-height: 40px; cursor: pointer; padding: 6px 4px; list-style: none; }
+.rg-cont summary::-webkit-details-marker { display: none; }
+.rg-cont summary::after { content: "＋"; margin-left: auto; color: var(--muted); font-size: 14px; }
+.rg-cont[open] summary::after { content: "−"; }
+.rg-cont summary .rg-n { margin-left: 2px; }
+.rg-ic { width: 18px; height: 18px; color: var(--muted); flex: none; }
+.rg-cc { list-style: none; margin: 0 0 8px; padding: 0 0 0 4px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2px; }
+.rg-cc a { display: flex; align-items: center; gap: 8px; padding: 6px; border-radius: 8px; color: var(--fg); }
+.rg-cc a:hover { background: var(--soft); text-decoration: none; }
+.rg-cc a[aria-current="page"] { background: var(--soft); font-weight: 600; }
+.rg-cc .rg-cname { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13.5px; }
