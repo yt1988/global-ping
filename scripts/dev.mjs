@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Local preview of ./public with the same headers as production (public/_headers, including the CSP).
-// Usage: node scripts/dev.mjs [port]
+// Usage: node scripts/dev.mjs [port]   (HOST=0.0.0.0 to share it on the local network; it listens on 127.0.0.1 by default)
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, normalize } from "node:path";
@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../public/", import.meta.url));
 const port = +process.argv[2] || 8787;
+const host = process.env.HOST || "127.0.0.1";
 const TYPES = { ".html": "text/html; charset=utf-8", ".json": "application/json", ".js": "text/javascript", ".txt": "text/plain; charset=utf-8",
   ".xml": "application/xml", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon", ".yaml": "text/plain; charset=utf-8", ".list": "text/plain; charset=utf-8", ".css": "text/css", ".woff2": "font/woff2", ".webmanifest": "application/manifest+json" };
 
@@ -36,4 +37,4 @@ createServer(async (req, res) => {
     headers["Cache-Control"] = "no-cache";
     res.writeHead(200, headers).end(body);
   } catch { res.writeHead(404, { "Content-Type": "text/plain" }).end("not found"); }
-}).listen(port, () => console.log(`ping: http://localhost:${port}/`));
+}).listen(port, host, () => console.log(`ping: http://${host === "0.0.0.0" ? "localhost" : host}:${port}/  (brand pages: /zh-cn/europe/de/, /zh-cn/asia/)`));
