@@ -226,10 +226,10 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .rg-cc, .rg-ccards { list-style: none; margin: 2px 0 4px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 /* A country is a chip: flag and name, the whole chip the link. The lists read as a dense flow, not a card grid. */
 .rg-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 4px 10px; border-radius: 8px;
-  background: var(--soft); color: var(--fg); font-size: 14px; white-space: nowrap; }
+  background: var(--soft); color: var(--fg); font-size: 14px; font-weight: 400; white-space: nowrap; }
 .rg-chip:hover { background: var(--line); text-decoration: none; }
 @media (min-width: 720px) { .rg-chip { min-width: 96px; } }   /* about ten chips a row on a 1280 screen */
-.rg-chip[aria-current="page"] { background: var(--line); font-weight: 600; }
+.rg-chip[aria-current="page"] { background: var(--line); }
 .rg-flag { width: 16px; height: 12px; border-radius: 2px; object-fit: cover; flex: none; }
 .xlink { display: flex; }
 .xlink a { display: inline-flex; align-items: center; gap: 4px; font-size: 14px; }
@@ -259,7 +259,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .region-nav h2 { margin: 0; font-size: 15px; }
 .rg-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
 .rg-cont { display: flex; flex-direction: column; gap: 4px; padding: 4px 0; border-bottom: 1px solid var(--line); }
-.rg-cont-link { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 6px; border-radius: 8px; color: var(--fg); font-size: 15px; font-weight: 600; }
+.rg-cont-link { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 6px; border-radius: 8px; color: var(--fg); font-size: 15px; font-weight: 500; }
 .rg-cont-link:hover { background: var(--soft); text-decoration: none; }
 .rg-cont-link[aria-current="page"] { background: var(--soft); }
 .rg-ic { width: 18px; height: 18px; color: var(--muted); flex: none; }
