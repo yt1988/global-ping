@@ -9,7 +9,7 @@ the technical reasons behind it, and what was tried and dropped, are in [docs/de
 Global Ping answers "how does this domain or IP answer ICMP from around the world, and how does every single packet
 look?". Three parts:
 
-- **The page** (`src/`, built into `public/`): runs in the visitor's browser. Calls Globalping's API for the 18-region
+- **The page** (`src/`, built into `public/`): runs in the visitor's browser. Calls Globalping's API for the 16-region
   view, and our own server in Tokyo for the second view. The measurement model (`src/model.mjs`) is shared with the
   Worker and the tests.
 - **The Worker** (`src/worker.js`): only runs for shared result links (`/r/<code>`), to give their preview a title.

@@ -2,16 +2,16 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-Ping a domain or IP from 18 locations worldwide, 16 ICMP packets per location, and see **every packet**: its latency,
+Ping a domain or IP from 16 locations worldwide, 16 ICMP packets per location, and see **every packet**: its latency,
 the jitter, and where packets went missing. A second view comes from our own server in Tokyo.
 
 **Live:** https://ping.1ms.dog
 
-- **Worldwide view**: [Globalping](https://globalping.io)'s volunteer probes in 18 regions (China Telecom, China Unicom
-  and China Mobile; Hong Kong; Taiwan, China; Tokyo; Korea; Singapore; India; Australia; London; Frankfurt; Russia; the
-  UAE; South Africa; Los Angeles; New York; São Paulo) each send 16 ICMP echo requests to the target. The browser calls
+- **Worldwide view**: [Globalping](https://globalping.io)'s volunteer probes in 16 regions (China; Hong Kong;
+  Taiwan, China; Tokyo; Korea; Singapore; India; Australia; London; Frankfurt; Russia; the UAE; South Africa;
+  Los Angeles; New York; São Paulo) each send 16 ICMP echo requests to the target. The browser calls
   Globalping's API directly, so each visitor spends their own free allowance (250 region checks an hour per IP; one
-  region sending 16 packets is one region check, and one test here uses 18).
+  region sending 16 packets is one region check, and one test here uses 16).
 - **Tokyo view**: our own server sends the same 16 packets. It uses none of that allowance (so it is the fallback when
   it runs out), it is the view that always knows the real loss positions, and comparing it with Globalping's Tokyo probe
   shows whether the two networks see the same path.
@@ -78,7 +78,7 @@ src/topic.html      the country and continent page template
 src/app.js          the page: Globalping, the Tokyo view, the verdict and the cards
 src/regions.mjs     the country list's helpers: slugs, neighbours, the countries a continent tests
 src/regions.json    the shared list, vendored unchanged from 1ms.dog's shell (see docs/decisions.md)
-src/model.mjs       the 18 regions, one probe's 16 packets, verdicts, findings (shared with the Worker and the tests)
+src/model.mjs       the 16 regions, one probe's 16 packets, verdicts, findings (shared with the Worker and the tests)
 src/config.mjs      the only deployment-specific address: TOKYO_API
 src/style.css       design tokens (shared with the other 1ms.dog tools) and layout
 src/code.mjs        a result in a link and back (the page and the Worker share it)

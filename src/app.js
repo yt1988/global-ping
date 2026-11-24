@@ -1,4 +1,4 @@
-// Global Ping: ping a domain or IP from 18 locations worldwide, 16 ICMP packets each, every packet visible. Globalping's
+// Global Ping: ping a domain or IP from 16 locations worldwide, 16 ICMP packets each, every packet visible. Globalping's
 // probes run the worldwide view straight from the visitor's browser (each visitor spends their own hourly allowance);
 // our own server in Tokyo gives a second view that uses none of it. Strings come from window.L1MS
 // (assets/l.<lang>.<hash>.js, built from src/i18n/); the model and the result-link code are shared with the Worker.
@@ -17,7 +17,7 @@ const REGIONS = TOPIC ? D.ranges : HOME_REGIONS;
 const WITH_TOKYO = !!TOKYO_API && !TOPIC;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-// Chinese copy: keep a space between Han and Latin/digits (18 个地区, Globalping 的), no space between two Han words
+// Chinese copy: keep a space between Han and Latin/digits (16 个地区, Globalping 的), no space between two Han words
 // or before Chinese punctuation. Templates put spaces around placeholders for other languages, so tidy what is shown.
 const tidy = s => {
   s = String(s).replace(/[ \t]{2,}/g, " ");
@@ -142,7 +142,7 @@ helpQs.forEach(b => { b.onclick = () => showHelp(+b.dataset.hq); });
 $("helpSel").onchange = e => showHelp(+e.target.value);
 all("[data-hstep]").forEach(b => { b.onclick = () => showHelp(helpIdx + +b.dataset.hstep); });
 
-// row names: carriers by name, city probes with their country, the rest by country. Taiwan is the fixed exception.
+// row names: city probes with their country, the rest by country. Taiwan is the fixed exception.
 // Our own Tokyo server is not one of the 18 and is named by its source.
 const ours = region => region.key === TOKYO_REGION.key;
 // A topic page names a row by the probe itself: city, network and ASN, as soon as the API has told us who it is (the
@@ -166,7 +166,6 @@ function labelDuplicates(rows) {
 }
 const nameOf = region => {
   if (ours(region)) return t("t_label");
-  if (region.carrier) return t("c_" + region.carrier);
   if (region.city) return `${countryName(region.cc, D.lang)} · ${t("city_" + region.city)}`;
   if (region.label) return region.label;   // a country page's "Probe 1" until the city is known
   return countryName(region.cc, D.lang);
@@ -385,7 +384,7 @@ function settle(s) {
 // The list is grouped like Reach Check: a heading per group, the regions in a fixed order. With headings, a global
 // sort would scramble the groups, so there is no sort control (the page is a comparison, the finding lines call out
 // the extremes).
-const GROUPS = ["cn", "apac", "emea", "am"];
+const GROUPS = ["apac", "emea", "am"];
 
 function buildRows(s) {
   rowEls = new Map(); detailEls = new Map();
@@ -679,7 +678,6 @@ function drawFindings(s) {
     if (f.k === "fd_loss") vars.pct = fmtPct(f.pct / 100, D.lang, 1);
     if (Number.isFinite(vars.ours)) vars.ours = fmtMs(vars.ours, D.lang);
     if (Number.isFinite(vars.theirs)) vars.theirs = fmtMs(vars.theirs, D.lang);
-    if (f.k === "fd_cn") { vars.telecom = fmtMs(f.telecom.median, D.lang); vars.unicom = fmtMs(f.unicom.median, D.lang); vars.mobile = fmtMs(f.mobile.median, D.lang); }
     const lk = links[f.k];
     return `<li><span>${esc(t(f.k, vars))}</span>${lk ? toolLink(lk[0], lk[1]) : ""}</li>`;
   }).join("");

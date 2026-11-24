@@ -223,7 +223,9 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .route { margin: 0; color: var(--fg); font-size: 14px; line-height: 1.6; }
 .rg-cities { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 4px 0 0; padding: 0; list-style: none; font-size: 14px; }
 .rg-cities li { display: inline-flex; align-items: baseline; gap: 6px; }
-.rg-cc, .rg-ccards { list-style: none; margin: 2px 0 4px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.rg-cc, .rg-ccards { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.rg-cc { margin: 0; padding: 0 0 8px 12px; }
+.rg-ccards { margin: 2px 0 4px; padding: 0; }
 /* A country is a chip: flag and name, the whole chip the link. The lists read as a dense flow, not a card grid. */
 .rg-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 4px 10px; border-radius: 8px;
   background: var(--soft); color: var(--fg); font-size: 14px; font-weight: 400; white-space: nowrap; }
@@ -258,11 +260,11 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .region-nav { display: flex; flex-direction: column; gap: 8px; }
 .region-nav h2 { margin: 0; font-size: 15px; }
 .rg-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.rg-cont { display: flex; flex-direction: column; gap: 4px; padding: 4px 0; border-bottom: 1px solid var(--line); }
-.rg-cont-link { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 6px; border-radius: 8px; color: var(--fg); font-size: 15px; font-weight: 500; }
+.rg-cont { display: flex; flex-direction: column; gap: 4px; padding: 0; }
+.rg-cont-link { display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 6px 2px; border-bottom: 1px solid var(--line); border-radius: 0; color: var(--fg); font-size: var(--fs-small); font-weight: 500; }
 .rg-cont-link:hover { background: var(--soft); text-decoration: none; }
 .rg-cont-link[aria-current="page"] { background: var(--soft); }
-.rg-ic { width: 18px; height: 18px; color: var(--muted); flex: none; }
+.rg-ic { width: 16px; height: 16px; color: var(--muted); flex: none; }
 
 /* the allowance is too low: the button is not disabled (it must take the click), but it looks and says off */
 .btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }

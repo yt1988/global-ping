@@ -1,17 +1,16 @@
 // The measurement model, shared by the page, the Worker and the tests. Pure: no DOM, no fetch.
 //
-// It holds the 18 regions (the same set Reach Check uses, so the two tools' numbers line up), turns one Globalping
+// It holds the 16 regions (the same set Reach Check uses, so the two tools' numbers line up), turns one Globalping
 // ping result into one row (16 slots, median, jitter, loss, and — when the probe's raw output lets us — where the
 // missing packets were), and turns the rows into a verdict plus at most four findings. The page and a shared result
 // link run the same code, so a link shows what the page showed.
 
 export const PACKETS = 16;
 
-// g groups the filters. carrier: a mainland China ASN, named per language. city: the probe's city, named per language.
+// g groups the rows. city: the probe's city, named per language. Mainland China is one ordinary region among the
+// Asia-Pacific ones now (the three carrier presets were dropped by the owner on 2026-11-24).
 export const REGIONS = [
-  { key: "cn:4134", g: "cn", cc: "CN", carrier: 4134, loc: { country: "CN", asn: 4134 } },
-  { key: "cn:4837", g: "cn", cc: "CN", carrier: 4837, loc: { country: "CN", asn: 4837 } },
-  { key: "cn:9808", g: "cn", cc: "CN", carrier: 9808, loc: { country: "CN", asn: 9808 } },
+  { key: "cn", g: "apac", cc: "CN", loc: { country: "CN" } },
   { key: "hk", g: "apac", cc: "HK", loc: { country: "HK" } },
   { key: "tw", g: "apac", cc: "TW", loc: { country: "TW" } },
   { key: "jp:tokyo", g: "apac", cc: "JP", city: "Tokyo", loc: { city: "Tokyo" } },
@@ -29,7 +28,7 @@ export const REGIONS = [
   { key: "br:saopaulo", g: "am", cc: "BR", city: "SaoPaulo", loc: { city: "Sao Paulo" } },
 ];
 
-// Our own server in Tokyo: the second view. It is not one of the 18, and its numbers never enter the global verdict.
+// Our own server in Tokyo: the second view. It is not one of the 16, and its numbers never enter the global verdict.
 export const TOKYO_REGION = { key: "tokyo:ours", g: "tokyo", cc: "JP", city: "Tokyo" };
 
 // Taiwan's name is written out per language (the tool contract's rule), never taken from Intl.
@@ -187,13 +186,6 @@ export function findings(rows, tokyo) {
       lost: PACKETS - w.rcv, pct: Math.round(w.loss * 1000) / 10 });
   }
   const byKey = Object.fromEntries(fin.map(r => [r.region.key, r]));
-  const cn = [4134, 4837, 9808].map(a => byKey["cn:" + a]);
-  if (cn.every(Boolean)) {
-    const vals = cn.map(r => r.median);
-    if (vals.every(Number.isFinite) && Math.max(...vals) - Math.min(...vals) >= 30) {
-      out.push({ k: "fd_cn", telecom: cn[0], unicom: cn[1], mobile: cn[2] });
-    }
-  }
   const replied = fin.filter(r => r.rcv > 0 && Number.isFinite(r.median));
   if (replied.length) {
     const gm = median(replied.map(r => r.median));

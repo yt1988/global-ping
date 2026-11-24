@@ -297,13 +297,13 @@ export async function build() {
   files["robots.txt"] = `User-agent: *\nAllow: /\nDisallow: /r/\nDisallow: /*/r/\n\nSitemap: ${SITE}/sitemap.xml\n`;
   files["llms.txt"] = `# ${en.app_name} · 1ms.dog
 
-> Free global ping: enter a domain or IP, choose nothing else, and 18 locations worldwide (Globalping's volunteer
-> probes: China Telecom, China Unicom and China Mobile; Hong Kong; Taiwan, China; Tokyo; Korea; Singapore; India;
+> Free global ping: enter a domain or IP, choose nothing else, and 16 locations worldwide (Globalping's volunteer
+> probes: China; Hong Kong; Taiwan, China; Tokyo; Korea; Singapore; India;
 > Australia; London; Frankfurt; Russia; the UAE; South Africa; Los Angeles; New York; São Paulo) each send 16 ICMP
 > echo requests to it. Every packet is shown, so you see the latency of each of the 16 packets, the jitter, and where
 > packets went missing (the probe's raw seq numbers tell us). A second view comes from 1ms.dog's own server in Tokyo:
 > the same 16 packets, no Globalping allowance used, and the only view that always knows the real loss positions.
-> The page shows how many of Globalping's 250 hourly region checks (per IP) are left; one test uses 18. Nothing is
+> The page shows how many of Globalping's 250 hourly region checks (per IP) are left; one test uses 16. Nothing is
 > stored, the Tokyo server keeps no log, and private addresses are never probed.
 
 - Page: ${SITE}/ (also ${langs.slice(1).map(([, s]) => "/" + s + "/").join(", ")})

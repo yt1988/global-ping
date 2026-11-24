@@ -45,8 +45,10 @@ export const rowToCode = row => [
   row.ttls.map(v => (Number.isFinite(v) ? v : 0)),
 ];
 
+// Links shared before 2026-11-24 name the three mainland-China carrier presets; they now stand for the one CN region.
+const LEGACY = { "cn:4134": "cn", "cn:4837": "cn", "cn:9808": "cn" };
 export const codeToRow = (arr, regions) => {
-  const region = regions.find(r => r.key === arr[0]);
+  const region = regions.find(r => r.key === arr[0]) || regions.find(r => r.key === LEGACY[arr[0]]);
   if (!region) return null;
   const rtts = (arr[5] || []).slice(0, 16).map(v => (v > 0 ? v / 10 : null));
   const ttls = (arr[6] || []).slice(0, 16).map(v => (v > 0 ? v : null));

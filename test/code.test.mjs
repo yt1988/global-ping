@@ -10,7 +10,7 @@ const RES = { probe: { country: "JP", city: "Tokyo", asn: 1, network: "Example" 
   result: { status: "finished", resolvedAddress: "172.66.147.243", timings: Array.from({ length: 16 }, (_, i) => ({ ttl: 54, rtt: 5 + i / 10 })), rawOutput: RAW } };
 
 test("rowToCode keeps 16 positions and the probe", () => {
-  const row = makeRow(REGIONS[5], RES);
+  const row = makeRow(REGIONS.find(r => r.key === "jp:tokyo"), RES);
   const a = rowToCode(row);
   assert.equal(a[0], "jp:tokyo");
   assert.equal(a[5].length, 16);
@@ -21,14 +21,14 @@ test("rowToCode keeps 16 positions and the probe", () => {
 });
 
 test("a result round-trips through the shared codec", async () => {
-  const row = makeRow(REGIONS[5], RES);
-  const code = await encodeResult({ t: "example.com", f: 4, ts: 1730000000000, k: "ok", a: 18, b: 18,
+  const row = makeRow(REGIONS.find(r => r.key === "jp:tokyo"), RES);
+  const code = await encodeResult({ t: "example.com", f: 4, ts: 1730000000000, k: "ok", a: 16, b: 16,
     r: [rowToCode(row)], y: ["172.66.147.243", Array(16).fill(50), Array(16).fill(54)] });
   assert.match(code, /^1~/);
   const back = await decodeResult(code);
   assert.equal(back.t, "example.com");
   assert.equal(back.k, "ok");
-  assert.equal(back.a, 18);
+  assert.equal(back.a, 16);
   assert.equal(back.r.length, 1);
   assert.equal(back.y[1][0], 50);
 });

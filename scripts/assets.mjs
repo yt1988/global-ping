@@ -48,7 +48,7 @@ ${head}
 ${sub}
 ${bars}
 <text x="72" y="574" font-size="26" font-weight="600" fill="#f59e0b">${HOST}</text>
-<text x="1128" y="574" font-size="22" fill="#a0a0a0" text-anchor="end">ICMP · 16 packets · 18 locations</text>
+<text x="1128" y="574" font-size="22" fill="#a0a0a0" text-anchor="end">ICMP · 16 packets · 16 locations</text>
 </svg>`;
 }
 

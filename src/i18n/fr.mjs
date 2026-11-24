@@ -2,12 +2,12 @@
 export default {
   name: "Français",
   app_name: "Ping mondial",
-  seo_title: "Ping mondial : ping d’un domaine ou d’une IP depuis 18 emplacements",
-  seo_desc: "Faites un ping vers un domaine ou une IP depuis 18 emplacements dans le monde. Voyez les 16 paquets ICMP de chaque emplacement, où la latence saute et quel paquet est perdu. Gratuit, sans compte. Une seconde vue depuis notre serveur de Tokyo.",
+  seo_title: "Ping mondial : ping d’un domaine ou d’une IP depuis 16 emplacements",
+  seo_desc: "Faites un ping vers un domaine ou une IP depuis 16 emplacements dans le monde. Voyez les 16 paquets ICMP de chaque emplacement, où la latence saute et quel paquet est perdu. Gratuit, sans compte. Une seconde vue depuis notre serveur de Tokyo.",
   seo_kw: "test de ping, ping en ligne, ping depuis plusieurs emplacements, ping mondial, perte de paquets, ping d’une IP, mesurer la latence, ping d’un domaine",
-  og_sub: "16 paquets depuis 18 emplacements, chaque paquet visible",
-  h1: "Ping mondial depuis 18 emplacements",
-  intro: "Saisissez un domaine ou une IP : 18 emplacements dans le monde et notre serveur de Tokyo envoient chacun 16 paquets, pour voir la latence, la gigue et les pertes paquet par paquet.",
+  og_sub: "16 paquets depuis 16 emplacements, chaque paquet visible",
+  h1: "Ping mondial depuis 16 emplacements",
+  intro: "Saisissez un domaine ou une IP : 16 emplacements dans le monde et notre serveur de Tokyo envoient chacun 16 paquets, pour voir la latence, la gigue et les pertes paquet par paquet.",
   lang_label: "Langue", a_lang: "Langue", a_theme: "Thème", a_help: "Aide", a_close: "Fermer", a_prev: "Précédent", a_next: "Suivant",
 
   f_target: "Domaine ou IP", f_target_ph: "example.com", f_ipv: "Version d’IP", go: "Tester", share: "Partager",
@@ -20,7 +20,6 @@ export default {
 
   sep: ", ",
   g_cn: "Chine continentale", g_apac: "Asie-Pacifique", g_emea: "Europe, Moyen-Orient et Afrique", g_am: "Amériques", flt_all: "Tout",
-  c_4134: "China Telecom", c_4837: "China Unicom", c_9808: "China Mobile",
   city_Tokyo: "Tokyo", city_London: "Londres", city_Frankfurt: "Francfort", city_LosAngeles: "Los Angeles", city_NewYork: "New York", city_SaoPaulo: "São Paulo",
   t_label: "Tokyo (notre serveur)",
 
@@ -51,7 +50,6 @@ export default {
   vs_tokyo: "Globalping n’a pas tourné ; voici la vue de notre serveur de Tokyo",
 
   fd_none: "Aucune réponse de {regions}", fd_loss: "{region} a perdu {lost} paquets sur 16 ({pct})",
-  fd_cn: "Chine continentale : Telecom {telecom} ms, Unicom {unicom} ms, Mobile {mobile} ms",
   fd_slow: "La plus lente : {region} {ms} ms ({fms} ms de plus que {fast})",
   fd_jitter: "Gigue maximale : {region} ±{j} ms, {ratio}× les autres régions",
   fd_tokyo: "Deux mesures à Tokyo : la nôtre {ours} ms, Globalping {theirs} ms",
@@ -77,10 +75,10 @@ export default {
   th_system: "Thème : système", th_light: "Thème : clair", th_dark: "Thème : sombre",
 
   docs: [
-    ["Que mesure cette page ?", "18 emplacements dans le monde, opérés par le réseau de bénévoles de Globalping, envoient 16 requêtes ICMP echo (un `ping` classique) au domaine ou à l’IP saisi. Notre serveur de Tokyo envoie les mêmes 16 paquets : c’est la seconde vue, et le repli quand le quota gratuit de Globalping est épuisé.\nPar emplacement, vous voyez la latence médiane, la gigue (la variation des 16 paquets) et le nombre de paquets revenus."],
+    ["Que mesure cette page ?", "16 emplacements dans le monde, opérés par le réseau de bénévoles de Globalping, envoient 16 requêtes ICMP echo (un `ping` classique) au domaine ou à l’IP saisi. Notre serveur de Tokyo envoie les mêmes 16 paquets : c’est la seconde vue, et le repli quand le quota gratuit de Globalping est épuisé.\nPar emplacement, vous voyez la latence médiane, la gigue (la variation des 16 paquets) et le nombre de paquets revenus."],
     ["Comment lire les 16 paquets ?", "Chaque barre verticale est une réponse ; sa hauteur est la latence de ce paquet, à l’échelle de l’emplacement (les emplacements rapides et stables paraissent plats, et c’est correct). Les cases vides sont des paquets sans réponse : on voit si la perte a eu lieu au début, au milieu ou à la fin.\nLe nombre à droite est la médiane des 16 paquets ; le ± est la gigue."],
     ["Certains emplacements ne répondent pas. Le serveur est-il en panne ?", "Pas forcément. Beaucoup d’hôtes et de pare-feu ne répondent pas à ICMP alors que le site fonctionne. La page écrit « sans réponse », pas « en panne ». Pour savoir si un port est joignable, utilisez le test de joignabilité : il se connecte comme le ferait un navigateur."],
-    ["Comment fonctionne le quota ?", "Globalping accorde 250 tests de région par heure et par IP. Un emplacement qui envoie 16 paquets compte pour un test de région : un test ici en utilise donc 18. Quand c’est épuisé, la page indique quand cela revient, et la vue de Tokyo continue sans consommer de quota.\nLes personnes d’un même réseau partagent le quota."],
+    ["Comment fonctionne le quota ?", "Globalping accorde 250 tests de région par heure et par IP. Un emplacement qui envoie 16 paquets compte pour un test de région : un test ici en utilise donc 16. Quand c’est épuisé, la page indique quand cela revient, et la vue de Tokyo continue sans consommer de quota.\nLes personnes d’un même réseau partagent le quota."],
     ["Pourquoi le résultat change-t-il à chaque fois ?", "La latence varie d’une seconde à l’autre : congestion, Wi-Fi, routes du fournisseur, charge de la cible. C’est ce que mesure la gigue. Un test est une photo de l’instant, pas une garantie."],
     ["Qu’est-ce que la ligne Tokyo ?", "Notre propre serveur à Tokyo envoie les mêmes 16 paquets. C’est un point de référence fixe, il n’utilise pas le quota de Globalping, c’est la seule vue qui connaît toujours la position réelle des pertes, et le comparer à la sonde de Tokyo de Globalping montre si les deux réseaux voient le même chemin."],
     ["Puis-je faire un ping depuis mon navigateur ?", "Non : les navigateurs ne peuvent pas envoyer d’ICMP. Les mesures tournent sur les sondes de Globalping et sur notre serveur ; votre navigateur ne fait que les demander."],
@@ -89,7 +87,7 @@ export default {
     ["Pourquoi le lien partagé affiche-t-il une autre date ?", "Un lien partagé montre le résultat tel qu’il a été mesuré, avec sa date au-dessus. Appuyez sur « Tester le mien » pour refaire un test du même domaine."],
   ],
   card_meta: "{n} régions · 16 paquets chacune",
-  card_own: "hors des 18",
+  card_own: "hors des 16",
   card_src: "Données : sondes Globalping + notre serveur de Tokyo",
   // country and continent pages
   cont_EU: "Europe",

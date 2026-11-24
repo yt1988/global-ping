@@ -2,12 +2,12 @@
 export default {
   name: "Deutsch",
   app_name: "Globaler Ping",
-  seo_title: "Globaler Ping-Test: Domain oder IP von 18 Standorten aus anpingen",
-  seo_desc: "Pinge eine Domain oder IP von 18 Standorten weltweit an. Sieh alle 16 ICMP-Pakete jedes Standorts, wo die Latenz springt und welches Paket verloren ging. Kostenlos, ohne Konto. Eine zweite Ansicht von unserem Server in Tokio.",
+  seo_title: "Globaler Ping-Test: Domain oder IP von 16 Standorten aus anpingen",
+  seo_desc: "Pinge eine Domain oder IP von 16 Standorten weltweit an. Sieh alle 16 ICMP-Pakete jedes Standorts, wo die Latenz springt und welches Paket verloren ging. Kostenlos, ohne Konto. Eine zweite Ansicht von unserem Server in Tokio.",
   seo_kw: "Ping-Test, Online-Ping, Ping von mehreren Standorten, globaler Ping, Paketverlust, IP anpingen, Latenz messen, Domain anpingen",
-  og_sub: "16 Pakete von 18 Standorten, jedes Paket sichtbar",
-  h1: "Globaler Ping von 18 Standorten",
-  intro: "Domain oder IP eingeben: 18 Standorte weltweit und unser Tokio-Server senden je 16 Pakete, sodass du Latenz, Jitter und Verlust Paket für Paket siehst.",
+  og_sub: "16 Pakete von 16 Standorten, jedes Paket sichtbar",
+  h1: "Globaler Ping von 16 Standorten",
+  intro: "Domain oder IP eingeben: 16 Standorte weltweit und unser Tokio-Server senden je 16 Pakete, sodass du Latenz, Jitter und Verlust Paket für Paket siehst.",
   lang_label: "Sprache", a_lang: "Sprache", a_theme: "Design", a_help: "Hilfe", a_close: "Schließen", a_prev: "Zurück", a_next: "Weiter",
 
   f_target: "Domain oder IP", f_target_ph: "example.com", f_ipv: "IP-Version", go: "Testen", share: "Teilen",
@@ -20,7 +20,6 @@ export default {
 
   sep: ", ",
   g_cn: "Festlandchina", g_apac: "Asien-Pazifik", g_emea: "Europa, Naher Osten und Afrika", g_am: "Amerika", flt_all: "Alle",
-  c_4134: "China Telecom", c_4837: "China Unicom", c_9808: "China Mobile",
   city_Tokyo: "Tokio", city_London: "London", city_Frankfurt: "Frankfurt", city_LosAngeles: "Los Angeles", city_NewYork: "New York", city_SaoPaulo: "São Paulo",
   t_label: "Tokio (unser Server)",
 
@@ -51,7 +50,6 @@ export default {
   vs_tokyo: "Globalping lief nicht; unten steht die Ansicht unseres Tokio-Servers",
 
   fd_none: "Keine Antwort von {regions}", fd_loss: "{region} verlor {lost} von 16 Paketen ({pct})",
-  fd_cn: "Festlandchina: Telecom {telecom} ms, Unicom {unicom} ms, Mobile {mobile} ms",
   fd_slow: "Am langsamsten: {region} {ms} ms ({fms} ms langsamer als {fast})",
   fd_jitter: "Meister Jitter: {region} ±{j} ms, {ratio}× die anderen Standorte",
   fd_tokyo: "Zwei Messungen in Tokio: unser Server {ours} ms, Globalping {theirs} ms",
@@ -77,10 +75,10 @@ export default {
   th_system: "Design: System", th_light: "Design: hell", th_dark: "Design: dunkel",
 
   docs: [
-    ["Was misst diese Seite?", "18 Standorte weltweit, betrieben vom Freiwilligennetz von Globalping, senden 16 ICMP-Echo-Anfragen (ein normales `ping`) an die eingegebene Domain oder IP. Unser Tokio-Server sendet dieselben 16 Pakete: als zweite Ansicht und als Rückfall, wenn das kostenlose Globalping-Kontingent aufgebraucht ist.\nPro Standort siehst du die mittlere Latenz, den Jitter (wie stark die 16 Pakete schwanken) und wie viele Pakete zurückkamen."],
+    ["Was misst diese Seite?", "16 Standorte weltweit, betrieben vom Freiwilligennetz von Globalping, senden 16 ICMP-Echo-Anfragen (ein normales `ping`) an die eingegebene Domain oder IP. Unser Tokio-Server sendet dieselben 16 Pakete: als zweite Ansicht und als Rückfall, wenn das kostenlose Globalping-Kontingent aufgebraucht ist.\nPro Standort siehst du die mittlere Latenz, den Jitter (wie stark die 16 Pakete schwanken) und wie viele Pakete zurückkamen."],
     ["Wie lese ich die 16 Pakete?", "Jeder senkrechte Balken ist eine Antwort; seine Höhe ist die Latenz dieses Pakets, am jeweiligen Standort skaliert (schnelle, stabile Standorte sehen flach aus, und das ist richtig). Leere Felder sind Pakete ohne Antwort, so siehst du, ob der Verlust am Anfang, in der Mitte oder am Ende lag.\nDie Zahl rechts ist der Median der 16 Pakete; das ± ist der Jitter."],
     ["Manche Standorte antworten nicht. Ist der Server down?", "Nicht unbedingt. Viele Hosts und Firewalls antworten nicht auf ICMP, während die Website läuft. Die Seite sagt „keine Antwort“, nicht „down“. Ob ein Port erreichbar ist, zeigt der Erreichbarkeits-Check: er verbindet sich wie ein Browser."],
-    ["Wie funktioniert das Kontingent?", "Globalping gibt jeder IP 250 Regions-Checks pro Stunde. Ein Standort mit 16 Paketen zählt als ein Regions-Check, ein Test hier verbraucht also 18. Ist es leer, zeigt die Seite, wann es zurückkommt, und die Tokio-Ansicht läuft ohne Kontingent weiter.\nWer dasselbe Netz nutzt, teilt sich das Kontingent."],
+    ["Wie funktioniert das Kontingent?", "Globalping gibt jeder IP 250 Regions-Checks pro Stunde. Ein Standort mit 16 Paketen zählt als ein Regions-Check, ein Test hier verbraucht also 16. Ist es leer, zeigt die Seite, wann es zurückkommt, und die Tokio-Ansicht läuft ohne Kontingent weiter.\nWer dasselbe Netz nutzt, teilt sich das Kontingent."],
     ["Warum ist das Ergebnis jedes Mal anders?", "Latenz ändert sich von Sekunde zu Sekunde: Auslastung, WLAN, die Routen des Anbieters und die Last des Ziels. Genau das misst der Jitter. Ein Test ist eine Momentaufnahme, keine Garantie."],
     ["Was ist die Tokio-Zeile?", "Unser eigener Server in Tokio sendet dieselben 16 Pakete. Er ist ein fester Bezugspunkt, verbraucht kein Globalping-Kontingent, ist die einzige Ansicht, die die echten Verlustpositionen immer kennt, und der Vergleich mit dem Tokio-Messpunkt von Globalping zeigt, ob beide Netze denselben Weg sehen."],
     ["Kann ich von meinem Browser aus pingen?", "Nein: Browser können kein ICMP senden. Die Messungen laufen auf den Globalping-Messpunkten und auf unserem Server; dein Browser fragt sie nur an."],
@@ -89,7 +87,7 @@ export default {
     ["Warum zeigt der geteilte Link ein anderes Datum?", "Ein geteilter Link zeigt das Ergebnis so, wie es gemessen wurde, mit Datum darüber. Mit „Meins testen“ startest du einen neuen Test derselben Adresse."],
   ],
   card_meta: "{n} Standorte · je 16 Pakete",
-  card_own: "nicht in den 18",
+  card_own: "nicht in den 16",
   card_src: "Daten: Globalping-Sonden + unser Tokio-Server",
   // country and continent pages
   cont_EU: "Europa",

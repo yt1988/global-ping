@@ -2,12 +2,12 @@
 export default {
   name: "English",
   app_name: "Global Ping",
-  seo_title: "Global Ping test: ping a domain or IP from 18 locations",
-  seo_desc: "Ping any domain or IP from 18 locations worldwide. See all 16 ICMP packets of every location, where the latency jumps and which packet went missing. Free, no account. A second view from our own Tokyo server.",
+  seo_title: "Global Ping test: ping a domain or IP from 16 locations",
+  seo_desc: "Ping any domain or IP from 16 locations worldwide. See all 16 ICMP packets of every location, where the latency jumps and which packet went missing. Free, no account. A second view from our own Tokyo server.",
   seo_kw: "ping test, online ping, ping from multiple locations, global ping, packet loss test, ping ip address, latency test, ping domain",
-  og_sub: "16 packets from 18 locations, every packet visible",
-  h1: "Global Ping from 18 locations",
-  intro: "Enter a domain or IP: 18 locations worldwide and our Tokyo server each send 16 packets, so you can see the latency, jitter and loss packet by packet.",
+  og_sub: "16 packets from 16 locations, every packet visible",
+  h1: "Global Ping from 16 locations",
+  intro: "Enter a domain or IP: 16 locations worldwide and our Tokyo server each send 16 packets, so you can see the latency, jitter and loss packet by packet.",
   lang_label: "Language", a_lang: "Language", a_theme: "Theme", a_help: "Help", a_close: "Close", a_prev: "Previous", a_next: "Next",
 
   f_target: "Domain or IP", f_target_ph: "example.com", f_ipv: "IP version", go: "Test", share: "Share",
@@ -21,7 +21,6 @@ export default {
   // runtime
   sep: ", ",
   g_cn: "Mainland China", g_apac: "Asia-Pacific", g_emea: "Europe, Middle East & Africa", g_am: "Americas", flt_all: "All",
-  c_4134: "China Telecom", c_4837: "China Unicom", c_9808: "China Mobile",
   city_Tokyo: "Tokyo", city_London: "London", city_Frankfurt: "Frankfurt", city_LosAngeles: "Los Angeles", city_NewYork: "New York", city_SaoPaulo: "São Paulo",
   t_label: "Tokyo (our server)",
 
@@ -52,7 +51,6 @@ export default {
   vs_tokyo: "Globalping didn't run; this is our Tokyo server's view",
 
   fd_none: "No reply at all from {regions}", fd_loss: "{region} lost {lost} of 16 packets ({pct})",
-  fd_cn: "Mainland China: Telecom {telecom} ms, Unicom {unicom} ms, Mobile {mobile} ms",
   fd_slow: "Slowest: {region} {ms} ms ({fms} ms slower than {fast})",
   fd_jitter: "Most jitter: {region} ±{j} ms, {ratio}× the other regions",
   fd_tokyo: "Two sources in Tokyo: ours {ours} ms, Globalping {theirs} ms",
@@ -78,10 +76,10 @@ export default {
   th_system: "Theme: system", th_light: "Theme: light", th_dark: "Theme: dark",
 
   docs: [
-    ["What does this page measure?", "18 locations worldwide, run by Globalping's volunteer network, each send 16 ICMP echo requests (a normal `ping`) to the domain or IP you enter. Our own server in Tokyo sends the same 16 packets, as a second view and as a fallback when Globalping's free allowance is used up.\nPer location you see the median latency, the jitter (how much the 16 packets vary) and how many packets came back."],
+    ["What does this page measure?", "16 locations worldwide, run by Globalping's volunteer network, each send 16 ICMP echo requests (a normal `ping`) to the domain or IP you enter. Our own server in Tokyo sends the same 16 packets, as a second view and as a fallback when Globalping's free allowance is used up.\nPer location you see the median latency, the jitter (how much the 16 packets vary) and how many packets came back."],
     ["How do I read the 16 packets?", "Each vertical bar is one reply; its height is that packet's latency, scaled to the location (fast, steady locations look flat, which is correct). Empty slots are packets with no reply, so you can see whether the loss was at the start, in the middle or at the end.\nThe number on the right is the 16 packets' median; the ± is the jitter."],
     ["Some locations got no reply. Is the server down?", "Not necessarily. Many hosts and firewalls do not answer ICMP while the website itself works. The page says \"no reply\", not \"down\". If you need to know whether a port is reachable, run the reachability check instead: it connects the way a browser would."],
-    ["How does the allowance work?", "Globalping gives each IP 250 region checks an hour. One location sending 16 packets is one region check, so one test here uses 18. When it runs out, the page says when it comes back, and the Tokyo view keeps working without using the allowance.\nPeople on the same network share the same allowance."],
+    ["How does the allowance work?", "Globalping gives each IP 250 region checks an hour. One location sending 16 packets is one region check, so one test here uses 16. When it runs out, the page says when it comes back, and the Tokyo view keeps working without using the allowance.\nPeople on the same network share the same allowance."],
     ["Why is the result different every time?", "Latency varies from second to second: congestion, Wi-Fi, your provider's routes and the target's load all change. That is what jitter measures. One test is a snapshot, not a guarantee."],
     ["What is the Tokyo row?", "Our own server in Tokyo sends the same 16 packets. It is a fixed reference point, it does not use Globalping's allowance, it is the only view that knows the real loss positions, and comparing it with Globalping's Tokyo probe shows whether the two networks see the same path."],
     ["Can I ping from my own browser?", "No: browsers cannot send ICMP. The measurements run on Globalping's probes and on our server; your browser only asks for them."],
@@ -90,7 +88,7 @@ export default {
     ["Why does the shared link show a different time?", "A shared link shows the result as it was measured, with its date above it. Press \"Test mine\" to run a fresh test of the same target yourself."],
   ],
   card_meta: "{n} regions · 16 packets each",
-  card_own: "not in the 18",
+  card_own: "not in the 16",
   card_src: "Data: Globalping probes + our Tokyo server",
   // country and continent pages
   cont_EU: "Europe",

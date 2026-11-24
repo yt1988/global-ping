@@ -66,8 +66,8 @@ test("makeTokyoRow keeps the server's packet positions", () => {
 test("placeResults matches probes to the regions asked for", () => {
   const de = { ...RES, probe: { country: "DE", city: "Frankfurt", asn: 24940, network: "Hetzner Online" } };
   const rows = placeResults(REGIONS, [de, { probe: { country: "JP", city: "Tokyo", asn: 1 }, result: { status: "in-progress" } }]);
-  assert.equal(rows[11].probe.city, "Frankfurt");
-  assert.equal(rows[5].state, "pending");
+  assert.equal(rows[9].probe.city, "Frankfurt");
+  assert.equal(rows[3].state, "pending");
 });
 
 const rowOf = (i, state, extra = {}) => ({ region: REGIONS[i], state, rcv: state === "ok" ? 16 : state === "loss" ? 15 : 0,
@@ -78,7 +78,7 @@ test("verdicts", () => {
   assert.equal(verdict(rowsOf(() => rowOf(0, "ok"))).k, "ok");
   assert.equal(verdict(rowsOf(i => rowOf(i, i === 3 ? "loss" : "ok"))).k, "loss");
   const some = verdict(rowsOf(i => rowOf(i, i === 2 ? "none" : "ok")));
-  assert.equal(some.k, "some"); assert.equal(some.a, 1); assert.equal(some.b, 18);
+  assert.equal(some.k, "some"); assert.equal(some.a, 1); assert.equal(some.b, 16);
   assert.equal(verdict(rowsOf(() => rowOf(0, "none"))).k, "none");
   assert.equal(verdict(rowsOf(() => rowOf(0, "ok")), { error: "429" }).k, "err");
   assert.equal(verdict(rowsOf(i => rowOf(i, i < 9 ? "ok" : "pending")), { partial: true }).k, "partial");
@@ -86,16 +86,14 @@ test("verdicts", () => {
   assert.equal(verdict(rowsOf(() => ({ ...rowOf(0, "failed"), state: "failed", reason: "dns" }))).k, "dns");
 });
 
-test("findings: none, loss, China spread, jitter, stable", () => {
+test("findings: none, loss, jitter, stable", () => {
   const none = findings(rowsOf(i => rowOf(i, i === 0 || i === 1 ? "none" : "ok")), null);
   assert.equal(none[0].k, "fd_none");
-  const loss = findings(rowsOf(i => rowOf(i, i === 17 ? "loss" : "ok")), null);
+  const loss = findings(rowsOf(i => rowOf(i, i === 15 ? "loss" : "ok")), null);
   assert.ok(loss.some(f => f.k === "fd_loss"));
-  const cn = findings(rowsOf((i) => rowOf(i, "ok", { median: [4134, 4837, 9808].includes(REGIONS[i].carrier) ? 20 + 200 * [4134, 4837, 9808].indexOf(REGIONS[i].carrier) : 100 })), null);
-  assert.ok(cn.some(f => f.k === "fd_cn"));
   const stable = findings(rowsOf(() => rowOf(0, "ok", { jitter: 0.5 })), null);
   assert.deepEqual(stable.map(f => f.k), ["fd_stable"]);
-  const slow = findings(rowsOf(i => rowOf(i, "ok", { median: i === 17 ? 300 : 50 })), null);
+  const slow = findings(rowsOf(i => rowOf(i, "ok", { median: i === 15 ? 300 : 50 })), null);
   const fd = slow.find(f => f.k === "fd_slow");
   assert.ok(fd, "slow region should be a finding");
   assert.equal(fd.fms, 250, "the sentence's number is the difference, not the fastest value");
