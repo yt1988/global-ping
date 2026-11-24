@@ -106,7 +106,6 @@ export default {
   country_desc: "{country}의 프로브에서 도메인이나 IP로 Ping을 보내요. 패킷 16개마다 지연, 흔들림, 손실을 보여줘요. 무료, 계정 필요 없음.",
   country_intro: "도메인이나 IP를 입력하면 {country}의 프로브가 패킷 16개를 보내고 응답을 하나씩 보여줘요.",
   c_probes: "프로브",
-  near_h: "{continent}의 다른 국가",
   cont_h1: "{continent} Ping 테스트",
   cont_title: "{continent} Ping 테스트: {c}개국 동시 측정",
   cont_desc: "{continent}: {k}개국에서 한 번에 도메인이나 IP로 Ping을 보내요. 국가마다 패킷 16개를 나란히 보여줘요. {c}개국이 참여해요.",

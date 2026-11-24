@@ -107,7 +107,6 @@ export default {
   country_desc: "從{country}的節點 ping 一個網域或 IP：送出 16 個封包，逐包看延遲、抖動和封包遺失。免費，免登入。",
   country_intro: "輸入網域或 IP，{country}的節點送出 16 個封包，逐包顯示結果。",
   c_probes: "節點",
-  near_h: "同在{continent}",
   cont_h1: "{continent} Ping 測試",
   cont_title: "{continent} Ping 測試：{c} 個國家並排測",
   cont_desc: "{continent}：一次從 {k} 個國家 ping 一個網域或 IP，每國 16 個封包，並排顯示。洲內共有 {c} 個國家參與。",

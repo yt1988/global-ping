@@ -223,7 +223,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .route { margin: 0; color: var(--fg); font-size: 14px; line-height: 1.6; }
 .rg-cities { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 4px 0 0; padding: 0; list-style: none; font-size: 14px; }
 .rg-cities li { display: inline-flex; align-items: baseline; gap: 6px; }
-.rg-near, .rg-cc, .rg-ccards { list-style: none; margin: 2px 0 4px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.rg-cc, .rg-ccards { list-style: none; margin: 2px 0 4px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 /* A country is a chip: flag and name, the whole chip the link. The lists read as a dense flow, not a card grid. */
 .rg-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 4px 10px; border-radius: 8px;
   background: var(--soft); color: var(--fg); font-size: 14px; white-space: nowrap; }

@@ -87,7 +87,7 @@ function wireFilter(box) {
   if (!input) return;
   const scope = box.closest(".region-nav") || box.closest("section") || box.parentElement;
   const items = [...scope.querySelectorAll("[data-s]")].map(a => ({ li: a.closest("li"), s: a.dataset.s }));
-  const total = items.length, nav = scope.classList.contains("region-nav") ? scope : null, conts = nav ? [...nav.querySelectorAll(".rg-cont")] : [];
+  const total = items.length, conts = [...scope.querySelectorAll(".rg-cont")];
   const update = () => {
     const q = input.value;
     let n = 0;

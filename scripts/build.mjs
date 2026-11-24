@@ -13,7 +13,7 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { build as bundle } from "esbuild";
 import { countryName, flagCode } from "../src/model.mjs";
-import { CONTINENTS, COUNTRIES, countryByCc, countryDir, picksOf, neighboursOf, isMain, englishName, noteFor } from "../src/regions.mjs";
+import { CONTINENTS, COUNTRIES, countryByCc, countryDir, picksOf, isMain, englishName, noteFor } from "../src/regions.mjs";
 
 const SITE = (process.env.SITE_URL || "https://ping.1ms.dog").replace(/\/+$/, "");
 const pub = new URL("../public/", import.meta.url), src = new URL("../src/", import.meta.url), stat = new URL("../static/", import.meta.url);
@@ -47,7 +47,7 @@ const BUILD_ONLY = new Set(["name", "seo_title", "seo_desc", "seo_kw", "og_sub",
   "lg_jitter", "lg_loss", "t_tokyo_only", "src_gp", "foot_src",
   // country and continent pages: the static text the build writes into them
   "cont_EU", "cont_NA", "cont_AS", "cont_SA", "cont_OC", "cont_AF", "a_crumbs", "nav_regions",
-  "country_h1", "country_title", "country_desc", "country_intro", "c_probes", "near_h", "cont_h1", "cont_title", "cont_desc", "cont_intro", "cont_test",
+  "country_h1", "country_title", "country_desc", "country_intro", "c_probes", "cont_h1", "cont_title", "cont_desc", "cont_intro", "cont_test",
   "cont_countries", "route_EU", "route_NA", "route_AS", "route_SA", "route_OC", "route_AF",
   "filter_ph", "filter_none", "filter_clear", "explore_h"]);
 
@@ -98,30 +98,36 @@ function filterBox(T, lang, total, cls) {
   return `<div class="rg-filter ${cls}"><div class="rg-frow"><input class="rg-q" type="search" placeholder="${esc(T("filter_ph"))}" aria-label="${esc(T("filter_ph"))}" autocomplete="off" spellcheck="false"><span class="rg-count">${num(total, lang)} / ${num(total, lang)}</span><button class="rg-clear" type="button" hidden>${esc(T("filter_clear"))}</button></div><p class="rg-none" hidden>${esc(T("filter_none"))}</p></div>`;
 }
 
-// The navigation under every topic page: continents by probe count, each with its countries as the same chip flow.
-// Nothing folds: every continent is open, and its name is the link to the continent page.
-function regionNav(T, slug, current) {
-  const groups = CONTINENTS.map(c => {
+// The country list, shared by the topic pages' navigation and the home page: continents by probe count, each with a
+// clickable title and the country chips under it. `exclude` leaves the continent a continent page is already about out
+// of the list, so the page does not show the same countries twice.
+function regionGroups(T, lang, slug, { exclude = "", current = {} } = {}) {
+  return CONTINENTS.filter(c => c.code !== exclude).map(c => {
     const cc = c.countries.map(x => {
       const here = current.kind === "country" && current.cc === x.cc ? ' aria-current="page"' : "";
-      return `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}"${here} data-s="${esc(searchOf(x.cc, current.lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, current.lang))}</span></a></li>`;
+      return `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}"${here} data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span></a></li>`;
     }).join("");
     const here = current.kind === "continent" && current.cont === c.code ? ' aria-current="page"' : "";
     return `<section class="rg-cont"><a class="rg-cont-link" href="${esc(pathOf(slug, c.slug))}"${here} aria-label="${esc(fill(T("cont_h1"), { continent: T("cont_" + c.code) }))}">${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span></a><ul class="rg-cc">${cc}</ul></section>`;
   }).join("");
-  return `<nav class="region-nav" aria-labelledby="regionNavH"><h2 id="regionNavH">${esc(T("nav_regions"))}</h2>${filterBox(T, current.lang, COUNTRIES.length, "rg-filter-nav")}<div class="rg-list">${groups}</div></nav>`;
 }
 
-// The home page's way into every country page: the six continents, then the 86 countries as the same chip flow the
-// topic pages use, with the same filter above it.
+function regionCount(exclude = "") {
+  return COUNTRIES.filter(c => c.cont !== exclude).length;
+}
+
+function regionNav(T, slug, current) {
+  // a continent page already lists its own countries above, so its navigation carries the other five continents
+  const exclude = current.kind === "continent" ? current.cont : "";
+  return `<nav class="region-nav" aria-labelledby="regionNavH"><h2 id="regionNavH">${esc(T("nav_regions"))}</h2>${filterBox(T, current.lang, regionCount(exclude), "rg-filter-nav")}<div class="rg-list">${regionGroups(T, current.lang, slug, { exclude, current })}</div></nav>`;
+}
+
+// The home page's way into every country page: the same continent groups as the topic pages, with their own filter.
 function exploreSection(T, slug, lang) {
-  const conts = CONTINENTS.map(c => `<a class="rg-chip" href="${esc(pathOf(slug, c.slug))}">${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span></a>`).join("");
-  const countries = COUNTRIES.map(x => `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span></a></li>`).join("");
   return `<section class="card sec" id="explore">
     <h2>${esc(T("explore_h"))}</h2>
-    <div class="rg-cont-chips">${conts}</div>
     ${filterBox(T, lang, COUNTRIES.length, "rg-filter-explore")}
-    <ul class="rg-cc">${countries}</ul>
+    <div class="rg-list">${regionGroups(T, lang, slug)}</div>
   </section>`;
 }
 
@@ -136,13 +142,7 @@ function crumbs(T, slug, current) {
 // hand-written note on the country's networks. No Globalping inventory numbers: those rank its probes, they are not
 // our coverage.
 function countrySections(T, lang, c, slug, note = "") {
-  const near = neighboursOf(c).map(x => `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span></a></li>`).join("");
   return `${note ? `<section class="card sec"><p class="route">${esc(note)}</p></section>` : ""}
-  <section class="card sec">
-    <h2>${esc(fill(T("near_h"), { continent: T("cont_" + c.cont) }))}</h2>
-    <ul class="rg-near">${near}</ul>
-    <p class="hint"><a href="${esc(pathOf(slug, c.contSlug))}">${esc(fill(T("cont_countries"), { continent: T("cont_" + c.cont) }))}</a></p>
-  </section>
   <section class="card sec xlink" hidden data-tool="reach" data-x="${esc(countryDir(c) + "/")}" data-where="${esc(countryName(c.cc, lang))}"></section>`;
 }
 

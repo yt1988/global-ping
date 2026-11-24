@@ -55,10 +55,4 @@ export const picksOf = cont => cont.countries.slice(0, Math.min(10, cont.countri
 // continents 0.8, main countries 0.7, small ones 0.5.
 export const isMain = c => c.probes >= 50;
 
-// A country's neighbours for the "also in this continent" links: the two on either side in probe order, and the
-// continent's page. The country itself is skipped.
-export const neighboursOf = c => {
-  const list = CONTINENTS.find(x => x.code === c.cont).countries;
-  return [list[c.i - 2], list[c.i - 1], list[c.i + 1], list[c.i + 2]].filter(Boolean);
-};
 

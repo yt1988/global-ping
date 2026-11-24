@@ -107,7 +107,6 @@ export default {
   country_desc: "Ping a domain or IP with a probe in {country}: 16 packets, every reply visible, with the latency, jitter and loss worked out. Free, no account.",
   country_intro: "Enter a domain or IP: a probe in {country} sends 16 packets and every reply is shown.",
   c_probes: "Probes",
-  near_h: "Also in {continent}",
   cont_h1: "Ping test: {continent}",
   cont_title: "{continent} ping test: {c} countries, side by side",
   cont_desc: "{continent}: ping a domain or IP from {k} countries at once, 16 packets each, side by side. {c} countries take part.",

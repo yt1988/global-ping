@@ -28,8 +28,9 @@ test("the home page links every country page", async () => {
   for (const [lang, slug] of LANGS) {
     const html = await read(`${slug ? slug + "/" : ""}index.html`);
     assert.match(html, /<section class="card sec" id="explore">/, `${lang}: the explore block`);
-    assert.equal((html.match(/class="rg-cont-chips"/g) || []).length, 1, `${lang}: one continent chip row`);
-    assert.equal((html.match(/class="rg-chip" href="[^"]*"/g) || []).length >= CONTINENTS.length + COUNTRIES.length, true, `${lang}: continent and country chips`);
+    assert.equal((html.match(/class="rg-cont"/g) || []).length, CONTINENTS.length, `${lang}: one group per continent`);
+    assert.equal((html.match(/class="rg-cont-link"/g) || []).length, CONTINENTS.length, `${lang}: every continent title is a link`);
+    assert.equal((html.match(/class="rg-chip"/g) || []).length, COUNTRIES.length, `${lang}: every country is a chip`);
     assert.equal((html.match(/data-s="/g) || []).length, COUNTRIES.length, `${lang}: every country has a search string`);
     assert.ok(html.includes(`rg-filter-explore`), `${lang}: the filter`);
     assert.ok(html.includes(`/${slug ? slug + "/" : ""}europe/de/`), `${lang}: country links keep the language folder`);
@@ -62,9 +63,10 @@ test("a country page shows no Globalping inventory, only the test and its neighb
   assert.deepEqual(data.ranges.map(r => r.cc), ["US", "US", "US", "US", "US"]);
   assert.ok(data.ranges.every(r => !("label" in r) && !("n" in r)), "no probe 1/2/3 labels");
   assert.deepEqual(data.locations, [{ country: "US", limit: 5 }], "one request asks for five probes there");
-  // neighbours, the shared note and the filter
-  assert.ok((html.match(/class="rg-near"/g) || []).length === 1);
+  // the note, the filter and one navigation only: no "also in this continent" block
   assert.ok(html.includes("rg-filter-nav"));
+  assert.equal((html.match(/class="rg-near"/g) || []).length, 0, "no second country list");
+  assert.equal((html.match(/rg-cont-link/g) || []).length, CONTINENTS.length, "the navigation still lists every continent");
   assert.ok(html.includes(noteFor("US", "zh-CN")), "the shared note is on the page");
 });
 
@@ -88,7 +90,9 @@ test("a continent page tests ten countries in one request and lists them all", a
   assert.equal(data.locations.length, 10);
   assert.ok(data.locations.every(l => l.limit === 1));
   assert.equal((html.match(/class="rg-ccards"/g) || []).length, 1);
-  assert.equal((html.match(/data-s="/g) || []).length, asia.countries.length + 86, "the cards and the navigation are both filterable");
+  // the cards list this continent; the navigation lists the other five, so no country appears twice
+  assert.equal((html.match(/data-s="/g) || []).length, COUNTRIES.length, "every country exactly once across cards and navigation");
+  assert.equal((html.match(/class="rg-cont"/g) || []).length, CONTINENTS.length - 1, "the page's own continent is not repeated in the navigation");
   assert.ok(html.includes("rg-filter-cards") && html.includes("rg-filter-nav"));
 });
 

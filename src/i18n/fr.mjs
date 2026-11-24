@@ -106,7 +106,6 @@ export default {
   country_desc: "{country} : ping d’un domaine ou d’une IP depuis une sonde locale, 16 paquets, chaque réponse visible, avec latence, gigue et perte. Gratuit, sans compte.",
   country_intro: "{country} : saisissez un domaine ou une IP, une sonde locale envoie 16 paquets et chaque réponse s’affiche.",
   c_probes: "Sondes",
-  near_h: "Aussi en {continent}",
   cont_h1: "{continent} : test de ping",
   cont_title: "{continent} : test de ping, {c} pays en parallèle",
   cont_desc: "{continent} : pingez un domaine ou une IP depuis {k} pays en même temps, 16 paquets chacun, côte à côte. {c} pays y participent.",

@@ -106,7 +106,6 @@ export default {
   country_desc: "Haz ping a un dominio o una IP con una sonda en {country}: 16 paquetes, cada respuesta visible, con la latencia, el jitter y la pérdida calculados. Gratis, sin cuenta.",
   country_intro: "Escribe un dominio o una IP: una sonda en {country} envía 16 paquetes y verás cada respuesta.",
   c_probes: "Sondas",
-  near_h: "También en {continent}",
   cont_h1: "Ping: {continent}",
   cont_title: "{continent}: prueba de ping, {c} países en paralelo",
   cont_desc: "{continent}: haz ping a un dominio o una IP desde {k} países a la vez, 16 paquetes en cada uno, en paralelo. Participan {c} países.",

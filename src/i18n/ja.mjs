@@ -106,7 +106,6 @@ export default {
   country_desc: "{country}のプローブからドメインまたは IP に Ping を送ります。16 個のパケットごとに遅延・ゆらぎ・損失を表示。無料、アカウント不要。",
   country_intro: "ドメインまたは IP を入れると、{country}のプローブが 16 個のパケットを送り、応答を 1 個ずつ表示します。",
   c_probes: "プローブ",
-  near_h: "{continent}のほかの国",
   cont_h1: "{continent}の Ping テスト",
   cont_title: "{continent}の Ping テスト：{c} か国を並べて測定",
   cont_desc: "{continent}：{k} か国から同時にドメインまたは IP に Ping を送ります。各国 16 個のパケットを並べて表示。{c} か国が参加します。",
