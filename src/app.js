@@ -176,20 +176,27 @@ const nameOf = region => {
 
 // ---------- quota (same wording as the reachability check: raw region checks, not "tests left") ----------
 const COST = REGIONS.length;
-let quotaLeft = null, quotaReset = 0;
-async function loadQuota() {
-  $("quota").textContent = t("quota_loading");
+let quotaLeft = null, quotaReset = 0, quotaBlocked = false, testing = false;
+// Read the allowance on load and after every test. When it cannot pay for this page's test the button is disabled: a
+// visitor should not press Test, watch rows fill with Waiting…, and only then be told there is no allowance.
+async function loadQuota(quiet = false) {
+  if (!quiet) $("quota").textContent = t("quota_loading");
   try {
     const j = await (await fetch(GP + "/limits")).json();
     const c = j.rateLimit.measurements.create;
     quotaLeft = c.remaining; quotaReset = c.reset; showQuota();
-  } catch { quotaLeft = null; $("quota").textContent = t("quota_unknown"); }
+  } catch { quotaLeft = null; showQuota(); }
 }
 function showQuota() {
-  if (quotaLeft == null) { $("quota").textContent = t("quota_unknown"); return; }
-  $("quota").textContent = quotaLeft >= COST
-    ? t(pkOf("quota_ok", quotaLeft), { left: quotaLeft, cost: COST })
-    : t("quota_out", { min: Math.ceil((quotaReset || 3600) / 60) });
+  if (quotaLeft == null) { $("quota").textContent = t("quota_unknown"); quotaBlocked = false; }
+  else {
+    const min = Math.ceil((quotaReset || 3600) / 60);
+    quotaBlocked = quotaLeft < COST;
+    $("quota").textContent = quotaBlocked
+      ? t("quota_short", { cost: COST, min })
+      : t(pkOf("quota_ok", quotaLeft), { left: quotaLeft, cost: COST });
+  }
+  if (!testing) $("go").disabled = quotaBlocked;
 }
 function updateQuota(headers) {
   const left = headers.get("x-ratelimit-remaining"), reset = +headers.get("x-ratelimit-reset");
@@ -200,9 +207,10 @@ function updateQuota(headers) {
 let state = null, run = 0, recv = null;
 let rowEls = new Map(), detailEls = new Map();
 
-const setGo = (testing) => {
-  const b = $("go"); b.disabled = testing;
-  b.textContent = testing ? t("running") : t(state && state.verdict && !state.tokyoOnly ? "go_again" : "go");
+const setGo = (busy) => {
+  testing = busy;
+  const b = $("go"); b.disabled = busy || quotaBlocked;
+  b.textContent = busy ? t("running") : t(state && state.verdict && !state.tokyoOnly ? "go_again" : "go");
 };
 $("f").addEventListener("submit", e => { e.preventDefault(); start(); });
 
@@ -227,6 +235,7 @@ $("target").addEventListener("input", () => {
 });
 
 function start() {
+  if (quotaBlocked) { loadQuota(); return; }   // the button is disabled, but Enter in the field can still submit
   const raw = $("target").value.trim();
   const tg = normalizeTarget(raw);
   if (tg.error) { note(tg.error === "private" ? "bad_private" : "bad_target"); $("target").focus(); return; }
@@ -330,6 +339,11 @@ function settle(s) {
   s.verdict = verdict(s.rows, { error: s.gpError, partial: s.partial });
   // Findings compare places with each other; a country page has one probe, so it gets the verdict and numbers only.
   s.findings = (s.verdict.k === "err" || s.verdict.k === "partial" || (TOPIC && D.kind === "country")) ? [] : findings(s.rows, s.tokyo);
+  if (s.gpError) {
+    rowEls = new Map(); detailEls = new Map();
+    $("regions").innerHTML = "";
+    $("table").hidden = true;
+  }
   drawVerdict(s); drawKpis(s); drawFindings(s);
   showProgress(s.rows.filter(r => r && r.state !== "pending").length);
   // Fewer answers than asked for is worth saying in the result, not in the page copy: "only N samples this time".
@@ -338,6 +352,7 @@ function settle(s) {
     noteShow(answered > 0 && answered < REGIONS.length ? t("samples_low", { n: answered }) : "");
   }
   $("shareBtn").hidden = !canShare(s);
+  if (s.gpDone && !s.quotaRefreshed) { s.quotaRefreshed = true; loadQuota(true); }
   $("tokyoFallback").hidden = !WITH_TOKYO || s.tokyoError === "down" ||
     !(s.verdict.k === "err" || s.verdict.k === "partial" || (quotaLeft != null && quotaLeft < COST));
   setGo(false);

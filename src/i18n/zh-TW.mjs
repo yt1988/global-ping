@@ -132,4 +132,5 @@ export default {
   samples_low: "本次只得到 {n} 個樣本",
   explore_h: "依國家或地區測試",
   allocating: "正在分配測試節點…",
+  quota_short: "額度不足：本次需要 {cost} 個地區次，約 {min} 分鐘後恢復。",
 };

@@ -131,4 +131,5 @@ export default {
   samples_low: "今回の応答は {n} 件だけでした",
   explore_h: "国・地域からテスト",
   allocating: "テスト用プローブを割り当てています…",
+  quota_short: "今回のテストには {cost} 回分の枠が必要です。約 {min} 分後に回復します。",
 };

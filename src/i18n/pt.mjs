@@ -131,4 +131,5 @@ export default {
   samples_low: "Desta vez voltaram apenas {n} amostras",
   explore_h: "Testar por país ou região",
   allocating: "Alocando sondas de teste…",
+  quota_short: "Sem cota suficiente para este teste ({cost} necessários); volta em cerca de {min} min.",
 };

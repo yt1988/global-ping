@@ -131,4 +131,5 @@ export default {
   samples_low: "Esta vez solo volvieron {n} muestras",
   explore_h: "Probar por país o región",
   allocating: "Asignando sondas de prueba…",
+  quota_short: "No hay cuota suficiente para esta prueba (hacen falta {cost}); vuelve en unos {min} min.",
 };

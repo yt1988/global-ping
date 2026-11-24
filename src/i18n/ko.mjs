@@ -131,4 +131,5 @@ export default {
   samples_low: "이번에는 샘플이 {n}개만 돌아왔어요",
   explore_h: "국가·지역으로 테스트",
   allocating: "테스트 프로브를 배정하는 중…",
+  quota_short: "이번 테스트에는 {cost}회분이 필요해요. 약 {min}분 후에 회복돼요.",
 };

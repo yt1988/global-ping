@@ -43,7 +43,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .main { display: flex; flex-direction: column; gap: 16px; }
 .hero h1 { margin: 0 0 6px; font-size: clamp(22px, 4.4vw, 30px); line-height: 1.2; }
 .intro { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
-.form .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+.form .frow { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
 .fld { display: flex; flex-direction: column; gap: 5px; color: var(--muted); font-size: 12px; }
 .fld.grow { flex: 1 1 220px; min-width: 0; }
 .fld input, .fld select { height: 44px; font-size: 16px; font-family: var(--f-ui); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; width: 100%; }
@@ -54,7 +54,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .btn:hover { opacity: .9; }
 .btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
 .btn.sm { height: 34px; padding: 0 14px; font-size: 14px; }
-.sub { display: flex; flex-wrap: wrap; gap: 6px 14px; min-height: 20px; margin-top: 8px; font-size: 13px; }
+.sub { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-height: 20px; margin-top: 8px; font-size: 13px; }
 .warn { color: var(--warn); }
 .quota { font-variant-numeric: tabular-nums; }
 
@@ -186,7 +186,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
   .sel select { height: 36px; font-size: 16px; padding: 0 10px; max-width: 104px; }
   .icon-btn { width: 34px; height: 34px; }
   .card { padding: 14px; border-radius: 12px; }
-  .form .row { gap: 8px; }
+  .form .frow { gap: 8px; }
   .fld.grow { flex-basis: 100%; }
   .fld.ipv { flex: 1 1 90px; }
   #go { flex: 1 1 150px; }

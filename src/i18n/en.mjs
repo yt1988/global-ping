@@ -132,4 +132,5 @@ export default {
   samples_low: "Only {n} samples came back this time",
   explore_h: "Test by country or region",
   allocating: "Allocating test probes…",
+  quota_short: "Not enough allowance for this test ({cost} needed); it comes back in about {min} min.",
 };
