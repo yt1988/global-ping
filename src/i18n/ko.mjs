@@ -34,7 +34,8 @@ export default {
   v_wait: "테스트 중…",
   v_ok: "{a}개 지역 모두 응답했어요", v_loss: "{b}개 지역 중 {a}개에서 패킷 손실", v_some: "{b}개 지역 중 {a}개가 응답하지 않았어요",
   v_none: "{b}개 지역 모두 응답이 없어요", v_dns: "도메인을 확인할 수 없어요", v_priv: "사설 또는 예약 주소예요",
-  v_partial: "{b}개 지역 중 {a}개 완료", v_err: "Globalping이 결과를 반환하지 않았어요", v_probe: "{a}개 지역 응답, {b}개 지역 관측 지점 없음",
+  v_partial: "{b}곳 중 {a}곳이 시간 안에 완료됐고 나머지는 응답이 없어요",
+  v_err: "Globalping이 결과를 반환하지 않았어요", v_probe: "{a}개 지역 응답, {b}개 지역 관측 지점 없음",
   v_tokyo: "자체 서버만 실행됐어요",
   v_oldbrowser_sub: "링크는 정상이지만, 표시하려면 최신 브라우저(Chrome 103, Safari 16.4 이상)가 필요해요.",
 
@@ -44,7 +45,7 @@ export default {
   vs_none: "어느 지역도 응답하지 않았어요. 대상이나 경로가 ICMP를 막고 있을 수 있어요",
   vs_dns: "어느 지역도 도메인을 확인하지 못했어요",
   vs_priv: "공개 관측 지점은 사설 주소에 접속하지 않아요",
-  vs_partial: "{b}개 지역 중 {a}개 완료, 나머지는 시간 안에 돌아오지 않았어요",
+  vs_partial: "제한 시간 안의 부분 결과예요. 응답하지 않은 프로브는 아래에 표시돼 있어요",
   vs_err: "원인은 위 메시지를 보세요. 자체 서버 결과는 아직 쓸 수 있을 수 있어요",
   vs_probe: "{a}개 지역 응답, {b}개 지역은 관측 지점이 없었어요",
   vs_tokyo: "Globalping은 실행되지 않았고, 자체 서버의 결과예요",
@@ -131,4 +132,6 @@ export default {
   srv_tokyo: "자체 서버(도쿄)",
   srv_shanghai: "자체 서버(상하이)",
   t_tokyo_only: "자체 서버만 테스트",
+  slow_missing: "프로브 {n}곳이 제한 시간 안에 응답하지 않았어요",
+  r_timeout: "시간 안에 응답 없음",
 };

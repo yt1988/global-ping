@@ -35,7 +35,8 @@ export default {
   v_wait: "Testing…",
   v_ok: "All {a} regions replied", v_loss: "Packet loss in {a} of {b} regions", v_some: "{a} of {b} regions got no reply",
   v_none: "No reply from any of the {b} regions", v_dns: "The domain didn't resolve", v_priv: "That's a private or reserved address",
-  v_partial: "{a} of {b} regions finished; the rest didn't return", v_err: "Globalping returned no result", v_probe: "{a} regions replied, {b} had no probe",
+  v_partial: "{a} of {b} probes finished in time; the rest did not answer",
+  v_err: "Globalping returned no result", v_probe: "{a} regions replied, {b} had no probe",
   v_tokyo: "Only our servers ran",
   v_oldbrowser_sub: "The link is fine, but showing it needs a newer browser (Chrome 103 or Safari 16.4 and later).",
 
@@ -45,7 +46,7 @@ export default {
   vs_none: "No region got a reply: the target or its network may drop ICMP",
   vs_dns: "No region could resolve the domain",
   vs_priv: "Public probes never connect to private addresses",
-  vs_partial: "{a} of {b} regions finished; the rest didn't return",
+  vs_partial: "This is a partial result: the probes that did not answer are marked below",
   vs_err: "See the message above; our servers' views may still be available",
   vs_probe: "{a} regions replied; {b} had no probe available",
   vs_tokyo: "Globalping didn't run; these are our own servers' views",
@@ -132,4 +133,6 @@ export default {
   srv_tokyo: "Our server (Tokyo)",
   srv_shanghai: "Our server (Shanghai)",
   t_tokyo_only: "Test our servers only",
+  slow_missing: "{n} probes did not return within the time limit",
+  r_timeout: "No answer in time",
 };

@@ -158,7 +158,8 @@ export function verdict(rows, { error = "", partial = false } = {}) {
   if (error) return { k: "err", a: 0, b: n };
   const fin = rows.filter(r => r && r.state !== "pending");
   if (!fin.length) return { k: "err", a: 0, b: n };
-  if (partial) return { k: "partial", a: fin.length, b: n };
+  // "partial" counts the probes that did answer in time, not those the page gave up on
+  if (partial) return { k: "partial", a: rows.filter(r => r && r.state !== "pending" && r.state !== "timeout").length, b: n };
   const priv = fin.filter(r => r.state === "priv").length;
   const dns = fin.filter(r => r.state === "failed" && r.reason === "dns").length;
   const failed = fin.filter(r => r.state === "failed" || r.state === "priv").length;

@@ -35,7 +35,8 @@ export default {
   v_wait: "測試中…",
   v_ok: "{a} 個地區都有回應", v_loss: "{b} 個地區中 {a} 個有封包遺失", v_some: "{b} 個地區中 {a} 個沒有回應",
   v_none: "{b} 個地區都沒有收到回應", v_dns: "網域解析失敗", v_priv: "這是內網或保留位址",
-  v_partial: "{b} 個地區中完成 {a} 個", v_err: "Globalping 這次沒有回傳結果", v_probe: "{a} 個地區有回應，{b} 個地區沒有可用探測點",
+  v_partial: "{b} 個探針裡 {a} 個在限時內完成，其餘沒有返回",
+  v_err: "Globalping 這次沒有回傳結果", v_probe: "{a} 個地區有回應，{b} 個地區沒有可用探測點",
   v_tokyo: "只跑了本站伺服器",
   v_oldbrowser_sub: "連結沒壞，但顯示它需要更新的瀏覽器（Chrome 103、Safari 16.4 以上）。",
 
@@ -45,7 +46,7 @@ export default {
   vs_none: "沒有任何地區收到回應：目標或線路可能擋掉 ICMP",
   vs_dns: "沒有任何地區能解析這個網域",
   vs_priv: "公網探測點不會連接內網位址",
-  vs_partial: "完成 {a} / {b} 個地區；其餘沒有回傳",
+  vs_partial: "這是限時內的部分結果，未返回的探針已在下面標出",
   vs_err: "原因見上面的提示；本站伺服器的結果可能仍可用",
   vs_probe: "{a} 個地區有回應；{b} 個地區沒有可用探測點",
   vs_tokyo: "全球檢測沒有執行；這是本站伺服器的結果",
@@ -132,4 +133,6 @@ export default {
   srv_tokyo: "本站（東京）",
   srv_shanghai: "本站（上海）",
   t_tokyo_only: "只看本站伺服器",
+  slow_missing: "{n} 個探針未在限時內返回",
+  r_timeout: "限時內未返回",
 };

@@ -17,6 +17,10 @@ const REGIONS = TOPIC ? D.ranges : HOME_REGIONS;
 // our own servers, one row each; a configured address that does not answer simply is not shown
 const SERVERS = !TOPIC ? SERVER_CONFIG.filter(s => s && s.api && SERVER_REGIONS[s.key]) : [];
 const WITH_SERVERS = SERVERS.length > 0;
+// Deadlines: a page shows whatever came back in time, and marks the rest, instead of waiting on every probe.
+const LIMITS = { country: 12000, continent: 18000, home: 20000, server: 8000, create: 8000 };
+const TOTAL_MS = TOPIC ? (D.kind === "country" ? LIMITS.country : LIMITS.continent) : LIMITS.home;
+const POLL_MS = 700;
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 // Chinese copy: keep a space between Han and Latin/digits (16 个地区, Globalping 的), no space between two Han words
@@ -299,10 +303,12 @@ async function runGlobalping(s) {
   const body = { type: "ping", target: s.tg.host, inProgressUpdates: true, locations,
     measurementOptions: { protocol: "ICMP", packets: PACKETS, ...(s.tg.isIp ? {} : { ipVersion: +s.ipv }) } };
   let r, j;
+  const pc = new AbortController(), ptimer = setTimeout(() => pc.abort(), LIMITS.create);
   try {
-    r = await fetch(GP + "/measurements", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+    r = await fetch(GP + "/measurements", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), signal: pc.signal });
     j = await r.json().catch(() => ({}));
   } catch { s.gpError = "unreach"; s.gpDone = true; loadQuota(); return settle(s); }
+  finally { clearTimeout(ptimer); }
   const reset = +r.headers.get("x-ratelimit-reset"); if (reset) s.gpReset = reset;
   updateQuota(r.headers);
   if (r.status === 429) { s.gpError = "429"; s.gpDone = true; loadQuota(); return settle(s); }
@@ -310,7 +316,9 @@ async function runGlobalping(s) {
   // Ask for the measurement at once: the first answer already names the probes (probe.city, network, asn) while the
   // result is still running, so the rows show who is testing from the first moment.
   const t0 = Date.now();
-  const once = async () => { try { return await (await fetch(`${GP}/measurements/${j.id}`)).json(); } catch { return null; } };
+  // one controller for every poll, aborted at the deadline: the page stops on time even if a request hangs
+  const ctl = new AbortController(), deadline = setTimeout(() => ctl.abort(), TOTAL_MS);
+  const once = async () => { try { return await (await fetch(`${GP}/measurements/${j.id}`, { signal: ctl.signal })).json(); } catch { return null; } };
   const apply = m => {
     if (!m || !Array.isArray(m.results)) return;
     const rows = placeResults(REGIONS, m.results);
@@ -322,18 +330,25 @@ async function runGlobalping(s) {
   let m = await once();
   if (s.id !== run) return;
   apply(m);
-  while (s.id === run && (!m || m.status === "in-progress") && Date.now() - t0 < 30000) {
-    await sleep(900);
+  while (s.id === run && (!m || m.status === "in-progress") && Date.now() - t0 < TOTAL_MS) {
+    const left = TOTAL_MS - (Date.now() - t0);
+    if (left <= 0) break;
+    await sleep(Math.min(POLL_MS, left));
     if (s.id !== run) return;
     m = await once();
     apply(m);
   }
+  clearTimeout(deadline);
   if (s.id !== run) return;
-  if (Date.now() - t0 >= 30000) s.partial = true;
+  if (Date.now() - t0 >= TOTAL_MS) s.partial = true;
   if (TOPIC && !s.rowsBuilt) { s.rowsBuilt = true; buildRows(s); }
   // a region the API returned nothing for gets a row too: "no probe available", not a forever-pending row
-  s.rows = s.rows.map((r, i) => r || { region: REGIONS[i], state: "noprobe", rcv: 0, rtts: [], ttls: [],
-    median: null, jitter: null, loss: 0, posUnknown: false, resolved: "", probe: null });
+  s.rows = s.rows.map((r, i) => {
+    if (r && r.state !== "pending") return r;
+    // a probe still running at the deadline keeps its name; the row says it did not answer in time
+    return { region: REGIONS[i], state: s.partial ? "timeout" : "noprobe", rcv: 0, rtts: [], ttls: [],
+      median: null, jitter: null, loss: 0, posUnknown: false, resolved: r ? r.resolved : "", probe: r ? r.probe : null };
+  });
   renderRows(s);
   s.gpDone = true;
   settle(s);
@@ -344,7 +359,7 @@ async function runServers(s) {
   const q = new URLSearchParams({ host: s.tg.host });
   if (s.tg.isIp) q.set("v", String(s.tg.family)); else if (s.ipv) q.set("v", s.ipv);
   await Promise.all(s.servers.map(async srv => {
-    const c = new AbortController(), timer = setTimeout(() => c.abort(), 15000);
+    const c = new AbortController(), timer = setTimeout(() => c.abort(), LIMITS.server);
     try {
       const r = await fetch(`${srv.api}?${q}`, { signal: c.signal, credentials: "omit", cache: "no-store" });
       const j = await r.json();
@@ -370,11 +385,17 @@ function settle(s) {
   }
   drawVerdict(s); drawKpis(s); drawFindings(s);
   showProgress(s.rows.filter(r => r && r.state !== "pending").length);
-  // Fewer answers than asked for is worth saying in the result, not in the page copy: "only N samples this time".
+  // What did not come back, said in the result: the deadline's probes and, on a country or continent page, a short sample.
+  const notes = [];
+  if (s.partial) {
+    const late = s.rows.filter(r => r && r.state === "timeout").length;
+    if (late) notes.push(t("slow_missing", { n: late }));
+  }
   if (TOPIC && !s.gpError) {
     const answered = s.rows.filter(r => r && r.rcv > 0).length;
-    noteShow(answered > 0 && answered < REGIONS.length ? t("samples_low", { n: answered }) : "");
+    if (answered > 0 && answered < REGIONS.length) notes.push(t("samples_low", { n: answered }));
   }
+  noteShow(notes.join(" · "));
   $("shareBtn").hidden = !canShare(s);
   if (s.gpDone && !s.quotaRefreshed) { s.quotaRefreshed = true; loadQuota(true); }
   $("tokyoFallback").hidden = !WITH_SERVERS ||
@@ -507,6 +528,7 @@ function fillRow(s, region, row) {
     return;
   }
   if (row.state === "noprobe") { barsInto(bars, null); st.className = "st"; med.textContent = "—"; meta.textContent = t("r_noprobe"); return; }
+  if (row.state === "timeout") { barsInto(bars, null); st.className = "st"; med.textContent = "—"; meta.textContent = t("r_timeout"); return; }
   if (row.state === "failed" || row.state === "priv") {
     barsInto(bars, null);
     st.className = "st"; med.textContent = "—";
@@ -601,6 +623,12 @@ function drawVerdict(s) {
   if (!v) { dot.className = "dot"; title.textContent = t("v_wait"); sub.textContent = ""; return; }
   if (TOPIC && D.kind === "country") {
     const rows = s.rows.filter(r => r && r.state !== "pending"), answered = rows.filter(r => r && r.rcv > 0).length;
+    if (s.partial) {
+      dot.className = "dot";
+      title.textContent = t("v_partial", { a: answered, b: rows.length });
+      sub.textContent = t("vs_partial");
+      return;
+    }
     if (s.gpError) {
       // the same messages as the home page: no allowance, Globalping unreachable, or its own error
       dot.className = "dot warn";
@@ -618,7 +646,8 @@ function drawVerdict(s) {
     sub.textContent = "";
     return;
   }
-  const cls = { ok: "ok", probe: "ok", loss: "warn", some: "warn", none: "bad", dns: "bad", priv: "bad", err: "warn", partial: "warn", tokyo: "warn" }[v.k] || "warn";
+  // a partial result is neutral, not a failure: the probes that did not answer are marked, the rest is real
+  const cls = { ok: "ok", probe: "ok", loss: "warn", some: "warn", none: "bad", dns: "bad", priv: "bad", err: "warn", partial: "", tokyo: "warn" }[v.k] || "warn";
   dot.className = "dot " + cls;
   title.textContent = t(v.k === "tokyo" ? "v_tokyo" : "v_" + v.k, { a: v.a, b: v.b });
   sub.textContent = subLine(s);

@@ -34,7 +34,8 @@ export default {
   v_wait: "Test en cours…",
   v_ok: "Les {a} régions ont répondu", v_loss: "{a} régions sur {b} ont perdu des paquets", v_some: "{a} régions sur {b} n’ont pas répondu",
   v_none: "Aucune des {b} régions n’a reçu de réponse", v_dns: "Le domaine ne s’est pas résolu", v_priv: "C’est une adresse privée ou réservée",
-  v_partial: "{a} régions sur {b} terminées", v_err: "Globalping n’a renvoyé aucun résultat", v_probe: "{a} régions ont répondu, {b} sans sonde disponible",
+  v_partial: "{a} sondes sur {b} ont fini à temps ; les autres n’ont pas répondu",
+  v_err: "Globalping n’a renvoyé aucun résultat", v_probe: "{a} régions ont répondu, {b} sans sonde disponible",
   v_tokyo: "Seuls nos serveurs ont répondu",
   v_oldbrowser_sub: "Le lien est valable, mais il faut un navigateur plus récent (Chrome 103 ou Safari 16.4 et suivants).",
 
@@ -44,7 +45,7 @@ export default {
   vs_none: "Aucune région n’a reçu de réponse : la cible ou son réseau filtre peut-être ICMP",
   vs_dns: "Aucune région n’a pu résoudre le domaine",
   vs_priv: "Les sondes publiques ne se connectent jamais aux adresses privées",
-  vs_partial: "{a} régions sur {b} terminées ; les autres ne sont pas revenues à temps",
+  vs_partial: "Résultat partiel : les sondes qui n’ont pas répondu sont indiquées plus bas",
   vs_err: "Voir le message ci-dessus ; la vue de nos serveurs peut rester disponible",
   vs_probe: "{a} régions ont répondu ; {b} n’avaient pas de sonde disponible",
   vs_tokyo: "Globalping ne s’est pas lancé ; voici la vue de nos serveurs",
@@ -131,4 +132,6 @@ export default {
   srv_tokyo: "Notre serveur (Tokyo)",
   srv_shanghai: "Notre serveur (Shanghai)",
   t_tokyo_only: "Tester uniquement nos serveurs",
+  slow_missing: "{n} sondes n’ont pas répondu dans le délai",
+  r_timeout: "Pas de réponse dans le délai",
 };

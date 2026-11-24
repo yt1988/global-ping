@@ -34,7 +34,8 @@ export default {
   v_wait: "Test läuft…",
   v_ok: "Alle {a} Standorte haben geantwortet", v_loss: "{a} von {b} Standorten mit Paketverlust", v_some: "{a} von {b} Standorten haben nicht geantwortet",
   v_none: "Keiner der {b} Standorte hat geantwortet", v_dns: "Die Domain ließ sich nicht auflösen", v_priv: "Das ist eine private oder reservierte Adresse",
-  v_partial: "{a} von {b} Standorten fertig", v_err: "Globalping hat kein Ergebnis geliefert", v_probe: "{a} Standorte antworteten, {b} ohne Messpunkt",
+  v_partial: "{a} von {b} Sonden waren rechtzeitig fertig; der Rest antwortete nicht",
+  v_err: "Globalping hat kein Ergebnis geliefert", v_probe: "{a} Standorte antworteten, {b} ohne Messpunkt",
   v_tokyo: "Nur unsere Server liefen",
   v_oldbrowser_sub: "Der Link ist in Ordnung, aber zum Anzeigen braucht es einen neueren Browser (Chrome 103 oder Safari 16.4 und neuer).",
 
@@ -44,7 +45,7 @@ export default {
   vs_none: "Kein Standort bekam eine Antwort: Ziel oder Netz filtern vielleicht ICMP",
   vs_dns: "Kein Standort konnte die Domain auflösen",
   vs_priv: "Öffentliche Messpunkte verbinden sich nie mit privaten Adressen",
-  vs_partial: "{a} von {b} Standorten fertig; die übrigen kamen nicht rechtzeitig zurück",
+  vs_partial: "Das ist ein Teilresultat: Die Sonden ohne Antwort sind unten markiert",
   vs_err: "Sieh die Meldung oben; die Ansicht unserer Server ist vielleicht noch verfügbar",
   vs_probe: "{a} Standorte antworteten; {b} hatten keinen Messpunkt",
   vs_tokyo: "Globalping lief nicht; das ist die Ansicht unserer Server",
@@ -131,4 +132,6 @@ export default {
   srv_tokyo: "Unser Server (Tokio)",
   srv_shanghai: "Unser Server (Shanghai)",
   t_tokyo_only: "Nur unsere Server testen",
+  slow_missing: "{n} Sonden haben nicht rechtzeitig geantwortet",
+  r_timeout: "Nicht rechtzeitig geantwortet",
 };
