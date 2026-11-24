@@ -16,9 +16,9 @@ the jitter, and where packets went missing. A second view comes from our own ser
   it runs out), it is the view that always knows the real loss positions, and comparing it with Globalping's Tokyo probe
   shows whether the two networks see the same path.
 - **Country and continent pages**: one page per country with a probe (86) and per continent (6), in all 10 languages.
-  A country page tests from that country's probes; a continent page tests 4–5 of its countries in one request and shows
-  them side by side. Both open with the static node counts and city list from the shared list — nothing is measured
-  until the visitor presses **Test**.
+  A country page tests three probes in that country; a continent page tests 4–5 of its countries in one request and
+  shows them side by side. Nothing is measured until the visitor presses **Test**, and the country lists can be
+  filtered by name or country code. The list's node counts only rank the probes: they are not shown on the pages.
 
 - **10 languages**: English, 简体中文, 繁體中文, 日本語, 한국어, Español, Français, Deutsch, Português, Русский.
 

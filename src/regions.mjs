@@ -5,6 +5,7 @@
 // 86 countries with at least 3 online probes, continents by probe count (EU, NA, AS, SA, OC, AF), and inside a
 // continent by probe count. Russia is counted in Europe, as the shell's generator does.
 import data from "./regions.json" with { type: "json" };
+import { countryName } from "./model.mjs";
 
 export const DATA = data;
 
@@ -27,6 +28,10 @@ for (const c of CONTINENTS) {
 export const COUNTRIES = CONTINENTS.flatMap(c => c.countries);
 export const countryByCc = cc => byCc.get(cc) || null;
 export const countrySlug = cc => String(cc).toLowerCase();
+// The English full name, for search: the short display name shortens some ("UK", "US") and would hide "United
+// Kingdom" from a visitor typing it.
+const EN_LONG = new Intl.DisplayNames(["en"], { type: "region", style: "long" });
+export const englishName = cc => cc === "TW" ? "Taiwan, China" : (EN_LONG.of(cc) || countryName(cc, "en"));
 // A country's page sits under its continent: /<lang>/europe/de/. Flat codes would collide with the language folders
 // (/de/ is German, but DE is Germany), and the nesting gives the breadcrumb a real address.
 export const countryDir = c => `${c.contSlug}/${countrySlug(c.cc)}`;
@@ -46,5 +51,3 @@ export const neighboursOf = c => {
   return [list[c.i - 2], list[c.i - 1], list[c.i + 1], list[c.i + 2]].filter(Boolean);
 };
 
-// The ten cities with the most probes, as the shell's list writes them: [{city, probes}, …].
-export const citiesOf = c => (Array.isArray(c.city_list) ? c.city_list : []).slice(0, 10);

@@ -35,21 +35,35 @@ test("no page has a duplicate title", async () => {
   assert.equal(seen.size, LANGS.length * dirs.length);
 });
 
-test("a country page carries that country's own numbers and cities", async () => {
+test("a country page shows no Globalping inventory, only the test and its neighbours", async () => {
   const us = countryByCc("US");
   const html = await read("zh-cn/" + countryDir(us) + "/index.html");
-  assert.match(html, new RegExp(new Intl.NumberFormat("zh-CN").format(us.probes)));
-  assert.match(html, /Los Angeles/);
   assert.match(html, /<h1>[^<]*美国/);
+  // probe, city, ASN and eyeball counts stay in the list; they must not appear on the page
+  for (const n of [us.probes, us.cities, us.asns, us.eyeball])
+    assert.ok(!html.includes(new Intl.NumberFormat("zh-CN").format(n)), `inventory number ${n} is on the page`);
+  assert.ok(!html.includes("Los Angeles"), "the city list is not shown");
+  assert.ok(!/节点较少|Few probes/.test(html));
+  // three probes, named before their cities arrive
+  const data = JSON.parse(/<script type="application\/json" id="data">(.*?)<\/script>/s.exec(html)[1]);
+  assert.equal(data.ranges.length, 3);
+  assert.deepEqual(data.ranges.map(r => r.cc), ["US", "US", "US"]);
+  assert.ok(data.ranges.every(r => r.label));
+  // neighbours and the filter
+  assert.ok((html.match(/class="rg-near"/g) || []).length === 1);
+  assert.ok(html.includes("rg-filter-nav"));
 });
 
-test("a continent page tests its five countries in one request", async () => {
+test("a continent page tests five countries in one request and lists them all", async () => {
   const asia = CONTINENTS.find(c => c.code === "AS");
   const html = await read("zh-cn/" + asia.slug + "/index.html");
   const data = JSON.parse(/<script type="application\/json" id="data">(.*?)<\/script>/s.exec(html)[1]);
   assert.equal(data.kind, "continent");
   assert.equal(data.ranges.length, 5);
   assert.deepEqual(data.ranges.map(r => r.cc), asia.countries.slice(0, 5).map(c => c.cc));
+  assert.equal((html.match(/class="rg-ccards"/g) || []).length, 1);
+  assert.equal((html.match(/data-s="/g) || []).length, asia.countries.length + 86, "the cards and the navigation are both filterable");
+  assert.ok(html.includes("rg-filter-cards") && html.includes("rg-filter-nav"));
 });
 
 test("a country page does not start a test by itself", async () => {

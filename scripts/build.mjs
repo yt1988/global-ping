@@ -13,7 +13,7 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { build as bundle } from "esbuild";
 import { countryName, flagCode } from "../src/model.mjs";
-import { CONTINENTS, COUNTRIES, DATA, countryByCc, countrySlug, countryDir, picksOf, neighboursOf, citiesOf, isMain } from "../src/regions.mjs";
+import { CONTINENTS, COUNTRIES, countryByCc, countryDir, picksOf, neighboursOf, isMain, englishName } from "../src/regions.mjs";
 
 const SITE = (process.env.SITE_URL || "https://ping.1ms.dog").replace(/\/+$/, "");
 const pub = new URL("../public/", import.meta.url), src = new URL("../src/", import.meta.url), stat = new URL("../static/", import.meta.url);
@@ -32,8 +32,6 @@ const sha = s => createHash("sha256").update(s).digest("base64");
 const fill = (s, v) => String(s).replace(/\{(\w+)\}/g, (m, k) => (k in v ? v[k] : m));
 const json = x => JSON.stringify(x).replace(/</g, "\\u003c");
 const num = (n, lang) => { try { return new Intl.NumberFormat(lang).format(n); } catch { return String(n); } };
-const pct = (v, lang) => { try { return new Intl.NumberFormat(lang, { style: "percent", maximumFractionDigits: 0 }).format(v); } catch { return Math.round(v * 100) + "%"; } };
-const dateOf = lang => { try { return new Intl.DateTimeFormat(lang, { dateStyle: "medium" }).format(new Date(DATA.version + "T00:00:00Z")); } catch { return DATA.version; } };
 
 export async function loadI18n() {
   const out = {};
@@ -49,9 +47,9 @@ const BUILD_ONLY = new Set(["name", "seo_title", "seo_desc", "seo_kw", "og_sub",
   "lg_jitter", "lg_loss", "t_tokyo_only", "src_gp", "foot_src",
   // country and continent pages: the static text the build writes into them
   "cont_EU", "cont_NA", "cont_AS", "cont_SA", "cont_OC", "cont_AF", "a_crumbs", "nav_regions",
-  "country_h1", "country_title", "country_desc", "country_intro", "c_probes", "c_cities", "c_asns", "c_eyeball",
-  "few_probes", "city_h", "near_h", "data_date", "cont_h1", "cont_title", "cont_desc", "cont_intro", "cont_test",
-  "cont_countries", "route_EU", "route_NA", "route_AS", "route_SA", "route_OC", "route_AF"]);
+  "country_h1", "country_title", "country_desc", "country_intro", "c_probes", "near_h", "cont_h1", "cont_title", "cont_desc", "cont_intro", "cont_test",
+  "cont_countries", "route_EU", "route_NA", "route_AS", "route_SA", "route_OC", "route_AF",
+  "cc_test", "filter_ph", "filter_none", "filter_clear"]);
 
 // Data sources named in the page link to their sites
 const SOURCES = { gp: ["Globalping", "https://globalping.io"] };
@@ -92,17 +90,26 @@ const appSchema = ({ name, url, desc, lang }) => ({ "@type": "WebApplication", n
   operatingSystem: "Any", browserRequirements: "Requires JavaScript", description: desc, inLanguage: lang, isAccessibleForFree: true,
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } });
 
+// What a country can be found by: its name here, its English name and its code (typing "US", "cn", "Germany").
+const searchOf = (cc, lang) => `${countryName(cc, lang)}|${englishName(cc)} ${countryName(cc, "en")}|${cc}`;
+
+// The filter above a country list: it hides rows as you type, shows "N / all" and says when nothing matches.
+function filterBox(T, lang, total, cls) {
+  return `<div class="rg-filter ${cls}"><div class="rg-frow"><input class="rg-q" type="search" placeholder="${esc(T("filter_ph"))}" aria-label="${esc(T("filter_ph"))}" autocomplete="off" spellcheck="false"><span class="rg-count">${num(total, lang)} / ${num(total, lang)}</span><button class="rg-clear" type="button" hidden>${esc(T("filter_clear"))}</button></div><p class="rg-none" hidden>${esc(T("filter_none"))}</p></div>`;
+}
+
 // The bottom navigation: continents by probe count, every country under its continent, the current page marked.
+// Globalping's own probe counts are not shown (they are its inventory, not our coverage).
 function regionNav(T, slug, current) {
   const items = CONTINENTS.map(c => {
     const open = current.cont === c.code ? " open" : "";
     const cc = c.countries.map(x => {
       const here = current.kind === "country" && current.cc === x.cc ? ' aria-current="page"' : "";
-      return `<li><a href="${esc(pathOf(slug, countryDir(x)))}"${here}>${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, current.lang))}</span><span class="rg-n">${num(x.probes, current.lang)}</span></a></li>`;
+      return `<li><a href="${esc(pathOf(slug, countryDir(x)))}"${here} data-s="${esc(searchOf(x.cc, current.lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, current.lang))}</span></a></li>`;
     }).join("");
-    return `<details class="rg-cont"${open}><summary>${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span><span class="rg-n">${num(c.probes, current.lang)}</span></summary><ul class="rg-cc">${cc}</ul></details>`;
+    return `<details class="rg-cont"${open}><summary aria-label="${esc(T("cont_" + c.code))}">${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span></summary><ul class="rg-cc">${cc}</ul></details>`;
   }).join("");
-  return `<nav class="region-nav" aria-labelledby="regionNavH"><h2 id="regionNavH">${esc(T("nav_regions"))}</h2><div class="rg-list">${items}</div></nav>`;
+  return `<nav class="region-nav" aria-labelledby="regionNavH"><h2 id="regionNavH">${esc(T("nav_regions"))}</h2>${filterBox(T, current.lang, COUNTRIES.length, "rg-filter-nav")}<div class="rg-list">${items}</div></nav>`;
 }
 
 function crumbs(T, slug, current) {
@@ -112,49 +119,32 @@ function crumbs(T, slug, current) {
   return `${home}<span aria-hidden="true">/</span><a href="${esc(pathOf(slug, current.contSlug))}">${esc(contName)}</a><span aria-hidden="true">/</span><span>${esc(countryName(current.cc, current.lang))}</span>`;
 }
 
-// What a country has that a template cannot invent: its probes, its cities, where else it is in the list.
-function countrySections(T, lang, c, slug) {
-  const name = countryName(c.cc, lang), n = x => num(x, lang);
-  const cities = citiesOf(c);
-  const near = neighboursOf(c).map(x => `<li><a href="${esc(pathOf(slug, countryDir(x)))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span><span class="rg-n">${n(x.probes)}</span></a></li>`).join("");
-  return `<section class="card sec page-facts">
-    <div class="kpis">
-      <div class="kpi"><b>${n(c.probes)}</b><span>${esc(T("c_probes"))}</span></div>
-      <div class="kpi"><b>${n(c.cities)}</b><span>${esc(T("c_cities"))}</span></div>
-      <div class="kpi"><b>${n(c.asns)}</b><span>${esc(T("c_asns"))}</span></div>
-      <div class="kpi"><b>${pct(c.share, lang)}</b><span>${esc(T("c_eyeball"))}</span></div>
-    </div>
-    <p class="hint">${esc(fill(T("data_date"), { date: dateOf(lang) }))}</p>
-    ${c.probes < 5 ? `<p class="note">${esc(T("few_probes"))}</p>` : ""}
-  </section>
-  ${cities.length ? `<section class="card sec">
-    <h2>${esc(T("city_h"))}</h2>
-    <ul class="rg-cities">${cities.map(x => `<li><span>${esc(x.city)}</span><span class="rg-n">${n(x.probes)}</span></li>`).join("")}</ul>
-  </section>` : ""}
+// What a country page has besides the test: where it is, its neighbours, and (when the shared list carries it) a
+// hand-written note on the country's networks. No Globalping inventory numbers: those rank its probes, they are not
+// our coverage.
+function countrySections(T, lang, c, slug, note = "") {
+  const near = neighboursOf(c).map(x => `<li><a href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, lang))}</span></a></li>`).join("");
+  return `${note ? `<section class="card sec"><p class="route">${esc(note)}</p></section>` : ""}
   <section class="card sec">
     <h2>${esc(fill(T("near_h"), { continent: T("cont_" + c.cont) }))}</h2>
     <ul class="rg-near">${near}</ul>
     <p class="hint"><a href="${esc(pathOf(slug, c.contSlug))}">${esc(fill(T("cont_countries"), { continent: T("cont_" + c.cont) }))}</a></p>
   </section>
-  <section class="card sec xlink" hidden data-tool="reach" data-x="${esc(countryDir(c) + "/")}" data-where="${esc(name)}"></section>`;
+  <section class="card sec xlink" hidden data-tool="reach" data-x="${esc(countryDir(c) + "/")}" data-where="${esc(countryName(c.cc, lang))}"></section>`;
 }
 
-// What a continent has: its size, the countries it tests in one request, and the whole list.
+// What a continent has: its route note, how many countries it covers, and the list of them (each one testable on its
+// own). The list is filterable; the page's test uses the countries with the most probes.
 function continentSections(T, lang, c, slug) {
-  const name = T("cont_" + c.code), n = x => num(x, lang), picks = picksOf(c);
-  const totalEyeball = c.countries.reduce((s, x) => s + x.eyeball, 0), share = c.probes ? totalEyeball / c.probes : 0;
-  const cards = c.countries.map(x => `<li><a href="${esc(pathOf(slug, countryDir(x)))}">${flag(x.cc)}<span class="rg-cc-name">${esc(countryName(x.cc, lang))}</span><span class="rg-cc-m">${n(x.probes)} · ${n(x.cities)}</span></a></li>`).join("");
+  const name = T("cont_" + c.code);
+  const cards = c.countries.map(x => `<li><a href="${esc(pathOf(slug, countryDir(x)))}" data-s="${esc(searchOf(x.cc, lang))}">${flag(x.cc)}<span class="rg-cc-name">${esc(countryName(x.cc, lang))}</span><span class="rg-cc-test">${esc(T("cc_test"))}</span></a></li>`).join("");
   return `<section class="card sec page-facts">
-    <div class="kpis">
-      <div class="kpi"><b>${n(c.probes)}</b><span>${esc(T("c_probes"))}</span></div>
-      <div class="kpi"><b>${n(c.countries.length)}</b><span>${esc(fill(T("cont_countries"), { continent: name }))}</span></div>
-      <div class="kpi"><b>${pct(share, lang)}</b><span>${esc(T("c_eyeball"))}</span></div>
-    </div>
-    <p class="hint">${esc(fill(T("data_date"), { date: dateOf(lang) }))}</p>
+    <p class="page-sub">${esc(fill(T("cont_countries"), { continent: name }))}: ${num(c.countries.length, lang)}</p>
     <p class="route">${esc(T("route_" + c.code))}</p>
   </section>
   <section class="card sec">
     <h2>${esc(fill(T("cont_countries"), { continent: name }))}</h2>
+    ${filterBox(T, lang, c.countries.length, "rg-filter-cards")}
     <ul class="rg-ccards">${cards}</ul>
   </section>
   <section class="card sec xlink" hidden data-tool="reach" data-x="${esc(c.slug + "/")}" data-where="${esc(name)}"></section>`;
@@ -232,15 +222,18 @@ export async function build() {
         const c = pg.kind === "continent" ? CONTINENTS.find(x => x.code === pg.cont) : countryByCc(pg.cc);
         const name = pg.kind === "continent" ? T("cont_" + pg.cont) : countryName(pg.cc, lang);
         const v = pg.kind === "continent"
-          ? { continent: name, n: num(c.probes, lang), c: num(c.countries.length, lang), k: num(picksOf(c).length, lang) }
-          : { country: name, n: num(c.probes, lang), cities: num(c.cities, lang) };
+          ? { continent: name, c: num(c.countries.length, lang), k: num(picksOf(c).length, lang) }
+          : { country: name };
         title = fill(pg.kind === "continent" ? T("cont_title") : T("country_title"), v) + " · " + T("app_name");
         desc = fill(pg.kind === "continent" ? T("cont_desc") : T("country_desc"), v);
         kw = T("seo_kw") + ", " + name;
         og = desc;
         const h1 = fill(pg.kind === "continent" ? T("cont_h1") : T("country_h1"), v);
         const intro = fill(pg.kind === "continent" ? T("cont_intro") : T("country_intro"), v);
-        const ranges = (pg.kind === "continent" ? picksOf(c) : [c]).map(x => ({ key: "c:" + x.cc, g: "topic", cc: x.cc, loc: { country: x.cc } }));
+        // A continent tests its five countries in one request; a country asks for three probes of its own.
+        const ranges = pg.kind === "continent"
+          ? picksOf(c).map(x => ({ key: "c:" + x.cc, g: "topic", cc: x.cc, loc: { country: x.cc } }))
+          : [0, 1, 2].map(i => ({ key: `c:${pg.cc}:${i}`, g: "topic", cc: pg.cc, n: i + 1, loc: { country: pg.cc }, label: fill(T("probe_n"), { n: i + 1 }) }));
         const tableH = pg.kind === "continent" ? fill(T("cont_countries"), { continent: name }) : T("c_probes");
         const goText = pg.kind === "continent" ? fill(T("cont_test"), { k: num(ranges.length, lang) }) : T("go");
         const sections = pg.kind === "continent" ? continentSections(T, lang, c, slug) : countrySections(T, lang, c, slug);

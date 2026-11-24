@@ -64,6 +64,63 @@ for (const el of document.querySelectorAll("[data-tool]")) {
   el.hidden = false;
 }
 
+// Country filters: the bottom navigation's 86 countries, and on a continent page that continent's list. Matching is
+// pure front-end (names here, English names, two-letter codes; spaces and case ignored) and nothing is requested.
+const qnorm = v => String(v).toLowerCase().replace(/\s+/g, "");
+const qwords = v => String(v).toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+// A row matches when its code is the query, or a word of its name here or in English starts with it; text without
+// spaces (Chinese, Japanese) matches anywhere. "US" then finds the United States, not every name with "us" inside.
+const qhit = (raw, s) => {
+  const q = String(raw).trim().toLowerCase();
+  if (!q) return true;
+  const [loc, en, code] = s.split("|").map(x => x || "");
+  const squeezed = q.replace(/\s+/g, "");
+  if (code.toLowerCase() === squeezed) return true;
+  if (/[^\x00-\x7f]/.test(squeezed)) return qnorm(loc).includes(squeezed) || qnorm(en).includes(squeezed);
+  // every word the visitor typed must start a word of one of the names: "united states" finds the United States,
+  // "states" does too, and "US" is the code, not the "us" inside other names
+  const want = qwords(q), pool = [...qwords(loc), ...qwords(en)];
+  return want.length > 0 && want.every(w => pool.some(x => x.startsWith(w)));
+};
+function wireFilter(box) {
+  const input = box.querySelector(".rg-q"), count = box.querySelector(".rg-count"), none = box.querySelector(".rg-none"), clear = box.querySelector(".rg-clear");
+  if (!input) return;
+  const scope = box.closest(".region-nav") || box.closest("section") || box.parentElement;
+  const items = [...scope.querySelectorAll("[data-s]")].map(a => ({ li: a.closest("li"), s: a.dataset.s }));
+  const total = items.length, nav = scope.classList.contains("region-nav") ? scope : null, conts = nav ? [...nav.querySelectorAll(".rg-cont")] : [];
+  conts.forEach(d => { d.dataset.was = d.open ? "1" : ""; });
+  const update = () => {
+    const q = input.value;
+    let n = 0;
+    for (const it of items) { const hit = qhit(q, it.s); it.li.hidden = !hit; if (hit) n++; }
+    for (const d of conts) {
+      const hit = [...d.querySelectorAll("[data-s]")].some(a => !a.closest("li").hidden);
+      d.hidden = !!q && !hit;
+      d.open = q ? hit : d.dataset.was === "1";
+    }
+    count.textContent = `${n} / ${total}`;
+    none.hidden = n > 0;
+    clear.hidden = !input.value;
+  };
+  input.addEventListener("input", update);
+  input.addEventListener("keydown", e => {
+    if (e.key === "Escape") { e.preventDefault(); input.value = ""; update(); input.blur(); }
+    if (e.key === "Enter") e.preventDefault();
+  });
+  clear.addEventListener("click", () => { input.value = ""; update(); input.focus(); });
+  update();
+}
+document.querySelectorAll(".rg-filter").forEach(wireFilter);
+// "/" jumps to the filter: the continent's own list first, otherwise the navigation's.
+document.addEventListener("keydown", e => {
+  if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+  const el = e.target;
+  if (el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable)) return;
+  if (document.querySelector(".scrim:not([hidden])")) return;
+  const f = document.querySelector(".rg-filter-cards .rg-q") || document.querySelector(".rg-filter-nav .rg-q");
+  if (f) { e.preventDefault(); f.focus(); }
+});
+
 // the help dialog: one answer at a time; a picker with previous / next on phones
 const all = s => [...document.querySelectorAll(s)];
 const openDlg = id => { $(id).hidden = false; document.documentElement.style.overflow = "hidden"; $(id).querySelector("[data-close]").focus(); };
@@ -90,10 +147,19 @@ all("[data-hstep]").forEach(b => { b.onclick = () => showHelp(helpIdx + +b.datas
 // row names: carriers by name, city probes with their country, the rest by country. Taiwan is the fixed exception.
 // Our own Tokyo server is not one of the 18 and is named by its source.
 const ours = region => region.key === TOKYO_REGION.key;
+// A country page's row name once its probe is known: country, city, and the network (three probes in one city would
+// otherwise read the same).
+const rowName = row => {
+  if (!row) return "";
+  if (TOPIC && D.kind === "country" && row.probe && row.probe.city)
+    return `${t("probe_n", { n: row.region.n })} · ${row.probe.city}${row.probe.asn ? " · AS" + row.probe.asn : ""}`;
+  return row.region ? nameOf(row.region) : "";
+};
 const nameOf = region => {
   if (ours(region)) return t("t_label");
   if (region.carrier) return t("c_" + region.carrier);
   if (region.city) return `${countryName(region.cc, D.lang)} · ${t("city_" + region.city)}`;
+  if (region.label) return region.label;   // a country page's "Probe 1" until the city is known
   return countryName(region.cc, D.lang);
 };
 // The card uses the same names as the page: country for a single point, "country · city" when the city is the point
@@ -235,6 +301,11 @@ function settle(s) {
   s.findings = (s.verdict.k === "err" || s.verdict.k === "partial" || (TOPIC && D.kind === "country")) ? [] : findings(s.rows, s.tokyo);
   drawVerdict(s); drawKpis(s); drawFindings(s);
   showProgress(s.rows.filter(r => r && r.state !== "pending").length);
+  // Fewer answers than asked for is worth saying in the result, not in the page copy: "only N samples this time".
+  if (TOPIC && !s.gpError) {
+    const answered = s.rows.filter(r => r && r.rcv > 0).length;
+    noteShow(answered > 0 && answered < REGIONS.length ? t("samples_low", { n: answered }) : "");
+  }
   $("shareBtn").hidden = !canShare(s);
   $("tokyoFallback").hidden = !WITH_TOKYO || s.tokyoError === "down" ||
     !(s.verdict.k === "err" || s.verdict.k === "partial" || (quotaLeft != null && quotaLeft < COST));
@@ -356,6 +427,14 @@ function fillRow(s, region, row) {
   med.innerHTML = `${ms} <small>ms</small>`;
   meta.innerHTML = `${j ? esc(j) + " · " : ""}${row.rcv}/${PACKETS}${row.posUnknown && row.rcv < PACKETS ? " ?" : ""}`;
   if (row.state === "none") { med.textContent = "—"; meta.innerHTML = `0/${PACKETS}`; }
+  // A country page asks for three probes there: once the answer is in, name each row by its city so the three can be
+  // told apart (the page's own "Probe 1/2/3" labels before that).
+  if (TOPIC && D.kind === "country" && row.probe && row.probe.city) {
+    const nm = rowName(row);
+    el.dataset.name = nm;
+    const slot = el.querySelector(".nm");
+    if (slot) slot.textContent = nm;
+  }
   const who = el.dataset.name;
   el.setAttribute("aria-label", t("aria_row", { name: who, ms, j: j ? j.slice(1) : "—", rcv: row.rcv }));
 }
@@ -448,7 +527,7 @@ function drawVerdict(s) {
   const dot = $("vDot"), title = $("vTitle"), sub = $("vSub");
   if (!v) { dot.className = "dot"; title.textContent = t("v_wait"); sub.textContent = ""; return; }
   if (TOPIC && D.kind === "country") {
-    const row = s.rows[0] || {};
+    const rows = s.rows.filter(r => r && r.state !== "pending"), answered = rows.filter(r => r && r.rcv > 0).length;
     if (s.gpError) {
       // the same messages as the home page: no allowance, Globalping unreachable, or its own error
       dot.className = "dot warn";
@@ -457,10 +536,12 @@ function drawVerdict(s) {
         { min: Math.ceil((s.gpReset || 3600) / 60), msg: s.gpMsg || "" });
       return;
     }
-    const key = row.state === "noprobe" ? "cr_noprobe" : row.state === "failed" || row.state === "priv" || !row.state ? "cr_fail"
-      : row.rcv === PACKETS ? "cr_ok" : row.rcv > 0 ? "cr_loss" : "cr_none";
-    dot.className = "dot " + (key === "cr_ok" ? "ok" : key === "cr_loss" ? "warn" : "bad");
-    title.textContent = t(key, { rcv: row.rcv || 0 });
+    const allGone = rows.length > 0 && rows.every(r => r.state === "failed" || r.state === "priv");
+    const noProbe = rows.length > 0 && rows.every(r => r.state === "noprobe");
+    const key = !rows.length ? "cr_none" : noProbe ? "cr_noprobe" : allGone ? "cr_fail"
+      : answered === rows.length ? "cr_ok" : answered ? "cr_some" : "cr_none";
+    dot.className = "dot " + (key === "cr_ok" ? "ok" : key === "cr_some" ? "warn" : "bad");
+    title.textContent = t(key, { n: rows.length, ok: answered });
     sub.textContent = "";
     return;
   }
@@ -501,7 +582,7 @@ function drawKpis(s) {
   const sent = replied.length * PACKETS, got = replied.reduce((n, r) => n + r.rcv, 0);
   $("kMedian").innerHTML = `${fmtMs(gm, D.lang)} <small>ms</small>`;
   $("kJitter").innerHTML = j ? `±${fmtMs(j.jitter, D.lang)} <small>ms</small>` : "—";
-  $("kJitterWho").textContent = j && !s.tokyoOnly ? nameOf(j.region) : "";
+  $("kJitterWho").textContent = j && !s.tokyoOnly ? rowName(j) : "";
   $("kLoss").innerHTML = fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0);
 }
 function drawFindings(s) {
