@@ -134,4 +134,5 @@ export default {
   t_tokyo_only: "Tester uniquement nos serveurs",
   slow_missing: "{n} sondes n’ont pas répondu dans le délai",
   r_timeout: "Pas de réponse dans le délai",
+  quota_short: "Pas assez de quota pour ce test : il en faut {cost}, il en reste {left} ; il revient dans environ {min} min",
 };

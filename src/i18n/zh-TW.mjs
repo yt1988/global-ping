@@ -135,4 +135,5 @@ export default {
   t_tokyo_only: "只看本站伺服器",
   slow_missing: "{n} 個探針未在限時內返回",
   r_timeout: "限時內未返回",
+  quota_short: "額度不足：本次需要 {cost} 個地區次，目前還剩 {left} 個，約 {min} 分鐘後恢復",
 };

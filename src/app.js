@@ -192,15 +192,17 @@ async function loadQuota(quiet = false) {
     quotaLeft = c.remaining; quotaReset = c.reset; showQuota();
   } catch { quotaLeft = null; showQuota(); }
 }
+// Three states, one wording across the three pages: enough, not enough but some left, and none left.
+function quotaText() {
+  const min = Math.ceil((quotaReset || 3600) / 60);
+  if (quotaLeft == null) return t("quota_unknown");
+  if (quotaLeft <= 0) return t("quota_out", { min });
+  if (quotaLeft < COST) return t("quota_short", { cost: COST, left: quotaLeft, min });
+  return t(pkOf("quota_ok", quotaLeft), { left: quotaLeft, cost: COST });
+}
 function showQuota() {
-  if (quotaLeft == null) { $("quota").textContent = t("quota_unknown"); quotaBlocked = false; }
-  else {
-    const min = Math.ceil((quotaReset || 3600) / 60);
-    quotaBlocked = quotaLeft < COST;
-    $("quota").textContent = quotaBlocked
-      ? t("quota_out", { min })
-      : t(pkOf("quota_ok", quotaLeft), { left: quotaLeft, cost: COST });
-  }
+  $("quota").textContent = quotaText();
+  quotaBlocked = quotaLeft != null && quotaLeft < COST;
   if (!testing) markBlocked(quotaBlocked);
 }
 // The button stays clickable while the allowance is too low (a native disabled button gets no click): it says so
@@ -279,7 +281,6 @@ function start() {
   $("tokyoFallback").hidden = true;
   $("regions").hidden = false; $("kpis").hidden = false;
   noteShow("");
-  if (quotaLeft != null) { quotaLeft = Math.max(0, quotaLeft - COST); showQuota(); }
   if (TOPIC) {
     // no rows until the API has told us which probes run: "probe 1/2/3" is not a name
     rowEls = new Map(); detailEls = new Map();
@@ -633,8 +634,8 @@ function drawVerdict(s) {
       // the same messages as the home page: no allowance, Globalping unreachable, or its own error
       dot.className = "dot warn";
       title.textContent = t("cr_fail");
-      sub.textContent = t(s.gpError === "429" ? "quota_out" : s.gpError === "unreach" ? "gp_unreach" : "gp_err",
-        { min: Math.ceil((s.gpReset || 3600) / 60), msg: s.gpMsg || "" });
+      sub.textContent = s.gpError === "429" ? quotaText()
+        : t(s.gpError === "unreach" ? "gp_unreach" : "gp_err", { min: Math.ceil((s.gpReset || 3600) / 60), msg: s.gpMsg || "" });
       return;
     }
     const allGone = rows.length > 0 && rows.every(r => r.state === "failed" || r.state === "priv");
@@ -659,8 +660,8 @@ function subLine(s) {
   const v = s.verdict;
   if (v.k === "tokyo") return t("vs_tokyo");
   if (s.gpError) {
-    const key = s.gpError === "429" ? "quota_out" : s.gpError === "unreach" ? "gp_unreach" : "gp_err";
-    return t(key, { min: Math.ceil((s.gpReset || 3600) / 60), msg: s.gpMsg || "" });
+    if (s.gpError === "429") return quotaText();
+    return t(s.gpError === "unreach" ? "gp_unreach" : "gp_err", { min: Math.ceil((s.gpReset || 3600) / 60), msg: s.gpMsg || "" });
   }
   if (v.k === "ok" || v.k === "probe") return t("vs_" + v.k, { n: replied.length, a: v.a, b: v.b,
     fast: fastest ? nameOf(fastest.region) : "", fms: fastest ? fmtMs(fastest.median, D.lang) : "",
@@ -909,6 +910,9 @@ window.msReport = () => state && state.verdict ? {
   picks: state.rows.filter(r => r && r.rcv < PACKETS).slice(0, 8).map(r => `${nameOf(r.region)}: ${r.rcv}/16`),
 } : null;
 
-// under "from here": the visitor's target, and the allowance they have this hour
+// under "from here": the visitor's target, and the allowance they have this hour. Read it again when the page comes
+// back from the back/forward cache or the tab becomes visible, so a page does not act on an hour-old number.
 loadQuota();
+addEventListener("pageshow", e => { if (e.persisted) loadQuota(true); });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) loadQuota(true); });
 })();

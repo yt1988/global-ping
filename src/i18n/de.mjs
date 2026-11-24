@@ -134,4 +134,5 @@ export default {
   t_tokyo_only: "Nur unsere Server testen",
   slow_missing: "{n} Sonden haben nicht rechtzeitig geantwortet",
   r_timeout: "Nicht rechtzeitig geantwortet",
+  quota_short: "Nicht genug Kontingent für diesen Test: nötig sind {cost} Regions-Checks, übrig sind {left}; es kommt in etwa {min} Min. zurück",
 };

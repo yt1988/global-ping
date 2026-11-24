@@ -134,4 +134,5 @@ export default {
   t_tokyo_only: "자체 서버만 테스트",
   slow_missing: "프로브 {n}곳이 제한 시간 안에 응답하지 않았어요",
   r_timeout: "시간 안에 응답 없음",
+  quota_short: "이번 테스트에는 {cost}개 지역분이 필요한데 {left}개만 남았어요. 약 {min}분 후에 회복돼요",
 };
