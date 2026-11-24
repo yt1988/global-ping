@@ -193,10 +193,28 @@ function showQuota() {
     const min = Math.ceil((quotaReset || 3600) / 60);
     quotaBlocked = quotaLeft < COST;
     $("quota").textContent = quotaBlocked
-      ? t("quota_short", { cost: COST, min })
+      ? t("quota_out", { min })
       : t(pkOf("quota_ok", quotaLeft), { left: quotaLeft, cost: COST });
   }
-  if (!testing) $("go").disabled = quotaBlocked;
+  if (!testing) markBlocked(quotaBlocked);
+}
+// The button stays clickable while the allowance is too low (a native disabled button gets no click): it says so
+// through aria-disabled and its look, and a click flashes and announces the allowance line instead of requesting.
+function markBlocked(blocked) {
+  const b = $("go");
+  b.disabled = false;
+  b.setAttribute("aria-disabled", blocked ? "true" : "false");
+  b.classList.toggle("is-off", blocked);
+}
+function flashQuota() {
+  const el = $("quota");
+  el.classList.remove("flash");
+  void el.offsetWidth;
+  el.classList.add("flash");
+  const live = $("quotaLive");
+  if (live) { live.textContent = ""; requestAnimationFrame(() => { live.textContent = el.textContent; }); }
+  clearTimeout(flashQuota.t);
+  flashQuota.t = setTimeout(() => el.classList.remove("flash"), 1400);
 }
 function updateQuota(headers) {
   const left = headers.get("x-ratelimit-remaining"), reset = +headers.get("x-ratelimit-reset");
@@ -209,10 +227,14 @@ let rowEls = new Map(), detailEls = new Map();
 
 const setGo = (busy) => {
   testing = busy;
-  const b = $("go"); b.disabled = busy || quotaBlocked;
+  const b = $("go");
+  if (busy) { b.disabled = true; b.removeAttribute("aria-disabled"); b.classList.remove("is-off"); }
+  else markBlocked(quotaBlocked);
   b.textContent = busy ? t("running") : t(state && state.verdict && !state.tokyoOnly ? "go_again" : "go");
 };
 $("f").addEventListener("submit", e => { e.preventDefault(); start(); });
+// A click on the off-looking button always says why, even when the browser's own validation stops the submit first.
+$("go").addEventListener("click", () => { if (quotaBlocked) flashQuota(); });
 
 // A country page has one probe: "0 / 1 regions finished" says nothing. It shows "Testing…" while it runs and nothing
 // once the answer is in; a continent page counts countries like the home page counts regions.
@@ -235,7 +257,7 @@ $("target").addEventListener("input", () => {
 });
 
 function start() {
-  if (quotaBlocked) { loadQuota(); return; }   // the button is disabled, but Enter in the field can still submit
+  if (quotaBlocked) { flashQuota(); loadQuota(true); return; }   // the button looks off, but either a click or Enter gets here
   const raw = $("target").value.trim();
   const tg = normalizeTarget(raw);
   if (tg.error) { note(tg.error === "private" ? "bad_private" : "bad_target"); $("target").focus(); return; }
@@ -590,7 +612,7 @@ function drawVerdict(s) {
       // the same messages as the home page: no allowance, Globalping unreachable, or its own error
       dot.className = "dot warn";
       title.textContent = t("cr_fail");
-      sub.textContent = t(s.gpError === "429" ? "gp_429" : s.gpError === "unreach" ? "gp_unreach" : "gp_err",
+      sub.textContent = t(s.gpError === "429" ? "quota_out" : s.gpError === "unreach" ? "gp_unreach" : "gp_err",
         { min: Math.ceil((s.gpReset || 3600) / 60), msg: s.gpMsg || "" });
       return;
     }
@@ -615,7 +637,7 @@ function subLine(s) {
   const v = s.verdict;
   if (v.k === "tokyo") return t("vs_tokyo");
   if (s.gpError) {
-    const key = s.gpError === "429" ? "gp_429" : s.gpError === "unreach" ? "gp_unreach" : "gp_err";
+    const key = s.gpError === "429" ? "quota_out" : s.gpError === "unreach" ? "gp_unreach" : "gp_err";
     return t(key, { min: Math.ceil((s.gpReset || 3600) / 60), msg: s.gpMsg || "" });
   }
   if (v.k === "ok" || v.k === "probe") return t("vs_" + v.k, { n: replied.length, a: v.a, b: v.b,

@@ -263,3 +263,9 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .rg-cont-link:hover { background: var(--soft); text-decoration: none; }
 .rg-cont-link[aria-current="page"] { background: var(--soft); }
 .rg-ic { width: 18px; height: 18px; color: var(--muted); flex: none; }
+
+/* the allowance is too low: the button is not disabled (it must take the click), but it looks and says off */
+.btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+.btn[aria-disabled="true"]:hover { opacity: .45; }
+#quota.flash { color: var(--bad); animation: quota-flash .4s ease-in-out 3; }
+@keyframes quota-flash { 50% { opacity: .3; } }

@@ -67,7 +67,6 @@ export default {
   aria_row: "{name}: median {ms} ms, jitter {j}, {rcv} of 16 replied",
 
   gp_unreach: "Couldn't reach Globalping's API; the worldwide check didn't run.",
-  gp_429: "The worldwide check's allowance is used up; it comes back in about {min} min.",
   gp_err: "The worldwide check didn't run: {msg}",
   bad_target: "That doesn't look like a domain or IP. Enter a domain, an IPv4 or an IPv6 address.",
   bad_private: "That's a private or reserved address, so public probes can't reach it.",
@@ -132,5 +131,4 @@ export default {
   samples_low: "Only {n} samples came back this time",
   explore_h: "Test by country or region",
   allocating: "Allocating test probes…",
-  quota_short: "Not enough allowance for this test ({cost} needed); it comes back in about {min} min.",
 };

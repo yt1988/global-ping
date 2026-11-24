@@ -66,7 +66,6 @@ export default {
   aria_row: "{name}: mediana {ms} ms, jitter {j}, {rcv} de 16 responderam",
 
   gp_unreach: "Não foi possível falar com a API do Globalping; o teste mundial não rodou.",
-  gp_429: "A cota do teste mundial acabou; ela volta em cerca de {min} min.",
   gp_err: "O teste mundial não rodou: {msg}",
   bad_target: "Isso não parece um domínio nem um IP. Digite um domínio, IPv4 ou IPv6.",
   bad_private: "É um endereço privado ou reservado: sondas públicas não chegam nele.",
@@ -131,5 +130,4 @@ export default {
   samples_low: "Desta vez voltaram apenas {n} amostras",
   explore_h: "Testar por país ou região",
   allocating: "Alocando sondas de teste…",
-  quota_short: "Sem cota suficiente para este teste ({cost} necessários); volta em cerca de {min} min.",
 };

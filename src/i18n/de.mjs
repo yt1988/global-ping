@@ -66,7 +66,6 @@ export default {
   aria_row: "{name}: Median {ms} ms, Jitter {j}, {rcv} von 16 beantwortet",
 
   gp_unreach: "Die Globalping-API war nicht erreichbar; der weltweite Test lief nicht.",
-  gp_429: "Das Kontingent des weltweiten Tests ist aufgebraucht; es kommt in etwa {min} Min. zurück.",
   gp_err: "Der weltweite Test lief nicht: {msg}",
   bad_target: "Das sieht nicht nach einer Domain oder IP aus. Gib eine Domain, IPv4 oder IPv6 ein.",
   bad_private: "Das ist eine private oder reservierte Adresse: öffentliche Messpunkte erreichen sie nicht.",
@@ -131,5 +130,4 @@ export default {
   samples_low: "Diesmal kamen nur {n} Antworten zurück",
   explore_h: "Nach Land oder Region testen",
   allocating: "Test-Sonden werden zugewiesen…",
-  quota_short: "Nicht genug Kontingent für diesen Test ({cost} nötig); es kommt in etwa {min} Min. zurück.",
 };

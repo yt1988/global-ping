@@ -67,7 +67,6 @@ export default {
   aria_row: "{name}：中位 {ms} ms，抖動 {j}，16 個封包收到 {rcv} 個",
 
   gp_unreach: "連不上 Globalping 的介面，全球檢測沒有執行。",
-  gp_429: "全球檢測的額度用完了，大約 {min} 分鐘後恢復。",
   gp_err: "全球檢測沒有執行：{msg}",
   bad_target: "這不像一個網域或 IP。請輸入網域、IPv4 或 IPv6 位址。",
   bad_private: "這是內網或保留位址，公網探測點連不到。",
@@ -132,5 +131,4 @@ export default {
   samples_low: "本次只得到 {n} 個樣本",
   explore_h: "依國家或地區測試",
   allocating: "正在分配測試節點…",
-  quota_short: "額度不足：本次需要 {cost} 個地區次，約 {min} 分鐘後恢復。",
 };

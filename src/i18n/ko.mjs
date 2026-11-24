@@ -66,7 +66,6 @@ export default {
   aria_row: "{name}: 중앙값 {ms} ms, 지터 {j}, 16개 중 {rcv}개 응답",
 
   gp_unreach: "Globalping API에 연결하지 못해 세계 체크가 실행되지 않았어요.",
-  gp_429: "세계 체크 이용 한도를 다 썼어요. 약 {min}분 뒤에 다시 쓸 수 있어요.",
   gp_err: "세계 체크가 실행되지 않았어요: {msg}",
   bad_target: "도메인이나 IP 형식이 아니에요. 도메인, IPv4, IPv6 중 하나를 입력하세요.",
   bad_private: "사설 또는 예약 주소예요. 공개 관측 지점에서는 닿을 수 없어요.",
@@ -131,5 +130,4 @@ export default {
   samples_low: "이번에는 샘플이 {n}개만 돌아왔어요",
   explore_h: "국가·지역으로 테스트",
   allocating: "테스트 프로브를 배정하는 중…",
-  quota_short: "이번 테스트에는 {cost}회분이 필요해요. 약 {min}분 후에 회복돼요.",
 };

@@ -67,7 +67,6 @@ export default {
   aria_row: "{name}：中位 {ms} ms，抖动 {j}，16 个包收到 {rcv} 个",
 
   gp_unreach: "连不上 Globalping 的接口，全球检测没有执行。",
-  gp_429: "全球检测的额度用完了，约 {min} 分钟后恢复。",
   gp_err: "全球检测没有执行：{msg}",
   bad_target: "这不像一个域名或 IP。请输入域名、IPv4 或 IPv6 地址。",
   bad_private: "这是内网或保留地址，公网探测点连不到。",
@@ -132,5 +131,4 @@ export default {
   samples_low: "本次只得到 {n} 个样本",
   explore_h: "按国家或地区测试",
   allocating: "正在分配测试节点…",
-  quota_short: "额度不足：本次需要 {cost} 个地区次，约 {min} 分钟后恢复。",
 };

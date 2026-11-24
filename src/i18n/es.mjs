@@ -66,7 +66,6 @@ export default {
   aria_row: "{name}: mediana {ms} ms, jitter {j}, {rcv} de 16 respondieron",
 
   gp_unreach: "No se pudo conectar con la API de Globalping; la comprobación mundial no se ejecutó.",
-  gp_429: "La cuota de la comprobación mundial está agotada; vuelve en unos {min} min.",
   gp_err: "La comprobación mundial no se ejecutó: {msg}",
   bad_target: "Eso no parece un dominio ni una IP. Escribe un dominio, una IPv4 o una IPv6.",
   bad_private: "Es una dirección privada o reservada: las sondas públicas no pueden llegar.",
@@ -131,5 +130,4 @@ export default {
   samples_low: "Esta vez solo volvieron {n} muestras",
   explore_h: "Probar por país o región",
   allocating: "Asignando sondas de prueba…",
-  quota_short: "No hay cuota suficiente para esta prueba (hacen falta {cost}); vuelve en unos {min} min.",
 };

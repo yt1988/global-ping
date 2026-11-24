@@ -66,7 +66,6 @@ export default {
   aria_row: "{name} : médiane {ms} ms, gigue {j}, {rcv} réponses sur 16",
 
   gp_unreach: "Impossible de joindre l'API de Globalping ; le test mondial n'a pas tourné.",
-  gp_429: "Le quota du test mondial est épuisé ; il revient dans environ {min} min.",
   gp_err: "Le test mondial n'a pas tourné : {msg}",
   bad_target: "Cela ne ressemble pas à un domaine ni à une IP. Saisissez un domaine, une IPv4 ou une IPv6.",
   bad_private: "C’est une adresse privée ou réservée : les sondes publiques ne peuvent pas l’atteindre.",
@@ -131,5 +130,4 @@ export default {
   samples_low: "Cette fois, seules {n} réponses sont revenues",
   explore_h: "Tester par pays ou région",
   allocating: "Attribution des sondes de test…",
-  quota_short: "Pas assez de quota pour ce test ({cost} nécessaires) ; il revient dans environ {min} min.",
 };

@@ -66,7 +66,6 @@ export default {
   aria_row: "{name}：中央値 {ms} ms、ジッター {j}、16 パケット中 {rcv} 応答",
 
   gp_unreach: "Globalping の API に接続できず、世界のチェックは実行されませんでした。",
-  gp_429: "世界のチェックの利用枠を使い切りました。約 {min} 分後に戻ります。",
   gp_err: "世界のチェックは実行されませんでした：{msg}",
   bad_target: "ドメインか IP の形式ではありません。ドメイン、IPv4、IPv6 のいずれかを入力してください。",
   bad_private: "プライベートまたは予約済みのアドレスです。公開されている観測地点からは届きません。",
@@ -131,5 +130,4 @@ export default {
   samples_low: "今回の応答は {n} 件だけでした",
   explore_h: "国・地域からテスト",
   allocating: "テスト用プローブを割り当てています…",
-  quota_short: "今回のテストには {cost} 回分の枠が必要です。約 {min} 分後に回復します。",
 };
