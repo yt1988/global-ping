@@ -88,7 +88,6 @@ function wireFilter(box) {
   const scope = box.closest(".region-nav") || box.closest("section") || box.parentElement;
   const items = [...scope.querySelectorAll("[data-s]")].map(a => ({ li: a.closest("li"), s: a.dataset.s }));
   const total = items.length, nav = scope.classList.contains("region-nav") ? scope : null, conts = nav ? [...nav.querySelectorAll(".rg-cont")] : [];
-  conts.forEach(d => { d.dataset.was = d.open ? "1" : ""; });
   const update = () => {
     const q = input.value;
     let n = 0;
@@ -96,7 +95,6 @@ function wireFilter(box) {
     for (const d of conts) {
       const hit = [...d.querySelectorAll("[data-s]")].some(a => !a.closest("li").hidden);
       d.hidden = !!q && !hit;
-      d.open = q ? hit : d.dataset.was === "1";
     }
     count.textContent = `${n} / ${total}`;
     none.hidden = n > 0;
@@ -264,8 +262,8 @@ function start() {
 }
 
 async function runGlobalping(s) {
-  const body = { type: "ping", target: s.tg.host, inProgressUpdates: true,
-    locations: REGIONS.map(x => ({ ...x.loc, limit: 1 })),
+  const locations = Array.isArray(D.locations) ? D.locations : REGIONS.map(x => ({ ...x.loc, limit: 1 }));
+  const body = { type: "ping", target: s.tg.host, inProgressUpdates: true, locations,
     measurementOptions: { protocol: "ICMP", packets: PACKETS, ...(s.tg.isIp ? {} : { ipVersion: +s.ipv }) } };
   let r, j;
   try {

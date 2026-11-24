@@ -98,18 +98,18 @@ function filterBox(T, lang, total, cls) {
   return `<div class="rg-filter ${cls}"><div class="rg-frow"><input class="rg-q" type="search" placeholder="${esc(T("filter_ph"))}" aria-label="${esc(T("filter_ph"))}" autocomplete="off" spellcheck="false"><span class="rg-count">${num(total, lang)} / ${num(total, lang)}</span><button class="rg-clear" type="button" hidden>${esc(T("filter_clear"))}</button></div><p class="rg-none" hidden>${esc(T("filter_none"))}</p></div>`;
 }
 
-// The bottom navigation: continents by probe count, every country under its continent, the current page marked.
-// Globalping's own probe counts are not shown (they are its inventory, not our coverage).
+// The navigation under every topic page: continents by probe count, each with its countries as the same chip flow.
+// Nothing folds: every continent is open, and its name is the link to the continent page.
 function regionNav(T, slug, current) {
-  const items = CONTINENTS.map(c => {
-    const open = current.cont === c.code ? " open" : "";
+  const groups = CONTINENTS.map(c => {
     const cc = c.countries.map(x => {
       const here = current.kind === "country" && current.cc === x.cc ? ' aria-current="page"' : "";
       return `<li><a class="rg-chip" href="${esc(pathOf(slug, countryDir(x)))}"${here} data-s="${esc(searchOf(x.cc, current.lang))}">${flag(x.cc)}<span class="rg-cname">${esc(countryName(x.cc, current.lang))}</span></a></li>`;
     }).join("");
-    return `<details class="rg-cont"${open}><summary aria-label="${esc(T("cont_" + c.code))}">${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span></summary><ul class="rg-cc">${cc}</ul></details>`;
+    const here = current.kind === "continent" && current.cont === c.code ? ' aria-current="page"' : "";
+    return `<section class="rg-cont"><a class="rg-cont-link" href="${esc(pathOf(slug, c.slug))}"${here} aria-label="${esc(fill(T("cont_h1"), { continent: T("cont_" + c.code) }))}">${GLOBE}<span class="rg-cname">${esc(T("cont_" + c.code))}</span></a><ul class="rg-cc">${cc}</ul></section>`;
   }).join("");
-  return `<nav class="region-nav" aria-labelledby="regionNavH"><h2 id="regionNavH">${esc(T("nav_regions"))}</h2>${filterBox(T, current.lang, COUNTRIES.length, "rg-filter-nav")}<div class="rg-list">${items}</div></nav>`;
+  return `<nav class="region-nav" aria-labelledby="regionNavH"><h2 id="regionNavH">${esc(T("nav_regions"))}</h2>${filterBox(T, current.lang, COUNTRIES.length, "rg-filter-nav")}<div class="rg-list">${groups}</div></nav>`;
 }
 
 // The home page's way into every country page: the six continents, then the 86 countries as the same chip flow the
@@ -247,7 +247,7 @@ export async function build() {
         // A continent tests its five countries in one request; a country asks for three probes of its own.
         const ranges = pg.kind === "continent"
           ? picksOf(c).map(x => ({ key: "c:" + x.cc, g: "topic", cc: x.cc, loc: { country: x.cc } }))
-          : [0, 1, 2].map(i => ({ key: `c:${pg.cc}:${i}`, g: "topic", cc: pg.cc, loc: { country: pg.cc } }));
+          : [0, 1, 2, 3, 4].map(i => ({ key: `c:${pg.cc}:${i}`, g: "topic", cc: pg.cc, loc: { country: pg.cc } }));
         const tableH = pg.kind === "continent" ? fill(T("cont_countries"), { continent: name }) : T("c_probes");
         const goText = pg.kind === "continent" ? fill(T("cont_test"), { k: num(ranges.length, lang) }) : T("go");
         const sections = pg.kind === "continent" ? continentSections(T, lang, c, slug) : countrySections(T, lang, c, slug, noteFor(c.cc, lang));
@@ -259,7 +259,12 @@ export async function build() {
             : [{ "@type": "ListItem", position: 2, name: T("cont_" + pg.cont), item: SITE + pathOf(slug, cur.contSlug) },
               { "@type": "ListItem", position: 3, name, item: url }]),
         ] }];
-        data = { lang, paths, langPath: pathOf(slug), kind: pg.kind, ranges };
+        // what the browser asks Globalping for: a country wants five probes at once (the API picks different cities
+        // where it can); a continent asks ten of its countries for one probe each
+        const locations = pg.kind === "continent"
+          ? picksOf(c).map(x => ({ country: x.cc, limit: 1 }))
+          : [{ country: pg.cc, limit: 5 }];
+        data = { lang, paths, langPath: pathOf(slug), kind: pg.kind, ranges, locations };
         html = topicTpl
           .replace(/(<(\w+)\b[^>]*\sdata-i="(\w+)"[^>]*>)([^<]*)(<\/\2>)/g, (m, open, tag, k, inner, close) => open + esc(T(k)) + close)
           .replace(/\{\{a:(\w+)\}\}/g, (m, k) => esc(T(k)))

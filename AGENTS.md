@@ -46,7 +46,7 @@ curl "http://127.0.0.1:12097/v1/ping?host=example.com&v=4"
 |---|---|
 | strings (`src/i18n/*.mjs`) | `npm test` (every language has every key, with the same placeholders and marks). Read the sentence in Chinese and Russian at 375 px wide |
 | the page (`src/app.js`, `page.html`, `style.css`, `config.mjs`) | `npm run build && npm test` (the built script must parse), then test a domain, an IP, an IPv6 target and a target that doesn't answer ICMP; check the phone width |
-| country and continent pages (`src/topic.html`, `src/regions.*`, `scripts/build.mjs`) | `npm test` (page count, one `<main>`/`<h1>`, canonical and hreflang per page, sitemap priorities), then test a country page (one probe) and a continent page (one request, 4–5 countries) locally; check 375 px |
+| country and continent pages (`src/topic.html`, `src/regions.*`, `scripts/build.mjs`) | `npm test` (page count, one `<main>`/`<h1>`, canonical and hreflang per page, sitemap priorities), then test a country page (five probes) and a continent page (one request, up to ten countries) locally; check 375 px |
 | the model (`src/model.mjs`) | `npm test` (parsing, verdicts, findings, the target input) |
 | result links (`src/code.mjs`, `src/worker.js`) | `npm test`, then open a `/r/` link under `npx wrangler dev` and check its title; a garbled code must be a 404 |
 | the server (`server/`) | `go vet ./... && go test ./...` in `server/`; after deploying, the checks in `server/README` |

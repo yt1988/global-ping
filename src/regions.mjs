@@ -10,11 +10,11 @@ import { countryName } from "./model.mjs";
 
 export const DATA = data;
 
-// The hand-written note on a country's networks, from the same shared source (shell commit fad44d6 at this copy).
-// The file names languages "zh", "en", "zh-TW", "ja", "ko", "es", "fr" so far; a language it does not carry yet shows no note
+// The hand-written note on a country's networks, from the same shared source (shell commit b3827d5 at this copy).
+// The file names languages "zh", "en", "zh-TW", "ja", "ko", "es", "fr", "de" so far; a language it does not carry yet shows no note
 // rather than an English one.
 export const NOTES = notes;
-const NOTE_LANG = { "zh-CN": "zh", en: "en", "zh-TW": "zh-TW", ja: "ja", ko: "ko", es: "es", fr: "fr" };
+const NOTE_LANG = { "zh-CN": "zh", en: "en", "zh-TW": "zh-TW", ja: "ja", ko: "ko", es: "es", fr: "fr", de: "de" };
 export const noteFor = (cc, lang) => {
   const key = NOTE_LANG[lang];
   return key && notes.notes[cc] && notes.notes[cc][key] ? notes.notes[cc][key] : "";
@@ -49,7 +49,7 @@ export const countryDir = c => `${c.contSlug}/${countrySlug(c.cc)}`;
 
 // The countries a continent page tests in one request: the ones with the most probes, at most five. Oceania has only
 // two countries in the list, so it tests both rather than pads the list with countries from elsewhere.
-export const picksOf = cont => cont.countries.slice(0, Math.min(5, cont.countries.length));
+export const picksOf = cont => cont.countries.slice(0, Math.min(10, cont.countries.length));
 
 // "Main" countries for the sitemap priority: enough probes that a result means something. The shell's rule is
 // continents 0.8, main countries 0.7, small ones 0.5.

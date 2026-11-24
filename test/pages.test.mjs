@@ -56,11 +56,12 @@ test("a country page shows no Globalping inventory, only the test and its neighb
     assert.ok(!html.includes(new Intl.NumberFormat("zh-CN").format(n)), `inventory number ${n} is on the page`);
   assert.ok(!html.includes("Los Angeles"), "the city list is not shown");
   assert.ok(!/节点较少|Few probes/.test(html));
-  // three probes, each named by the probe itself as soon as the API answers
+  // five probes, each named by the probe itself as soon as the API answers
   const data = JSON.parse(/<script type="application\/json" id="data">(.*?)<\/script>/s.exec(html)[1]);
-  assert.equal(data.ranges.length, 3);
-  assert.deepEqual(data.ranges.map(r => r.cc), ["US", "US", "US"]);
+  assert.equal(data.ranges.length, 5);
+  assert.deepEqual(data.ranges.map(r => r.cc), ["US", "US", "US", "US", "US"]);
   assert.ok(data.ranges.every(r => !("label" in r) && !("n" in r)), "no probe 1/2/3 labels");
+  assert.deepEqual(data.locations, [{ country: "US", limit: 5 }], "one request asks for five probes there");
   // neighbours, the shared note and the filter
   assert.ok((html.match(/class="rg-near"/g) || []).length === 1);
   assert.ok(html.includes("rg-filter-nav"));
@@ -68,22 +69,24 @@ test("a country page shows no Globalping inventory, only the test and its neighb
 });
 
 test("a note shows only in a language the shared file carries", async () => {
-  assert.ok(noteFor("DE", "zh-CN") && noteFor("DE", "en") && noteFor("DE", "fr"));
-  assert.equal(noteFor("DE", "de"), "");   // German has not been written yet
-  const en = await read("europe/de/index.html"), fr = await read("fr/europe/de/index.html"), de = await read("de/europe/de/index.html");
+  assert.ok(noteFor("DE", "zh-CN") && noteFor("DE", "en") && noteFor("DE", "fr") && noteFor("DE", "de"));
+  assert.equal(noteFor("DE", "pt"), "");   // Portuguese has not been written yet
+  const en = await read("europe/de/index.html"), fr = await read("fr/europe/de/index.html"), pt = await read("pt/europe/de/index.html");
   assert.ok(en.includes(noteFor("DE", "en")));
   assert.ok(fr.includes(noteFor("DE", "fr")));
-  assert.ok(!de.includes(noteFor("DE", "en")) && !de.includes(noteFor("DE", "zh-CN")));
-  assert.equal((de.match(/class="route"/g) || []).length, 0);
+  assert.ok(!pt.includes(noteFor("DE", "en")) && !pt.includes(noteFor("DE", "zh-CN")));
+  assert.equal((pt.match(/class="route"/g) || []).length, 0);
 });
 
-test("a continent page tests five countries in one request and lists them all", async () => {
+test("a continent page tests ten countries in one request and lists them all", async () => {
   const asia = CONTINENTS.find(c => c.code === "AS");
   const html = await read("zh-cn/" + asia.slug + "/index.html");
   const data = JSON.parse(/<script type="application\/json" id="data">(.*?)<\/script>/s.exec(html)[1]);
   assert.equal(data.kind, "continent");
-  assert.equal(data.ranges.length, 5);
-  assert.deepEqual(data.ranges.map(r => r.cc), asia.countries.slice(0, 5).map(c => c.cc));
+  assert.equal(data.ranges.length, 10);
+  assert.deepEqual(data.ranges.map(r => r.cc), asia.countries.slice(0, 10).map(c => c.cc));
+  assert.equal(data.locations.length, 10);
+  assert.ok(data.locations.every(l => l.limit === 1));
   assert.equal((html.match(/class="rg-ccards"/g) || []).length, 1);
   assert.equal((html.match(/data-s="/g) || []).length, asia.countries.length + 86, "the cards and the navigation are both filterable");
   assert.ok(html.includes("rg-filter-cards") && html.includes("rg-filter-nav"));

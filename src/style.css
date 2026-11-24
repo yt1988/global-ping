@@ -258,10 +258,8 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .region-nav { display: flex; flex-direction: column; gap: 8px; }
 .region-nav h2 { margin: 0; font-size: 15px; }
 .rg-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.rg-cont { border-bottom: 1px solid var(--line); }
-.rg-cont summary { display: flex; align-items: center; gap: 8px; min-height: 40px; cursor: pointer; padding: 6px 4px; list-style: none; }
-.rg-cont summary::-webkit-details-marker { display: none; }
-.rg-cont summary::after { content: "＋"; margin-left: auto; color: var(--muted); font-size: 14px; }
-.rg-cont[open] summary::after { content: "−"; }
-.rg-cont summary .rg-n { margin-left: 2px; }
+.rg-cont { display: flex; flex-direction: column; gap: 4px; padding: 4px 0; border-bottom: 1px solid var(--line); }
+.rg-cont-link { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 6px; border-radius: 8px; color: var(--fg); font-size: 15px; font-weight: 600; }
+.rg-cont-link:hover { background: var(--soft); text-decoration: none; }
+.rg-cont-link[aria-current="page"] { background: var(--soft); }
 .rg-ic { width: 18px; height: 18px; color: var(--muted); flex: none; }
