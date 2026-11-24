@@ -271,3 +271,5 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .btn[aria-disabled="true"]:hover { opacity: .45; }
 #quota.flash { color: var(--bad); animation: quota-flash .4s ease-in-out 3; }
 @keyframes quota-flash { 50% { opacity: .3; } }
+/* a partial result is neither good nor bad: the probes that answered are real, the rest simply did not return */
+.dot.idle { background: var(--muted); }

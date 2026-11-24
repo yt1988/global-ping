@@ -647,7 +647,7 @@ function drawVerdict(s) {
     return;
   }
   // a partial result is neutral, not a failure: the probes that did not answer are marked, the rest is real
-  const cls = { ok: "ok", probe: "ok", loss: "warn", some: "warn", none: "bad", dns: "bad", priv: "bad", err: "warn", partial: "", tokyo: "warn" }[v.k] || "warn";
+  const cls = { ok: "ok", probe: "ok", loss: "warn", some: "warn", none: "bad", dns: "bad", priv: "bad", err: "warn", partial: "idle", tokyo: "warn" }[v.k] || "warn";
   dot.className = "dot " + cls;
   title.textContent = t(v.k === "tokyo" ? "v_tokyo" : "v_" + v.k, { a: v.a, b: v.b });
   sub.textContent = subLine(s);
