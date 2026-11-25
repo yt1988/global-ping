@@ -47,7 +47,9 @@ npm test           # builds, then checks the i18n keys, the model, the result co
 ```
 
 The page calls Globalping (`GP` in `src/app.js`) and our own servers, whose addresses the shell injects as the
-`ms-servers` meta; `src/config.mjs` reads them and `src/egress.js` is the shared parser. With no meta (self-hosted),
+`ms-servers` meta; `src/config.mjs` reads them and `src/egress.js` is the shared parser. Country pages carry a static
+link to the same country in Reach Check (`REACH_URL`, default https://reach.1ms.dog; set it to "" to drop the link).
+With no meta (self-hosted),
 the page shows no server rows and the worldwide view keeps working; the CSP (`connect-src 'self' https:`) allows them.
 
 ## Deploy

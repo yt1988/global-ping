@@ -135,5 +135,5 @@ export default {
   slow_missing: "{n} 台のプローブが制限時間内に応答しませんでした",
   r_timeout: "時間内に応答なし",
   quota_short: "今回のテストには {cost} 地点分の枠が必要ですが、残りは {left} 地点分です。約 {min} 分後に回復します",
-  x_reach_country: "到達性チェック：{where}",
+  x_reach_country: "到達性チェック · {where}",
 };

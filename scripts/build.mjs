@@ -16,6 +16,8 @@ import { countryName, flagCode } from "../src/model.mjs";
 import { CONTINENTS, COUNTRIES, countryByCc, countryDir, picksOf, isMain, englishName, noteFor } from "../src/regions.mjs";
 
 const SITE = (process.env.SITE_URL || "https://ping.1ms.dog").replace(/\/+$/, "");
+// Where the other tool lives, written into the country pages' HTML so a crawler sees the link (REACH_URL="" drops it).
+const REACH_SITE = (process.env.REACH_URL ?? "https://reach.1ms.dog").replace(/\/+$/, "");
 const pub = new URL("../public/", import.meta.url), src = new URL("../src/", import.meta.url), stat = new URL("../static/", import.meta.url);
 export const REPO = "https://github.com/yt1988/global-ping";
 // language, URL folder, og:locale; the first is the root
@@ -57,6 +59,7 @@ const links = s => esc(s).replace(/\{(\w+)\}/g, (m, k) => SOURCES[k] ? `<a href=
 
 const pathOf = (slug, dir = "") => "/" + (slug ? slug + "/" : "") + (dir ? dir + "/" : "");
 
+const EXT = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M12 10v3.5H2.5V4H6"/></svg>';
 const GLOBE = '<svg class="rg-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.7 2.7 3.8 2.7 6.2S9.8 12.5 8 14.2C6.2 12.5 5.3 10.4 5.3 8S6.2 3.5 8 1.8z"/></svg>';
 const flag = (cc, cls = "rg-flag") => `<img class="${cls}" src="/flags/${flagCode(cc)}.svg" alt="" width="20" height="15" loading="lazy">`;
 
@@ -143,7 +146,7 @@ function crumbs(T, slug, current) {
 // our coverage.
 function countrySections(T, lang, c, slug, note = "") {
   return `${note ? `<section class="card sec"><p class="route">${esc(note)}</p></section>` : ""}
-  <section class="card sec xlink" hidden data-tool="reach" data-kind="country" data-x="${esc(countryDir(c) + "/")}" data-where="${esc(countryName(c.cc, lang))}"></section>`;
+  <section class="card sec xlink"${REACH_SITE ? "" : " hidden"} data-tool="reach" data-kind="country" data-x="${esc(countryDir(c) + "/")}" data-where="${esc(countryName(c.cc, lang))}">${REACH_SITE ? `<a class="ext" href="${esc(REACH_SITE + pathOf(slug, countryDir(c)))}" target="_blank" rel="noopener">${esc(fill(T("x_reach_country"), { where: countryName(c.cc, lang) }))}${EXT}</a>` : ""}</section>`;
 }
 
 // What a continent has: its route note, how many countries it covers, and the list of them (each one testable on its

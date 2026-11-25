@@ -136,5 +136,5 @@ export default {
   slow_missing: "{n} probes did not return within the time limit",
   r_timeout: "No answer in time",
   quota_short: "Not enough allowance for this test: it needs {cost} region checks, {left} left; it comes back in about {min} min",
-  x_reach_country: "Reach Check: {where}",
+  x_reach_country: "Reach Check · {where}",
 };

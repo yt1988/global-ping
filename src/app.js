@@ -65,8 +65,15 @@ const asnLink = ip => { const u = tool("asn"); return u ? `<a class="dv" href="$
 // meta (self-hosted has none, then the block is removed), and the path is the same on both tools.
 for (const el of document.querySelectorAll("[data-tool]")) {
   const u = tool(el.dataset.tool);
-  if (!u) { el.remove(); continue; }
-  el.innerHTML = `<a class="ext" href="${esc(u + (el.dataset.x || ""))}" target="_blank" rel="noopener">${esc(t(el.dataset.kind === "country" ? "x_reach_country" : "x_reach", { where: el.dataset.where || "" }))}${EXT}</a>`;
+  if (!u) { el.remove(); continue; }   // self-hosted: no link to another site
+  if (el.dataset.kind === "country") {
+    // the link and its words are in the page's HTML (crawlers read them); only the address is rewritten here
+    const a = el.querySelector("a");
+    if (a) a.href = u + (el.dataset.x || "");
+    el.hidden = false;
+    continue;
+  }
+  el.innerHTML = `<a class="ext" href="${esc(u + (el.dataset.x || ""))}" target="_blank" rel="noopener">${esc(t("x_reach", { where: el.dataset.where || "" }))}${EXT}</a>`;
   el.hidden = false;
 }
 

@@ -135,5 +135,5 @@ export default {
   slow_missing: "{n} sondes n’ont pas répondu dans le délai",
   r_timeout: "Pas de réponse dans le délai",
   quota_short: "Pas assez de quota pour ce test : il en faut {cost}, il en reste {left} ; il revient dans environ {min} min",
-  x_reach_country: "Test de joignabilité : {where}",
+  x_reach_country: "Test de joignabilité · {where}",
 };
