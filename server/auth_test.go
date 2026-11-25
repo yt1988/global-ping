@@ -3,7 +3,7 @@ package main
 import (
 	"crypto/hmac"
 	"crypto/sha256"
-	"encoding/hex"
+	"encoding/base64"
 	"context"
 	"encoding/json"
 	"net/http"
@@ -18,7 +18,7 @@ import (
 func token(secret, scope string, exp int64) string {
 	m := hmac.New(sha256.New, []byte(secret))
 	m.Write([]byte("v1|" + strconv.FormatInt(exp, 10) + "|n0nce|" + scope))
-	return "v1." + strconv.FormatInt(exp, 10) + ".n0nce." + hex.EncodeToString(m.Sum(nil))
+	return "v1." + strconv.FormatInt(exp, 10) + ".n0nce." + scope + "." + base64.RawURLEncoding.EncodeToString(m.Sum(nil))
 }
 
 func TestCheckAuth(t *testing.T) {
@@ -36,6 +36,9 @@ func TestCheckAuth(t *testing.T) {
 		{"secret, wrong scheme", "s3cret", "Basic abc", false, "no_token"},
 		{"expired", "s3cret", "Bearer " + token("s3cret", "ping", past), false, "bad_token"},
 		{"wrong scope", "s3cret", "Bearer " + token("s3cret", "reach", future), false, "bad_token"},
+		{"empty scope", "s3cret", "Bearer v1." + strconv.FormatInt(future, 10) + ".n0nce..abc", false, "bad_token"},
+		{"scope with spaces", "s3cret", "Bearer " + token("s3cret", "reach, ping", future), true, ""},
+		{"tampered scope", "s3cret", "Bearer " + strings.Replace(token("s3cret", "reach", future), ".reach.", ".ping.", 1), false, "bad_token"},
 		{"wrong secret", "s3cret", "Bearer " + token("other", "ping", future), false, "bad_token"},
 		{"ping scope", "s3cret", "Bearer " + token("s3cret", "ping", future), true, ""},
 		{"page token (all scopes)", "s3cret", "Bearer " + token("s3cret", "probe,reach,ping,rtc,ipv6,seg,dns,data", future), true, ""},

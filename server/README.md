@@ -21,9 +21,11 @@ origin(s) — `-origin`, comma separated; `localhost` is always allowed, for loc
 ## Endpoint auth (off by default)
 
 Set `MS_AUTH_SECRET` (systemd `LoadCredential=` or `EnvironmentFile=`, never in a repository) to require
-`Authorization: Bearer v1.<exp>.<nonce>.<hmac>` on every request except `/healthz`. The HMAC-SHA256 covers
-`v1|exp|nonce|scope`, with `scope` naming `ping` (or `*` for a service token, or the page's full scope list). A
-missing token is `401 {"error":"no_token"}`; a bad, expired or wrongly scoped one is `401 {"error":"bad_token"}`.
+`Authorization: Bearer v1.<exp>.<nonce>.<scope>.<hmac>` on every request except `/healthz`. The scope travels in the
+token: comma separated, a subset of `probe,reach,ping,rtc,ipv6,seg,dns,data`; the HMAC-SHA256 over
+`v1|exp|nonce|scope`, base64url without padding, is checked before the scope is read, and it must name `ping` (or `*`
+for a service token). A missing token is `401 {"error":"no_token"}`; a bad, expired, tampered or wrongly scoped one
+is `401 {"error":"bad_token"}`.
 Unset means no check: the self-hosted default and the rollout switch. Tokens are issued by the page's shell; this
 server never mints one. The per-visitor and per-target limits above stay in force either way.
 
