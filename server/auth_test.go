@@ -102,6 +102,23 @@ func TestHandlerAuth(t *testing.T) {
 		}
 	})
 
+	t.Run("secret: a 401 keeps the CORS header, so the page can read it and renew", func(t *testing.T) {
+		t.Setenv("MS_AUTH_SECRET", "s3cret")
+		req := httptest.NewRequest("GET", probe, nil)
+		req.Header.Set("Origin", pageOrigin)
+		rr := httptest.NewRecorder()
+		handler(newLimits(time.Now), pingTo(netip.Addr{}, nil), privateResolve, map[string]bool{pageOrigin: true}).ServeHTTP(rr, req)
+		if rr.Code != http.StatusUnauthorized {
+			t.Fatalf("status %d, want 401", rr.Code)
+		}
+		if got := rr.Header().Get("Access-Control-Allow-Origin"); got != pageOrigin {
+			t.Fatalf("Access-Control-Allow-Origin %q, want %q", got, pageOrigin)
+		}
+		if got := rr.Header().Get("Vary"); !strings.Contains(got, "Origin") {
+			t.Fatalf("Vary %q, want Origin", got)
+		}
+	})
+
 	t.Run("secret: a reach token is 401 bad_token", func(t *testing.T) {
 		t.Setenv("MS_AUTH_SECRET", "s3cret")
 		req := httptest.NewRequest("GET", probe, nil)
