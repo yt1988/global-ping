@@ -27,7 +27,8 @@ npx wrangler dev   # the same with the Worker, to open /r/ links (build first)
 ```
 
 The page calls Globalping (`GP` in `src/app.js`) and our own servers, whose addresses the shell injects as the `ms-servers` meta (`src/config.mjs`, parsed by the vendored
-`src/egress.js`). With no meta (self-hosted) the page shows no server rows and the worldwide view keeps working.
+`src/egress.js`). The page token for those endpoints comes from `<meta name="ms-auth">` (`src/auth.mjs`); with no
+meta (self-hosted) the page shows no server rows and the worldwide view keeps working.
 
 Each server needs a Linux machine and `CAP_NET_RAW`; building, running and verifying it is
 [server/README.md](server/README.md). To run it locally:

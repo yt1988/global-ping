@@ -6,6 +6,7 @@ import { REGIONS as HOME_REGIONS, PACKETS, SERVER_REGIONS, countryName, flagCode
 import { encodeResult, decodeResult, sharePath, rowToCode, codeToRow } from "./code.mjs";
 import { SERVERS as SERVER_CONFIG } from "./config.mjs";
 import { updateReportEntry } from "./report-entry.mjs";
+import { authedFetch } from "./auth.mjs";
 
 (() => {
 const GP = "https://api.globalping.io/v1";
@@ -369,11 +370,12 @@ async function runServers(s) {
   await Promise.all(s.servers.map(async srv => {
     const c = new AbortController(), timer = setTimeout(() => c.abort(), LIMITS.server);
     try {
-      const r = await fetch(`${srv.api}?${q}`, { signal: c.signal, credentials: "omit", cache: "no-store" });
+      const r = await authedFetch(`${srv.api}?${q}`, { signal: c.signal, credentials: "omit", cache: "no-store" });
+      if (!r.ok) throw new Error(r.status === 401 ? "auth" : "http");
       const j = await r.json();
       if (j && j.ok === false) { srv.error = j.k || "down"; srv.retry = j.retry || 0; }
       else { srv.row = makeServerRow(j, SERVER_REGIONS[srv.key]); srv.error = ""; }
-    } catch { srv.error = "down"; }
+    } catch (e) { srv.error = e && e.message === "auth" ? "auth" : "down"; }
     finally { clearTimeout(timer); }
     if (s.id === run) { renderServers(s); if (!s.tokyoOnly) settle(s); }
   }));
