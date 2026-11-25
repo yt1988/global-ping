@@ -93,7 +93,7 @@ scripts/build.mjs   builds public/: the home page per language (English at /, th
 static/             files copied into public/: fonts, logos, flags, the share dialog, og/ images
 scripts/assets.mjs  renders the link-preview images
 scripts/dev.mjs     local preview server (static files only)
-server/             1ms-ping, our own server (Go): go test ./...; 1ms-ping.service is its systemd unit
+server/             1ms-ping, our own server (Go): go test ./...; optional endpoint token auth (MS_AUTH_SECRET, off by default)
 ```
 
 ## License

@@ -18,6 +18,15 @@ A refusal is `{ok:false, k}` with `k` one of `bad` (HTTP 400), `private`, `dns`,
 `busy` (HTTP 429, with `retry` seconds). `v` is ignored for an IP literal. CORS is only returned to the page's
 origin(s) — `-origin`, comma separated; `localhost` is always allowed, for local work.
 
+## Endpoint auth (off by default)
+
+Set `MS_AUTH_SECRET` (systemd `LoadCredential=` or `EnvironmentFile=`, never in a repository) to require
+`Authorization: Bearer v1.<exp>.<nonce>.<hmac>` on every request except `/healthz`. The HMAC-SHA256 covers
+`v1|exp|nonce|scope`, with `scope` naming `ping` (or `*` for a service token, or the page's full scope list). A
+missing token is `401 {"error":"no_token"}`; a bad, expired or wrongly scoped one is `401 {"error":"bad_token"}`.
+Unset means no check: the self-hosted default and the rollout switch. Tokens are issued by the page's shell; this
+server never mints one. The per-visitor and per-target limits above stay in force either way.
+
 ## Build and run it
 
 Needs Go 1.24 or newer, and a Linux machine for real ICMP (raw sockets).
@@ -32,7 +41,7 @@ Running it needs permission to open raw ICMP sockets: either root, or a systemd 
 this directory). For a quick local test, root or this capability is still needed; `-plain` only drops TLS:
 
 ```bash
-sudo ./1ms-ping -plain -addr 127.0.0.1:12097
+sudo ./1ms-ping -plain -addr 127.0.0.1:12097   # auth is off unless MS_AUTH_SECRET is set
 curl "http://127.0.0.1:12097/v1/ping?host=example.com&v=4"
 ```
 
