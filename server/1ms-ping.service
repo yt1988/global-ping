@@ -3,7 +3,7 @@
 # CAP_NET_RAW for ICMP and nothing else. The certificate is renewed by certbot, which must then restart this service.
 # Endpoint token auth is off unless MS_AUTH_SECRET is set; supply it through EnvironmentFile= or LoadCredential=, never here.
 [Unit]
-Description=1ms-ping: Global Ping's server (the Tokyo view)
+Description=1ms-ping: Global Ping's own server (the second view)
 After=network-online.target
 Wants=network-online.target
 
