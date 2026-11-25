@@ -46,8 +46,9 @@ npx wrangler dev   # the same with the Worker, to open /r/ result links (build f
 npm test           # builds, then checks the i18n keys, the model, the result code and every page's skeleton
 ```
 
-The page calls Globalping (`GP` in `src/app.js`) and our own servers (`SERVERS` in `src/config.mjs`). Self-hosted,
-change both to your own; the CSP (`connect-src 'self' https:`) already allows them.
+The page calls Globalping (`GP` in `src/app.js`) and our own servers, whose addresses the shell injects as the
+`ms-servers` meta; `src/config.mjs` reads them and `src/egress.js` is the shared parser. With no meta (self-hosted),
+the page shows no server rows and the worldwide view keeps working; the CSP (`connect-src 'self' https:`) allows them.
 
 ## Deploy
 
@@ -59,10 +60,10 @@ result's preview title) and 404s.
 ## The server
 
 `server/` (Go) is our own server view: `1ms-ping`, one program on one machine (we run one in Tokyo and one in
-Shanghai). It sends the same 16 packets, needs only
-`CAP_NET_RAW`, uses none of Globalping's allowance, keeps no log and never probes private addresses. The page asks it at
-`SERVERS` in `src/config.mjs`; without it (or with it empty) the server rows are simply not shown and the
-worldwide view keeps working. Building, deploying and verifying it: [server/README.md](server/README.md).
+Shanghai). It sends the same 16 packets, needs only `CAP_NET_RAW`, uses none of Globalping's allowance, keeps no log
+and never probes private addresses. The page takes its address from the injected `ms-servers` meta; with no meta the
+server rows are not shown and the worldwide view keeps working. Building, deploying and verifying it:
+[server/README.md](server/README.md).
 
 ## Data and privacy
 
@@ -80,7 +81,7 @@ src/app.js          the page: Globalping, our servers, the verdict and the cards
 src/regions.mjs     the country list's helpers: slugs, neighbours, the countries a continent tests
 src/regions.json    the shared list, vendored unchanged from 1ms.dog's shell (see docs/decisions.md)
 src/model.mjs       the 16 regions, one probe's 16 packets, verdicts, findings (shared with the Worker and the tests)
-src/config.mjs      the only deployment-specific addresses: SERVERS
+src/config.mjs      reads the injected ms-servers meta into SERVERS
 src/style.css       design tokens (shared with the other 1ms.dog tools) and layout
 src/code.mjs        a result in a link and back (the page and the Worker share it)
 src/worker.js       the Worker: /r/<code> gets the page with the verdict in its title; anything else is a 404

@@ -37,6 +37,13 @@ test("the home page links every country page", async () => {
   }
 });
 
+test("the pages do not inject their own server endpoints", async () => {
+  for (const [, slug] of LANGS) {
+    const html = await read(`${slug ? slug + "/" : ""}index.html`);
+    assert.ok(!/ms-servers/.test(html), `${slug || "en"}: no ms-servers meta (the shell injects it)`);
+  }
+});
+
 test("no page has a duplicate title", async () => {
   const seen = new Map();
   for (const [, slug] of LANGS) for (const dir of dirs) {

@@ -1,7 +1,13 @@
-// Our own servers behind the "our server" rows. They answer the same question as Globalping's probes and use none of
-// its allowance. Self-hosted: point them at your own server(s) or use an empty array — then the page shows no server
-// rows at all and the worldwide view keeps working (nothing silently calls 1ms.dog's servers). The server is in server/.
-export const SERVERS = [
-  { key: "tokyo", api: "https://ping-api.1ms.dog:2097/v1/ping" },
-  { key: "shanghai", api: "https://ping-api.dog.1msapp.com:2097/v1/ping" },
-];
+// Our own servers behind the "our server" rows come from the shell's injected meta, not from this repository:
+//   <meta name="ms-servers" content="reach=…;ping=https://<tokyo>:2097,https://<shanghai>:2097;dns=…">
+// The list's order is the display order (Tokyo first, Shanghai second). With no meta — self-hosted, or before the
+// shell injects it — there are no server rows and the worldwide view keeps working. Nothing here calls 1ms.dog's
+// servers on its own. docs/tool-contract.md §2 has the meta's rules; src/egress.js is the shared parser.
+import { endpoints } from "./egress.js";
+
+const KEYS = ["tokyo", "shanghai"];
+const apiOf = u => /\/v1\/ping\/?$/.test(u) ? u.replace(/\/+$/, "") : u.replace(/\/+$/, "") + "/v1/ping";
+
+export const SERVERS = String(endpoints("ms-servers").ping || "")
+  .split(",").map(s => s.trim()).filter(Boolean).slice(0, KEYS.length)
+  .map((api, i) => ({ key: KEYS[i], api: apiOf(api) }));
