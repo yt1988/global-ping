@@ -136,4 +136,5 @@ export default {
   slow_missing: "{n} 个探针未在限时内返回",
   r_timeout: "限时内未返回",
   quota_short: "额度不足：本次需要 {cost} 个地区次，当前还剩 {left} 个，约 {min} 分钟后恢复",
+  x_reach_country: "可达性检测：{where}",
 };

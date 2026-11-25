@@ -66,7 +66,7 @@ const asnLink = ip => { const u = tool("asn"); return u ? `<a class="dv" href="$
 for (const el of document.querySelectorAll("[data-tool]")) {
   const u = tool(el.dataset.tool);
   if (!u) { el.remove(); continue; }
-  el.innerHTML = `<a class="ext" href="${esc(u + (el.dataset.x || ""))}" target="_blank" rel="noopener">${esc(t("x_reach", { where: el.dataset.where || "" }))}${EXT}</a>`;
+  el.innerHTML = `<a class="ext" href="${esc(u + (el.dataset.x || ""))}" target="_blank" rel="noopener">${esc(t(el.dataset.kind === "country" ? "x_reach_country" : "x_reach", { where: el.dataset.where || "" }))}${EXT}</a>`;
   el.hidden = false;
 }
 

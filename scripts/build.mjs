@@ -143,7 +143,7 @@ function crumbs(T, slug, current) {
 // our coverage.
 function countrySections(T, lang, c, slug, note = "") {
   return `${note ? `<section class="card sec"><p class="route">${esc(note)}</p></section>` : ""}
-  <section class="card sec xlink" hidden data-tool="reach" data-x="${esc(countryDir(c) + "/")}" data-where="${esc(countryName(c.cc, lang))}"></section>`;
+  <section class="card sec xlink" hidden data-tool="reach" data-kind="country" data-x="${esc(countryDir(c) + "/")}" data-where="${esc(countryName(c.cc, lang))}"></section>`;
 }
 
 // What a continent has: its route note, how many countries it covers, and the list of them (each one testable on its
@@ -160,7 +160,7 @@ function continentSections(T, lang, c, slug) {
     ${filterBox(T, lang, c.countries.length, "rg-filter-cards")}
     <ul class="rg-ccards">${cards}</ul>
   </section>
-  <section class="card sec xlink" hidden data-tool="reach" data-x="${esc(c.slug + "/")}" data-where="${esc(name)}"></section>`;
+  <section class="card sec xlink" hidden data-tool="reach" data-kind="continent" data-x="${esc(c.slug + "/")}" data-where="${esc(name)}"></section>`;
 }
 
 export async function build() {

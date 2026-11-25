@@ -135,4 +135,5 @@ export default {
   slow_missing: "{n} sondas não responderam dentro do limite",
   r_timeout: "Sem resposta a tempo",
   quota_short: "Sem cota suficiente para este teste: são necessárias {cost} verificações de região e restam {left}; volta em cerca de {min} min",
+  x_reach_country: "Teste de acesso: {where}",
 };

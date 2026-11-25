@@ -135,4 +135,5 @@ export default {
   slow_missing: "{n} Sonden haben nicht rechtzeitig geantwortet",
   r_timeout: "Nicht rechtzeitig geantwortet",
   quota_short: "Nicht genug Kontingent für diesen Test: nötig sind {cost} Regions-Checks, übrig sind {left}; es kommt in etwa {min} Min. zurück",
+  x_reach_country: "Erreichbarkeits-Check: {where}",
 };
