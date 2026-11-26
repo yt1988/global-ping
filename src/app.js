@@ -738,7 +738,9 @@ async function resultLink(s) {
 $("shareBtn").addEventListener("click", async () => {
   const s = state; if (!s) return;
   const link = await resultLink(s);
-  const { share } = await import("/assets/share/share.js?v=10");
+  const mod = await import("/assets/share/share.js?v=11").catch(() => null);
+  if (!mod) { window.msShareDown && window.msShareDown(); return; }
+  const { share } = mod;
   const v = { title: t(s.verdict.k === "tokyo" ? "v_tokyo" : "v_" + s.verdict.k, { a: s.verdict.a, b: s.verdict.b }), k: s.verdict.k };
   const rows = s.rows.filter(r => r && r.rcv > 0);
   const servers = (s.servers || []).filter(x => x.row && x.row.rcv > 0).map(x => ({ key: x.key, row: x.row }));
@@ -874,7 +876,7 @@ if (sp) {
     state.findings = findings(state.rows, state.servers.find(x => x.key === "tokyo")?.row || null); drawFindings(state);
     $("gpProgress").textContent = t("prog", { done: state.rows.filter(r => r && r.state !== "pending").length, of: REGIONS.length });
     $("tokyoFallback").hidden = true;
-    const { received } = await import("/assets/share/share.js?v=10");
+    const { received } = await import("/assets/share/share.js?v=11");
     recv = received({ lang: D.lang, ts: state.ts, at: $("verdict"), test: () => start() });
   }).catch(() => {
     $("verdict").hidden = false;
