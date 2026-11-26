@@ -15,7 +15,7 @@ export default {
   h_regions: "各地區", sort_label: "排序", sort_median: "延遲", sort_jitter: "抖動", sort_loss: "封包遺失",
   lg_replied: "有回應", lg_missing: "沒有回應", lg_median: "中位", lg_jitter: "抖動", lg_loss: "遺失",
   k_median: "中位延遲", k_max_jitter: "最大抖動", k_loss: "封包遺失率", t_tokyo_only: "只看東京",
-  src_gp: "資料：{gp} 的探測點和本站伺服器（東京、上海）", foot_src: "資料來源：{gp} 的探測點和本站東京、上海伺服器。",
+  src_gp: "資料：{gp} 的探測點和本站伺服器（洛杉磯、東京、上海）", foot_src: "資料來源：{gp} 的探測點和本站東京、上海伺服器。",
   faq_h: "說明",
 
   // 執行時

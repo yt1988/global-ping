@@ -15,7 +15,7 @@ export default {
   h_regions: "各地区", sort_label: "排序", sort_median: "延迟", sort_jitter: "抖动", sort_loss: "丢包",
   lg_replied: "有回应", lg_missing: "没有回应", lg_median: "中位", lg_jitter: "抖动", lg_loss: "丢包",
   k_median: "中位延迟", k_max_jitter: "最大抖动", k_loss: "丢包率", t_tokyo_only: "只看东京",
-  src_gp: "数据：{gp} 的探测点和本站服务器（东京、上海）", foot_src: "数据来源：{gp} 的探测点和本站东京、上海服务器。",
+  src_gp: "数据：{gp} 的探测点和本站服务器（洛杉矶、东京、上海）", foot_src: "数据来源：{gp} 的探测点和本站东京、上海服务器。",
   faq_h: "帮助",
 
   // 运行时

@@ -15,7 +15,7 @@ export default {
   h_regions: "観測地点", sort_label: "並び替え", sort_median: "遅延", sort_jitter: "ジッター", sort_loss: "パケットロス",
   lg_replied: "応答あり", lg_missing: "応答なし", lg_median: "中央値", lg_jitter: "ジッター", lg_loss: "ロス",
   k_median: "遅延の中央値", k_max_jitter: "最大ジッター", k_loss: "パケットロス", t_tokyo_only: "東京のみでテスト",
-  src_gp: "データ：{gp} のプローブと当サイトのサーバー（東京・上海）", foot_src: "データ：{gp} のプローブと当サイトの東京・上海サーバー。",
+  src_gp: "データ：{gp} のプローブと当サイトのサーバー（ロサンゼルス・東京・上海）", foot_src: "データ：{gp} のプローブと当サイトの東京・上海サーバー。",
   faq_h: "ヘルプ",
 
   sep: "、",

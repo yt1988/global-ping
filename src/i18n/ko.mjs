@@ -15,7 +15,7 @@ export default {
   h_regions: "지역", sort_label: "정렬", sort_median: "지연", sort_jitter: "지터", sort_loss: "패킷 손실",
   lg_replied: "응답", lg_missing: "응답 없음", lg_median: "중앙값", lg_jitter: "지터", lg_loss: "손실",
   k_median: "중앙값 지연", k_max_jitter: "최대 지터", k_loss: "패킷 손실", t_tokyo_only: "도쿄만 테스트",
-  src_gp: "데이터: {gp} 프로브와 자체 서버(도쿄·상하이)", foot_src: "데이터: {gp} 프로브와 자체 도쿄·상하이 서버.",
+  src_gp: "데이터: {gp} 프로브와 자체 서버(로스앤젤레스·도쿄·상하이)", foot_src: "데이터: {gp} 프로브와 자체 도쿄·상하이 서버.",
   faq_h: "도움말",
 
   sep: ", ",
