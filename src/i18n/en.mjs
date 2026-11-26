@@ -131,6 +131,7 @@ export default {
   explore_h: "Test by country or region",
   allocating: "Allocating test probes…",
   srv_tokyo: "Our server (Tokyo)",
+  srv_losangeles: "Our server (Los Angeles)",
   srv_shanghai: "Our server (Shanghai)",
   t_tokyo_only: "Test our servers only",
   slow_missing: "{n} probes did not return within the time limit",

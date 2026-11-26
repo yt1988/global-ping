@@ -131,6 +131,7 @@ export default {
   explore_h: "依國家或地區測試",
   allocating: "正在分配測試節點…",
   srv_tokyo: "本站（東京）",
+  srv_losangeles: "本站（洛杉磯）",
   srv_shanghai: "本站（上海）",
   t_tokyo_only: "只看本站伺服器",
   slow_missing: "{n} 個探針未在限時內返回",

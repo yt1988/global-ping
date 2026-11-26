@@ -32,6 +32,7 @@ export const REGIONS = [
 export const SERVER_REGIONS = {
   tokyo: { key: "srv:tokyo", g: "srv", cc: "JP", city: "Tokyo", server: "tokyo" },
   shanghai: { key: "srv:shanghai", g: "srv", cc: "CN", city: "Shanghai", server: "shanghai" },
+  losangeles: { key: "srv:losangeles", g: "srv", cc: "US", city: "LosAngeles", loc: { city: "Los Angeles" }, server: "losangeles" },
 };
 export const TOKYO_REGION = SERVER_REGIONS.tokyo;   // the Tokyo row, and the model tests
 

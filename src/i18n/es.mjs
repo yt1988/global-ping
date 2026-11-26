@@ -130,6 +130,7 @@ export default {
   explore_h: "Probar por país o región",
   allocating: "Asignando sondas de prueba…",
   srv_tokyo: "Nuestro servidor (Tokio)",
+  srv_losangeles: "Nuestro servidor (Los Ángeles)",
   srv_shanghai: "Nuestro servidor (Shanghái)",
   t_tokyo_only: "Probar solo nuestros servidores",
   slow_missing: "{n} sondas no respondieron dentro del límite de tiempo",

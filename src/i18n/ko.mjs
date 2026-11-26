@@ -130,6 +130,7 @@ export default {
   explore_h: "국가·지역으로 테스트",
   allocating: "테스트 프로브를 배정하는 중…",
   srv_tokyo: "자체 서버(도쿄)",
+  srv_losangeles: "자체 서버 (로스앤젤레스)",
   srv_shanghai: "자체 서버(상하이)",
   t_tokyo_only: "자체 서버만 테스트",
   slow_missing: "프로브 {n}곳이 제한 시간 안에 응답하지 않았어요",
