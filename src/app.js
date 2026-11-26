@@ -19,7 +19,9 @@ const REGIONS = TOPIC ? D.ranges : HOME_REGIONS;
 const SERVERS = !TOPIC ? SERVER_CONFIG.filter(s => s && s.api && SERVER_REGIONS[s.key]) : [];
 const WITH_SERVERS = SERVERS.length > 0;
 // Deadlines: a page shows whatever came back in time, and marks the rest, instead of waiting on every probe.
-const LIMITS = { country: 12000, continent: 18000, home: 20000, server: 8000, create: 8000 };
+// A server's own answer takes 16 packets at half-second intervals, about 8 s, and its handler gives up at 12 s
+// (server/main.go); a deadline under that cuts the answer off for no reason, so ours is a little above 12.
+const LIMITS = { country: 12000, continent: 18000, home: 20000, server: 14000, create: 8000 };
 const TOTAL_MS = TOPIC ? (D.kind === "country" ? LIMITS.country : LIMITS.continent) : LIMITS.home;
 const POLL_MS = 700;
 const $ = id => document.getElementById(id);
