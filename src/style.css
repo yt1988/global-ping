@@ -100,6 +100,8 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .grp-h { margin: 14px 0 2px; font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .01em; }
 .grp:first-child .grp-h { margin-top: 0; }
 .grp .row:first-of-type { border-top: 0; }
+/* entries sit one step in from their category heading, so the group label stays the left edge */
+.grp .row, .srv .row { margin-left: 12px; }
 .row { display: grid; grid-template-columns: minmax(130px, 1.2fr) minmax(160px, 2fr) 74px 92px; grid-template-areas: "name bars med meta"; align-items: center; gap: 4px 12px; padding: 9px 4px; border-top: 1px solid var(--line); cursor: pointer; border-radius: 8px; }
 .row:hover { background: var(--soft); }
 .row:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
@@ -191,6 +193,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
   .fld.ipv { flex: 1 1 90px; }
   #go { flex: 1 1 150px; }
   .row { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "name med meta" "bars bars bars"; gap: 5px 10px; padding: 9px 2px; }
+  .grp .row, .srv .row { margin-left: 8px; }
   .med { font-size: 14px; }
   .bars { grid-template-columns: repeat(16, minmax(3px, 14px)); gap: 3px; height: 24px; }
   .bar { height: 24px; }
