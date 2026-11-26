@@ -70,7 +70,7 @@ export default {
   bad_target: "這不像一個網域或 IP。請輸入網域、IPv4 或 IPv6 位址。",
   bad_private: "這是內網或保留位址，公網探測點連不到。",
   v6_hint: "如果這個網域只有 IPv6 位址，請切換成 IPv6。",
-  t_wait: "正在問本站東京伺服器…", t_down: "本站東京伺服器暫時無法使用", t_busy: "本站東京伺服器忙，{s} 秒後再試",
+  t_wait: "正在問本站伺服器…", t_down: "本站東京伺服器暫時無法使用", t_busy: "本站東京伺服器忙，{s} 秒後再試",
   t_limit: "本站東京伺服器的測試次數用完了，{s} 秒後再試", t_private: "內網位址，不檢測",
   r_noprobe: "沒有可用探測點", r_failed: "探測失敗", r_pending: "等待中…",
 

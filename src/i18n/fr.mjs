@@ -69,7 +69,7 @@ export default {
   bad_target: "Cela ne ressemble pas à un domaine ni à une IP. Saisissez un domaine, une IPv4 ou une IPv6.",
   bad_private: "C’est une adresse privée ou réservée : les sondes publiques ne peuvent pas l’atteindre.",
   v6_hint: "Si le domaine n’a qu’une adresse IPv6, passez en IPv6.",
-  t_wait: "Interrogation de notre serveur de Tokyo…", t_down: "Notre serveur de Tokyo est indisponible", t_busy: "Notre serveur de Tokyo est occupé ; réessayez dans {s} s",
+  t_wait: "Interrogation de notre serveur…", t_down: "Notre serveur de Tokyo est indisponible", t_busy: "Notre serveur de Tokyo est occupé ; réessayez dans {s} s",
   t_limit: "Votre quota sur notre serveur de Tokyo est épuisé ; réessayez dans {s} s", t_private: "Adresse privée : non testée",
   r_noprobe: "Aucune sonde disponible", r_failed: "La sonde a échoué", r_pending: "En attente…",
 

@@ -69,7 +69,7 @@ export default {
   bad_target: "Isso não parece um domínio nem um IP. Digite um domínio, IPv4 ou IPv6.",
   bad_private: "É um endereço privado ou reservado: sondas públicas não chegam nele.",
   v6_hint: "Se o domínio só tem endereço IPv6, troque para IPv6.",
-  t_wait: "Perguntando ao nosso servidor em Tóquio…", t_down: "Nosso servidor em Tóquio está indisponível", t_busy: "Nosso servidor em Tóquio está ocupado; tente em {s} s",
+  t_wait: "Perguntando ao nosso servidor…", t_down: "Nosso servidor em Tóquio está indisponível", t_busy: "Nosso servidor em Tóquio está ocupado; tente em {s} s",
   t_limit: "Sua cota no nosso servidor em Tóquio acabou; tente em {s} s", t_private: "Endereço privado: não testado",
   r_noprobe: "Nenhuma sonda disponível", r_failed: "A sonda falhou", r_pending: "Aguardando…",
 

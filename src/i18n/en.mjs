@@ -70,7 +70,7 @@ export default {
   bad_target: "That doesn't look like a domain or IP. Enter a domain, an IPv4 or an IPv6 address.",
   bad_private: "That's a private or reserved address, so public probes can't reach it.",
   v6_hint: "If the domain only has an IPv6 address, switch to IPv6.",
-  t_wait: "Asking our Tokyo server…", t_down: "Our Tokyo server is unavailable", t_busy: "Our Tokyo server is busy; try again in {s} s",
+  t_wait: "Asking our server…", t_down: "Our Tokyo server is unavailable", t_busy: "Our Tokyo server is busy; try again in {s} s",
   t_limit: "Your allowance on our Tokyo server is used up; try again in {s} s", t_private: "Private address: not checked",
   r_noprobe: "No probe available", r_failed: "Probe failed", r_pending: "Waiting…",
 

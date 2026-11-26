@@ -70,7 +70,7 @@ export default {
   bad_target: "这不像一个域名或 IP。请输入域名、IPv4 或 IPv6 地址。",
   bad_private: "这是内网或保留地址，公网探测点连不到。",
   v6_hint: "如果这个域名只有 IPv6 地址，请切换成 IPv6。",
-  t_wait: "正在问本站东京服务器…", t_down: "本站东京服务器暂时不可用", t_busy: "本站东京服务器忙，{s} 秒后再试",
+  t_wait: "正在问本站服务器…", t_down: "本站东京服务器暂时不可用", t_busy: "本站东京服务器忙，{s} 秒后再试",
   t_limit: "本站东京服务器的测试次数用完了，{s} 秒后再试", t_private: "内网地址，不检测",
   r_noprobe: "没有可用探测点", r_failed: "探测失败", r_pending: "等待中…",
 

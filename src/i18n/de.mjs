@@ -69,7 +69,7 @@ export default {
   bad_target: "Das sieht nicht nach einer Domain oder IP aus. Gib eine Domain, IPv4 oder IPv6 ein.",
   bad_private: "Das ist eine private oder reservierte Adresse: öffentliche Messpunkte erreichen sie nicht.",
   v6_hint: "Wenn die Domain nur eine IPv6-Adresse hat, wechsle zu IPv6.",
-  t_wait: "Unser Tokio-Server wird gefragt…", t_down: "Unser Tokio-Server ist nicht verfügbar", t_busy: "Unser Tokio-Server ist ausgelastet; versuche es in {s} s",
+  t_wait: "Unser Server wird gefragt…", t_down: "Unser Tokio-Server ist nicht verfügbar", t_busy: "Unser Tokio-Server ist ausgelastet; versuche es in {s} s",
   t_limit: "Dein Kontingent auf unserem Tokio-Server ist aufgebraucht; versuche es in {s} s", t_private: "Private Adresse: nicht geprüft",
   r_noprobe: "Kein Messpunkt verfügbar", r_failed: "Messpunkt fehlgeschlagen", r_pending: "Wartet…",
 

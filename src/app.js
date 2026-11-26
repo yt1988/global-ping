@@ -435,7 +435,6 @@ function buildRows(s) {
   if (WITH_SERVERS && s && s.servers) for (const srv of s.servers) {
     const region = SERVER_REGIONS[srv.key];
     const el = rowElement(region, true);
-    el.hidden = true;   // shown as soon as this server answers
     $("tokyoRow").appendChild(el);
     rowEls.set(region.key, el);
   }
@@ -563,8 +562,10 @@ function renderServers(s) {
   for (const srv of s.servers || []) {
     const region = SERVER_REGIONS[srv.key];
     const el = rowEls.get(region.key); if (!el) continue;
-    if (srv.row) { el.hidden = false; fillRow(s, region, srv.row); }
-    else el.hidden = true;   // a server that does not answer is simply not shown, not an error line
+    // every server keeps its line from the start of the run: one that has not answered yet shows as waiting, so the
+    // table never grows a row in the middle of a test
+    el.hidden = false;
+    fillRow(s, region, srv.row || { state: "pending" });
   }
 }
 
