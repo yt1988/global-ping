@@ -61,7 +61,8 @@ $("lang").onchange = e => { const l = e.target.value; store.set(K.lang, l); loca
 // Other 1ms.dog tools: their address comes from the shell's <meta name="<id>">; self-hosted there is none, so no link.
 // Links keep this page's language folder.
 const tool = id => { const m = document.querySelector(`meta[name="${id}"]`); return m && m.content ? m.content.replace(/\/+$/, "") + (D.langPath || "/") : ""; };
-const EXT = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M12 10v3.5H2.5V4H6"/></svg>';
+// xmlns is not an attribute outerHTML re-adds: Dark Reader re-loads each <svg> as a standalone data: URI, which needs it
+const EXT = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M12 10v3.5H2.5V4H6"/></svg>';
 const toolLink = (id, key) => { const u = tool(id); return u ? `<a class="ext" href="${esc(u)}" target="_blank" rel="noopener">${esc(t(key))}${EXT}</a>` : ""; };
 const asnLink = ip => { const u = tool("asn"); return u ? `<a class="dv" href="${esc(u)}ip/${esc(ip)}" target="_blank" rel="noopener" title="${esc(t("lk_asn"))}">${esc(ip)}</a>` : esc(ip); };
 // A country or continent page links to the same place in the reachability check. The address comes from the shell's

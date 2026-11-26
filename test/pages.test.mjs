@@ -37,6 +37,15 @@ test("the home page links every country page", async () => {
   }
 });
 
+test("every SVG the page builds at runtime carries its xmlns", async () => {
+  // Dark Reader re-loads each <svg> from outerHTML as a standalone data: URI; without xmlns it fails to decode.
+  const code = await readFile(new URL("../src/app.js", import.meta.url), "utf8");
+  for (const m of code.matchAll(/`<svg\b[^`]*>/g))
+    assert.ok(/<svg[^>]*\sxmlns="http:\/\/www\.w3\.org\/2000\/svg"/.test(m[0]), "a runtime <svg> without xmlns");
+  for (const m of code.matchAll(/'<svg\b[^']*>'/g))
+    assert.ok(/xmlns="http:\/\/www\.w3\.org\/2000\/svg"/.test(m[0]), "a runtime <svg> without xmlns");
+});
+
 test("the pages do not inject their own server endpoints", async () => {
   for (const [, slug] of LANGS) {
     const html = await read(`${slug ? slug + "/" : ""}index.html`);
