@@ -305,7 +305,7 @@ export async function build() {
 > Australia; London; Frankfurt; Russia; the UAE; South Africa; Los Angeles; New York; São Paulo) each send 16 ICMP
 > echo requests to it. Every packet is shown, so you see the latency of each of the 16 packets, the jitter, and where
 > packets went missing (the probe's raw seq numbers tell us). Second views come from 1ms.dog's own servers in
-> Tokyo and Shanghai: the same 16 packets, no Globalping allowance used, and the only views that always know the real
+> Los Angeles, Tokyo and Shanghai: the same 16 packets, no Globalping allowance used, and the only views that always know the real
 > loss positions.
 > The page shows how many of Globalping's 250 hourly region checks (per IP) are left; one test uses 16. Nothing is
 > stored, our servers keep no log, and private addresses are never probed.

@@ -76,20 +76,20 @@ export default {
   th_system: "Tema: sistema", th_light: "Tema: claro", th_dark: "Tema: oscuro",
 
   docs: [
-    ["¿Qué mide esta página?", "16 ubicaciones del mundo, con la red de voluntarios de Globalping, envían 16 solicitudes ICMP (un `ping` normal) al dominio o la IP que escribas. Nuestros servidores de Los Ángeles, Tokio y Shanghái envían los mismos 16 paquetes, como segunda y tercera vista y como respaldo cuando se agota la cuota gratuita de Globalping.\nPor ubicación ves la latencia mediana, el jitter (cuánto varían los 16 paquetes) y cuántos paquetes volvieron."],
+    ["¿Qué mide esta página?", "16 ubicaciones del mundo, con la red de voluntarios de Globalping, envían 16 solicitudes ICMP (un `ping` normal) al dominio o la IP que escribas. Nuestros servidores de Los Ángeles, Tokio y Shanghái envían los mismos 16 paquetes, como vistas adicionales y como respaldo cuando se agota la cuota gratuita de Globalping.\nPor ubicación ves la latencia mediana, el jitter (cuánto varían los 16 paquetes) y cuántos paquetes volvieron."],
     ["¿Cómo leo los 16 paquetes?", "Cada barra vertical es una respuesta; su altura es la latencia de ese paquete, escalada a la ubicación (las rápidas y estables se ven planas, y eso es correcto). Los huecos son paquetes sin respuesta: puedes ver si la pérdida fue al principio, en medio o al final.\nEl número de la derecha es la mediana de los 16 paquetes; el ± es el jitter."],
     ["Algunas ubicaciones no responden. ¿Está caído el servidor?", "No necesariamente. Muchos hosts y cortafuegos no responden a ICMP aunque el sitio funcione. La página dice «sin respuesta», no «caído». Si necesitas saber si un puerto es alcanzable, usa la prueba de alcanzabilidad: se conecta como lo haría un navegador."],
     ["¿Cómo funciona la cuota?", "Globalping da a cada IP 250 comprobaciones de región por hora. Una ubicación que envía 16 paquetes es una comprobación, así que una prueba aquí usa 16. Cuando se agota, la página dice cuándo vuelve, y las vistas de nuestros servidores siguen funcionando sin usar la cuota.\nQuien comparte red comparte la cuota."],
     ["¿Por qué el resultado cambia cada vez?", "La latencia varía de un segundo a otro: congestión, Wi-Fi, las rutas del proveedor y la carga del destino. Eso es lo que mide el jitter. Un test es una foto del momento, no una garantía."],
     ["¿Qué son las filas de nuestros servidores?", "Nuestros servidores de Los Ángeles, Tokio y Shanghái envían los mismos 16 paquetes. Son puntos de referencia fijos, no usan la cuota de Globalping, son las únicas vistas que conocen las posiciones reales de pérdida y comparar la de Tokio con la sonda de Tokio de Globalping muestra si las dos redes ven el mismo camino."],
-    ["¿Puedo hacer ping desde mi navegador?", "No: los navegadores no pueden enviar ICMP. Las mediciones se ejecutan en las sondas de Globalping y en nuestro servidor; tu navegador solo las pide."],
+    ["¿Puedo hacer ping desde mi navegador?", "No: los navegadores no pueden enviar ICMP. Las mediciones se ejecutan en las sondas de Globalping y en nuestros servidores; tu navegador solo las pide."],
     ["¿Qué pasa con la dirección que escribo?", "La dirección va a Globalping (para la comprobación mundial) y a nuestros servidores de Los Ángeles, Tokio y Shanghái. No recogemos ni guardamos resultados, y nuestros servidores no guardan registro. Un enlace compartido contiene la dirección y el resultado, nunca tu propia IP."],
     ["¿Por qué no hay puerto ni tamaño de paquete?", "ICMP no tiene puertos; la alcanzabilidad de un puerto es cosa de la prueba de alcanzabilidad. El tamaño, el intervalo y el número de paquetes son fijos para que los resultados sean comparables entre ubicaciones y entre pruebas."],
     ["¿Por qué el enlace compartido muestra otra fecha?", "Un enlace compartido muestra el resultado tal como se midió, con su fecha arriba. Pulsa «Probar el mío» para hacer una prueba nueva del mismo destino."],
   ],
   card_meta: "{n} regiones · 16 paquetes cada una",
   card_own: "no cuenta en los 16",
-  card_src: "Datos: sondas de Globalping + nuestros servidores (Tokio, Shanghái)",
+  card_src: "Datos: sondas de Globalping + nuestros servidores (Los Ángeles, Tokio, Shanghái)",
   // country and continent pages
   cont_EU: "Europa",
   cont_NA: "América del Norte",

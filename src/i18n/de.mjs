@@ -76,20 +76,20 @@ export default {
   th_system: "Design: System", th_light: "Design: hell", th_dark: "Design: dunkel",
 
   docs: [
-    ["Was misst diese Seite?", "16 Standorte weltweit, betrieben vom Freiwilligennetz von Globalping, senden 16 ICMP-Echoanfragen (ein normales `ping`) an die eingegebene Domain oder IP. Unsere Server in Los Angeles, Tokio und Shanghai senden dieselben 16 Pakete, als zweite und dritte Ansicht und als Rückfall, wenn das kostenlose Kontingent von Globalping aufgebraucht ist.\nPro Standort siehst du die mittlere Latenz, den Jitter (wie stark die 16 Pakete schwanken) und wie viele Pakete zurückkamen."],
+    ["Was misst diese Seite?", "16 Standorte weltweit, betrieben vom Freiwilligennetz von Globalping, senden 16 ICMP-Echoanfragen (ein normales `ping`) an die eingegebene Domain oder IP. Unsere Server in Los Angeles, Tokio und Shanghai senden dieselben 16 Pakete, als zusätzliche Ansichten und als Rückfall, wenn das kostenlose Kontingent von Globalping aufgebraucht ist.\nPro Standort siehst du die mittlere Latenz, den Jitter (wie stark die 16 Pakete schwanken) und wie viele Pakete zurückkamen."],
     ["Wie lese ich die 16 Pakete?", "Jeder senkrechte Balken ist eine Antwort; seine Höhe ist die Latenz dieses Pakets, am jeweiligen Standort skaliert (schnelle, stabile Standorte sehen flach aus, und das ist richtig). Leere Felder sind Pakete ohne Antwort, so siehst du, ob der Verlust am Anfang, in der Mitte oder am Ende lag.\nDie Zahl rechts ist der Median der 16 Pakete; das ± ist der Jitter."],
     ["Manche Standorte antworten nicht. Ist der Server down?", "Nicht unbedingt. Viele Hosts und Firewalls antworten nicht auf ICMP, während die Website läuft. Die Seite sagt „keine Antwort“, nicht „down“. Ob ein Port erreichbar ist, zeigt der Erreichbarkeits-Check: er verbindet sich wie ein Browser."],
     ["Wie funktioniert das Kontingent?", "Globalping gibt jeder IP 250 Regions-Checks pro Stunde. Ein Standort mit 16 Paketen ist ein Check, ein Test hier verbraucht also 16. Ist es aufgebraucht, sagt die Seite, wann es zurückkommt, und die Ansichten unserer Server laufen ohne Kontingent weiter.\nWer dasselbe Netz nutzt, teilt das Kontingent."],
     ["Warum ist das Ergebnis jedes Mal anders?", "Latenz ändert sich von Sekunde zu Sekunde: Auslastung, WLAN, die Routen des Anbieters und die Last des Ziels. Genau das misst der Jitter. Ein Test ist eine Momentaufnahme, keine Garantie."],
     ["Was sind die Zeilen unserer Server?", "Unsere Server in Los Angeles, Tokio und Shanghai senden dieselben 16 Pakete. Sie sind feste Referenzpunkte, verbrauchen kein Globalping-Kontingent, sind die einzigen Ansichten, die die echten Verlustpositionen kennen, und der Vergleich des Tokio-Servers mit der Tokio-Sonde von Globalping zeigt, ob beide Netze denselben Weg sehen."],
-    ["Kann ich von meinem Browser aus pingen?", "Nein: Browser können kein ICMP senden. Die Messungen laufen auf den Globalping-Messpunkten und auf unserem Server; dein Browser fragt sie nur an."],
+    ["Kann ich von meinem Browser aus pingen?", "Nein: Browser können kein ICMP senden. Die Messungen laufen auf den Globalping-Messpunkten und auf unseren Servern; dein Browser fragt sie nur an."],
     ["Was passiert mit der Adresse, die ich eingebe?", "Die Adresse geht an Globalping (für den weltweiten Test) und an unsere Server in Los Angeles, Tokio und Shanghai. Wir erheben und speichern keine Ergebnisse, und unsere Server führen kein Protokoll. Ein geteilter Link enthält die Adresse und das Ergebnis, nie deine eigene IP."],
     ["Warum kein Port und keine Paketgröße?", "ICMP hat keine Ports; die Erreichbarkeit eines Ports ist Sache des Erreichbarkeits-Checks. Größe, Abstand und Anzahl der Pakete sind fest, damit Ergebnisse zwischen Standorten und Tests vergleichbar sind."],
     ["Warum zeigt der geteilte Link ein anderes Datum?", "Ein geteilter Link zeigt das Ergebnis so, wie es gemessen wurde, mit Datum darüber. Mit „Meins testen“ startest du einen neuen Test derselben Adresse."],
   ],
   card_meta: "{n} Standorte · je 16 Pakete",
   card_own: "nicht in den 16",
-  card_src: "Daten: Globalping-Sonden + unsere Server (Tokio, Shanghai)",
+  card_src: "Daten: Globalping-Sonden + unsere Server (Los Angeles, Tokio, Shanghai)",
   // country and continent pages
   cont_EU: "Europa",
   cont_NA: "Nordamerika",

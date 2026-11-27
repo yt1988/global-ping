@@ -76,20 +76,20 @@ export default {
   th_system: "Tema: sistema", th_light: "Tema: claro", th_dark: "Tema: escuro",
 
   docs: [
-    ["O que esta página mede?", "16 locais no mundo, na rede de voluntários do Globalping, enviam 16 solicitações ICMP (um `ping` normal) ao domínio ou IP digitado. Nossos servidores em Los Angeles, Tóquio e Xangai enviam os mesmos 16 pacotes, como segunda e terceira visão e como reserva quando a cota gratuita do Globalping acaba.\nPor local você vê a latência mediana, o jitter (quanto os 16 pacotes variam) e quantos pacotes voltaram."],
+    ["O que esta página mede?", "16 locais no mundo, na rede de voluntários do Globalping, enviam 16 solicitações ICMP (um `ping` normal) ao domínio ou IP digitado. Nossos servidores em Los Angeles, Tóquio e Xangai enviam os mesmos 16 pacotes, como visões adicionais e como reserva quando a cota gratuita do Globalping acaba.\nPor local você vê a latência mediana, o jitter (quanto os 16 pacotes variam) e quantos pacotes voltaram."],
     ["Como leio os 16 pacotes?", "Cada barra vertical é uma resposta; a altura é a latência daquele pacote, na escala do local (locais rápidos e estáveis parecem planos, e isso está certo). Espaços vazios são pacotes sem resposta: dá para ver se a perda foi no começo, no meio ou no fim.\nO número à direita é a mediana dos 16 pacotes; o ± é o jitter."],
     ["Alguns locais não responderam. O servidor caiu?", "Não necessariamente. Muitos hosts e firewalls não respondem a ICMP, mas o site funciona. A página diz “sem resposta”, não “fora do ar”. Para saber se uma porta é alcançável, use o teste de alcance: ele conecta como um navegador faria."],
     ["Como funciona a cota?", "O Globalping dá a cada IP 250 verificações de região por hora. Um local que envia 16 pacotes é uma verificação, então um teste aqui usa 16. Quando acaba, a página diz quando volta, e as visões dos nossos servidores continuam sem usar a cota.\nQuem está na mesma rede compartilha a cota."],
     ["Por que o resultado muda a cada vez?", "A latência varia a cada segundo: congestionamento, Wi-Fi, as rotas da operadora e a carga do destino. É isso que o jitter mede. Um teste é uma foto do momento, não uma garantia."],
     ["O que são as linhas dos nossos servidores?", "Nossos servidores em Los Angeles, Tóquio e Xangai enviam os mesmos 16 pacotes. São pontos de referência fixos, não usam a cota do Globalping, são as únicas visões que sabem as posições reais de perda, e comparar a de Tóquio com a sonda de Tóquio do Globalping mostra se as duas redes veem o mesmo caminho."],
-    ["Consigo fazer ping pelo meu navegador?", "Não: navegadores não enviam ICMP. As medições rodam nas sondas do Globalping e no nosso servidor; seu navegador só pede os resultados."],
+    ["Consigo fazer ping pelo meu navegador?", "Não: navegadores não enviam ICMP. As medições rodam nas sondas do Globalping e nos nossos servidores; seu navegador só pede os resultados."],
     ["O que acontece com o endereço que eu digito?", "O endereço vai para o Globalping (para a verificação mundial) e para nossos servidores em Los Angeles, Tóquio e Xangai. Não coletamos nem guardamos resultados, e nossos servidores não mantêm log. Um link compartilhado contém o endereço e o resultado, nunca o seu próprio IP."],
     ["Por que não há porta nem tamanho de pacote?", "ICMP não tem portas; a alcance de uma porta é tarefa do teste de alcance. Tamanho, intervalo e quantidade de pacotes são fixos para que os resultados sejam comparáveis entre locais e entre testes."],
     ["Por que o link compartilhado mostra outra data?", "Um link compartilhado mostra o resultado como foi medido, com a data acima. Toque em “Testar o meu” para fazer um teste novo do mesmo destino."],
   ],
   card_meta: "{n} locais · 16 pacotes cada",
   card_own: "fora dos 16",
-  card_src: "Dados: sondas do Globalping + nossos servidores (Tóquio, Xangai)",
+  card_src: "Dados: sondas do Globalping + nossos servidores (Los Angeles, Tóquio, Xangai)",
   // country and continent pages
   cont_EU: "Europa",
   cont_NA: "América do Norte",
