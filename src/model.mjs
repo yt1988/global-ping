@@ -30,9 +30,10 @@ export const REGIONS = [
 
 // Our own servers: the second view. They are not among the 16, and their numbers never enter the global verdict.
 export const SERVER_REGIONS = {
+  losangeles: { key: "srv:losangeles", g: "srv", cc: "US", city: "LosAngeles", loc: { city: "Los Angeles" }, server: "losangeles" },
+  nuremberg: { key: "srv:nuremberg", g: "srv", cc: "DE", city: "Nuremberg", loc: { city: "Nuremberg" }, server: "nuremberg" },
   tokyo: { key: "srv:tokyo", g: "srv", cc: "JP", city: "Tokyo", server: "tokyo" },
   shanghai: { key: "srv:shanghai", g: "srv", cc: "CN", city: "Shanghai", server: "shanghai" },
-  losangeles: { key: "srv:losangeles", g: "srv", cc: "US", city: "LosAngeles", loc: { city: "Los Angeles" }, server: "losangeles" },
 };
 export const TOKYO_REGION = SERVER_REGIONS.tokyo;   // the Tokyo row, and the model tests
 
