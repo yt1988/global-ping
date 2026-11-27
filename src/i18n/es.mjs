@@ -131,6 +131,7 @@ export default {
   allocating: "Asignando sondas de prueba…",
   srv_tokyo: "Nuestro servidor (Tokio)",
   srv_losangeles: "Nuestro servidor (Los Ángeles)",
+  srv_nuremberg: "Nuestro servidor (Núremberg)",
   srv_shanghai: "Nuestro servidor (Shanghái)",
   t_tokyo_only: "Probar solo nuestros servidores",
   slow_missing: "{n} sondas no respondieron dentro del límite de tiempo",

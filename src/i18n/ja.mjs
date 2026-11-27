@@ -131,6 +131,7 @@ export default {
   allocating: "テスト用プローブを割り当てています…",
   srv_tokyo: "当サイト（東京）",
   srv_losangeles: "当サイト（ロサンゼルス）",
+  srv_nuremberg: "当サイト（ニュルンベルク）",
   srv_shanghai: "当サイト（上海）",
   t_tokyo_only: "当サイトのサーバーだけをテスト",
   slow_missing: "{n} 台のプローブが制限時間内に応答しませんでした",

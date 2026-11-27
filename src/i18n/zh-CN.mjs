@@ -132,6 +132,7 @@ export default {
   allocating: "正在分配测试节点…",
   srv_tokyo: "本站（东京）",
   srv_losangeles: "本站（洛杉矶）",
+  srv_nuremberg: "本站（纽伦堡）",
   srv_shanghai: "本站（上海）",
   t_tokyo_only: "只看本站服务器",
   slow_missing: "{n} 个探针未在限时内返回",

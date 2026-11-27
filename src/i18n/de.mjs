@@ -131,6 +131,7 @@ export default {
   allocating: "Test-Sonden werden zugewiesen…",
   srv_tokyo: "Unser Server (Tokio)",
   srv_losangeles: "Unser Server (Los Angeles)",
+  srv_nuremberg: "Unser Server (Nürnberg)",
   srv_shanghai: "Unser Server (Shanghai)",
   t_tokyo_only: "Nur unsere Server testen",
   slow_missing: "{n} Sonden haben nicht rechtzeitig geantwortet",
