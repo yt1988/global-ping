@@ -766,9 +766,15 @@ function cardLayout(ctx, kit, v, target, rows, servers, s) {
   const cells = rows.length + servers.length;
   // Long languages (German, Russian) have region names too wide for a third of the card. The contract says add rows,
   // not shrink the text or cut names, so measure and drop to two columns when three cannot hold every name at 16px.
-  const names = rows.map(r => nameOf(r.region));
-  for (const srv of servers) names.push(t("srv_" + srv.key));
-  const fits = cols => { const avail = w / cols - 150; ctx.font = `500 16px ${F}`; return names.every(n => ctx.measureText(n).width <= avail); };
+  // A server row also carries its "not in the 16" label, so its name needs that much less room than a region's.
+  ctx.font = `500 15px ${F}`;
+  const ownW = ctx.measureText(t("card_own")).width + 8;
+  const fits = cols => {
+    const avail = w / cols - 150;
+    ctx.font = `500 16px ${F}`;
+    return rows.every(r => ctx.measureText(nameOf(r.region)).width <= avail)
+      && servers.every(sv => ctx.measureText(t("srv_" + sv.key)).width + ownW <= avail);
+  };
   const cols = fits(3) ? 3 : 2;
   const gridY = numY + 78;
   const gridRows = Math.ceil(cells / cols);
@@ -804,11 +810,14 @@ function drawCard(ctx, kit, v, s, rows, servers) {
   // The regions: status dot, the page's name, and the median coloured on the page's latency scale (so fast/slow and
   // up/down are two separate dimensions); a lossy region keeps its latency and adds rcv/16 instead of replacing it.
   const latColor = n => Number.isFinite(n) ? (css("lat-" + latencyBand(n)) || css("fg")) : css("muted");
+  ctx.font = `500 15px ${F}`;
+  const ownW = ctx.measureText(t("card_own")).width + 8;
   const cell = (i, name, row, own) => {
     const cw = w / L2.cols, x = P + (i % L2.cols) * cw, y = L2.gridY + Math.floor(i / L2.cols) * ROWH;
     const colr = !row || row.rcv === 0 ? "bad" : row.rcv < PACKETS || row.state === "loss" ? "warn" : "ok";
     ctx.fillStyle = css(colr); ctx.beginPath(); ctx.arc(x + 5, y - 9, 5, 0, Math.PI * 2); ctx.fill();
-    const room = cw - (own ? 168 : 132);
+    // leave room for the latency and, on a server row, for the label between the name and it
+    const room = cw - 132 - (own ? ownW : 0);
     ctx.fillStyle = css("fg"); fit(ctx, name, room, 20, 14, 500);
     ctx.fillText(name, x + 20, y);
     if (own) {
