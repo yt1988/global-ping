@@ -3,7 +3,7 @@
 **English** · [简体中文](README.zh-CN.md)
 
 Ping a domain or IP from 16 locations worldwide, 16 ICMP packets per location, and see **every packet**: its latency,
-the jitter, and where packets went missing. Second views come from our own servers in Los Angeles, Tokyo and Shanghai.
+the jitter, and where packets went missing. Second views come from our own servers in Los Angeles, Nuremberg, Tokyo and Shanghai.
 
 **Live:** https://ping.1ms.dog
 
@@ -12,7 +12,7 @@ the jitter, and where packets went missing. Second views come from our own serve
   Los Angeles; New York; São Paulo) each send 16 ICMP echo requests to the target. The browser calls
   Globalping's API directly, so each visitor spends their own free allowance (250 region checks an hour per IP; one
   region sending 16 packets is one region check, and one test here uses 16).
-- **Our servers**: our own servers in Los Angeles, Tokyo and Shanghai send the same 16 packets. They use none of that allowance (so
+- **Our servers**: our own servers in Los Angeles, Nuremberg, Tokyo and Shanghai send the same 16 packets. They use none of that allowance (so
   they are the fallback when it runs out), they are the only views that always know the real loss positions, and
   comparing the Tokyo one with Globalping's Tokyo probe shows whether the two networks see the same path.
 - **Country and continent pages**: one page per country with a probe (86) and per continent (6), in all 10 languages.
