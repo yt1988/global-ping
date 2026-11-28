@@ -222,3 +222,9 @@
   统一按固定顺序「洛杉矶、纽伦堡、东京、上海」；中文、繁中 FAQ 标题「那三行」→「那四行」，正文「三路」→「四路」。
   README 已由另一提交改为四台，`package.json` 描述和 llms.txt 同步。分享卡的列宽判断沿用 2026-11-27 的规则，
   服务器名字变长时仍按原规则降列。
+
+- **纽伦堡的四段链路由测试钉住（2026-11-28，#148 四）**：城市码（`nue`）、`CITIES` 映射、`SERVER_REGIONS` 条目、
+  十种语言的 `srv_nuremberg` 与构建产物，任一处缺失行都会静默消失（`SERVERS` 直接过滤掉未知 key，无错误无日志）。
+  `test/servers.test.mjs` 现在断言：十种语言都有 `srv_nuremberg` 且进了 `public/assets/l.<lang>.*.js`；
+  `CITIES.nue === "nuremberg"` 且 `SERVER_REGIONS.nuremberg` 存在；假的 `ms-servers`（lax,nue,tyo,sha）经
+  `servers()` + 映射后得到 `losangeles, nuremberg, tokyo, shanghai` 四行（顺序也钉住）。

@@ -6,7 +6,7 @@
 import { endpoints, servers } from "./egress.js";
 
 // a city we know is a row with its own name; an entry without one is from an older injection (Tokyo, then Shanghai)
-const CITIES = { lax: "losangeles", nue: "nuremberg", tyo: "tokyo", sha: "shanghai" };
+export const CITIES = { lax: "losangeles", nue: "nuremberg", tyo: "tokyo", sha: "shanghai" };
 const OLD = ["tokyo", "shanghai"];
 const apiOf = u => /\/v1\/ping\/?$/.test(u) ? u.replace(/\/+$/, "") : u.replace(/\/+$/, "") + "/v1/ping";
 
