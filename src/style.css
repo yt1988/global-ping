@@ -161,7 +161,8 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .ti .rg-flag { width: 16px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 4px; }
 .ti-who { display: inline; }
 .ti-country { font-weight: 500; }
-.ti-as { color: var(--muted); }
+/* the AS segment is a link to its AS page, drawn like the address link beside it */
+.ti-as { white-space: normal; }
 .ti-ip { white-space: nowrap; font-family: var(--f-num); font-size: 12px; }
 .ti-more { margin-top: 4px; }
 

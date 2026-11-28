@@ -630,11 +630,13 @@ function drawTargetInfo(s) {
       if (!li.isConnected || !info || !info.cc) return;
       const who = li.querySelector(".ti-who"), ipEl = who && who.querySelector(".ti-ip");
       if (!ipEl) return;
-      const as = [info.asn ? "AS" + info.asn : "", info.name || info.holder || ""].filter(Boolean).join(" ");
+      const as = info.asn ? ["AS" + info.asn, info.name || info.holder || ""].filter(Boolean).join(" ") : "";
+      const asUrl = info.asn && tool("asn");
       const pre = document.createElement("span");
       pre.innerHTML = `<img class="rg-flag" src="/flags/${flagCode(info.cc)}.svg" alt="" width="16" height="12">`
         + `<span class="ti-country">${esc(countryName(info.cc, D.lang))}</span>`
-        + (as ? ` · <span class="ti-as">${esc(as)}</span>` : "") + " · ";
+        + (asUrl ? ` · <a class="dv ti-as" href="${esc(asUrl)}AS${esc(info.asn)}" target="_blank" rel="noopener">${esc(as)}</a>`
+          : as ? ` · <span class="ti-as">${esc(as)}</span>` : "") + " · ";
       who.insertBefore(pre, ipEl);   // the IP stays put; only its prefix is added
     });
   }
