@@ -90,6 +90,7 @@ export default {
   ],
   card_meta: "{n} regions · 16 packets each",
   card_own: "not in the 16",
+  card_src_own: "Data: our servers (Los Angeles, Nuremberg, Tokyo, Shanghai)",
   card_src: "Data: Globalping probes + our servers (Los Angeles, Nuremberg, Tokyo, Shanghai)",
   // country and continent pages
   cont_EU: "Europe",
@@ -135,6 +136,8 @@ export default {
   srv_nuremberg: "Our server (Nuremberg)",
   srv_shanghai: "Our server (Shanghai)",
   t_tokyo_only: "Test our servers only",
+  quota_servers: "Globalping's allowance is used up; this test runs only our four servers, and the worldwide view returns in about {min} min",
+  tinfo_h: "Addresses", tinfo_more: "{n} more", tinfo_less: "Show less",
   slow_missing: "{n} probes did not return within the time limit",
   r_timeout: "No answer in time",
   quota_short: "Not enough allowance for this test: it needs {cost} region checks, {left} left; it comes back in about {min} min",

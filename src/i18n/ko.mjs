@@ -89,6 +89,7 @@ export default {
   ],
   card_meta: "{n}개 지역 · 지역당 16개 패킷",
   card_own: "16개 지역 외",
+  card_src_own: "데이터: 자체 서버(로스앤젤레스·뉘른베르크·도쿄·상하이)",
   card_src: "데이터: Globalping 프로브 + 자체 서버(로스앤젤레스·뉘른베르크·도쿄·상하이)",
   // country and continent pages
   cont_EU: "유럽",
@@ -134,6 +135,8 @@ export default {
   srv_nuremberg: "저희 서버(뉘른베르크)",
   srv_shanghai: "자체 서버(상하이)",
   t_tokyo_only: "자체 서버만 테스트",
+  quota_servers: "Globalping 할당량을 모두 써서 이번에는 자체 서버 4대만 테스트합니다. 약 {min}분 후에 회복돼요",
+  tinfo_h: "주소", tinfo_more: "{n}개 더", tinfo_less: "접기",
   slow_missing: "프로브 {n}곳이 제한 시간 안에 응답하지 않았어요",
   r_timeout: "시간 안에 응답 없음",
   quota_short: "이번 테스트에는 {cost}개 지역분이 필요한데 {left}개만 남았어요. 약 {min}분 후에 회복돼요",

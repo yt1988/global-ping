@@ -65,6 +65,19 @@ const tool = id => { const m = document.querySelector(`meta[name="${id}"]`); ret
 const EXT = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M12 10v3.5H2.5V4H6"/></svg>';
 const toolLink = (id, key) => { const u = tool(id); return u ? `<a class="ext" href="${esc(u)}" target="_blank" rel="noopener">${esc(t(key))}${EXT}</a>` : ""; };
 const asnLink = ip => { const u = tool("asn"); return u ? `<a class="dv" href="${esc(u)}ip/${esc(ip)}" target="_blank" rel="noopener" title="${esc(t("lk_asn"))}">${esc(ip)}</a>` : esc(ip); };
+// The addresses a run resolved, in first-seen order and without repeats: one per probe when a CDN answers differently
+// in different places. Our servers' rows carry theirs too.
+const addrsOf = v => [...new Set(String(v || "").split(/[\s,]+/).filter(Boolean))];
+// The ASN tool's own origin, for its JSON API (never the language folder: api/ip answers outside it).
+const asnBase = () => { const m = document.querySelector('meta[name="asn"]'); return m && m.content ? m.content.replace(/\/+$/, "") : ""; };
+const asnCache = new Map();
+const ipInfo = ip => {
+  const base = asnBase();
+  if (!base) return Promise.resolve(null);
+  if (!asnCache.has(ip)) asnCache.set(ip, fetch(`${base}/api/ip/${encodeURIComponent(ip)}`)
+    .then(r => (r.ok ? r.json() : null)).catch(() => null));
+  return asnCache.get(ip);
+};
 // A country or continent page links to the same place in the reachability check. The address comes from the shell's
 // meta (self-hosted has none, then the block is removed), and the path is the same on both tools.
 for (const el of document.querySelectorAll("[data-tool]")) {
@@ -193,8 +206,8 @@ const nameOf = region => {
 // ---------- quota (same wording as the reachability check: raw region checks, not "tests left") ----------
 const COST = REGIONS.length;
 let quotaLeft = null, quotaReset = 0, quotaBlocked = false, testing = false;
-// Read the allowance on load and after every test. When it cannot pay for this page's test the button is disabled: a
-// visitor should not press Test, watch rows fill with Waiting…, and only then be told there is no allowance.
+// Read the allowance on load and after every test. When it cannot pay for this page's test, Test still runs: only our
+// own servers are asked (src/model: the worldwide block is hidden), because those answers cost nothing.
 async function loadQuota(quiet = false) {
   if (!quiet) $("quota").textContent = t("quota_loading");
   try {
@@ -214,15 +227,6 @@ function quotaText() {
 function showQuota() {
   $("quota").textContent = quotaText();
   quotaBlocked = quotaLeft != null && quotaLeft < COST;
-  if (!testing) markBlocked(quotaBlocked);
-}
-// The button stays clickable while the allowance is too low (a native disabled button gets no click): it says so
-// through aria-disabled and its look, and a click flashes and announces the allowance line instead of requesting.
-function markBlocked(blocked) {
-  const b = $("go");
-  b.disabled = false;
-  b.setAttribute("aria-disabled", blocked ? "true" : "false");
-  b.classList.toggle("is-off", blocked);
 }
 function flashQuota() {
   const el = $("quota");
@@ -246,13 +250,11 @@ let rowEls = new Map(), detailEls = new Map();
 const setGo = (busy) => {
   testing = busy;
   const b = $("go");
-  if (busy) { b.disabled = true; b.removeAttribute("aria-disabled"); b.classList.remove("is-off"); }
-  else markBlocked(quotaBlocked);
+  b.disabled = busy;
+  if (!busy) { b.classList.remove("is-off"); b.removeAttribute("aria-disabled"); }
   b.textContent = busy ? t("running") : t(state && state.verdict && !state.tokyoOnly ? "go_again" : "go");
 };
 $("f").addEventListener("submit", e => { e.preventDefault(); start(); });
-// A click on the off-looking button always says why, even when the browser's own validation stops the submit first.
-$("go").addEventListener("click", () => { if (quotaBlocked) flashQuota(); });
 
 // A country page has one probe: "0 / 1 regions finished" says nothing. It shows "Testing…" while it runs and nothing
 // once the answer is in; a continent page counts countries like the home page counts regions.
@@ -275,7 +277,13 @@ $("target").addEventListener("input", () => {
 });
 
 function start() {
-  if (quotaBlocked) { flashQuota(); loadQuota(true); return; }   // the button looks off, but either a click or Enter gets here
+  // The allowance cannot pay for the worldwide view: ask our own servers only (no request is sent to Globalping) and
+  // say so in the result. With no server rows to fall back to, the click explains itself instead.
+  if (quotaBlocked) {
+    if (WITH_SERVERS) runOursOnly(true);
+    else { flashQuota(); loadQuota(true); }
+    return;
+  }
   const raw = $("target").value.trim();
   const tg = normalizeTarget(raw);
   if (tg.error) { note(tg.error === "private" ? "bad_private" : "bad_target"); $("target").focus(); return; }
@@ -290,7 +298,7 @@ function start() {
   if (sharePath(location.pathname)) history.replaceState(null, "", D.paths[D.lang]);
   $("verdict").hidden = false; $("table").hidden = false; $("shareBtn").hidden = true;
   $("tokyoFallback").hidden = true;
-  $("regions").hidden = false; $("kpis").hidden = false;
+  $("regions").hidden = false; $("kpis").hidden = false;   // a previous server-only run hid the worldwide block
   noteShow("");
   if (TOPIC) {
     // no rows until the API has told us which probes run: "probe 1/2/3" is not a name
@@ -306,6 +314,7 @@ function start() {
   drawKpis(state);
   drawFindings(state);
   showProgress(0);
+  drawTargetInfo(state);   // an IP target is known at once; a domain's addresses arrive with the probes
   runGlobalping(state);
   if (WITH_SERVERS) runServers(state);
 }
@@ -464,6 +473,7 @@ function rowElement(region, own) {
   el.dataset.key = region.key;
   const nm = nameOf(region);
   el.innerHTML = `<span class="rname"><i class="st"></i><img class="rg-flag row-flag" alt="" width="16" height="12" hidden><span class="nm">${esc(nm)}</span></span>
+    <span class="rip" hidden></span>
     <span class="bars" aria-hidden="true"></span>
     <span class="med">—</span><span class="meta"></span>
     <span class="detail" hidden></span>`;
@@ -522,9 +532,20 @@ function setRowFlag(el, cc) {
   img.hidden = false;
 }
 
+// The address this probe resolved, beside its name: a domain target shows what each probe actually connected to (a
+// CDN answers differently in different places); an IP target has nothing to resolve, so the slot stays empty.
+function setRowIp(el, s, row) {
+  const box = el.querySelector(".rip");
+  if (!box) return;
+  const ips = s && s.tg && !s.tg.isIp && row ? addrsOf(row.resolved) : [];
+  box.innerHTML = ips.map(asnLink).join(", ");
+  box.hidden = !ips.length;
+}
+
 function fillRow(s, region, row) {
   const el = rowEls.get(region.key); if (!el) return;
   setRowFlag(el, (row && row.probe && row.probe.country) || region.cc);
+  setRowIp(el, s, row && row.state !== "pending" ? row : null);
   // the probe's identity is shown as soon as it is known, including while the result is still running
   const nm = rowName(row);
   if (nm && el.dataset.name !== nm) {
@@ -560,6 +581,7 @@ function fillRow(s, region, row) {
 
 function renderRows(s) {
   for (let i = 0; i < REGIONS.length; i++) fillRow(s, REGIONS[i], s.rows[i]);
+  drawTargetInfo(s);
 }
 function renderServers(s) {
   for (const srv of s.servers || []) {
@@ -570,7 +592,44 @@ function renderServers(s) {
     el.hidden = false;
     fillRow(s, region, srv.row || { state: "pending" });
   }
+  drawTargetInfo(s);
 }
+
+// The target's addresses, once: the IP the visitor typed, or every address the probes resolved. Each gets the ASN
+// tool's country, AS number and network; a failed lookup leaves the address alone (no error). Only three are shown
+// until "N more" is opened, so a CDN's long list does not push the table down.
+let infoKey = "";
+function drawTargetInfo(s) {
+  const box = $("tinfo"), list = $("tinfoList");
+  if (!box || !list) return;
+  const ips = !s || !s.tg ? [] : s.tg.isIp ? [s.tg.host]
+    : addrsOf([...s.rows.map(r => r && r.resolved), ...(s.servers || []).map(x => x.row && x.row.resolved)].join(" "));
+  box.hidden = !ips.length;
+  if (!ips.length) { infoKey = ""; list.innerHTML = ""; return; }
+  const open = list.dataset.open === "1" && ips.length > 3;
+  const shown = open ? ips : ips.slice(0, 3);
+  const key = (open ? "1" : "0") + "|" + ips.join(" ");   // the whole list: a fourth address must reveal "N more"
+  if (key === infoKey) return;
+  infoKey = key;
+  list.innerHTML = shown.map(ip => `<li class="ti" data-ip="${esc(ip)}"><span class="ti-who"></span>${asnLink(ip)}</li>`).join("")
+    + (ips.length > 3 ? `<li class="ti-more"><button class="btn sm ghost" id="tiMore" type="button">${esc(t(open ? "tinfo_less" : "tinfo_more", { n: ips.length - 3 }))}</button></li>` : "");
+  for (const li of list.querySelectorAll("[data-ip]")) {
+    ipInfo(li.dataset.ip).then(info => {
+      if (!li.isConnected || !info || !info.cc) return;
+      const as = [info.asn ? "AS" + info.asn : "", info.name || info.holder || ""].filter(Boolean).join(" ");
+      li.querySelector(".ti-who").innerHTML = `<img class="rg-flag" src="/flags/${flagCode(info.cc)}.svg" alt="" width="16" height="12">`
+        + `<span class="ti-country">${esc(countryName(info.cc, D.lang))}</span>`
+        + (as ? `<span class="ti-as">${esc(as)}</span>` : "");
+    });
+  }
+}
+if ($("tinfoList")) $("tinfoList").addEventListener("click", e => {
+  if (!e.target.closest("#tiMore")) return;
+  const list = $("tinfoList");
+  list.dataset.open = list.dataset.open === "1" ? "" : "1";
+  infoKey = "";
+  drawTargetInfo(state);
+});
 
 function noteShow(text) {
   const el = $("gpNote");
@@ -750,7 +809,7 @@ $("shareBtn").addEventListener("click", async () => {
     text: () => `${v.title} · ${s.tg.host}`,
     height: (ctx, kit) => cardLayout(ctx, kit, v, s.tg.host, rows, servers, s).H,
     ts: s.ts,
-    foot: () => [t("card_src")],
+    foot: () => [t(s.tokyoOnly ? "card_src_own" : "card_src")],
     draw: (ctx, kit) => drawCard(ctx, kit, v, s, rows, servers),
   }).open();
 });
@@ -787,20 +846,25 @@ function drawCard(ctx, kit, v, s, rows, servers) {
   ctx.fillStyle = css(cls); ctx.font = `700 ${L2.ts}px ${F}`;
   L2.lines.forEach((line, i) => ctx.fillText(line, P, L2.tY + i * Math.round(L2.ts * 1.2)));
   // the target must stay complete: shrink the font, never clip it. The count label shares that line, so reserve its width.
-  const meta = t("card_meta", { n: rows.length });
+  // A server-only card has no regions, so it prints no count instead of "0 regions"; its numbers come from the four
+  // servers that actually ran.
+  const meta = rows.length ? t("card_meta", { n: rows.length }) : "";
   ctx.font = `400 22px ${F}`;
-  const metaW = ctx.measureText(meta).width;
+  const metaW = meta ? ctx.measureText(meta).width : 0;
   const tsz = fit(ctx, s.tg.host, w - metaW - 40, 30, 20, 600);
   ctx.fillStyle = css("fg"); ctx.font = `600 ${tsz}px ${F}`; ctx.fillText(s.tg.host, P, L2.targetY);
-  ctx.textAlign = "right"; ctx.fillStyle = css("muted"); ctx.font = `400 22px ${F}`;
-  ctx.fillText(meta, W - P, L2.targetY); ctx.textAlign = "left";
+  if (meta) {
+    ctx.textAlign = "right"; ctx.fillStyle = css("muted"); ctx.font = `400 22px ${F}`;
+    ctx.fillText(meta, W - P, L2.targetY); ctx.textAlign = "left";
+  }
   // three big numbers; the jitter one names the region under the value
-  const gm = median(rows.filter(r => Number.isFinite(r.median)).map(r => r.median));
-  const j = rows.filter(r => Number.isFinite(r.jitter)).sort((a, b) => b.jitter - a.jitter)[0];
-  const sent = rows.length * PACKETS, got = rows.reduce((n, r) => n + r.rcv, 0);
+  const pool = rows.length ? rows : servers.map(x => x.row);
+  const gm = median(pool.filter(r => Number.isFinite(r.median)).map(r => r.median));
+  const j = pool.filter(r => Number.isFinite(r.jitter)).sort((a, b) => b.jitter - a.jitter)[0];
+  const sent = pool.length * PACKETS, got = pool.reduce((n, r) => n + r.rcv, 0);
   const vals = [[t("k_median"), Number.isFinite(gm) ? fmtMs(gm, D.lang) + " ms" : "—", ""],
     [t("k_max_jitter"), j ? "±" + fmtMs(j.jitter, D.lang) + " ms" : "—", j && !s.tokyoOnly ? nameOf(j.region) : ""],
-    [t("k_loss"), rows.length ? fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0) : "—", ""]];
+    [t("k_loss"), pool.length ? fmtPct((sent - got) / sent, D.lang, sent - got ? 1 : 0) : "—", ""]];
   vals.forEach(([label, val, who], i) => {
     const x = P + i * (w / 3);
     ctx.fillStyle = css("muted"); ctx.font = `500 20px ${F}`; ctx.fillText(label, x, L2.numY - 18);
@@ -883,7 +947,7 @@ if (sp) {
     if (state.tokyoOnly) { $("regions").hidden = true; }
     buildRows(state); renderRows(state); renderServers(state); drawVerdict(state); drawKpis(state);
     state.findings = findings(state.rows, state.servers.find(x => x.key === "tokyo")?.row || null); drawFindings(state);
-    $("gpProgress").textContent = t("prog", { done: state.rows.filter(r => r && r.state !== "pending").length, of: REGIONS.length });
+    $("gpProgress").textContent = state.tokyoOnly ? "" : t("prog", { done: state.rows.filter(r => r && r.state !== "pending").length, of: REGIONS.length });
     $("tokyoFallback").hidden = true;
     const { received } = await import("/assets/share/share.js?v=11");
     recv = received({ lang: D.lang, ts: state.ts, at: $("verdict"), test: () => start() });
@@ -896,23 +960,31 @@ if (sp) {
   if (q.get("t")) { $("target").value = q.get("t"); $("target").dispatchEvent(new Event("input")); }
 }
 
-$("tokyoBtn").addEventListener("click", async () => {
+// Our four servers, without the worldwide view: the quota gate (Globalping cannot pay for this test) and the fallback
+// button after a failed test. Only what ran here reaches the rows, the numbers and the share card.
+async function runOursOnly(quotaShort) {
   if (!WITH_SERVERS) return;
-  const raw = $("target").value.trim(), tg = normalizeTarget(raw);
-  if (tg.error) return;
+  const tg = normalizeTarget($("target").value.trim());
+  if (tg.error) { note(tg.error === "private" ? "bad_private" : "bad_target"); $("target").focus(); return; }
+  note("");
   const id = ++run;
+  if (recv) { recv.remove(); recv = null; }
   state = { id, tg, ipv: $("ipv").value, rows: REGIONS.map(() => null),
     servers: SERVERS.map(s => ({ key: s.key, api: s.api, row: null, error: "", retry: 0 })),
     gpDone: true, gpError: "", partial: false,
     ts: Date.now(), verdict: { k: "tokyo", a: 0, b: 0 }, findings: [], tokyoOnly: true };
+  if (sharePath(location.pathname)) history.replaceState(null, "", D.paths[D.lang]);
   $("verdict").hidden = false; $("table").hidden = false; $("shareBtn").hidden = true; $("tokyoFallback").hidden = true;
+  // no worldwide rows and no progress line; the quota line stands in for the block that did not run
   $("regions").hidden = true;
-  buildRows(state); renderRows(state); drawVerdict(state);
+  $("gpProgress").textContent = "";
+  tokyoNoteShow("");
+  noteShow(quotaShort ? t("quota_servers", { min: Math.ceil((quotaReset || 3600) / 60) }) : "");
   $("kpis").hidden = true;
+  buildRows(state); renderRows(state); drawVerdict(state);
   await runServers(state);
   if (state.id !== id) return;
   if (!state.servers.some(x => x.row)) {
-    $("kpis").hidden = true;
     $("vDot").className = "dot warn";
     $("vTitle").textContent = t("t_down");
     $("vSub").textContent = "";
@@ -921,10 +993,10 @@ $("tokyoBtn").addEventListener("click", async () => {
     return;
   }
   drawKpis(state); $("kpis").hidden = false;
-  $("gpProgress").textContent = "";
   $("shareBtn").hidden = !canShare(state);
   setGo(false);
-});
+}
+$("tokyoBtn").addEventListener("click", () => runOursOnly(false));
 
 window.msReport = () => state && state.verdict ? {
   summary: `${t(state.verdict.k === "tokyo" ? "v_tokyo" : "v_" + state.verdict.k, { a: state.verdict.a, b: state.verdict.b })} · ${state.tg.host}`,

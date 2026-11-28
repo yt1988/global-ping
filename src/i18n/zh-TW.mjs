@@ -90,6 +90,7 @@ export default {
   ],
   card_meta: "{n} 個地區 · 每地區 16 個封包",
   card_own: "不計入 16",
+  card_src_own: "資料：本站伺服器（洛杉磯、紐倫堡、東京、上海）",
   card_src: "資料：Globalping 探測點 + 本站伺服器（洛杉磯、紐倫堡、東京、上海）",
   // country and continent pages
   cont_EU: "歐洲",
@@ -135,6 +136,8 @@ export default {
   srv_nuremberg: "本站（紐倫堡）",
   srv_shanghai: "本站（上海）",
   t_tokyo_only: "只看本站伺服器",
+  quota_servers: "Globalping 額度用完了，這次只測本站四台伺服器，約 {min} 分鐘後恢復",
+  tinfo_h: "目標位址", tinfo_more: "還有 {n} 個", tinfo_less: "收合",
   slow_missing: "{n} 個探針未在限時內返回",
   r_timeout: "限時內未返回",
   quota_short: "額度不足：本次需要 {cost} 個地區次，目前還剩 {left} 個，約 {min} 分鐘後恢復",

@@ -102,7 +102,7 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .grp .row:first-of-type { border-top: 0; }
 /* entries sit one step in from their category heading, so the group label stays the left edge */
 .grp .row, .srv .row { margin-left: 12px; }
-.row { display: grid; grid-template-columns: minmax(130px, 1.2fr) minmax(160px, 2fr) 74px 92px; grid-template-areas: "name bars med meta"; align-items: center; gap: 4px 12px; padding: 9px 4px; border-top: 1px solid var(--line); cursor: pointer; border-radius: 8px; }
+.row { display: grid; grid-template-columns: minmax(130px, 1.2fr) minmax(80px, 1.4fr) minmax(160px, 1.6fr) 74px 92px; grid-template-areas: "name rip bars med meta"; align-items: center; gap: 4px 12px; padding: 9px 4px; border-top: 1px solid var(--line); cursor: pointer; border-radius: 8px; }
 .row:hover { background: var(--soft); }
 .row:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 .rows .row:first-child { border-top: 0; }
@@ -145,6 +145,22 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .dv { text-decoration: underline dotted; }
 .tokyo-sep { margin-top: 6px; border-top: 1px solid var(--line); }
 .row.own .rname .nm { font-weight: 600; }
+/* a domain target: the address this probe resolved, in its own column (the space the table used to leave empty) */
+.rip { grid-area: rip; justify-self: end; min-width: 0; overflow-wrap: anywhere; text-align: end; color: var(--muted); font-family: var(--f-num); font-size: 11px; line-height: 1.35; }
+.rip[hidden] { display: none; }
+.rip a { color: inherit; }
+/* the target's addresses under the verdict */
+.tinfo { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.tinfo[hidden] { display: none; }
+.tinfo-h { margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: .02em; color: var(--muted); text-transform: uppercase; }
+.tinfo-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ti { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.ti .rg-flag { width: 16px; height: 12px; border-radius: 2px; flex: 0 0 auto; }
+.ti-who { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+.ti-country { font-weight: 500; }
+.ti-as { color: var(--muted); }
+.ti > .dv { margin-left: auto; font-family: var(--f-num); font-size: 12px; }
+.ti-more { margin-top: 2px; }
 
 /* help */
 .scrim { position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; padding: 16px; }
@@ -192,7 +208,9 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
   .fld.grow { flex-basis: 100%; }
   .fld.ipv { flex: 1 1 90px; }
   #go { flex: 1 1 150px; }
-  .row { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "name med meta" "bars bars bars"; gap: 5px 10px; padding: 9px 2px; }
+  .row { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "name med meta" "rip rip rip" "bars bars bars"; gap: 5px 10px; padding: 9px 2px; }
+  .rip { justify-self: start; margin-left: 38px; text-align: start; }   /* under the name, past the dot and flag */
+  .rname .nm { white-space: normal; overflow-wrap: anywhere; line-height: 1.25; }   /* a long name wraps, never cut */
   .grp .row, .srv .row { margin-left: 8px; }
   .med { font-size: 14px; }
   .bars { grid-template-columns: repeat(16, minmax(3px, 14px)); gap: 3px; height: 24px; }

@@ -89,6 +89,7 @@ export default {
   ],
   card_meta: "{n} regiones · 16 paquetes cada una",
   card_own: "no cuenta en los 16",
+  card_src_own: "Datos: nuestros servidores (Los Ángeles, Núremberg, Tokio, Shanghái)",
   card_src: "Datos: sondas de Globalping + nuestros servidores (Los Ángeles, Núremberg, Tokio, Shanghái)",
   // country and continent pages
   cont_EU: "Europa",
@@ -134,6 +135,8 @@ export default {
   srv_nuremberg: "Nuestro servidor (Núremberg)",
   srv_shanghai: "Nuestro servidor (Shanghái)",
   t_tokyo_only: "Probar solo nuestros servidores",
+  quota_servers: "La cuota de Globalping se ha agotado. Esta prueba solo usa nuestros cuatro servidores, y la vista mundial vuelve en unos {min} min",
+  tinfo_h: "Direcciones", tinfo_more: "{n} más", tinfo_less: "Mostrar menos",
   slow_missing: "{n} sondas no respondieron dentro del límite de tiempo",
   r_timeout: "Sin respuesta a tiempo",
   quota_short: "No hay cuota suficiente para esta prueba: necesita {cost} comprobaciones de región y quedan {left}; vuelve en unos {min} min",

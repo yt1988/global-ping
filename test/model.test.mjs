@@ -114,6 +114,19 @@ test("the target input: URLs, ports and private addresses", () => {
   assert.equal(isPrivateIp("1.1.1.1"), false);
 });
 
+// A pasted URL, a typed port, a bracketed IPv6 and a trailing dot all mean the same host. ICMP has no port, so the
+// port never reaches the measurement; a single label is not a public domain, so it stays refused.
+test("the target input: scheme, port and trailing dot are stripped, a bare host is not invented", () => {
+  assert.deepEqual(normalizeTarget("http://host.example:8080/x"), { host: "host.example", family: null, isIp: false });
+  assert.deepEqual(normalizeTarget("host.example:8080"), { host: "host.example", family: null, isIp: false });
+  assert.deepEqual(normalizeTarget("https://host.example/path"), { host: "host.example", family: null, isIp: false });
+  assert.deepEqual(normalizeTarget("host.example."), { host: "host.example", family: null, isIp: false });
+  assert.deepEqual(normalizeTarget("host.example"), { host: "host.example", family: null, isIp: false });
+  assert.equal(normalizeTarget("[2001:db8::1]:443").error, "private");
+  assert.equal(normalizeTarget("[2606:4700::1111]:443").host, "2606:4700::1111");
+  assert.equal(normalizeTarget("host").error, "bad");
+});
+
 test("median, stdev and display", () => {
   assert.equal(median([3, 1, 2]), 2);
   assert.equal(median([4, 1, 2, 3]), 2.5);
