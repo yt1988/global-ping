@@ -472,8 +472,7 @@ function rowElement(region, own) {
   el.tabIndex = 0; el.setAttribute("role", "button"); el.setAttribute("aria-expanded", "false");
   el.dataset.key = region.key;
   const nm = nameOf(region);
-  el.innerHTML = `<span class="rname"><i class="st"></i><img class="rg-flag row-flag" alt="" width="16" height="12" hidden><span class="nm">${esc(nm)}</span></span>
-    <span class="rip" hidden></span>
+  el.innerHTML = `<span class="rname"><i class="st"></i><img class="rg-flag row-flag" alt="" width="16" height="12" hidden><span class="nm">${esc(nm)}</span><span class="rip" hidden></span></span>
     <span class="bars" aria-hidden="true"></span>
     <span class="med">—</span><span class="meta"></span>
     <span class="detail" hidden></span>`;
