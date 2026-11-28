@@ -275,6 +275,20 @@ $("target").addEventListener("input", () => {
   $("ipvWrap").hidden = !!tg.isIp;
   note("");
 });
+// Rewrite the field to the bare host a test will use — after a paste, when it loses focus, and right before a run
+// (Enter or Test). Not on every keystroke: rewriting while typing would make "https://" impossible to finish. Text
+// that cannot be resolved is left exactly as typed, and the existing error line explains it.
+function normalizeField() {
+  const el = $("target");
+  const tg = normalizeTarget(el.value);
+  if (!tg.error && el.value.trim() !== tg.host) {
+    el.value = tg.host;
+    el.dispatchEvent(new Event("input", { bubbles: true }));   // the same listener updates the IP version and the note
+  }
+  return tg;
+}
+$("target").addEventListener("paste", () => setTimeout(normalizeField, 0));
+$("target").addEventListener("blur", normalizeField);
 
 function start() {
   // The allowance cannot pay for the worldwide view: ask our own servers only (no request is sent to Globalping) and
@@ -284,8 +298,7 @@ function start() {
     else { flashQuota(); loadQuota(true); }
     return;
   }
-  const raw = $("target").value.trim();
-  const tg = normalizeTarget(raw);
+  const tg = normalizeField();
   if (tg.error) { note(tg.error === "private" ? "bad_private" : "bad_target"); $("target").focus(); return; }
   note("");
   const id = ++run;
@@ -963,7 +976,7 @@ if (sp) {
 // button after a failed test. Only what ran here reaches the rows, the numbers and the share card.
 async function runOursOnly(quotaShort) {
   if (!WITH_SERVERS) return;
-  const tg = normalizeTarget($("target").value.trim());
+  const tg = normalizeField();
   if (tg.error) { note(tg.error === "private" ? "bad_private" : "bad_target"); $("target").focus(); return; }
   note("");
   const id = ++run;
