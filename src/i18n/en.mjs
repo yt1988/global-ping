@@ -3,11 +3,11 @@ export default {
   name: "English",
   app_name: "Global Ping",
   seo_title: "Global Ping test: ping a domain or IP from 16 locations",
-  seo_desc: "Ping any domain or IP from 16 locations worldwide. See all 16 ICMP packets of every location, where the latency jumps and which packet went missing. Free, no account. Second views come from our own servers in Los Angeles, Tokyo and Shanghai.",
+  seo_desc: "Ping any domain or IP from 16 locations worldwide. See all 16 ICMP packets of every location, where the latency jumps and which packet went missing. Free, no account. Second views come from our own servers in Los Angeles, Nuremberg, Tokyo and Shanghai.",
   seo_kw: "ping test, online ping, ping from multiple locations, global ping, packet loss test, ping ip address, latency test, ping domain",
   og_sub: "16 packets from 16 locations, every packet visible",
   h1: "Global Ping from 16 locations",
-  intro: "Enter a domain or IP: 16 locations worldwide and our own servers in Los Angeles, Tokyo and Shanghai each send 16 packets, so you can see the latency, jitter and loss packet by packet.",
+  intro: "Enter a domain or IP: 16 locations worldwide and our own servers in Los Angeles, Nuremberg, Tokyo and Shanghai each send 16 packets, so you can see the latency, jitter and loss packet by packet.",
   lang_label: "Language", a_lang: "Language", a_theme: "Theme", a_help: "Help", a_close: "Close", a_prev: "Previous", a_next: "Next",
 
   f_target: "Domain or IP", f_target_ph: "example.com", f_ipv: "IP version", go: "Test", share: "Share",
@@ -15,7 +15,7 @@ export default {
   h_regions: "Regions", sort_label: "Sort", sort_median: "Latency", sort_jitter: "Jitter", sort_loss: "Packet loss",
   lg_replied: "Replied", lg_missing: "No reply", lg_median: "Median", lg_jitter: "Jitter", lg_loss: "Loss",
   k_median: "Median latency", k_max_jitter: "Max jitter", k_loss: "Packet loss", t_tokyo_only: "Test Tokyo only",
-  src_gp: "Data: {gp}'s probes and our own servers (Los Angeles, Tokyo, Shanghai)", foot_src: "Data: {gp}'s probes and our own servers in Los Angeles, Tokyo and Shanghai.",
+  src_gp: "Data: {gp}'s probes and our own servers (Los Angeles, Nuremberg, Tokyo, Shanghai)", foot_src: "Data: {gp}'s probes and our own servers in Los Angeles, Nuremberg, Tokyo and Shanghai.",
   faq_h: "Help",
 
   // runtime
@@ -77,20 +77,20 @@ export default {
   th_system: "Theme: system", th_light: "Theme: light", th_dark: "Theme: dark",
 
   docs: [
-    ["What does this page measure?", "16 locations worldwide, run by Globalping's volunteer network, each send 16 ICMP echo requests (a normal `ping`) to the domain or IP you enter. Our own servers in Los Angeles, Tokyo and Shanghai send the same 16 packets, as extra views and as a fallback when Globalping's free allowance is used up.\nPer location you see the median latency, the jitter (how much the 16 packets vary) and how many packets came back."],
+    ["What does this page measure?", "16 locations worldwide, run by Globalping's volunteer network, each send 16 ICMP echo requests (a normal `ping`) to the domain or IP you enter. Our own servers in Los Angeles, Nuremberg, Tokyo and Shanghai send the same 16 packets, as extra views and as a fallback when Globalping's free allowance is used up.\nPer location you see the median latency, the jitter (how much the 16 packets vary) and how many packets came back."],
     ["How do I read the 16 packets?", "Each vertical bar is one reply; its height is that packet's latency, scaled to the location (fast, steady locations look flat, which is correct). Empty slots are packets with no reply, so you can see whether the loss was at the start, in the middle or at the end.\nThe number on the right is the 16 packets' median; the ± is the jitter."],
     ["Some locations got no reply. Is the server down?", "Not necessarily. Many hosts and firewalls do not answer ICMP while the website itself works. The page says \"no reply\", not \"down\". If you need to know whether a port is reachable, run the reachability check instead: it connects the way a browser would."],
     ["How does the allowance work?", "Globalping gives each IP 250 region checks an hour. One location sending 16 packets is one region check, so one test here uses 16. When it runs out, the page says when it comes back, and the server views keep working without using the allowance.\nPeople on the same network share the same allowance."],
     ["Why is the result different every time?", "Latency varies from second to second: congestion, Wi-Fi, your provider's routes and the target's load all change. That is what jitter measures. One test is a snapshot, not a guarantee."],
-    ["What are our server rows?", "Our own servers in Los Angeles, Tokyo and Shanghai send the same 16 packets. They are fixed reference points, they use none of Globalping's allowance, they are the only views that know the real loss positions, and comparing the Tokyo one with Globalping's Tokyo probe shows whether the two networks see the same path."],
+    ["What are our server rows?", "Our own servers in Los Angeles, Nuremberg, Tokyo and Shanghai send the same 16 packets. They are fixed reference points, they use none of Globalping's allowance, they are the only views that know the real loss positions, and comparing the Tokyo one with Globalping's Tokyo probe shows whether the two networks see the same path."],
     ["Can I ping from my own browser?", "No: browsers cannot send ICMP. The measurements run on Globalping's probes and on our servers; your browser only asks for them."],
-    ["What happens to the address I enter?", "It goes to Globalping (to run the worldwide check) and to our servers in Los Angeles, Tokyo and Shanghai. We do not collect or store results, and our servers keep no log. A shared result link contains the address and the result, so others see the same test; it never contains your own IP."],
+    ["What happens to the address I enter?", "It goes to Globalping (to run the worldwide check) and to our servers in Los Angeles, Nuremberg, Tokyo and Shanghai. We do not collect or store results, and our servers keep no log. A shared result link contains the address and the result, so others see the same test; it never contains your own IP."],
     ["Why is there no port or packet size?", "ICMP has no ports; reachability of a port is the reachability check's job. Packet size, interval and count are fixed so results are comparable between locations and between tests."],
     ["Why does the shared link show a different time?", "A shared link shows the result as it was measured, with its date above it. Press \"Test mine\" to run a fresh test of the same target yourself."],
   ],
   card_meta: "{n} regions · 16 packets each",
   card_own: "not in the 16",
-  card_src: "Data: Globalping probes + our servers (Los Angeles, Tokyo, Shanghai)",
+  card_src: "Data: Globalping probes + our servers (Los Angeles, Nuremberg, Tokyo, Shanghai)",
   // country and continent pages
   cont_EU: "Europe",
   cont_NA: "North America",

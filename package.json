@@ -2,7 +2,7 @@
   "name": "global-ping",
   "private": true,
   "type": "module",
-  "description": "Ping a domain or IP from 16 locations worldwide: 16 ICMP packets per location, every packet visible, with extra views from our own servers in Los Angeles, Tokyo and Shanghai",
+  "description": "Ping a domain or IP from 16 locations worldwide: 16 ICMP packets per location, every packet visible, with extra views from our own servers in Los Angeles, Nuremberg, Tokyo and Shanghai",
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node scripts/build.mjs && node --test \"test/*.test.mjs\"",
