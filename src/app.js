@@ -623,15 +623,19 @@ function drawTargetInfo(s) {
   const key = (open ? "1" : "0") + "|" + ips.join(" ");   // the whole list: a fourth address must reveal "N more"
   if (key === infoKey) return;
   infoKey = key;
-  list.innerHTML = shown.map(ip => `<li class="ti" data-ip="${esc(ip)}"><span class="ti-who"></span>${asnLink(ip)}</li>`).join("")
+  list.innerHTML = shown.map(ip => `<li class="ti" data-ip="${esc(ip)}"><span class="ti-who"><span class="ti-ip">${asnLink(ip)}</span></span></li>`).join("")
     + (ips.length > 3 ? `<li class="ti-more"><button class="btn sm ghost" id="tiMore" type="button">${esc(t(open ? "tinfo_less" : "tinfo_more", { n: ips.length - 3 }))}</button></li>` : "");
   for (const li of list.querySelectorAll("[data-ip]")) {
     ipInfo(li.dataset.ip).then(info => {
       if (!li.isConnected || !info || !info.cc) return;
+      const who = li.querySelector(".ti-who"), ipEl = who && who.querySelector(".ti-ip");
+      if (!ipEl) return;
       const as = [info.asn ? "AS" + info.asn : "", info.name || info.holder || ""].filter(Boolean).join(" ");
-      li.querySelector(".ti-who").innerHTML = `<img class="rg-flag" src="/flags/${flagCode(info.cc)}.svg" alt="" width="16" height="12">`
+      const pre = document.createElement("span");
+      pre.innerHTML = `<img class="rg-flag" src="/flags/${flagCode(info.cc)}.svg" alt="" width="16" height="12">`
         + `<span class="ti-country">${esc(countryName(info.cc, D.lang))}</span>`
-        + (as ? `<span class="ti-as">${esc(as)}</span>` : "");
+        + (as ? ` · <span class="ti-as">${esc(as)}</span>` : "") + " · ";
+      who.insertBefore(pre, ipEl);   // the IP stays put; only its prefix is added
     });
   }
 }

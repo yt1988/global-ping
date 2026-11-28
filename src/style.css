@@ -155,13 +155,15 @@ select option, select optgroup { background-color: var(--panel); color: var(--fg
 .tinfo[hidden] { display: none; }
 .tinfo-h { margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: .02em; color: var(--muted); text-transform: uppercase; }
 .tinfo-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-.ti { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
-.ti .rg-flag { width: 16px; height: 12px; border-radius: 2px; flex: 0 0 auto; }
-.ti-who { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+/* one line per address: flag, country, AS and network, then the IP at the end; a long network name wraps the line
+   (the IP follows) but an address itself never breaks */
+.ti { font-size: 13px; line-height: 1.5; }
+.ti .rg-flag { width: 16px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 4px; }
+.ti-who { display: inline; }
 .ti-country { font-weight: 500; }
 .ti-as { color: var(--muted); }
-.ti > .dv { margin-left: auto; font-family: var(--f-num); font-size: 12px; }
-.ti-more { margin-top: 2px; }
+.ti-ip { white-space: nowrap; font-family: var(--f-num); font-size: 12px; }
+.ti-more { margin-top: 4px; }
 
 /* help */
 .scrim { position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; padding: 16px; }
