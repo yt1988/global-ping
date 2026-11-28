@@ -228,6 +228,10 @@ function showQuota() {
   $("quota").textContent = quotaText();
   quotaBlocked = quotaLeft != null && quotaLeft < COST;
 }
+// Before a run this line explains why only our servers will answer. Once a result is on the page, that result's own
+// line describes the run and this one would repeat it, so it steps aside; the next run (or an edit to the target,
+// which is how a new run starts) brings it back.
+function showQuotaLine(show) { $("quota").hidden = !show; }
 function flashQuota() {
   const el = $("quota");
   el.classList.remove("flash");
@@ -269,6 +273,7 @@ function note(k) {
   el.hidden = false; el.textContent = t(k);
 }
 $("target").addEventListener("input", () => {
+  showQuotaLine(true);   // editing (or clearing) the target prepares a new run
   const tg = normalizeTarget($("target").value);
   // the IP version only matters for a domain: hide it for an IP literal (an empty field may still become a domain, so
   // the selector stays visible and the form doesn't jump while typing)
@@ -291,6 +296,7 @@ $("target").addEventListener("paste", () => setTimeout(normalizeField, 0));
 $("target").addEventListener("blur", normalizeField);
 
 function start() {
+  showQuotaLine(true);   // a run is starting: the allowance line is about this run again
   // The allowance cannot pay for the worldwide view: ask our own servers only (no request is sent to Globalping) and
   // say so in the result. With no server rows to fall back to, the click explains itself instead.
   if (quotaBlocked) {
@@ -437,6 +443,7 @@ function settle(s) {
     !(s.verdict.k === "err" || s.verdict.k === "partial" || (quotaLeft != null && quotaLeft < COST));
   setGo(false);
   $("go").textContent = t("go_again");
+  showQuotaLine(false);   // the result is on the page and speaks for this run
 }
 
 // ---------- rows ----------
@@ -967,6 +974,7 @@ if (sp) {
     state.findings = findings(state.rows, state.servers.find(x => x.key === "tokyo")?.row || null); drawFindings(state);
     $("gpProgress").textContent = state.tokyoOnly ? "" : t("prog", { done: state.rows.filter(r => r && r.state !== "pending").length, of: REGIONS.length });
     $("tokyoFallback").hidden = true;
+    showQuotaLine(false);   // the shared result is on the page
     const { received } = await import("/assets/share/share.js?v=11");
     recv = received({ lang: D.lang, ts: state.ts, at: $("verdict"), test: () => start() });
   }).catch(() => {
@@ -982,6 +990,7 @@ if (sp) {
 // button after a failed test. Only what ran here reaches the rows, the numbers and the share card.
 async function runOursOnly(quotaShort) {
   if (!WITH_SERVERS) return;
+  showQuotaLine(true);
   const tg = normalizeField();
   if (tg.error) { note(tg.error === "private" ? "bad_private" : "bad_target"); $("target").focus(); return; }
   note("");
@@ -993,11 +1002,12 @@ async function runOursOnly(quotaShort) {
     ts: Date.now(), verdict: { k: "tokyo", a: 0, b: 0 }, findings: [], tokyoOnly: true };
   if (sharePath(location.pathname)) history.replaceState(null, "", D.paths[D.lang]);
   $("verdict").hidden = false; $("table").hidden = false; $("shareBtn").hidden = true; $("tokyoFallback").hidden = true;
-  // no worldwide rows and no progress line; the quota line stands in for the block that did not run
+  // no worldwide rows and no progress line; the result note says what ran instead of the block that did not
   $("regions").hidden = true;
   $("gpProgress").textContent = "";
   tokyoNoteShow("");
   noteShow(quotaShort ? t("quota_servers", { min: Math.ceil((quotaReset || 3600) / 60) }) : "");
+  showQuotaLine(false);   // the result area now carries this run's sentence
   $("kpis").hidden = true;
   buildRows(state); renderRows(state); drawVerdict(state);
   await runServers(state);
