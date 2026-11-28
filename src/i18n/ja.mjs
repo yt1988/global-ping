@@ -135,7 +135,7 @@ export default {
   srv_nuremberg: "当サイト（ニュルンベルク）",
   srv_shanghai: "当サイト（上海）",
   t_tokyo_only: "当サイトのサーバーだけをテスト",
-  quota_servers: "Globalping の割り当てを使い切ったため、今回は当サイトの 4 台のサーバーだけをテストします。約 {min} 分後に回復します",
+  quota_servers: "Globalping の割り当てが今回の外部テストに足りないため、今回は当サイトのサーバーだけをテストします。約 {min} 分後に回復します。",
   tinfo_h: "アドレス", tinfo_more: "他 {n} 件", tinfo_less: "折りたたむ",
   slow_missing: "{n} 台のプローブが制限時間内に応答しませんでした",
   r_timeout: "時間内に応答なし",

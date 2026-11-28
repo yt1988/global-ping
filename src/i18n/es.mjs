@@ -135,7 +135,7 @@ export default {
   srv_nuremberg: "Nuestro servidor (Núremberg)",
   srv_shanghai: "Nuestro servidor (Shanghái)",
   t_tokyo_only: "Probar solo nuestros servidores",
-  quota_servers: "La cuota de Globalping se ha agotado. Esta prueba solo usa nuestros cuatro servidores, y la vista mundial vuelve en unos {min} min",
+  quota_servers: "La cuota de Globalping no alcanza para esta prueba externa, así que esta vez solo se usan nuestros servidores. Vuelve en unos {min} min.",
   tinfo_h: "Direcciones", tinfo_more: "{n} más", tinfo_less: "Mostrar menos",
   slow_missing: "{n} sondas no respondieron dentro del límite de tiempo",
   r_timeout: "Sin respuesta a tiempo",

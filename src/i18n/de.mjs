@@ -135,7 +135,7 @@ export default {
   srv_nuremberg: "Unser Server (Nürnberg)",
   srv_shanghai: "Unser Server (Shanghai)",
   t_tokyo_only: "Nur unsere Server testen",
-  quota_servers: "Das Globalping-Kontingent ist aufgebraucht. Dieser Test prüft nur unsere vier Server, die weltweite Ansicht kommt in etwa {min} Min. zurück",
+  quota_servers: "Das Globalping-Kontingent reicht nicht für diese externe Prüfung, daher prüft dieser Lauf nur unsere eigenen Server. Es kommt in etwa {min} Min. zurück.",
   tinfo_h: "Adressen", tinfo_more: "Noch {n}", tinfo_less: "Weniger anzeigen",
   slow_missing: "{n} Sonden haben nicht rechtzeitig geantwortet",
   r_timeout: "Nicht rechtzeitig geantwortet",

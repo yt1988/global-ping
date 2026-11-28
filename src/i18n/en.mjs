@@ -136,7 +136,7 @@ export default {
   srv_nuremberg: "Our server (Nuremberg)",
   srv_shanghai: "Our server (Shanghai)",
   t_tokyo_only: "Test our servers only",
-  quota_servers: "Globalping's allowance is used up; this test runs only our four servers, and the worldwide view returns in about {min} min",
+  quota_servers: "Globalping's allowance can't cover this check, so this run measures our own servers only; it returns in about {min} minutes.",
   tinfo_h: "Addresses", tinfo_more: "{n} more", tinfo_less: "Show less",
   slow_missing: "{n} probes did not return within the time limit",
   r_timeout: "No answer in time",

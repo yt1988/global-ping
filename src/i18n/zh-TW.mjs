@@ -136,7 +136,7 @@ export default {
   srv_nuremberg: "本站（紐倫堡）",
   srv_shanghai: "本站（上海）",
   t_tokyo_only: "只看本站伺服器",
-  quota_servers: "Globalping 額度用完了，這次只測本站四台伺服器，約 {min} 分鐘後恢復",
+  quota_servers: "Globalping 額度不夠這次外部檢測，本次只測本站伺服器，約 {min} 分鐘後恢復。",
   tinfo_h: "目標位址", tinfo_more: "還有 {n} 個", tinfo_less: "收合",
   slow_missing: "{n} 個探針未在限時內返回",
   r_timeout: "限時內未返回",

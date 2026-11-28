@@ -135,7 +135,7 @@ export default {
   srv_nuremberg: "저희 서버(뉘른베르크)",
   srv_shanghai: "자체 서버(상하이)",
   t_tokyo_only: "자체 서버만 테스트",
-  quota_servers: "Globalping 할당량을 모두 써서 이번에는 자체 서버 4대만 테스트합니다. 약 {min}분 후에 회복돼요",
+  quota_servers: "Globalping 할당량이 이번 외부 테스트에 부족해 이번에는 자체 서버만 테스트합니다. 약 {min}분 후에 회복돼요.",
   tinfo_h: "주소", tinfo_more: "{n}개 더", tinfo_less: "접기",
   slow_missing: "프로브 {n}곳이 제한 시간 안에 응답하지 않았어요",
   r_timeout: "시간 안에 응답 없음",
